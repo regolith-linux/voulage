@@ -1,0 +1,15 @@
+{
+  "description": {
+    "title": "Package metadata for Regolith Desktop 2.0"
+  },
+  "packages": {
+    "root-thing": {
+      "source": "git@github.com:kgilmer/xrescat.git",
+      "branch": "master"
+    },
+    "to-be-removed-thing": {
+      "source": "git@github.com:kgilmer/xrescat.git",
+      "branch": "master"
+    }
+  }
+}

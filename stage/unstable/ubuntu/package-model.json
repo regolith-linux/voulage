@@ -1,0 +1,9 @@
+{
+  "packages": {
+    "ubuntu-distro-thing": {
+      "source": "git@github.com:kgilmer/xrescat.git",
+      "branch": "master"
+    },
+    "to-be-removed-thing": null
+  }
+}

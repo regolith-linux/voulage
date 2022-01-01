@@ -1,0 +1,8 @@
+{
+  "packages": {
+    "amd64-arch-thing": {
+      "source": "git@github.com:kgilmer/xrescat.git",
+      "branch": "master"
+    }
+  }
+}

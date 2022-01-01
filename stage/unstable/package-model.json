@@ -1,0 +1,8 @@
+{
+  "packages": {
+    "unstable-stage-thing": {
+      "source": "git@github.com:kgilmer/xrescat.git",
+      "branch": "master"
+    }
+  }
+}
