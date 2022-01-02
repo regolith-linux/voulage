@@ -11,6 +11,12 @@ handle_package() {
     local COMMIT_HASH=$(git ls-remote $PACAKGE_SOURCE_URL $PACKAGE_SOURCE_REF | awk '{ print $1}')
 
     echo "$PACKAGE_NAME $PACAKGE_SOURCE_URL $PACKAGE_SOURCE_REF $COMMIT_HASH" >> "$MANIFEST_PATH"
+    
+    compute_package_diff
+}
+
+compute_package_diff() {
+    git diff --diff-filter=AM | grep '^[+|-][^+|-]' | cut -d" " -f1 | cut -c2- | uniq | sort
 }
 
 # Traverse each package in the model and call handle_package
