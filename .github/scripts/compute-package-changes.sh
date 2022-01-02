@@ -2,21 +2,22 @@
 
 set -e
 
-handle_package() {
-    echo "+++ Checking $PACKAGE_NAME ($PACAKGE_SOURCE_URL $PACKAGE_SOURCE_REF)"
+update_manifest() {
+    # echo "+++ Checking $PACKAGE_NAME ($PACAKGE_SOURCE_URL $PACKAGE_SOURCE_REF)"
     local MANIFEST_PATH="$REPO_ROOT/stage/$STAGE/$DISTRO/$CODENAME/$ARCH/manifest.txt"
 
     # Get git hash
     local COMMIT_HASH=$(git ls-remote $PACAKGE_SOURCE_URL $PACKAGE_SOURCE_REF | awk '{ print $1}')
 
     echo "$PACKAGE_NAME $PACKAGE_SOURCE_REF $COMMIT_HASH" >> "$MANIFEST_PATH"
+}
 
-    local PKG_LIST=$(git diff --diff-filter=AM | grep '^[+|-][^+|-]' | cut -d" " -f1 | cut -c2- | uniq | sort)
-
-    echo $PKG_LIST
+compute_package_diff() {
+    git diff --diff-filter=AM | grep '^[+|-][^+|-]' | cut -d" " -f1 | cut -c2- | uniq | sort
 }
 
 traverse_package_model() {
+    echo "#traverse"
     jq -rc 'delpaths([path(.[][]| select(.==null))]) | .packages | keys | .[]' < "$PACKAGE_MODEL_FILE" | while IFS='' read -r package; do
         # Set the package name and model desc
         PACKAGE_NAME="$package"    
@@ -30,8 +31,10 @@ traverse_package_model() {
         PACKAGE_SOURCE_REF=$(jq -r ".packages.\"$package\".branch" < "$PACKAGE_MODEL_FILE")
 
         # Apply functions to package model        
-        handle_package
+        update_manifest
     done
+
+    compute_package_diff
 }
 
 REPO_ROOT=$(realpath "$1")
