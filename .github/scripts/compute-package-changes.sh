@@ -4,12 +4,17 @@ set -e
 set -x
 
 handle_package() {
-    local MANIFEST_PATH="$REPO_ROOT/stage/$STAGE/$DISTRO/$CODENAME/$ARCH/manifest.txt"
+    local MANIFEST_PATH="$REPO_ROOT/stage/$STAGE/$DISTRO/$CODENAME/$ARCH/"
+    local MANIFEST_FILE="$MANIFEST_PATH/manifest.txt"
+
+    if [ ! -d "$MANIFEST_PATH" ]; then
+      mkdir -p "$MANIFEST_PATH"
+    fi
 
     # Get git hash
     local COMMIT_HASH=$(git ls-remote $PACAKGE_SOURCE_URL $PACKAGE_SOURCE_REF | awk '{ print $1}')
 
-    echo "$PACKAGE_NAME $PACAKGE_SOURCE_URL $PACKAGE_SOURCE_REF $COMMIT_HASH" >> "$MANIFEST_PATH"      
+    echo "$PACKAGE_NAME $PACAKGE_SOURCE_URL $PACKAGE_SOURCE_REF $COMMIT_HASH" >> "$MANIFEST_FILE"      
 }
 
 compute_package_diff() {
