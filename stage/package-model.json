@@ -4,7 +4,7 @@
   },
   "packages": {
     "xrescat": {
-      "source": "https://github.com/regolith-linux/xrescat.git",
+      "source": "https://github.com/kgilmer/xrescat.git",
       "branch": "master"
     }
   }
