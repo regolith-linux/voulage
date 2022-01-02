@@ -57,4 +57,4 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_SECRET_KEY }}
           source: '/tmp/pkgrepo'
           dest: 's3://regolith-unstable-ubuntu-focal-amd64/'
-          flags: -recursive
+          flags: --recursive
