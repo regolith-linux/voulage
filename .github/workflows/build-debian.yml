@@ -88,11 +88,13 @@ jobs:
       - uses: actions/checkout@v2
       - name: Download artifacts
         uses: actions/download-artifact@v2
+      - name: Debug
+        run: find $GITHUB_WORKSPACE
       - name: Commit Manifest Updates
         run: |
             git pull
             git config --local user.email "action@github.com"
             git config --local user.name "GitHub Action"
             git add stage/*
-            git commit -am "Built ${{ steps.find-changed-packages.outputs.package_build_list }} on ${{ steps.init.outputs.distro }} - ${{ steps.init.outputs.codename }}"
+            git commit -am "Automated update"
             git push origin main
