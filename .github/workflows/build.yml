@@ -1,0 +1,22 @@
+name: Build Packages
+
+jobs:
+  find-updates:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Set Job Parameters
+        id: init
+        env:
+          STAGE: unstable
+          DISTRO: ubuntu
+          CODENAME: focal
+          ARCH: amd64          
+      - uses: actions/checkout@v2
+      - name: Find Package Updates
+        run: |
+          ../scripts/compute-package-changes.sh ../../ ${{ env.STAGE }} ${{ env.DISTRO }} ${{ env.CODENAME }} ${{ env.ARCH }} /tmp/manifest-build
+      - name: Build Packages
+        run: |
+          ../scripts/build-debian-package.sh ${{ env.STAGE }} ${{ env.DISTRO }} ${{ env.CODENAME }} ${{ env.ARCH }} /tmp/pkgrepo https://myrepo /tmp/package-build GPG-KEY-HERE
+      - name: Verify
+        run: find /tmp/pkgrepo
