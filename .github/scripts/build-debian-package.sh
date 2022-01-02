@@ -61,7 +61,7 @@ dist_valid() {
 stage_source() {
   pushd .
 
-  print_banner "Preparing source for $PACKAGE_NAME"
+  echo "Preparing source for $PACKAGE_NAME"
   cd "$BUILD_DIR/$PACKAGE_NAME" || exit
   full_version=$(dpkg-parsechangelog --show-field Version)
   debian_version="${full_version%-*}"
@@ -86,7 +86,7 @@ sanitize_git() {
 
 build_src_package() {
   pushd .
-  print_banner "Building source package $PACKAGE_NAME"
+  echo "Building source package $PACKAGE_NAME"
   cd "$BUILD_DIR/$PACKAGE_NAME" || exit
 
   sanitize_git
@@ -98,7 +98,7 @@ build_src_package() {
 
 build_bin_package() {
   pushd .
-  print_banner "Building binary package $PACKAGE_NAME"
+  echo "Building binary package $PACKAGE_NAME"
   cd "$BUILD_DIR/$PACKAGE_NAME" || exit
 
   debuild -sa -b
@@ -120,7 +120,7 @@ publish_deb() {
   # if source_pkg_exists "$PACKAGE_NAME" "$version"; then
   #     echo "Ignoring source package, already exists in target repository"
   # else
-  #     print_banner "Ingesting source package $PACKAGE_NAME into $REPO_PATH"
+  #     echo "Ingesting source package $PACKAGE_NAME into $REPO_PATH"
   #     reprepro --basedir "$REPO_PATH" include "$DIST_CODENAME" "$DEB_SRC_PKG_PATH"
   # fi
   #
@@ -130,7 +130,7 @@ publish_deb() {
   #     cat "$DEB_CONTROL_FILE" | grep ^Package: | cut -d' ' -f2 | while read -r bin_pkg; do
   #         DEB_BIN_PKG_PATH="$(pwd)/${bin_pkg}_${version}_${target_arch}.deb"
   #         if [ -f "$DEB_BIN_PKG_PATH" ]; then
-  #             print_banner "Ingesting binary package ${bin_pkg} into $REPO_PATH"
+  #             echo "Ingesting binary package ${bin_pkg} into $REPO_PATH"
   #             reprepro --basedir "$REPO_PATH" includedeb "$DIST_CODENAME" "$DEB_BIN_PKG_PATH"
   #         else
   #             echo "Package $DEB_BIN_PKG_PATH does not exist for $target_arch"
