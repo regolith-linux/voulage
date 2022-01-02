@@ -28,9 +28,11 @@ jobs:
       - uses: actions/checkout@v2
       - name: Find Package Updates
         run: |
-          $GITHUB_WORKSPACE/.github/scripts/compute-package-changes.sh $GITHUB_WORKSPACE ${{ env.STAGE }} ${{ env.DISTRO }} ${{ env.CODENAME }} ${{ env.ARCH }} /tmp/manifest-build
+          set -x
+          $GITHUB_WORKSPACE/.github/scripts/compute-package-changes.sh $GITHUB_WORKSPACE ${{ steps.init.outputs.stage }}  ${{ steps.init.outputs.distro }}  ${{ steps.init.outputs.codename }}  ${{ steps.init.outputs.arch }} /tmp/manifest-build
       - name: Build Packages
         run: |
-          $GITHUB_WORKSPACE/.github/scripts/build-debian-package.sh ${{ env.STAGE }} ${{ env.DISTRO }} ${{ env.CODENAME }} ${{ env.ARCH }} /tmp/pkgrepo https://myrepo /tmp/package-build GPG-KEY-HERE
+          set -x
+          $GITHUB_WORKSPACE/.github/scripts/build-debian-package.sh ${{ steps.init.outputs.stage }}  ${{ steps.init.outputs.distro }}  ${{ steps.init.outputs.codename }}  ${{ steps.init.outputs.arch }} /tmp/pkgrepo https://myrepo /tmp/package-build GPG-KEY-HERE
       - name: Verify
         run: find /tmp/pkgrepo
