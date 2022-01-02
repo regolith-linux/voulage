@@ -1,11 +1,12 @@
 #!/bin/bash
 
+REPO_BASE_DIR=$(realpath "$1")
 
 # --- Test Package Model Merging
 
-../compute-package-changes.sh ../../../ unstable ubuntu focal amd64 /tmp/bt
+"$REPO_BASE_DIR/.github/scripts/compute-package-changes.sh" "$REPO_BASE_DIR" unstable ubuntu focal amd64 /tmp/bt
 
-T1_EXPECTED="$(cat unstable-ubuntu-focal-model.json)"
+T1_EXPECTED="$(cat $REPO_BASE_DIR/.github/scripts/tests/unstable-ubuntu-focal-model.json)"
 T1_ACTUAL="$(cat /tmp/bt/unstable-ubuntu-focal-model.json)"
 
 if [[ $T1_EXPECTED == "$T1_ACTUAL" ]]; then
@@ -17,12 +18,12 @@ fi
 
 # --- Test Manifest Generation
 
-T2_ACTUAL=$(../compute-package-changes.sh ../../../ unstable ubuntu focal amd64 /tmp/bt)
+T2_ACTUAL=$("$REPO_BASE_DIR/.github/scripts/compute-package-changes.sh" "$REPO_BASE_DIR" unstable ubuntu focal amd64 /tmp/bt)
 T2_EXPECTED="root-thing"
 
 if [[ $T2_EXPECTED == "$T2_ACTUAL" ]]; then
   echo "T2 Test pass"
 else
-  echo "T2 Test fail"
+  echo "T2 Test fail.  Expected: $T2_EXPECTED  Actual: $T2_ACTUAL"
   exit 1
 fi
