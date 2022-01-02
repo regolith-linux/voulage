@@ -38,6 +38,6 @@ jobs:
           gpg --batch --import ~/.gnupg/private.key   
       - name: Build Packages
         run: |
-          $GITHUB_WORKSPACE/.github/scripts/build-debian-package.sh ${{ steps.init.outputs.stage }}  ${{ steps.init.outputs.distro }}  ${{ steps.init.outputs.codename }}  ${{ steps.init.outputs.arch }} /tmp/pkgrepo https://myrepo /tmp/package-build default
+          $GITHUB_WORKSPACE/.github/scripts/build-debian-package.sh ${{ steps.init.outputs.stage }}  ${{ steps.init.outputs.distro }}  ${{ steps.init.outputs.codename }}  ${{ steps.init.outputs.arch }} /tmp/pkgrepo https://myrepo /tmp/package-build BFE717649A5C3D08
       - name: Verify
         run: find /tmp/pkgrepo
