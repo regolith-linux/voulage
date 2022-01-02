@@ -1,4 +1,4 @@
-name: Build Packages
+name: Build Debian Packages
 
 on:
   push:
@@ -20,13 +20,12 @@ jobs:
           DISTRO: ubuntu
           CODENAME: focal
           ARCH: amd64
-          S3_BUCKET: regolith-unstable-ubuntu-focal-amd64
         run: |
           echo ::set-output name=stage::${{ env.STAGE }}
           echo ::set-output name=distro::${{ env.DISTRO }}
           echo ::set-output name=codename::${{ env.CODENAME }}
           echo ::set-output name=arch::${{ env.ARCH }}
-          echo ::set-output name=s3_bucket::${{ env.S3_BUCKET }}
+          echo ::set-output name=s3_bucket::regolith-${{ env.STAGE }}-${{ env.DISTRO }}-${{ env.CODENAME }}-${{ env.ARCH }}
           echo ::set-output name=repo_url::https://regolith-${{ env.STAGE }}-${{ env.DISTRO }}-${{ env.CODENAME }}-${{ env.ARCH }}.s3.us-east-2.amazonaws.com
       - uses: actions/checkout@v2
       - name: Find Package Updates
@@ -47,7 +46,7 @@ jobs:
         with:
           aws_access_key_id: ${{ secrets.AWS_ACCESS_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_KEY }}
-          source: 's3://regolith-unstable-ubuntu-focal-amd64'
+          source: 's3://${{ steps.init.outputs.s3_bucket }}'
           dest: 'generated-repo'
       - name: Build Packages
         if: steps.git-changes.outputs.changed == 1
@@ -67,7 +66,7 @@ jobs:
           aws_access_key_id: ${{ secrets.AWS_ACCESS_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_KEY }}
           source: 'generated-repo'
-          dest: 's3://regolith-unstable-ubuntu-focal-amd64/'
+          dest: 's3://${{ steps.init.outputs.s3_bucket }}'
           flags: --recursive
       - name: S3 Cleanup
         if: steps.git-changes.outputs.changed == 1
