@@ -2,33 +2,34 @@
 
 set -e
 
-print_banner() {
-    echo "***********************************************************"
-    echo "** $1"
-    echo "***********************************************************"
-}
-
 handle_package() {
-    echo "${packageModel[source]}"
+    echo "+++ Checking $PACKAGE_NAME ($PACAKGE_SOURCE_URL $PACKAGE_SOURCE_REF)"
+    local MANIFEST_PATH="$REPO_ROOT/stage/$STAGE/$DISTRO/$CODENAME/$ARCH/manifest.txt"
+
+    # Get git hash
+    local COMMIT_HASH=$(git ls-remote $PACAKGE_SOURCE_URL $PACKAGE_SOURCE_REF | awk '{ print $1}')
+
+    echo "$PACKAGE_NAME $PACKAGE_SOURCE_REF $COMMIT_HASH" >> "$MANIFEST_PATH"
+
+    local PKG_LIST=$(git diff --diff-filter=AM | grep '^[+|-][^+|-]' | cut -d" " -f1 | cut -c2- | uniq | sort)
+
+    echo $PKG_LIST
 }
 
 traverse_package_model() {
     jq -rc 'delpaths([path(.[][]| select(.==null))]) | .packages | keys | .[]' < "$PACKAGE_MODEL_FILE" | while IFS='' read -r package; do
         # Set the package name and model desc
-        packageModel["name"]="$package"    
-        packageModel["modelDescription"]=$(jq -r ".description.title" < "$PACKAGE_MODEL_FILE" )
-        # Set all kvps on the associated object
-        while IFS== read -r key value; do
-            packageModel["$key"]="$value"
-        done < <( jq -r ".packages.\"$package\" | to_entries | .[] | .key + \"=\" + .value" < "$PACKAGE_MODEL_FILE" )
+        PACKAGE_NAME="$package"    
 
         # If a package filter was specified, match filter.
         if [[ -n "$PACKAGE_FILTER" && "$PACKAGE_FILTER" != "${packageModel[name]}" ]]; then
             continue
         fi
 
-        # Apply functions to package model
-        print_banner "handle_package(${packageModel[name]})"
+        PACAKGE_SOURCE_URL=$(jq -r ".packages.\"$package\".source" < "$PACKAGE_MODEL_FILE")
+        PACKAGE_SOURCE_REF=$(jq -r ".packages.\"$package\".branch" < "$PACKAGE_MODEL_FILE")
+
+        # Apply functions to package model        
         handle_package
     done
 }
