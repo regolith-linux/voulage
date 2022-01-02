@@ -1,12 +1,15 @@
 #!/bin/bash
-
-# This script builds packages for the debian os
-
+# This script builds packages for Debian-based systems
 set -e
 
-REPO_ROOT=$(realpath "$1")
-DIST_CODENAME=$2
-BUILD_DIR=$(realpath "$3")
+STAGE=$1
+DISTRO=$2
+CODENAME=$3
+ARCH=$4
+PACKAGE_REPO_ROOT=$5 # Path to the local directory which is the package repo
+PACKAGE_REPO_URL=$6  # The public URL that users will use to access the repo
+BUILD_DIR=$(realpath "$7")
+APT_KEY=$8
 
 checkout() {
   if [ -z "$PACKAGE_URL" ]; then
@@ -37,7 +40,7 @@ checkout() {
 update_changelog() {
   cd "${BUILD_DIR:?}/$PACKAGE_NAME"
   version=$(dpkg-parsechangelog --show-field Version)
-  dch --distribution "$DIST_CODENAME" --newversion "${version}-1regolith-$(date +%s)" "Automated release."
+  dch --distribution "$CODENAME" --newversion "${version}-1regolith-$(date +%s)" "Automated release."
 
   cd - >/dev/null 2>&1 || exit
 }
@@ -50,8 +53,8 @@ dist_valid() {
   CHANGELOG_DIST=$(echo "$TOP_CHANGELOG_LINE" | cut -d' ' -f3)
 
   cd - >/dev/null 2>&1
-  # echo "Checking $DIST_CODENAME and $CHANGELOG_DIST"
-  if [[ "$CHANGELOG_DIST" == *"$DIST_CODENAME"* ]]; then
+  # echo "Checking $CODENAME and $CHANGELOG_DIST"
+  if [[ "$CHANGELOG_DIST" == *"$CODENAME"* ]]; then
     return 0
   else
     return 1
@@ -107,6 +110,19 @@ build_bin_package() {
   popd
 }
 
+source_pkg_exists() {    
+    SRC_PKG_VERSION=$(reprepro --basedir "$PACKAGE_REPO_ROOT" list "$CODENAME" "$1" | cut -d' ' -f3)
+
+    SRC_PKG_BUILD_VERSION=$(echo $2 | cut -d'-' -f1)
+    SRC_PKG_REPO_VERSION=$(echo $SRC_PKG_VERSION | cut -d'-' -f1)
+
+    if [ "$SRC_PKG_REPO_VERSION" == "$SRC_PKG_BUILD_VERSION" ]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
 publish_deb() {
   set -x
   cd "${BUILD_DIR:?}/$PACKAGE_NAME"
@@ -120,29 +136,46 @@ publish_deb() {
     echo "Failed to find changes file."
   fi
 
-  # if source_pkg_exists "$PACKAGE_NAME" "$version"; then
-  #     echo "Ignoring source package, already exists in target repository"
-  # else
-  #     echo "Ingesting source package $PACKAGE_NAME into $REPO_PATH"
-  #     reprepro --basedir "$REPO_PATH" include "$DIST_CODENAME" "$DEB_SRC_PKG_PATH"
-  # fi
-  #
-  # DEB_CONTROL_FILE="$BUILD_DIR/$PACKAGE_NAME/debian/control"
-  #
-  # for target_arch in $(echo $PKG_ARCH | sed "s/,/ /g"); do
-  #     cat "$DEB_CONTROL_FILE" | grep ^Package: | cut -d' ' -f2 | while read -r bin_pkg; do
-  #         DEB_BIN_PKG_PATH="$(pwd)/${bin_pkg}_${version}_${target_arch}.deb"
-  #         if [ -f "$DEB_BIN_PKG_PATH" ]; then
-  #             echo "Ingesting binary package ${bin_pkg} into $REPO_PATH"
-  #             reprepro --basedir "$REPO_PATH" includedeb "$DIST_CODENAME" "$DEB_BIN_PKG_PATH"
-  #         else
-  #             echo "Package $DEB_BIN_PKG_PATH does not exist for $target_arch"
-  #         fi
-  #     done
-  # done
+  if source_pkg_exists "$debian_package_name" "$version"; then
+      echo "Ignoring source package, already exists in target repository"
+  else
+      echo "Ingesting source package $debian_package_name into $PACKAGE_REPO_ROOT"
+      reprepro --basedir "$PACKAGE_REPO_ROOT" include "$CODENAME" "$DEB_SRC_PKG_PATH"
+  fi
+ 
+  DEB_CONTROL_FILE="$BUILD_DIR/$PACKAGE_NAME/debian/control"
+ 
+  for target_arch in $(echo $ARCH | sed "s/,/ /g"); do
+      cat "$DEB_CONTROL_FILE" | grep ^Package: | cut -d' ' -f2 | while read -r bin_pkg; do
+          DEB_BIN_PKG_PATH="$(pwd)/${bin_pkg}_${version}_${target_arch}.deb"
+          if [ -f "$DEB_BIN_PKG_PATH" ]; then
+              echo "Ingesting binary package ${bin_pkg} into $PACKAGE_REPO_ROOT"
+              reprepro --basedir "$PACKAGE_REPO_ROOT" includedeb "$CODENAME" "$DEB_BIN_PKG_PATH"
+          else
+              echo "Package $DEB_BIN_PKG_PATH does not exist for $target_arch"
+          fi
+      done
+  done
+}
+
+setup() {
+  if [ ! -d "$PACKAGE_REPO_ROOT/conf" ]; then
+    echo "Package metadata not found, creating.."
+    mkdir -p "$PACKAGE_REPO_ROOT/conf"
+
+    echo "Origin: $PACKAGE_REPO_URL" > "$PACKAGE_REPO_ROOT/conf/distributions"
+    echo "Label: $PACKAGE_REPO_URL" >> "$PACKAGE_REPO_ROOT/conf/distributions"
+    echo "Codename: $CODENAME" >> "$PACKAGE_REPO_ROOT/conf/distributions"
+    echo "Architectures: $ARCH source" >> "$PACKAGE_REPO_ROOT/conf/distributions"
+    echo "Components: main" >> "$PACKAGE_REPO_ROOT/conf/distributions"
+    echo "Description: $STAGE $DISTRO $CODENAME $ARCH" >> "$PACKAGE_REPO_ROOT/conf/distributions"
+    echo "SignWith: $APT_KEY" >> "$PACKAGE_REPO_ROOT/conf/distributions"
+  fi
 }
 
 # Start of script
+setup
+
 PACKAGE_CHANGES=$(git diff --diff-filter=AM | grep '^[+|-][^+|-]' | cut -c2- | uniq | sort)
 while IFS= read -r PKG_LINE; do
   PACKAGE_NAME=$(echo $PKG_LINE | cut -d" " -f1)
