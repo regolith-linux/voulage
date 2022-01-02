@@ -59,7 +59,7 @@ dist_valid() {
 }
 
 stage_source() {
-  pushd
+  pushd .
 
   print_banner "Preparing source for $PACKAGE_NAME"
   cd "$BUILD_DIR/$PACKAGE_NAME" || exit
@@ -85,7 +85,7 @@ sanitize_git() {
 }
 
 build_src_package() {
-  pushd
+  pushd .
   print_banner "Building source package $PACKAGE_NAME"
   cd "$BUILD_DIR/$PACKAGE_NAME" || exit
 
@@ -97,7 +97,7 @@ build_src_package() {
 }
 
 build_bin_package() {
-  pushd
+  pushd .
   print_banner "Building binary package $PACKAGE_NAME"
   cd "$BUILD_DIR/$PACKAGE_NAME" || exit
 
