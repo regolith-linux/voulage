@@ -1,0 +1,4 @@
+amd64-arch-thing master 0ac61a52d68b79a0dde8fee1888c3e7a44d995e6
+focal-codename-thing master 0ac61a52d68b79a0dde8fee1888c3e7a44d995e6
+ubuntu-distro-thing master 0ac61a52d68b79a0dde8fee1888c3e7a44d995e6
+unstable-stage-thing master 0ac61a52d68b79a0dde8fee1888c3e7a44d995e6

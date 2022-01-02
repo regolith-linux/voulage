@@ -3,7 +3,6 @@
 set -e
 
 update_manifest() {
-    # echo "+++ Checking $PACKAGE_NAME ($PACAKGE_SOURCE_URL $PACKAGE_SOURCE_REF)"
     local MANIFEST_PATH="$REPO_ROOT/stage/$STAGE/$DISTRO/$CODENAME/$ARCH/manifest.txt"
 
     # Get git hash
@@ -17,7 +16,6 @@ compute_package_diff() {
 }
 
 traverse_package_model() {
-    echo "#traverse"
     jq -rc 'delpaths([path(.[][]| select(.==null))]) | .packages | keys | .[]' < "$PACKAGE_MODEL_FILE" | while IFS='' read -r package; do
         # Set the package name and model desc
         PACKAGE_NAME="$package"    
@@ -96,4 +94,8 @@ fi
 
 PACKAGE_MODEL_FILE="$WORKING_ARCH_MODEL"
 
+# Delete pre-existing manifest before generating new 
+if [ -f "$REPO_ROOT/stage/$STAGE/$DISTRO/$CODENAME/$ARCH/manifest.txt" ]; then
+  rm "$REPO_ROOT/stage/$STAGE/$DISTRO/$CODENAME/$ARCH/manifest.txt"
+fi
 traverse_package_model
