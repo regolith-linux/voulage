@@ -98,7 +98,7 @@ jobs:
           for archive_file in $GITHUB_WORKSPACE/artifacts/*; do
             target=$(basename $archive_file)
             path=$(echo "$target" | sed 's/-/\//g')
-            echo cp "$archive_file/manifest.txt" "$GITHUB_WORKSPACE/stage/$path/"
+            cp "$archive_file/manifest.txt" "$GITHUB_WORKSPACE/stage/$path/"
           done
           find $GITHUB_WORKSPACE/artifacts
           find $GITHUB_WORKSPACE/stage
