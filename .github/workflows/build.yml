@@ -29,6 +29,13 @@ jobs:
       - name: Find Package Updates
         run: |
           $GITHUB_WORKSPACE/.github/scripts/compute-package-changes.sh $GITHUB_WORKSPACE ${{ steps.init.outputs.stage }}  ${{ steps.init.outputs.distro }}  ${{ steps.init.outputs.codename }}  ${{ steps.init.outputs.arch }} /tmp/manifest-build
+      - name: Build Setup
+        run: |
+          sudo apt update
+          sudo apt install -y devscripts reprepro
+          mkdir -p ~/.gnupg/
+          printf "${{ secrets.PACKAGE_PRIVATE_KEY }}" | base64 --decode > ~/.gnupg/private.key
+          gpg --batch --import ~/.gnupg/private.key   
       - name: Build Packages
         run: |
           $GITHUB_WORKSPACE/.github/scripts/build-debian-package.sh ${{ steps.init.outputs.stage }}  ${{ steps.init.outputs.distro }}  ${{ steps.init.outputs.codename }}  ${{ steps.init.outputs.arch }} /tmp/pkgrepo https://myrepo /tmp/package-build GPG-KEY-HERE

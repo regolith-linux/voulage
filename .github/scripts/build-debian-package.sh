@@ -95,7 +95,7 @@ build_src_package() {
   cd "$BUILD_DIR/$PACKAGE_NAME" || exit
 
   sanitize_git
-  # sudo apt build-dep -y .
+  sudo apt build-dep -y .
   debuild -S -sa
 
   popd
