@@ -19,7 +19,12 @@ jobs:
           STAGE: unstable
           DISTRO: ubuntu
           CODENAME: focal
-          ARCH: amd64          
+          ARCH: amd64      
+        run: |
+          echo ::set-output name=stage::${{ env.STAGE }}
+          echo ::set-output name=distro::${{ env.DISTRO }}
+          echo ::set-output name=codename::${{ env.CODENAME }}
+          echo ::set-output name=arch::${{ env.ARCH }}        
       - uses: actions/checkout@v2
       - name: Find Package Updates
         run: |
