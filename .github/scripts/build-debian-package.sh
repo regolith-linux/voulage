@@ -111,9 +111,10 @@ publish_deb() {
   set -x
   cd "${BUILD_DIR:?}/$PACKAGE_NAME"
   version=$(dpkg-parsechangelog --show-field Version)
+  debian_package_name=$(dpkg-parsechangelog --show-field Source)
   cd "$BUILD_DIR"
 
-  DEB_SRC_PKG_PATH="$BUILD_DIR/${PACKAGE_NAME}_${version}_source.changes"
+  DEB_SRC_PKG_PATH="$BUILD_DIR/${debian_package_name}_${version}_source.changes"
 
   if [ ! -f "$DEB_SRC_PKG_PATH" ]; then
     echo "Failed to find changes file."
