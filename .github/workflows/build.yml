@@ -31,7 +31,6 @@ jobs:
       - name: Find Package Updates
         run: |
           $GITHUB_WORKSPACE/.github/scripts/compute-package-changes.sh $GITHUB_WORKSPACE ${{ steps.init.outputs.stage }}  ${{ steps.init.outputs.distro }}  ${{ steps.init.outputs.codename }}  ${{ steps.init.outputs.arch }} /tmp/manifest-build
-          mkdir /tmp/pkgrepo
       - uses: jakejarvis/s3-sync-action@master
         with:
           args: --acl public-read --follow-symlinks --delete
@@ -39,7 +38,7 @@ jobs:
           AWS_S3_BUCKET: ${{ steps.init.outputs.s3_bucket }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
-          SOURCE_DIR: '/tmp/pkgrepo'      # optional: defaults to entire repository
+          DEST_DIR: '/tmp/pkgrepo'      # optional: defaults to entire repository
       - name: Build Packages
         run: |
           export DEBEMAIL="regolith.linux@gmail.com"
