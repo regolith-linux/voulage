@@ -40,7 +40,7 @@ checkout() {
 update_changelog() {
   cd "${BUILD_DIR:?}/$PACKAGE_NAME"
   version=$(dpkg-parsechangelog --show-field Version)
-  dch --distribution "$CODENAME" --newversion "${version}-1regolith-$(date +%s)" "Automated release."
+  dch --distribution "$CODENAME" --newversion "${version}-1regolith" "Automated release."
 
   cd - >/dev/null 2>&1 || exit
 }
