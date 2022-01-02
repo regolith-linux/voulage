@@ -1,4 +1,0 @@
-amd64-arch-thing git@github.com:kgilmer/xrescat.git master 0ac61a52d68b79a0dde8fee1888c3e7a44d995e6
-focal-codename-thing git@github.com:kgilmer/xrescat.git master 0ac61a52d68b79a0dde8fee1888c3e7a44d995e6
-ubuntu-distro-thing git@github.com:kgilmer/xrescat.git master 0ac61a52d68b79a0dde8fee1888c3e7a44d995e6
-unstable-stage-thing git@github.com:kgilmer/xrescat.git master 0ac61a52d68b79a0dde8fee1888c3e7a44d995e6
