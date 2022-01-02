@@ -1,6 +1,7 @@
 #!/bin/bash
 # This script builds packages for Debian-based systems
 set -e
+set -x
 
 STAGE=$1
 DISTRO=$2

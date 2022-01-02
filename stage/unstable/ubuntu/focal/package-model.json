@@ -1,8 +1,0 @@
-{
-  "packages": {
-    "focal-codename-thing": {
-      "source": "git@github.com:kgilmer/xrescat.git",
-      "branch": "master"
-    }
-  }
-}
