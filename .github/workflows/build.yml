@@ -19,16 +19,26 @@ jobs:
           STAGE: unstable
           DISTRO: ubuntu
           CODENAME: focal
-          ARCH: amd64      
+          ARCH: amd64
+          S3_BUCKET: regolith-unstable-ubuntu-focal-amd64
         run: |
           echo ::set-output name=stage::${{ env.STAGE }}
           echo ::set-output name=distro::${{ env.DISTRO }}
           echo ::set-output name=codename::${{ env.CODENAME }}
-          echo ::set-output name=arch::${{ env.ARCH }}        
+          echo ::set-output name=arch::${{ env.ARCH }}
+          echo ::set-output name=s3_bucket::${{ env.S3_BUCKET }}
       - uses: actions/checkout@v2
       - name: Find Package Updates
         run: |
           $GITHUB_WORKSPACE/.github/scripts/compute-package-changes.sh $GITHUB_WORKSPACE ${{ steps.init.outputs.stage }}  ${{ steps.init.outputs.distro }}  ${{ steps.init.outputs.codename }}  ${{ steps.init.outputs.arch }} /tmp/manifest-build
+      - uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --acl public-read --follow-symlinks --delete
+        env:
+          AWS_S3_BUCKET: ${{ steps.init.outputs.s3_bucket }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
+          SOURCE_DIR: '/tmp/pkgrepo'      # optional: defaults to entire repository
       - name: Build Packages
         run: |
           export DEBEMAIL="regolith.linux@gmail.com"
@@ -37,7 +47,15 @@ jobs:
           sudo apt install -y devscripts reprepro
           mkdir -p ~/.gnupg/
           printf "${{ secrets.PACKAGE_PRIVATE_KEY }}" | base64 --decode > ~/.gnupg/private.key
-          gpg --batch --import ~/.gnupg/private.key 
-          $GITHUB_WORKSPACE/.github/scripts/build-debian-package.sh ${{ steps.init.outputs.stage }}  ${{ steps.init.outputs.distro }}  ${{ steps.init.outputs.codename }}  ${{ steps.init.outputs.arch }} /tmp/pkgrepo https://myrepo /tmp/package-build BFE717649A5C3D08
+          gpg --batch --import ~/.gnupg/private.key
+          $GITHUB_WORKSPACE/.github/scripts/build-debian-package.sh ${{ steps.init.outputs.stage }}  ${{ steps.init.outputs.distro }}  ${{ steps.init.outputs.codename }}  ${{ steps.init.outputs.arch }} /tmp/pkgrepo https://myrepo /tmp/package-build default
       - name: Verify
         run: find /tmp/pkgrepo
+      - uses: jakejarvis/s3-sync-action@master
+        with:
+          args: --acl public-read --follow-symlinks --delete
+        env:
+          AWS_S3_BUCKET: ${{ steps.init.outputs.s3_bucket }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
+          SOURCE_DIR: '/tmp/pkgrepo'
