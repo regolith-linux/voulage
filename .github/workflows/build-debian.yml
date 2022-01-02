@@ -79,7 +79,7 @@ jobs:
         uses: actions/upload-artifact@v2
         if: steps.git-changes.outputs.changed == 1
         with:
-          path: ${{ steps.init.outputs.manfiest_file }}
+          path: ${{ steps.init.outputs.manifest_file }}
           retention-days: 1
   update-manifests:
     runs-on: ubuntu-20.04
