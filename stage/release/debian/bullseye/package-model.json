@@ -1,0 +1,12 @@
+{
+  "packages": {
+    "regolith-desktop": {
+      "source": "https://github.com/regolith-linux/regolith-desktop.git",
+      "branch": "debian"
+    },
+    "json-glib": {
+      "source": "https://salsa.debian.org/gnome-team/json-glib.git",
+      "branch": "debian/1.5.2-1"
+    }
+  }
+}
