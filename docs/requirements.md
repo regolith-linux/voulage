@@ -15,10 +15,9 @@
 1. Able to model packages for a given target.
 2. Able to determine changes for modeled packages for a given target.
 3. Able to build packages in a distro-specific way.
-4. Able to test changes locally.
-
 
 ## Goals
 
 1. Repo builds should be easily monitor-able.  Build failures should have clear steps to resolve.  The state of repositories should be easy to know at a glance (meaning build failures should result in the repo being in a consistent state)
-2. Simple file management.
+2. Simple file management. Each file should be in a reasonable place and there should not be loose or unknown files.
+3. Testable.  The repo should have some tests that work against static data so that correctness can be verified outside of a given instance.

@@ -1,7 +1,5 @@
 #!/bin/bash
-
 # This script creates a manifest.txt file for the passed in parameters that specify the package/branch/commit for each package.
-
 set -e
 
 handle_package() {
