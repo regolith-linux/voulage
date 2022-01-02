@@ -26,6 +26,7 @@ jobs:
           echo ::set-output name=distro::${{ matrix.distro }}
           echo ::set-output name=codename::${{ matrix.codename }}
           echo ::set-output name=arch::${{ matrix.arch }}
+          echo ::set-output name=target::${{ matrix.stage }}/${{ matrix.distro }}/${{ matrix.codename }}/${{ matrix.arch }}
           echo ::set-output name=s3_bucket::regolith-${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}
           echo ::set-output name=repo_url::https://regolith-${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}.s3.us-east-2.amazonaws.com
           echo ::set-output name=manifest_file::$GITHUB_WORKSPACE/stage/${{ matrix.stage }}/${{ matrix.distro }}/${{ matrix.codename }}/${{ matrix.arch }}/manifest.txt
@@ -79,6 +80,7 @@ jobs:
         uses: actions/upload-artifact@v2
         if: steps.git-changes.outputs.changed == 1
         with:
+          name: ${{ steps.init.outputs.target }}
           path: ${{ steps.init.outputs.manifest_file }}
           retention-days: 1
   update-manifests:
@@ -89,7 +91,8 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v2
       - name: Debug
-        run: find $GITHUB_WORKSPACE
+        run: |
+          find $GITHUB_WORKSPACE
       - name: Commit Manifest Updates
         run: |
             git pull
