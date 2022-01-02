@@ -33,7 +33,7 @@ traverse_package_model() {
         fi
 
         PACAKGE_SOURCE_URL=$(jq -r ".packages.\"$package\".source" < "$PACKAGE_MODEL_FILE")
-        PACKAGE_SOURCE_REF=$(jq -r ".packages.\"$package\".branch" < "$PACKAGE_MODEL_FILE")
+        PACKAGE_SOURCE_REF=$(jq -r ".packages.\"$package\".ref" < "$PACKAGE_MODEL_FILE")
 
         # Apply functions to package model        
         handle_package
