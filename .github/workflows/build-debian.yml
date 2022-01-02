@@ -91,7 +91,7 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v2
         with:
-          path: $GITHUB_WORKSPACE/artifacts
+          path: artifacts
       - name: Debug
         run: |
           set -x
