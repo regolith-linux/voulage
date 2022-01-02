@@ -1,5 +1,14 @@
 name: Build Packages
 
+on:
+  push:
+    branches: main
+    paths:
+      - 'stage/**'
+      - '.github/**'
+  repository_dispatch:
+  workflow_dispatch:
+
 jobs:
   find-updates:
     runs-on: ubuntu-20.04
