@@ -10,9 +10,7 @@ handle_package() {
     # Get git hash
     local COMMIT_HASH=$(git ls-remote $PACAKGE_SOURCE_URL $PACKAGE_SOURCE_REF | awk '{ print $1}')
 
-    echo "$PACKAGE_NAME $PACAKGE_SOURCE_URL $PACKAGE_SOURCE_REF $COMMIT_HASH" >> "$MANIFEST_PATH"
-    
-    compute_package_diff
+    echo "$PACKAGE_NAME $PACAKGE_SOURCE_URL $PACKAGE_SOURCE_REF $COMMIT_HASH" >> "$MANIFEST_PATH"      
 }
 
 compute_package_diff() {
@@ -111,3 +109,5 @@ fi
 merge_models
 # Iterate over each package in the model and call handle_package
 traverse_package_model
+# Use git to see changes
+compute_package_diff
