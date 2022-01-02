@@ -62,7 +62,6 @@ dist_valid() {
 }
 
 stage_source() {
-  set -x
   pushd .
 
   echo "Preparing source for $PACKAGE_NAME"
@@ -124,7 +123,6 @@ source_pkg_exists() {
 }
 
 publish_deb() {
-  set -x
   cd "${BUILD_DIR:?}/$PACKAGE_NAME"
   version=$(dpkg-parsechangelog --show-field Version)
   debian_package_name=$(dpkg-parsechangelog --show-field Source)
@@ -173,11 +171,16 @@ setup() {
   fi
 }
 
-set -x
 # Start of script
 setup
 
 PACKAGE_CHANGES=$(git diff --diff-filter=AM | grep '^[+|-][^+|-]' | cut -c2- | uniq | sort)
+
+if [ -z $PACKAGE_CHANGES ]; then
+  echo "No changes found, exiting."
+  exit 0
+fi
+
 while IFS= read -r PKG_LINE; do
   PACKAGE_NAME=$(echo $PKG_LINE | cut -d" " -f1)
   PACKAGE_URL=$(echo $PKG_LINE | cut -d" " -f2)
