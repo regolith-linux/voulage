@@ -59,16 +59,18 @@ dist_valid() {
 }
 
 stage_source() {
+  set -x
   pushd .
 
   echo "Preparing source for $PACKAGE_NAME"
   cd "$BUILD_DIR/$PACKAGE_NAME" || exit
+  debian_package_name=$(dpkg-parsechangelog --show-field Source)
   full_version=$(dpkg-parsechangelog --show-field Version)
   debian_version="${full_version%-*}"
   cd "$BUILD_DIR" || exit
 
   echo "Generating source tarball from git repo."
-  tar cfzv $PACKAGE_NAME\_${debian_version}.orig.tar.gz --exclude .git\* --exclude debian $PACKAGE_NAME/../$PACKAGE_NAME}
+  tar cfzv $debian_package_name\_${debian_version}.orig.tar.gz --exclude .git\* --exclude debian $PACKAGE_NAME/../$PACKAGE_NAME
 
   popd
 }
