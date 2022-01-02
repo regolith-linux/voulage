@@ -6,7 +6,7 @@ STAGE=$1
 DISTRO=$2
 CODENAME=$3
 ARCH=$4
-PACKAGE_REPO_ROOT=$5 # Path to the local directory which is the package repo
+PACKAGE_REPO_ROOT=$(realpath "$5") # Path to the local directory which is the package repo
 PACKAGE_REPO_URL=$6  # The public URL that users will use to access the repo
 BUILD_DIR=$(realpath "$7")
 APT_KEY=$8
@@ -173,6 +173,7 @@ setup() {
   fi
 }
 
+set -x
 # Start of script
 setup
 
