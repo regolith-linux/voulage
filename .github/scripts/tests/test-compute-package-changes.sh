@@ -5,18 +5,24 @@
 
 ../compute-package-changes.sh ../../../ unstable ubuntu focal amd64 /tmp/bt
 
-EXPECTED="$(cat unstable-ubuntu-focal-model.json)"
-ACTUAL="$(cat /tmp/bt/unstable-ubuntu-focal-model.json)"
+T1_EXPECTED="$(cat unstable-ubuntu-focal-model.json)"
+T1_ACTUAL="$(cat /tmp/bt/unstable-ubuntu-focal-model.json)"
 
-if [[ $EXPECTED == "$ACTUAL" ]]; then
-  echo "Test pass"
+if [[ $T1_EXPECTED == "$T1_ACTUAL" ]]; then
+  echo "T1 Test pass"
 else
-  echo "Test fail"
+  echo "T1 Test fail"
   exit 1
 fi
 
 # --- Test Manifest Generation
 
-OUTPUT=$(../compute-package-changes.sh ../../../ unstable ubuntu focal amd64 /tmp/bt)
+T2_ACTUAL=$(../compute-package-changes.sh ../../../ unstable ubuntu focal amd64 /tmp/bt)
+T2_EXPECTED="root-thing"
 
-echo $OUTPUT
+if [[ $T2_EXPECTED == "$T2_ACTUAL" ]]; then
+  echo "T2 Test pass"
+else
+  echo "T2 Test fail"
+  exit 1
+fi
