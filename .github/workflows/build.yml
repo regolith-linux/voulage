@@ -27,18 +27,30 @@ jobs:
           echo ::set-output name=codename::${{ env.CODENAME }}
           echo ::set-output name=arch::${{ env.ARCH }}
           echo ::set-output name=s3_bucket::${{ env.S3_BUCKET }}
+          echo ::set-output name=repo_url::https://regolith-${{ env.STAGE }}-${{ env.DISTRO }}-${{ env.CODENAME }}-${{ env.ARCH }}.s3.us-east-2.amazonaws.com
       - uses: actions/checkout@v2
       - name: Find Package Updates
         run: |
           $GITHUB_WORKSPACE/.github/scripts/compute-package-changes.sh $GITHUB_WORKSPACE ${{ steps.init.outputs.stage }}  ${{ steps.init.outputs.distro }}  ${{ steps.init.outputs.codename }}  ${{ steps.init.outputs.arch }} /tmp/manifest-build
+      - id: git-changes
+        name: Check for Changes
+        uses: kgilmer/simple-git-has-changes-action@v0.3
+      - id: find-changed-packages
+        name: Find changed packages
+        run: |
+          PKG_LIST=$(git diff --diff-filter=AM | grep '^[+|-][^+|-]' | cut -d" " -f1 | cut -c2- | uniq | sort)
+          echo ::set-output name=package_build_list::$PKG_LIST
+          echo "Updated packages: $PKG_LIST"
       - name: Pull repo from S3
+        if: steps.git-changes.outputs.changed == 1
         uses: prewk/s3-cp-action@v2
         with:
           aws_access_key_id: ${{ secrets.AWS_ACCESS_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_KEY }}
           source: 's3://regolith-unstable-ubuntu-focal-amd64'
           dest: 'generated-repo'
-      - name: Build Packages
+      - name: Build Host Setup
+        if: steps.git-changes.outputs.changed == 1
         run: |
           export DEBEMAIL="regolith.linux@gmail.com"
           export DEBFULLNAME="Regolith Linux"
@@ -47,10 +59,12 @@ jobs:
           mkdir -p ~/.gnupg/
           printf "${{ secrets.PACKAGE_PRIVATE_KEY }}" | base64 --decode > ~/.gnupg/private.key
           gpg --batch --import ~/.gnupg/private.key
-          $GITHUB_WORKSPACE/.github/scripts/build-debian-package.sh ${{ steps.init.outputs.stage }}  ${{ steps.init.outputs.distro }}  ${{ steps.init.outputs.codename }}  ${{ steps.init.outputs.arch }} $GITHUB_WORKSPACE/generated-repo https://myrepo /tmp/package-build default
-      - name: Verify
-        run: find generated-repo
+      - name: Build Packages
+        if: steps.git-changes.outputs.changed == 1
+        run: |       
+          $GITHUB_WORKSPACE/.github/scripts/build-debian-package.sh ${{ steps.init.outputs.stage }}  ${{ steps.init.outputs.distro }}  ${{ steps.init.outputs.codename }}  ${{ steps.init.outputs.arch }} $GITHUB_WORKSPACE/generated-repo ${{ steps.init.outputs.repo_url }} /tmp/package-build default
       - name: Push repo to S3
+        if: steps.git-changes.outputs.changed == 1
         uses: prewk/s3-cp-action@v2
         with:
           aws_access_key_id: ${{ secrets.AWS_ACCESS_ID }}
@@ -58,3 +72,17 @@ jobs:
           source: 'generated-repo'
           dest: 's3://regolith-unstable-ubuntu-focal-amd64/'
           flags: --recursive
+      - name: S3 Cleanup
+        if: steps.git-changes.outputs.changed == 1
+        run: |
+          find generated-repo
+          rm -Rf generated-repo
+      - name: Commit Manifest Updates
+        if: steps.git-changes.outputs.changed == 1
+        run: |      
+            git pull
+            git config --local user.email "action@github.com"
+            git config --local user.name "GitHub Action"            
+            git add stage/*
+            git commit -am "Built ${{ steps.find-changed-packages.outputs.package_build_list }} on ${{ steps.init.outputs.distro }} - ${{ steps.init.outputs.codename }}"
+            git push origin main
