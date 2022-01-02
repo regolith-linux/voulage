@@ -94,8 +94,6 @@ ARCH=$5
 BUILD_DIR=$6
 ROOT_MODEL_PATH="$REPO_ROOT/stage/package-model.json"
 
-source "$REPO_ROOT/.github/scripts/common.sh"
-
 # Delete pre-existing manifest before generating new 
 if [ -f "$REPO_ROOT/stage/$STAGE/$DISTRO/$CODENAME/$ARCH/manifest.txt" ]; then
   rm "$REPO_ROOT/stage/$STAGE/$DISTRO/$CODENAME/$ARCH/manifest.txt"
