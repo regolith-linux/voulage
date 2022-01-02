@@ -28,6 +28,7 @@ jobs:
           echo ::set-output name=arch::${{ matrix.arch }}
           echo ::set-output name=s3_bucket::regolith-${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}
           echo ::set-output name=repo_url::https://regolith-${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}.s3.us-east-2.amazonaws.com
+          echo ::set-output name=manifest_file::$GITHUB_WORKSPACE/stage/${{ matrix.stage }}/${{ matrix.distro }}/${{ matrix.codename }}/${{ matrix.arch }}/manifest.txt
       - uses: actions/checkout@v2
       - name: Find Package Updates
         run: |
@@ -74,8 +75,20 @@ jobs:
         run: |
           find generated-repo
           rm -Rf generated-repo
-      - name: Commit Manifest Updates
+      - name: Upload Manifest
+        uses: actions/upload-artifact@v2
         if: steps.git-changes.outputs.changed == 1
+        with:
+          path: ${{ steps.init.outputs.manfiest_file }}
+          retention-days: 1
+  update-manifests:
+    runs-on: ubuntu-20.04
+    needs: find-updates
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download artifacts
+        uses: actions/download-artifact@v2
+      - name: Commit Manifest Updates
         run: |
             git pull
             git config --local user.email "action@github.com"
