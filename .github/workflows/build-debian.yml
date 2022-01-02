@@ -97,10 +97,16 @@ jobs:
           for archive_file in $GITHUB_WORKSPACE/artifacts/*; do
             target=$(basename $archive_file)
             path=$(echo "$target" | sed 's/-/\//g')
-            cp "$archive_file/manifest.txt" "$GITHUB_WORKSPACE/stage/$path/"
+            if [ -f "$archive_file/manifest.txt" ]; then
+              cp "$archive_file/manifest.txt" "$GITHUB_WORKSPACE/stage/$path/"
+            fi
           done
           rm -Rf artifacts
+      - id: git-changes
+        name: Check for Changes
+        uses: kgilmer/simple-git-has-changes-action@v0.3
       - name: Commit Manifest Updates
+        if: steps.git-changes.outputs.changed == 1
         run: |
             git pull
             git config --local user.email "action@github.com"
