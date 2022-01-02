@@ -12,21 +12,22 @@ on:
 jobs:
   find-updates:
     runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        stage: [unstable, testing, release]
+        distro: [ubuntu]
+        codename: [focal, impish]
+        arch: [amd64]
     steps:
       - name: Set Job Parameters
         id: init
-        env:
-          STAGE: unstable
-          DISTRO: ubuntu
-          CODENAME: focal
-          ARCH: amd64
         run: |
-          echo ::set-output name=stage::${{ env.STAGE }}
-          echo ::set-output name=distro::${{ env.DISTRO }}
-          echo ::set-output name=codename::${{ env.CODENAME }}
-          echo ::set-output name=arch::${{ env.ARCH }}
-          echo ::set-output name=s3_bucket::regolith-${{ env.STAGE }}-${{ env.DISTRO }}-${{ env.CODENAME }}-${{ env.ARCH }}
-          echo ::set-output name=repo_url::https://regolith-${{ env.STAGE }}-${{ env.DISTRO }}-${{ env.CODENAME }}-${{ env.ARCH }}.s3.us-east-2.amazonaws.com
+          echo ::set-output name=stage::${{ matrix.stage }}
+          echo ::set-output name=distro::${{ matrix.distro }}
+          echo ::set-output name=codename::${{ matrix.codename }}
+          echo ::set-output name=arch::${{ matrix.arch }}
+          echo ::set-output name=s3_bucket::regolith-${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}
+          echo ::set-output name=repo_url::https://regolith-${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}.s3.us-east-2.amazonaws.com
       - uses: actions/checkout@v2
       - name: Find Package Updates
         run: |
