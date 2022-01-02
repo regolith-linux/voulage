@@ -90,9 +90,18 @@ jobs:
       - uses: actions/checkout@v2
       - name: Download artifacts
         uses: actions/download-artifact@v2
+        with:
+          path: $GITHUB_WORKSPACE/artifacts
       - name: Debug
         run: |
-          find $GITHUB_WORKSPACE
+          set -x
+          for archive_file in $GITHUB_WORKSPACE/artifacts; do
+            path=$(echo "$archive_file" | sed 's/-/\//g')
+            cp "$archive_file/manifest.txt" "$REPO_ROOT/stage/$path/"
+          done
+          find $GITHUB_WORKSPACE/artifacts
+          find $GITHUB_WORKSPACE/stage
+          rm -Rf artifacts
       - name: Commit Manifest Updates
         run: |
             git pull
