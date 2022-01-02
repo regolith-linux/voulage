@@ -49,7 +49,7 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_SECRET_KEY }}
           source: 's3://regolith-unstable-ubuntu-focal-amd64'
           dest: 'generated-repo'
-      - name: Build Host Setup
+      - name: Build Packages
         if: steps.git-changes.outputs.changed == 1
         run: |
           export DEBEMAIL="regolith.linux@gmail.com"
@@ -59,9 +59,6 @@ jobs:
           mkdir -p ~/.gnupg/
           printf "${{ secrets.PACKAGE_PRIVATE_KEY }}" | base64 --decode > ~/.gnupg/private.key
           gpg --batch --import ~/.gnupg/private.key
-      - name: Build Packages
-        if: steps.git-changes.outputs.changed == 1
-        run: |       
           $GITHUB_WORKSPACE/.github/scripts/build-debian-package.sh ${{ steps.init.outputs.stage }}  ${{ steps.init.outputs.distro }}  ${{ steps.init.outputs.codename }}  ${{ steps.init.outputs.arch }} $GITHUB_WORKSPACE/generated-repo ${{ steps.init.outputs.repo_url }} /tmp/package-build default
       - name: Push repo to S3
         if: steps.git-changes.outputs.changed == 1
@@ -79,10 +76,10 @@ jobs:
           rm -Rf generated-repo
       - name: Commit Manifest Updates
         if: steps.git-changes.outputs.changed == 1
-        run: |      
+        run: |
             git pull
             git config --local user.email "action@github.com"
-            git config --local user.name "GitHub Action"            
+            git config --local user.name "GitHub Action"
             git add stage/*
             git commit -am "Built ${{ steps.find-changed-packages.outputs.package_build_list }} on ${{ steps.init.outputs.distro }} - ${{ steps.init.outputs.codename }}"
             git push origin main
