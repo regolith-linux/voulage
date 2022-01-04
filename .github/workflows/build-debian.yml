@@ -1,4 +1,4 @@
-name: Build Debian Packages
+name: Build .deb Packages - Publish to S3
 
 on:
   push:
@@ -10,19 +10,22 @@ on:
   workflow_dispatch:
 
 jobs:
-  find-updates:
+  build:
     runs-on: ${{ matrix.host-os }}
     strategy:
       matrix:
         host-os: [ubuntu-20.04, [self-hosted, Linux, ARM64]]
         stage: [unstable, testing, release]
-        distro: [ubuntu]
-        codename: [focal, impish]
+        distro: [ubuntu, debian]        
         include:
           - host-os: ubuntu-20.04
             arch: amd64
           - host-os: [self-hosted, Linux, ARM64]
             arch: arm64
+          - distro: ubuntu
+            codename: [focal, impish]
+          - distro: debian
+            codename: bullseye
     steps:
       - name: Set Job Parameters
         id: init
