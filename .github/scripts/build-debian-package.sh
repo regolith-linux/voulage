@@ -1,16 +1,16 @@
 #!/bin/bash
 # This script builds packages for Debian-based systems
 set -e
-set -x
 
-STAGE=$1
-DISTRO=$2
-CODENAME=$3
-ARCH=$4
-PACKAGE_REPO_ROOT=$(realpath "$5") # Path to the local directory which is the package repo
-PACKAGE_REPO_URL=$6  # The public URL that users will use to access the repo
-BUILD_DIR=$(realpath "$7")
-APT_KEY=$8
+REPO_ROOT=$(realpath "$1")
+STAGE=$2
+DISTRO=$3
+CODENAME=$4
+ARCH=$5
+PACKAGE_REPO_ROOT=$(realpath "$6") # Path to the local directory which is the package repo
+PACKAGE_REPO_URL=$7  # The public URL that users will use to access the repo
+BUILD_DIR=$(realpath "$8")
+APT_KEY=$9
 
 checkout() {
   if [ -z "$PACKAGE_URL" ]; then
@@ -157,9 +157,7 @@ publish_deb() {
   done
 }
 
-setup() {
-  if [ ! -d "$PACKAGE_REPO_ROOT/conf" ]; then
-    echo "Package metadata not found, creating.."
+generate_reprepro_dist() {      
     mkdir -p "$PACKAGE_REPO_ROOT/conf"
 
     echo "Origin: $PACKAGE_REPO_URL" > "$PACKAGE_REPO_ROOT/conf/distributions"
@@ -169,7 +167,35 @@ setup() {
     echo "Components: main" >> "$PACKAGE_REPO_ROOT/conf/distributions"
     echo "Description: $STAGE $DISTRO $CODENAME $ARCH" >> "$PACKAGE_REPO_ROOT/conf/distributions"
     echo "SignWith: $APT_KEY" >> "$PACKAGE_REPO_ROOT/conf/distributions"
+}
+
+# Traverse the stage tree and execute any found setup.sh scripts
+source_setup_scripts() {
+  set -x
+  local setup_script_locations=(
+    "$REPO_ROOT/stage/setup.sh"
+    "$REPO_ROOT/stage/$STAGE/setup.sh"
+    "$REPO_ROOT/stage/$STAGE/$DISTRO/setup.sh"
+    "$REPO_ROOT/stage/$STAGE/$DISTRO/$CODENAME/setup.sh"
+    "$REPO_ROOT/stage/$STAGE/$DISTRO/$CODENAME/$ARCH/setup.sh"
+  )
+
+  for setup_file in "${setup_script_locations[@]}"
+  do
+    if [ -f "$setup_file" ]; then 
+      echo "Executing setup file $setup_file..."
+      source $setup_file
+    fi
+  done
+}
+
+setup() {
+  if [ ! -d "$PACKAGE_REPO_ROOT/conf" ]; then
+    echo "Package metadata not found, creating.."
+    generate_reprepro_dist
   fi
+
+  source_setup_scripts
 }
 
 # Start of script

@@ -74,7 +74,7 @@ jobs:
           mkdir -p ~/.gnupg/
           printf "${{ secrets.PACKAGE_PRIVATE_KEY }}" | base64 --decode > ~/.gnupg/private.key
           gpg --batch --import ~/.gnupg/private.key
-          $GITHUB_WORKSPACE/.github/scripts/build-debian-package.sh ${{ steps.init.outputs.stage }}  ${{ steps.init.outputs.distro }}  ${{ steps.init.outputs.codename }}  ${{ steps.init.outputs.arch }} $GITHUB_WORKSPACE/generated-repo ${{ steps.init.outputs.repo_url }} /tmp/package-build default
+          $GITHUB_WORKSPACE/.github/scripts/build-debian-package.sh $GITHUB_WORKSPACE ${{ steps.init.outputs.stage }}  ${{ steps.init.outputs.distro }}  ${{ steps.init.outputs.codename }}  ${{ steps.init.outputs.arch }} $GITHUB_WORKSPACE/generated-repo ${{ steps.init.outputs.repo_url }} /tmp/package-build default
       - name: Push repo to S3
         if: steps.git-changes.outputs.changed == 1
         uses: prewk/s3-cp-action@v2
