@@ -93,7 +93,7 @@ jobs:
           retention-days: 1
   update-manifests:
     runs-on: ubuntu-20.04
-    needs: find-updates
+    needs: build
     steps:
       - uses: actions/checkout@v2
       - name: Download artifacts
