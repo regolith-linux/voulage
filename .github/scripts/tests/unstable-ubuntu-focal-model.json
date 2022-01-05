@@ -5,20 +5,20 @@
   "packages": {
     "root-thing": {
       "source": "git@github.com:kgilmer/xrescat.git",
-      "branch": "master"
+      "ref": "master"
     },
     "to-be-removed-thing": null,
     "unstable-stage-thing": {
       "source": "git@github.com:kgilmer/xrescat.git",
-      "branch": "master"
+      "ref": "master"
     },
     "ubuntu-distro-thing": {
       "source": "git@github.com:kgilmer/xrescat.git",
-      "branch": "master"
+      "ref": "master"
     },
     "focal-codename-thing": {
       "source": "git@github.com:kgilmer/xrescat.git",
-      "branch": "master"
+      "ref": "master"
     }
   }
 }

@@ -1,4 +1,4 @@
-name: Build .deb Packages - Publish to S3
+name: .deb -> S3
 
 on:
   push:

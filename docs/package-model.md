@@ -11,7 +11,7 @@
   "packages": {
     "<package name>": {
       "source": "<public git url>",
-      "branch": "<branch, tag, or commit>"
+      "ref": "<branch, tag, or commit>"
     }
   }
 }
