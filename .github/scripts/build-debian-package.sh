@@ -203,15 +203,15 @@ setup
 
 PACKAGE_CHANGES=$(git diff --diff-filter=AM | grep '^[+|-][^+|-]' | cut -c2- | uniq | sort)
 
-if [ -z $PACKAGE_CHANGES ]; then
+if [ -z "$PACKAGE_CHANGES" ]; then
   echo "No changes found, exiting."
   exit 0
 fi
 
 while IFS= read -r PKG_LINE; do
-  PACKAGE_NAME=$(echo $PKG_LINE | cut -d" " -f1)
-  PACKAGE_URL=$(echo $PKG_LINE | cut -d" " -f2)
-  PACKAGE_REF=$(echo $PKG_LINE | cut -d" " -f3)
+  PACKAGE_NAME=$(echo "$PKG_LINE" | cut -d" " -f1)
+  PACKAGE_URL=$(echo "$PKG_LINE" | cut -d" " -f2)
+  PACKAGE_REF=$(echo "$PKG_LINE" | cut -d" " -f3)
 
   checkout
   update_changelog
