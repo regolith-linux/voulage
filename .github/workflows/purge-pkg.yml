@@ -51,7 +51,8 @@ jobs:
           stage=${{ github.event.inputs.stage }}
           arch=${{ github.event.inputs.arch }}
 
-          find .
+          whoami
+          ls -l generated-repo/db/lockfile
 
           # Remove package from debian repo
           reprepro --basedir generated-repo removesrc $codename $pkg_name
