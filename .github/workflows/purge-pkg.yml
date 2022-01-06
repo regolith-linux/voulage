@@ -50,8 +50,10 @@ jobs:
           stage=${{ github.event.inputs.stage }}
           arch=${{ github.event.inputs.arch }}
 
+          find .
+
           # Remove package from debian repo
-          reprepro --basedir generated-repo/$stage/$distro/$codename/$arch/ removesrc $codename $pkg_name
+          reprepro --basedir generated-repo/$stage/$distro/$codename/$arch removesrc $codename $pkg_name
 
           # Remove package manifest entry (causes rebuild)
           sed -i /^$pkg_name[[:space:]]/d stage/$stage/$distro/$codename/$arch/manifest.txt
