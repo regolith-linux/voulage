@@ -37,7 +37,7 @@ jobs:
           aws_access_key_id: ${{ secrets.AWS_ACCESS_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_KEY }}
           source: 's3://regolith-${{ github.event.inputs.stage }}-${{ github.event.inputs.distro }}-${{ github.event.inputs.codename }}-${{ github.event.inputs.arch }}'
-          dest: 'generated-repo'
+          dest: '$GITHUB_WORKSPACE/generated-repo'
       - name: Purge Package
         id: purge
         run: |
