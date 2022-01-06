@@ -51,7 +51,7 @@ jobs:
           stage=${{ github.event.inputs.stage }}
           arch=${{ github.event.inputs.arch }}
 
-          chown -R runner generated-repo
+          sudo chown -R runner generated-repo
           whoami
           ls -l generated-repo/
           ls -l generated-repo/db
