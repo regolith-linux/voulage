@@ -171,7 +171,6 @@ generate_reprepro_dist() {
 
 # Traverse the stage tree and execute any found setup.sh scripts
 source_setup_scripts() {
-  set -x
   local setup_script_locations=(
     "$REPO_ROOT/stage/setup.sh"
     "$REPO_ROOT/stage/$STAGE/setup.sh"

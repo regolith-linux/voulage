@@ -1,0 +1,75 @@
+name: Purge Package
+
+on:
+  workflow_dispatch:
+    inputs:
+      stage:
+        description: 'Stage (unstable, testing, release)'
+        required: true
+      distro:
+        description: 'Distro (debian, ubuntu)'
+        required: true
+      codename:
+        description: 'Codename (focal, impish, bullseye'
+        required: true
+      arch:
+        description: 'Arch: (amd64, arm64)'
+        required: true
+      package:
+        description: 'Package Name'
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Env Setup
+        run: |
+          sudo apt update
+          sudo apt install -y devscripts reprepro
+          mkdir -p ~/.gnupg/
+          printf "${{ secrets.PACKAGE_PRIVATE_KEY }}" | base64 --decode > ~/.gnupg/private.key
+          gpg --batch --import ~/.gnupg/private.key
+      - name: Pull repo from S3
+        uses: prewk/s3-cp-action@v2
+        with:
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_KEY }}
+          source: 's3://regolith-${{ github.event.inputs.stage }}-${{ github.event.inputs.distro }}-${{ github.event.inputs.codename }}-${{ github.event.inputs.arch }}'
+          dest: 'generated-repo'
+      - name: Purge Package
+        id: purge
+        run: |
+          set -x
+          export DEBEMAIL=regolith.linux@gmail.com
+          export DEBFULLNAME="Regolith Linux"
+          pkg_name=${{ github.event.inputs.package }}
+          distro=${{ github.event.inputs.distro }}
+          codename=${{ github.event.inputs.codename }}
+          stage=${{ github.event.inputs.stage }}
+          arch=${{ github.event.inputs.arch }}
+
+          # Remove package from debian repo
+          reprepro --basedir generated-repo/$stage/$distro/$codename/$arch/ removesrc $codename $pkg_name
+
+          # Remove package manifest entry (causes rebuild)
+          sed -i /^$pkg_name[[:space:]]/d stage/$stage/$distro/$codename/$arch/manifest.txt
+      - name: Push repo to S3
+        if: steps.git-changes.outputs.changed == 1
+        uses: prewk/s3-cp-action@v2
+        with:
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_KEY }}
+          source: 'generated-repo'
+          dest: 's3://regolith-${{ github.event.inputs.stage }}-${{ github.event.inputs.distro }}-${{ github.event.inputs.codename }}-${{ github.event.inputs.arch }}'
+          flags: --recursive
+      - name: Commit Changes
+        run: |
+          set -x
+          git pull
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add stage/*
+          git commit -am "Automated package purge for ${{ github.event.inputs.package }}"
+          git push origin ${{ github.ref }}
