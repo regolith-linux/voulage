@@ -73,5 +73,5 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add stage/*
-          git commit -am "Automated package purge for ${{ github.event.inputs.package }}"
-          git push origin ${{ github.ref }}
+          git commit -am "Automated package purge for ${{ github.event.inputs.package }}" || true
+          git push origin ${{ github.ref }} || true
