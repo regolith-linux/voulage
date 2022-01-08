@@ -4,7 +4,7 @@ set -e
 set -x
 
 handle_package() {
-    local MANIFEST_PATH="$REPO_ROOT/stage/$STAGE/$DISTRO/$CODENAME/$ARCH/"
+    local MANIFEST_PATH="$REPO_ROOT/stage/$STAGE/$DISTRO/$CODENAME/$ARCH"
     local MANIFEST_FILE="$MANIFEST_PATH/manifest.txt"
 
     if [ ! -d "$MANIFEST_PATH" ]; then
@@ -14,7 +14,9 @@ handle_package() {
     # Get git hash
     local COMMIT_HASH=$(git ls-remote $PACAKGE_SOURCE_URL $PACKAGE_SOURCE_REF | awk '{ print $1}')
 
-    echo "$PACKAGE_NAME $PACAKGE_SOURCE_URL $PACKAGE_SOURCE_REF $COMMIT_HASH" >> "$MANIFEST_FILE"      
+    echo "$PACKAGE_NAME $PACAKGE_SOURCE_URL $PACKAGE_SOURCE_REF $COMMIT_HASH" >> "$MANIFEST_FILE"  
+
+    echo "Updated manifest $MANIFEST_FILE for package $PACKAGE_NAME"    
 }
 
 compute_package_diff() {
