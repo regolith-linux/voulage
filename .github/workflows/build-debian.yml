@@ -11,38 +11,19 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ matrix.host-os }}
-    strategy:
-      matrix:
-        host-os: [ubuntu-20.04, [self-hosted, Linux, ARM64]]
-        stage: [unstable, testing, release]
-        distro-codename: [ubuntu-focal, ubuntu-impish, debian-bullseye]        
-        include:
-          - host-os: ubuntu-20.04
-            arch: amd64
-          - host-os: [self-hosted, Linux, ARM64]
-            arch: arm64
-          - distro-codename: ubuntu-focal
-            distro: ubuntu
-            codename: focal            
-          - distro-codename: ubuntu-impish
-            distro: ubuntu
-            codename: impish            
-          - distro-codename: debian-bullseye
-            distro: debian
-            codename: bullseye
+    runs-on: 'ubuntu-20.04'    
     steps:
       - name: Set Job Parameters
         id: init
         run: |
-          echo ::set-output name=stage::${{ matrix.stage }}
-          echo ::set-output name=distro::${{ matrix.distro }}
-          echo ::set-output name=codename::${{ matrix.codename }}
-          echo ::set-output name=arch::${{ matrix.arch }}
-          echo ::set-output name=target::${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}
-          echo ::set-output name=s3_bucket::regolith-${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}
-          echo ::set-output name=repo_url::https://regolith-${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}.s3.us-east-2.amazonaws.com
-          echo ::set-output name=manifest_file::$GITHUB_WORKSPACE/stage/${{ matrix.stage }}/${{ matrix.distro }}/${{ matrix.codename }}/${{ matrix.arch }}/manifest.txt
+          echo ::set-output name=stage::unstable
+          echo ::set-output name=distro::ubuntu
+          echo ::set-output name=codename::focal
+          echo ::set-output name=arch::amd64
+          echo ::set-output name=target::unstable-ubuntu-focal-amd64
+          # echo ::set-output name=s3_bucket::regolith-${{ steps.init.outputs.stage }}-${{ steps.init.outputs.distro }}-${{ steps.init.outputs.codename }}-${{ steps.init.outputs.arch }}
+          echo ::set-output name=repo_url::https://regolith-unstable-ubuntu-focal-amd64.s3.us-east-2.amazonaws.com
+          echo ::set-output name=manifest_file::$GITHUB_WORKSPACE/stage/unstable/ubuntu/focal/amd64/${{ matrix.arch }}/manifest.txt
       - uses: actions/checkout@v2
       - name: Find Package Updates
         run: |
@@ -57,7 +38,7 @@ jobs:
           echo ::set-output name=package_build_list::$PKG_LIST
           echo "Updated packages: $PKG_LIST"
       - name: Pull repo from S3
-        if: steps.git-changes.outputs.changed == 1
+        if: steps.git-changes.outputs.changed == 1 && s3_bucket != ""
         uses: prewk/s3-cp-action@v2
         with:
           aws_access_key_id: ${{ secrets.AWS_ACCESS_ID }}
@@ -76,7 +57,7 @@ jobs:
           gpg --batch --import ~/.gnupg/private.key
           $GITHUB_WORKSPACE/.github/scripts/build-debian-package.sh $GITHUB_WORKSPACE ${{ steps.init.outputs.stage }}  ${{ steps.init.outputs.distro }}  ${{ steps.init.outputs.codename }}  ${{ steps.init.outputs.arch }} $GITHUB_WORKSPACE/generated-repo ${{ steps.init.outputs.repo_url }} /tmp/package-build default
       - name: Push repo to S3
-        if: steps.git-changes.outputs.changed == 1
+        if: steps.git-changes.outputs.changed == 1 && s3_bucket != ""
         uses: prewk/s3-cp-action@v2
         with:
           aws_access_key_id: ${{ secrets.AWS_ACCESS_ID }}
