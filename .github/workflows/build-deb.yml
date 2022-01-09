@@ -69,6 +69,7 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_SECRET_KEY }}
           source: 's3://${{ steps.init.outputs.s3_bucket }}'
           dest: ${{ github.workspace }}/generated-repo
+          flags: --recursive
       - name: Build Setup
         if: steps.changes.outputs.changed == 1
         run: |
