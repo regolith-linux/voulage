@@ -77,6 +77,7 @@ jobs:
           ls
           ls ${{ github.workspace }}
           ls ${{ steps.init.outputs.PKG_REPO_PATH }}
+          find / | grep generated-repo
 
           if [ -d "${{ steps.init.outputs.PKG_REPO_PATH }}" ]; then
             mv ${{ github.workspace }}/generated-repo/* "${{ steps.init.outputs.PKG_REPO_PATH }}"
