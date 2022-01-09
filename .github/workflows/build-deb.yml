@@ -54,8 +54,8 @@ jobs:
         id: changes
         run: |
           set -x
-          echo $GITHUB_WORKSPACE/.github/scripts/main.sh $GITHUB_WORKSPACE "${{ steps.init.outputs.stage }}" "${{ steps.init.outputs.distro }}" "${{ steps.init.outputs.codename }}" "${{ steps.init.outputs.arch }}" "unneeded to check change" "unneeded to check change" check
-          CHANGE_OUTPUT=$($GITHUB_WORKSPACE/.github/scripts/main.sh $GITHUB_WORKSPACE "${{ steps.init.outputs.stage }}" "${{ steps.init.outputs.distro }}" "${{ steps.init.outputs.codename }}" "${{ steps.init.outputs.arch }}" "unneeded to check change" "unneeded to check change" check | tail -n1)
+          echo ${{ github.workspace }}/.github/scripts/main.sh ${{ github.workspace }}  "${{ steps.init.outputs.stage }}" "${{ steps.init.outputs.distro }}" "${{ steps.init.outputs.codename }}" "${{ steps.init.outputs.arch }}" "unneeded to check change" "unneeded to check change" check
+          CHANGE_OUTPUT=$(${{ github.workspace }}/.github/scripts/main.sh ${{ github.workspace }} "${{ steps.init.outputs.stage }}" "${{ steps.init.outputs.distro }}" "${{ steps.init.outputs.codename }}" "${{ steps.init.outputs.arch }}" "unneeded to check change" "unneeded to check change" check | tail -n1)
           if [ "$CHANGE_OUTPUT" == "No package changes found, exiting." ]; then
             echo ::set-output name=changes::0
           else
@@ -89,8 +89,8 @@ jobs:
           mkdir -p ~/.gnupg/
           printf "${{ secrets.PACKAGE_PRIVATE_KEY }}" | base64 --decode > ~/.gnupg/private.key
           gpg --batch --import ~/.gnupg/private.key
-          $GITHUB_WORKSPACE/.github/scripts/main.sh \
-            $GITHUB_WORKSPACE \
+          ${{ github.workspace }}/.github/scripts/main.sh \
+            ${{ github.workspace }} \
             "${{ steps.init.outputs.stage }}" \
             "${{ steps.init.outputs.distro }}" \
             "${{ steps.init.outputs.codename }}" \
