@@ -54,10 +54,7 @@ jobs:
       - name: Check for changes
         id: changes
         run: |
-          set -x
-          echo ${{ github.workspace }}
-          ls -l ${{ github.workspace }}
-          ${{ github.workspace }}/.github/scripts/main.sh ${{ github.workspace }} "${{ steps.init.outputs.stage }}" "${{ steps.init.outputs.distro }}" "${{ steps.init.outputs.codename }}" "${{ steps.init.outputs.arch }}" "unneeded to check change" "unneeded to check change" check
+          set -x         
           CHANGE_OUTPUT=$(${{ github.workspace }}/.github/scripts/main.sh ${{ github.workspace }} "${{ steps.init.outputs.stage }}" "${{ steps.init.outputs.distro }}" "${{ steps.init.outputs.codename }}" "${{ steps.init.outputs.arch }}" "unneeded to check change" "unneeded to check change" check | tail -n1)
           if [ "$CHANGE_OUTPUT" == "No package changes found, exiting." ]; then
             echo ::set-output name=changes::0
@@ -65,7 +62,7 @@ jobs:
             echo ::set-output name=changes::1
           fi
       - name: Pull Repo
-        if: ${{ steps.changes.outputs.changed == 1 }}
+        if: steps.changes.outputs.changed == 1
         uses: prewk/s3-cp-action@v2
         with:
           aws_access_key_id: ${{ secrets.AWS_ACCESS_ID }}
@@ -73,7 +70,7 @@ jobs:
           source: 's3://${{ steps.init.outputs.s3_bucket }}'
           dest: 'generated-repo'
       - name: Build Setup
-        if: ${{ steps.changes.outputs.changed == 1 }}
+        if: steps.changes.outputs.changed == 1
         run: |
           set -x
           if [ -d "${{ steps.init.outputs.PKG_REPO_PATH }}" ]; then
@@ -82,7 +79,7 @@ jobs:
             mkdir -p "${{ steps.init.outputs.PKG_REPO_PATH }}"
           fi
       - name: Build
-        if: ${{ steps.changes.outputs.changed == 1 }}
+        if: steps.changes.outputs.changed == 1
         run: |
           set -x
           export DEBEMAIL="regolith.linux@gmail.com"
@@ -103,7 +100,7 @@ jobs:
             build
           mv "${{ steps.init.outputs.PKG_REPO_PATH }}" generated_repo
       - name: Push repo to S3
-        if: ${{ steps.changes.outputs.changed == 1 }}
+        if: steps.changes.outputs.changed == 1
         uses: prewk/s3-cp-action@v2
         with:
           aws_access_key_id: ${{ secrets.AWS_ACCESS_ID }}
