@@ -14,9 +14,9 @@ jobs:
     runs-on: ${{ matrix.host-os }}
     strategy:
       matrix:
-        host-os: [ubuntu-20.04, [self-hosted, Linux, ARM64]]
-        stage: [unstable, testing, release]
-        distro-codename: [ubuntu-focal, ubuntu-impish, debian-bullseye]        
+        host-os: ubuntu-20.04 # [ubuntu-20.04, [self-hosted, Linux, ARM64]]
+        stage: [unstable] # [unstable, testing, release]
+        distro-codename: [ubuntu-focal] # [ubuntu-focal, ubuntu-impish, debian-bullseye]        
         include:
           - host-os: ubuntu-20.04
             arch: amd64
@@ -47,6 +47,7 @@ jobs:
           echo ::set-output name=repo_url::https://regolith-${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}.s3.us-east-2.amazonaws.com
       - name: Pull Manifest
         run: |
+          set -x
           manifest_url="https://${{ steps.init.outputs.s3_bucket }}.us-east-2.amazonaws.com/manifest.txt"
           wget -P "${{ steps.init.outputs.PKG_REPO_PATH }}" "$manifest_url"
       - name: Check for changes
