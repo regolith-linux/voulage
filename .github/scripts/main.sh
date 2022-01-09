@@ -110,6 +110,19 @@ checkout() {
   cd - >/dev/null 2>&1 || exit
 }
 
+sanitize_git() {
+  if [ -d ".github" ]; then
+    rm -Rf .github
+    echo "Removed $(pwd).github directory before building to appease debuild."
+  fi
+  if [ -d ".git" ]; then
+    rm -Rf .git
+    echo "Removed $(pwd).git directory before building to appease debuild."
+  fi
+}
+
+#### Debian specific functions
+
 # Update the changelog to specify the target distribution codename
 update_changelog() {
   cd "${PKG_BUILD_DIR:?}/$PACKAGE_NAME"
@@ -149,17 +162,6 @@ stage_source() {
   tar cfzv $debian_package_name\_${debian_version}.orig.tar.gz --exclude .git\* --exclude debian $PACKAGE_NAME/../$PACKAGE_NAME
 
   popd
-}
-
-sanitize_git() {
-  if [ -d ".github" ]; then
-    rm -Rf .github
-    echo "Removed $(pwd).github directory before building to appease debuild."
-  fi
-  if [ -d ".git" ]; then
-    rm -Rf .git
-    echo "Removed $(pwd).git directory before building to appease debuild."
-  fi
 }
 
 build_src_package() {
@@ -243,6 +245,18 @@ generate_reprepro_dist() {
     echo "SignWith: $APT_KEY" >> "$PKG_REPO_PATH/conf/distributions"
 }
 
+# Setup debian repo
+setup() {
+  if [ ! -d "$PKG_REPO_PATH/conf" ]; then
+    echo "Package metadata not found, creating.."
+    generate_reprepro_dist
+  fi
+
+  source_setup_scripts
+}
+
+#### END Debian specific functions
+
 # Traverse the stage tree and execute any found setup.sh scripts
 source_setup_scripts() {
   local setup_script_locations=(
@@ -260,16 +274,6 @@ source_setup_scripts() {
       source "$setup_file"
     fi
   done
-}
-
-# Setup debian repo
-setup() {
-  if [ ! -d "$PKG_REPO_PATH/conf" ]; then
-    echo "Package metadata not found, creating.."
-    generate_reprepro_dist
-  fi
-
-  source_setup_scripts
 }
 
 build_packages() {
@@ -362,7 +366,6 @@ fi
 
 setup
 build_packages
-
 
 #### Cleanup
 
