@@ -100,15 +100,13 @@ jobs:
             "${{ steps.init.outputs.repo_url }}" \
             Default \
             build
-          set -x
           mv "${{ steps.init.outputs.PKG_REPO_PATH }}" ${{ github.workspace }}/generated_repo
-          ls -l ${{ github.workspace }}/generated_repo
       - name: Push repo to S3
         if: steps.changes.outputs.changed == 1
         uses: prewk/s3-cp-action@v2
         with:
           aws_access_key_id: ${{ secrets.AWS_ACCESS_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_KEY }}
-          source: ${{ github.workspace }}/generated-repo
+          source: '${{ github.workspace }}/generated-repo'
           dest: 's3://${{ steps.init.outputs.s3_bucket }}'
           flags: --recursive
