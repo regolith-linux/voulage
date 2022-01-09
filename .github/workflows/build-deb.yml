@@ -57,9 +57,9 @@ jobs:
           set -x         
           CHANGE_OUTPUT=$(${{ github.workspace }}/.github/scripts/main.sh ${{ github.workspace }} "${{ steps.init.outputs.stage }}" "${{ steps.init.outputs.distro }}" "${{ steps.init.outputs.codename }}" "${{ steps.init.outputs.arch }}" "unneeded to check change" "unneeded to check change" check | tail -n1)
           if [ "$CHANGE_OUTPUT" == "No package changes found, exiting." ]; then
-            echo ::set-output name=changes::0
+            echo ::set-output name=changed::0
           else
-            echo ::set-output name=changes::1
+            echo ::set-output name=changed::1
           fi
       - name: Pull Repo
         if: steps.changes.outputs.changed == 1
