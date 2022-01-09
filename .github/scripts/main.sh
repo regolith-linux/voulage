@@ -297,8 +297,6 @@ build_packages() {
 
 #### Init input params
 
-echo "KGWH $1"
-
 REPO_ROOT=$(realpath "$1")
 STAGE=$2
 DISTRO=$3
