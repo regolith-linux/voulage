@@ -63,12 +63,12 @@ jobs:
           fi
       - name: Pull Repo
         if: steps.changes.outputs.changed == 1
-        uses: keithweaver/aws-s3-github-action@master
+        uses: prewk/s3-cp-action@v2
         with:
-          command: ls
-          source: 's3://${{ steps.init.outputs.s3_bucket }}'          
           aws_access_key_id: ${{ secrets.AWS_ACCESS_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_KEY }}
+          source: 's3://${{ steps.init.outputs.s3_bucket }}'
+          dest: ${{ github.workspace }}/generated-repo
       - name: Build Setup
         if: steps.changes.outputs.changed == 1
         run: |
