@@ -20,17 +20,17 @@ jobs:
         include:
           - host-os: ubuntu-20.04
             arch: amd64
-          - host-os: [self-hosted, Linux, ARM64]
-            arch: arm64
+          #- host-os: [self-hosted, Linux, ARM64]
+          #  arch: arm64
           - distro-codename: ubuntu-focal
             distro: ubuntu
             codename: focal            
-          - distro-codename: ubuntu-impish
-            distro: ubuntu
-            codename: impish            
-          - distro-codename: debian-bullseye
-            distro: debian
-            codename: bullseye
+          #- distro-codename: ubuntu-impish
+          #  distro: ubuntu
+          #  codename: impish            
+          #- distro-codename: debian-bullseye
+          #  distro: debian
+          #  codename: bullseye
     steps:
       - name: Set Job Parameters
         id: init
