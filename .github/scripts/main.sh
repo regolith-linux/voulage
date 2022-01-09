@@ -1,6 +1,5 @@
 #!/bin/bash
 set -e
-set -x
 
 # Emit manifest entry line for package
 handle_package() {
@@ -218,9 +217,11 @@ publish_deb() {
   fi
  
   DEB_CONTROL_FILE="$PKG_BUILD_DIR/$PACKAGE_NAME/debian/control"
+  ALL_ARCH="$ARCH,all"
  
-  for target_arch in $(echo $ARCH | sed "s/,/ /g"); do
+  for target_arch in $(echo $ALL_ARCH | sed "s/,/ /g"); do
       cat "$DEB_CONTROL_FILE" | grep ^Package: | cut -d' ' -f2 | while read -r bin_pkg; do
+          set -x
           DEB_BIN_PKG_PATH="$(pwd)/${bin_pkg}_${version}_${target_arch}.deb"
           if [ -f "$DEB_BIN_PKG_PATH" ]; then
               echo "Ingesting binary package ${bin_pkg} into $PKG_REPO_PATH"
