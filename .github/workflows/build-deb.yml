@@ -49,10 +49,11 @@ jobs:
         run: |
           set -x
           manifest_url="https://${{ steps.init.outputs.s3_bucket }}.s3.us-east-2.amazonaws.com/manifest.txt"
-          wget -P "${{ steps.init.outputs.PKG_REPO_PATH }}" "$manifest_url"
+          wget -P "${{ steps.init.outputs.PKG_REPO_PATH }}" "$manifest_url" || true
       - name: Check for changes
         id: changes
         run: |
+          set -x
           CHANGE_OUTPUT=$($GITHUB_WORKSPACE/.github/scripts/main.sh $GITHUB_WORKSPACE "${{ steps.init.outputs.stage }}" "${{ steps.init.outputs.distro }}" "${{ steps.init.outputs.codename }}" "${{ steps.init.outputs.arch }}" "unneeded to check change" "unneeded to check change" check | tail -n1)
           if [ "$CHANGE_OUTPUT" == "No package changes found, exiting." ]; then
             echo ::set-output name=changes::0
@@ -70,6 +71,7 @@ jobs:
       - name: Build Setup
         if: ${{ steps.changes.outputs.changed == 1 }}
         run: |
+          set -x
           if [ -d "${{ steps.init.outputs.PKG_REPO_PATH }}" ]; then
             mv generated-repo/* "${{ steps.init.outputs.PKG_REPO_PATH }}"
           else
@@ -78,6 +80,7 @@ jobs:
       - name: Build
         if: ${{ steps.changes.outputs.changed == 1 }}
         run: |
+          set -x
           export DEBEMAIL="regolith.linux@gmail.com"
           export DEBFULLNAME="Regolith Linux"
           sudo apt update
