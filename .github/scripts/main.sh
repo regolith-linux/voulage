@@ -230,7 +230,6 @@ publish_deb() {
   done
 }
 
-
 # Create repo dist file
 generate_reprepro_dist() {      
     mkdir -p "$PKG_REPO_PATH/conf"
@@ -299,17 +298,27 @@ STAGE=$2
 DISTRO=$3
 CODENAME=$4
 ARCH=$5
+PACKAGE_REPO_URL=$6
+APT_KEY=$7
 
 #### Init globals
 
 ROOT_MODEL_PATH="$REPO_ROOT/stage/package-model.json"
 MANIFEST_PATH="/tmp/manifests"
 PKG_REPO_PATH="/tmp/repo"
-PACKAGE_REPO_URL="someurl"  #FIXME
-APT_KEY="someaptkey"        #FIXME
 PKG_BUILD_DIR="/tmp/packages"
 
 #### Setup files
+
+if [ -d "$MANIFEST_PATH" ]; then
+  echo "Deleting pre-existing manifest dir $MANIFEST_PATH"
+  rm -Rf "$MANIFEST_PATH"
+fi
+
+if [ -d "$PKG_BUILD_DIR" ]; then
+  echo "Deleting pre-existing package build dir $PKG_BUILD_DIR"
+  rm -Rf "$PKG_BUILD_DIR"
+fi
 
 if [ ! -d "$MANIFEST_PATH" ]; then
   mkdir -p $MANIFEST_PATH
@@ -357,5 +366,5 @@ build_packages
 
 #### Cleanup
 
-rm "$PREF_MANIFEST_FILE"
-mv "$NEXT_MANIFEST_FILE" "$PREF_MANIFEST_FILE"
+rm "$PREV_MANIFEST_FILE"
+mv "$NEXT_MANIFEST_FILE" "$PREV_MANIFEST_FILE"
