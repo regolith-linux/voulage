@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ matrix.host-os }}
+    runs-on: ubuntu-20.04 #${{ matrix.host-os }}
     strategy:
       matrix:
         host-os: [ubuntu-20.04] # [ubuntu-20.04, [self-hosted, Linux, ARM64]]
