@@ -54,7 +54,7 @@ jobs:
         id: changes
         run: |
           set -x
-          echo ${{ github.workspace }}/.github/scripts/main.sh ${{ github.workspace }}  "${{ steps.init.outputs.stage }}" "${{ steps.init.outputs.distro }}" "${{ steps.init.outputs.codename }}" "${{ steps.init.outputs.arch }}" "unneeded to check change" "unneeded to check change" check
+          export SHELLOPTS
           CHANGE_OUTPUT=$(${{ github.workspace }}/.github/scripts/main.sh ${{ github.workspace }} "${{ steps.init.outputs.stage }}" "${{ steps.init.outputs.distro }}" "${{ steps.init.outputs.codename }}" "${{ steps.init.outputs.arch }}" "unneeded to check change" "unneeded to check change" check | tail -n1)
           if [ "$CHANGE_OUTPUT" == "No package changes found, exiting." ]; then
             echo ::set-output name=changes::0
