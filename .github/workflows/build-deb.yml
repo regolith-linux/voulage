@@ -1,0 +1,105 @@
+name: .deb -> S3
+
+on:
+  push:
+    branches: main
+    paths:
+      - 'stage/**'
+      - '.github/**'
+  repository_dispatch:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ${{ matrix.host-os }}
+    strategy:
+      matrix:
+        host-os: [ubuntu-20.04, [self-hosted, Linux, ARM64]]
+        stage: [unstable, testing, release]
+        distro-codename: [ubuntu-focal, ubuntu-impish, debian-bullseye]        
+        include:
+          - host-os: ubuntu-20.04
+            arch: amd64
+          - host-os: [self-hosted, Linux, ARM64]
+            arch: arm64
+          - distro-codename: ubuntu-focal
+            distro: ubuntu
+            codename: focal            
+          - distro-codename: ubuntu-impish
+            distro: ubuntu
+            codename: impish            
+          - distro-codename: debian-bullseye
+            distro: debian
+            codename: bullseye
+    steps:
+      - name: Set Job Parameters
+        id: init
+        run: |
+          echo ::set-output name=MANIFEST_PATH::"/tmp/manifests"
+          echo ::set-output name=PKG_REPO_PATH::"/tmp/repo"
+          echo ::set-output name=PKG_BUILD_DIR::"/tmp/packages"
+          echo ::set-output name=stage::${{ matrix.stage }}
+          echo ::set-output name=distro::${{ matrix.distro }}
+          echo ::set-output name=codename::${{ matrix.codename }}
+          echo ::set-output name=arch::${{ matrix.arch }}
+          echo ::set-output name=target::${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}
+          echo ::set-output name=s3_bucket::regolith-${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}
+          echo ::set-output name=repo_url::https://regolith-${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}.s3.us-east-2.amazonaws.com
+      - name: Pull Manifest
+        run: |
+          manifest_url="https://${{ steps.init.outputs.s3_bucket }}.us-east-2.amazonaws.com/manifest.txt"
+          wget -P "${{ steps.init.outputs.PKG_REPO_PATH }}" "$manifest_url"
+      - name: Check for changes
+        id: changes
+        run: |
+          CHANGE_OUTPUT=$($GITHUB_WORKSPACE/.github/scripts/main.sh $GITHUB_WORKSPACE "${{ steps.init.outputs.stage }}" "${{ steps.init.outputs.distro }}" "${{ steps.init.outputs.codename }}" "${{ steps.init.outputs.arch }}" "unneeded to check change" "unneeded to check change" check | tail -n1)
+          if [ "$CHANGE_OUTPUT" == "No package changes found, exiting." ]; then
+            echo ::set-output name=changes::0
+          else
+            echo ::set-output name=changes::1
+          fi
+      - name: Pull Repo
+        if: ${{ steps.changes.outputs.changed == 1 }}
+        uses: prewk/s3-cp-action@v2
+        with:
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_KEY }}
+          source: 's3://${{ steps.init.outputs.s3_bucket }}'
+          dest: 'generated-repo'
+      - name: Build Setup
+        if: ${{ steps.changes.outputs.changed == 1 }}
+        run: |
+          if [ -d "${{ steps.init.outputs.PKG_REPO_PATH }}" ]; then
+            mv generated-repo/* "${{ steps.init.outputs.PKG_REPO_PATH }}"
+          else
+            mkdir -p "${{ steps.init.outputs.PKG_REPO_PATH }}"
+          fi
+      - name: Build
+        if: ${{ steps.changes.outputs.changed == 1 }}
+        run: |
+          export DEBEMAIL="regolith.linux@gmail.com"
+          export DEBFULLNAME="Regolith Linux"
+          sudo apt update
+          sudo apt install -y devscripts reprepro
+          mkdir -p ~/.gnupg/
+          printf "${{ secrets.PACKAGE_PRIVATE_KEY }}" | base64 --decode > ~/.gnupg/private.key
+          gpg --batch --import ~/.gnupg/private.key
+          $GITHUB_WORKSPACE/.github/scripts/main.sh \
+            $GITHUB_WORKSPACE \
+            "${{ steps.init.outputs.stage }}" \
+            "${{ steps.init.outputs.distro }}" \
+            "${{ steps.init.outputs.codename }}" \
+            "${{ steps.init.outputs.arch }}" \
+            "${{ steps.init.outputs.repo_url }}" \
+            Default \
+            build
+          mv "${{ steps.init.outputs.PKG_REPO_PATH }}" generated_repo
+      - name: Push repo to S3
+        if: ${{ steps.changes.outputs.changed == 1 }}
+        uses: prewk/s3-cp-action@v2
+        with:
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_KEY }}
+          source: 'generated-repo'
+          dest: 's3://${{ steps.init.outputs.s3_bucket }}'
+          flags: --recursive

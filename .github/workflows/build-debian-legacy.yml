@@ -1,12 +1,6 @@
-name: .deb -> S3
+name: .deb -> S3 legacy
 
 on:
-  push:
-    branches: main
-    paths:
-      - 'stage/**'
-      - '.github/**'
-  repository_dispatch:
   workflow_dispatch:
 
 jobs:

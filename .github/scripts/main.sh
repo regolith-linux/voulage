@@ -6,16 +6,16 @@ handle_package() {
     # Get git hash
     local COMMIT_HASH=$(git ls-remote $PACAKGE_SOURCE_URL $PACKAGE_SOURCE_REF | awk '{ print $1}')
 
-    echo "$PACKAGE_NAME $PACAKGE_SOURCE_URL $PACKAGE_SOURCE_REF $COMMIT_HASH" >> "$NEXT_MANIFEST_FILE"  
+    echo "$PACKAGE_NAME $PACAKGE_SOURCE_URL $PACKAGE_SOURCE_REF $COMMIT_HASH" >> "$NEXT_MANIFEST_FILE"
 
-    echo "Updated manifest $NEXT_MANIFEST_FILE for package $PACKAGE_NAME"    
+    echo "Updated manifest $NEXT_MANIFEST_FILE for package $PACKAGE_NAME"
 }
 
 # Traverse each package in the model and call handle_package
 traverse_package_model() {
     jq -rc 'delpaths([path(.[][]| select(.==null))]) | .packages | keys | .[]' < "$PACKAGE_MODEL_FILE" | while IFS='' read -r package; do
         # Set the package name and model desc
-        PACKAGE_NAME="$package"    
+        PACKAGE_NAME="$package"
 
         # If a package filter was specified, match filter.
         if [[ -n "$PACKAGE_FILTER" && "$PACKAGE_FILTER" != "$PACKAGE_NAME" ]]; then
@@ -25,7 +25,7 @@ traverse_package_model() {
         PACAKGE_SOURCE_URL=$(jq -r ".packages.\"$package\".source" < "$PACKAGE_MODEL_FILE")
         PACKAGE_SOURCE_REF=$(jq -r ".packages.\"$package\".ref" < "$PACKAGE_MODEL_FILE")
 
-        # Apply functions to package model        
+        # Apply functions to package model
         handle_package
     done
 }
@@ -50,7 +50,7 @@ merge_models() {
   WORKING_STAGE_MODEL="$MANIFEST_PATH/$STAGE-model.json"
   if [ -f "$STAGE_PACKAGE_MODEL" ]; then
     jq -s '.[0] * .[1]' "$WORKING_ROOT_MODEL" "$STAGE_PACKAGE_MODEL" > "$WORKING_STAGE_MODEL"
-  else 
+  else
     cp "$WORKING_ROOT_MODEL" "$WORKING_STAGE_MODEL"
   fi
 
@@ -59,7 +59,7 @@ merge_models() {
   WORKING_DISTRO_MODEL="$MANIFEST_PATH/$STAGE-$DISTRO-model.json"
   if [ -f "$DISTRO_PACKAGE_MODEL" ]; then
     jq -s '.[0] * .[1]' "$WORKING_STAGE_MODEL" "$DISTRO_PACKAGE_MODEL" > "$WORKING_DISTRO_MODEL"
-  else 
+  else
     cp "$WORKING_STAGE_MODEL" "$WORKING_DISTRO_MODEL"
   fi
 
@@ -68,7 +68,7 @@ merge_models() {
   WORKING_CODENAME_MODEL="$MANIFEST_PATH/$STAGE-$DISTRO-$CODENAME-model.json"
   if [ -f "$CODENAME_PACKAGE_MODEL" ]; then
     jq -s '.[0] * .[1]' "$WORKING_DISTRO_MODEL" "$CODENAME_PACKAGE_MODEL" > "$WORKING_CODENAME_MODEL"
-  else 
+  else
     cp "$WORKING_DISTRO_MODEL" "$WORKING_CODENAME_MODEL"
   fi
 
@@ -77,7 +77,7 @@ merge_models() {
   WORKING_ARCH_MODEL="$MANIFEST_PATH/$STAGE-$DISTRO-$CODENAME-$ARCH-model.json"
   if [ -f "$ARCH_PACKAGE_MODEL" ]; then
     jq -s '.[0] * .[1]' "$WORKING_CODENAME_MODEL" "$ARCH_PACKAGE_MODEL" > "$WORKING_ARCH_MODEL"
-  else 
+  else
     cp "$WORKING_CODENAME_MODEL" "$WORKING_ARCH_MODEL"
   fi
 
@@ -184,7 +184,7 @@ build_bin_package() {
   popd
 }
 
-source_pkg_exists() {    
+source_pkg_exists() {
     SRC_PKG_VERSION=$(reprepro --basedir "$PKG_REPO_PATH" list "$CODENAME" "$1" | cut -d' ' -f3)
 
     SRC_PKG_BUILD_VERSION=$(echo $2 | cut -d'-' -f1)
@@ -215,26 +215,25 @@ publish_deb() {
       echo "Ingesting source package $debian_package_name into $PKG_REPO_PATH"
       reprepro --basedir "$PKG_REPO_PATH" include "$CODENAME" "$DEB_SRC_PKG_PATH"
   fi
- 
+
   DEB_CONTROL_FILE="$PKG_BUILD_DIR/$PACKAGE_NAME/debian/control"
   ALL_ARCH="$ARCH,all"
- 
+
   for target_arch in $(echo $ALL_ARCH | sed "s/,/ /g"); do
       cat "$DEB_CONTROL_FILE" | grep ^Package: | cut -d' ' -f2 | while read -r bin_pkg; do
-          set -x
           DEB_BIN_PKG_PATH="$(pwd)/${bin_pkg}_${version}_${target_arch}.deb"
           if [ -f "$DEB_BIN_PKG_PATH" ]; then
-              echo "Ingesting binary package ${bin_pkg} into $PKG_REPO_PATH"
+              echo "Ingesting binary package $DEB_BIN_PKG_PATH into $PKG_REPO_PATH"
               reprepro --basedir "$PKG_REPO_PATH" includedeb "$CODENAME" "$DEB_BIN_PKG_PATH"
           else
-              echo "Package $DEB_BIN_PKG_PATH does not exist for $target_arch"
+              echo "Package $bin_pkg does not exist for $target_arch"
           fi
       done
   done
 }
 
 # Create repo dist file
-generate_reprepro_dist() {      
+generate_reprepro_dist() {
     mkdir -p "$PKG_REPO_PATH/conf"
 
     echo "Origin: $PACKAGE_REPO_URL" > "$PKG_REPO_PATH/conf/distributions"
@@ -270,7 +269,7 @@ source_setup_scripts() {
 
   for setup_file in "${setup_script_locations[@]}"
   do
-    if [ -f "$setup_file" ]; then 
+    if [ -f "$setup_file" ]; then
       echo "Executing setup file $setup_file..."
       source "$setup_file"
     fi
@@ -305,6 +304,7 @@ CODENAME=$4
 ARCH=$5
 PACKAGE_REPO_URL=$6
 APT_KEY=$7
+MODE=$8
 
 #### Init globals
 
@@ -343,7 +343,7 @@ if [ ! -f "$PREV_MANIFEST_FILE" ]; then
   touch "$PREV_MANIFEST_FILE"
 fi
 
-# Delete pre-existing manifest before generating new 
+# Delete pre-existing manifest before generating new
 if [ -f "$NEXT_MANIFEST_FILE" ]; then
   rm "$NEXT_MANIFEST_FILE"
   echo "Deleted pre-existing manifest file $NEXT_MANIFEST_FILE"
@@ -355,7 +355,7 @@ merge_models
 traverse_package_model
 
 #### Find packages that need to be built
-
+echo Diffing "$PREV_MANIFEST_FILE" "$NEXT_MANIFEST_FILE"
 PACKAGE_CHANGES=$(diff "$PREV_MANIFEST_FILE" "$NEXT_MANIFEST_FILE" | grep '^[>][^>]' | cut -c3- | uniq | sort)
 
 if [ -z "$PACKAGE_CHANGES" ]; then
@@ -363,12 +363,16 @@ if [ -z "$PACKAGE_CHANGES" ]; then
   exit 0
 fi
 
-#### Build packages
+if [ "$MODE" == "build" ]; then
+  #### Build packages
 
-setup
-build_packages
+  setup
+  build_packages
 
-#### Cleanup
+  #### Cleanup
 
-rm "$PREV_MANIFEST_FILE"
-mv "$NEXT_MANIFEST_FILE" "$PREV_MANIFEST_FILE"
+  rm "$PREV_MANIFEST_FILE"
+  mv "$NEXT_MANIFEST_FILE" "$PREV_MANIFEST_FILE"
+else
+  echo "$PACKAGE_CHANGES"
+fi
