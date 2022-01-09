@@ -101,9 +101,7 @@ jobs:
             Default \
             build
           set -x
-          mv "${{ steps.init.outputs.PKG_REPO_PATH }}/generated_repo" ${{ github.workspace }}/
-          ls "${{ steps.init.outputs.PKG_REPO_PATH }}"
-          ls ${{ github.workspace }}
+          mv "${{ steps.init.outputs.PKG_REPO_PATH }}" ${{ github.workspace }}/generated_repo
       - name: Push repo to S3
         if: steps.changes.outputs.changed == 1
         uses: prewk/s3-cp-action@v2
