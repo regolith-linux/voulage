@@ -88,6 +88,7 @@ jobs:
           if [ -d "${{ steps.init.outputs.PKG_REPO_PATH }}" ]; then
             sudo chown -R runner ${{ github.workspace }}/generated-repo
             mv ${{ github.workspace }}/generated-repo/* "${{ steps.init.outputs.PKG_REPO_PATH }}" || true
+            ls ${{ steps.init.outputs.PKG_REPO_PATH }}
           else
             mkdir -p "${{ steps.init.outputs.PKG_REPO_PATH }}"
           fi
@@ -111,7 +112,7 @@ jobs:
             "${{ steps.init.outputs.repo_url }}" \
             Default \
             build
-          mv "${{ steps.init.outputs.PKG_REPO_PATH }}" ${{ github.workspace }}/generated-repo
+          mv "${{ steps.init.outputs.PKG_REPO_PATH }}/repo" ${{ github.workspace }}/generated-repo
       - name: Push to S3
         if: steps.changes.outputs.changed == 1
         run: |
