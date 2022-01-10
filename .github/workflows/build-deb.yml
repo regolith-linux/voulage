@@ -87,7 +87,7 @@ jobs:
           set -x
           if [ -d "${{ steps.init.outputs.PKG_REPO_PATH }}" ]; then
             sudo chown -R runner ${{ github.workspace }}/generated-repo
-            mv ${{ github.workspace }}/generated-repo/* "${{ steps.init.outputs.PKG_REPO_PATH }}"
+            mv ${{ github.workspace }}/generated-repo/* "${{ steps.init.outputs.PKG_REPO_PATH }}" || true
           else
             mkdir -p "${{ steps.init.outputs.PKG_REPO_PATH }}"
           fi
