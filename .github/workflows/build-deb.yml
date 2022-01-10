@@ -82,7 +82,7 @@ jobs:
         run: |
           set -x
           if [ -d "${{ steps.init.outputs.PKG_REPO_PATH }}" ]; then
-            sudo chown -R runner ${{ github.workspace }}/generated-repo
+            sudo chown -R $(whoami) ${{ github.workspace }}/generated-repo
             mv ${{ github.workspace }}/generated-repo/* "${{ steps.init.outputs.PKG_REPO_PATH }}/" || true
             ls ${{ steps.init.outputs.PKG_REPO_PATH }}
           else
