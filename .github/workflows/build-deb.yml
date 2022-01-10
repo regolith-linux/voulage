@@ -61,15 +61,11 @@ jobs:
           else
             echo ::set-output name=changed::1
           fi
-      - uses: actions/setup-python@v2
-        if: steps.changes.outputs.changed == 1
-        with:
-          python-version: '3.7'
       - name: Install AWS CLI
         if: steps.changes.outputs.changed == 1
         run: |
-          python -m pip install --upgrade pip
-          pip install awscli
+          sudo apt install -y python3-pip          
+          sudo pip install awscli
       - name: Pull from S3
         if: steps.changes.outputs.changed == 1
         run: |
