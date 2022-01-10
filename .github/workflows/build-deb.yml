@@ -70,6 +70,7 @@ jobs:
         if: steps.changes.outputs.changed == 1
         run: |
           set -x
+          rm -Rf ${{ github.workspace }}/generated-repo
           aws s3 sync \
             s3://${{ steps.init.outputs.s3_bucket }} \
             ${{ github.workspace }}/generated-repo \
