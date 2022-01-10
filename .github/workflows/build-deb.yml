@@ -112,13 +112,13 @@ jobs:
             "${{ steps.init.outputs.repo_url }}" \
             Default \
             build
-          mv "${{ steps.init.outputs.PKG_REPO_PATH }}/repo/*" ${{ github.workspace }}/generated-repo/
+          mv "${{ steps.init.outputs.PKG_REPO_PATH }}/*" ${{ github.workspace }}/generated-repo/
       - name: Push to S3
         if: steps.changes.outputs.changed == 1
         run: |
           set -x
           aws s3 sync \
-            ${{ github.workspace }}/generated-repo \
+            ${{ github.workspace }}/generated-repo/* \
             s3://${{ steps.init.outputs.s3_bucket }} \
             --delete
         env:
