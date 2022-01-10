@@ -27,8 +27,8 @@ jobs:
         run: |
           set -x
           ls builddir
-          mkdir builddir/test
-          echo "boo" > builddir/test/something.txt
+          mkdir builddir/test || true
+          echo "boo" >> builddir/test/something.txt
           aws s3 sync builddir s3://regolith-unstable-ubuntu-focal-amd64 --delete
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_ID }}
