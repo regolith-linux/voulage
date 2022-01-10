@@ -234,7 +234,7 @@ publish_deb() {
 
 # Create repo dist file
 generate_reprepro_dist() {
-    mkdir -p "$PKG_REPO_PATH/conf"
+    
 
     echo "Origin: $PACKAGE_REPO_URL" > "$PKG_REPO_PATH/conf/distributions"
     echo "Label: $PACKAGE_REPO_URL" >> "$PKG_REPO_PATH/conf/distributions"
@@ -248,8 +248,17 @@ generate_reprepro_dist() {
 # Setup debian repo
 setup() {
   if [ ! -d "$PKG_REPO_PATH/conf" ]; then
-    echo "Package metadata not found, creating.."
+    echo "Creating conf dir"
+    mkdir -p "$PKG_REPO_PATH/conf"    
+  fi
+
+  if [ ! -f "$PKG_REPO_PATH/conf/distributions" ]; then
+    echo "Package metadata not found, creating conf dir"
     generate_reprepro_dist
+    cat "$PKG_REPO_PATH/conf/distributions"
+  else
+    echo "Existing metadata:"
+    cat "$PKG_REPO_PATH/conf/distributions"
   fi
 
   source_setup_scripts
