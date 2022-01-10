@@ -234,8 +234,6 @@ publish_deb() {
 
 # Create repo dist file
 generate_reprepro_dist() {
-    
-
     echo "Origin: $PACKAGE_REPO_URL" > "$PKG_REPO_PATH/conf/distributions"
     echo "Label: $PACKAGE_REPO_URL" >> "$PKG_REPO_PATH/conf/distributions"
     echo "Codename: $CODENAME" >> "$PKG_REPO_PATH/conf/distributions"
