@@ -11,26 +11,26 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04 #${{ matrix.host-os }}
+    runs-on: ${{ matrix.host-os }}
     strategy:
       matrix:
-        host-os: [ubuntu-20.04] # [ubuntu-20.04, [self-hosted, Linux, ARM64]]
-        stage: [unstable] # [unstable, testing, release]
-        distro-codename: [ubuntu-focal] # [ubuntu-focal, ubuntu-impish, debian-bullseye]
+        host-os: [ubuntu-20.04, [self-hosted, Linux, ARM64]]
+        stage: [unstable, testing, release]
+        distro-codename: [ubuntu-focal, ubuntu-impish, debian-bullseye]
         include:
           - host-os: ubuntu-20.04
             arch: amd64
-          #- host-os: [self-hosted, Linux, ARM64]
-          #  arch: arm64
+          - host-os: [self-hosted, Linux, ARM64]
+            arch: arm64
           - distro-codename: ubuntu-focal
             distro: ubuntu
             codename: focal
-          #- distro-codename: ubuntu-impish
-          #  distro: ubuntu
-          #  codename: impish
-          #- distro-codename: debian-bullseye
-          #  distro: debian
-          #  codename: bullseye
+          - distro-codename: ubuntu-impish
+            distro: ubuntu
+            codename: impish
+          - distro-codename: debian-bullseye
+            distro: debian
+            codename: bullseye
     steps:
       - uses: actions/checkout@v2
       - name: Set Job Parameters
