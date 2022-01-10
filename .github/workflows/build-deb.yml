@@ -16,7 +16,7 @@ jobs:
       matrix:
         host-os: [ubuntu-20.04] # [ubuntu-20.04, [self-hosted, Linux, ARM64]]
         stage: [unstable] # [unstable, testing, release]
-        distro-codename: [ubuntu-focal] # [ubuntu-focal, ubuntu-impish, debian-bullseye]        
+        distro-codename: [ubuntu-focal] # [ubuntu-focal, ubuntu-impish, debian-bullseye]
         include:
           - host-os: ubuntu-20.04
             arch: amd64
@@ -24,10 +24,10 @@ jobs:
           #  arch: arm64
           - distro-codename: ubuntu-focal
             distro: ubuntu
-            codename: focal            
+            codename: focal
           #- distro-codename: ubuntu-impish
           #  distro: ubuntu
-          #  codename: impish            
+          #  codename: impish
           #- distro-codename: debian-bullseye
           #  distro: debian
           #  codename: bullseye
@@ -54,22 +54,33 @@ jobs:
       - name: Check for changes
         id: changes
         run: |
-          set -x         
+          set -x
           CHANGE_OUTPUT=$(${{ github.workspace }}/.github/scripts/main.sh ${{ github.workspace }} "${{ steps.init.outputs.stage }}" "${{ steps.init.outputs.distro }}" "${{ steps.init.outputs.codename }}" "${{ steps.init.outputs.arch }}" "unneeded to check change" "unneeded to check change" check | tail -n1)
           if [ "$CHANGE_OUTPUT" == "No package changes found, exiting." ]; then
             echo ::set-output name=changed::0
           else
             echo ::set-output name=changed::1
           fi
-      - name: Pull Repo
+      - uses: actions/setup-python@v2
         if: steps.changes.outputs.changed == 1
-        uses: prewk/s3-cp-action@v2
         with:
-          aws_access_key_id: ${{ secrets.AWS_ACCESS_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_KEY }}
-          source: 's3://${{ steps.init.outputs.s3_bucket }}'
-          dest: ${{ github.workspace }}/generated-repo
-          flags: --recursive
+          python-version: '3.7'
+      - name: Install AWS CLI
+        if: steps.changes.outputs.changed == 1
+        run: |
+          python -m pip install --upgrade pip
+          pip install awscli
+      - name: Pull from S3
+        if: steps.changes.outputs.changed == 1
+        run: |
+          set -x
+          aws s3 sync \
+            s3://${{ steps.init.outputs.s3_bucket }} \
+            ${{ github.workspace }}/generated-repo \
+            --delete
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
       - name: Build Setup
         if: steps.changes.outputs.changed == 1
         run: |
@@ -101,12 +112,14 @@ jobs:
             Default \
             build
           mv "${{ steps.init.outputs.PKG_REPO_PATH }}" ${{ github.workspace }}/generated_repo
-      - name: Push repo to S3
+      - name: Push to S3
         if: steps.changes.outputs.changed == 1
-        uses: prewk/s3-cp-action@v2
-        with:
-          aws_access_key_id: ${{ secrets.AWS_ACCESS_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_KEY }}
-          source: '${{ github.workspace }}/generated-repo'
-          dest: 's3://${{ steps.init.outputs.s3_bucket }}'
-          flags: --recursive
+        run: |
+          set -x
+          aws s3 sync \
+            ${{ github.workspace }}/generated-repo \
+            s3://${{ steps.init.outputs.s3_bucket }} \
+            --delete
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
