@@ -15,15 +15,20 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install awscli
-      - run: |
+      - name: Pull from S3
+        run: |
           set -x
           mkdir builddir
           aws s3 sync s3://regolith-unstable-ubuntu-focal-amd64 builddir --cache-control max-age=0 --acl public-read --delete
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
-      - run: |
+      - name: Push to S3
+        run: |
           set -x
+          ls builddir
+          mkdir builddir/test
+          echo "boo" > builddir/test/something.txt
           aws s3 sync builddir s3://regolith-unstable-ubuntu-focal-amd64 --cache-control max-age=0 --acl public-read --delete
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_ID }}
