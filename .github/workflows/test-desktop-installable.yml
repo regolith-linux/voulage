@@ -32,7 +32,7 @@ jobs:
         uses: kgilmer/test-ubuntu-20.04-action@v1.1.5
         with:
           apt-key-url: https://regolith-linux.github.io/package-repo/regolith.key
-          aapt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}.s3.amazonaws.com ${{ matrix.codename }} main"
+          apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}.s3.amazonaws.com ${{ matrix.codename }} main"
           target-package: "regolith-desktop"
   test-debian-amd64:
     runs-on: ubuntu-20.04
