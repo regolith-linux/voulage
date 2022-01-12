@@ -23,7 +23,6 @@ jobs:
   build:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
       - name: Env Setup
         run: |
           sudo apt update
@@ -57,7 +56,7 @@ jobs:
           reprepro --basedir generated-repo removesrc $codename $pkg_name
 
           # Remove package manifest entry (causes rebuild)
-          sed -i /^$pkg_name[[:space:]]/d stage/$stage/$distro/$codename/$arch/manifest.txt
+          sed -i /^$pkg_name[[:space:]]/d generated-repo/manifest.txt
       - name: Push repo to S3
         uses: prewk/s3-cp-action@v2
         with:
