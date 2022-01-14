@@ -27,17 +27,21 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y devscripts reprepro
+          sudo apt install -y python3-pip          
+          sudo pip install awscli
           mkdir -p ~/.gnupg/
           printf "${{ secrets.PACKAGE_PRIVATE_KEY }}" | base64 --decode > ~/.gnupg/private.key
           gpg --batch --import ~/.gnupg/private.key
-      - name: Pull repo from S3
-        uses: prewk/s3-cp-action@v2
-        with:
-          aws_access_key_id: ${{ secrets.AWS_ACCESS_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_KEY }}
-          source: 's3://regolith-${{ github.event.inputs.stage }}-${{ github.event.inputs.distro }}-${{ github.event.inputs.codename }}-${{ github.event.inputs.arch }}'
-          dest: '$GITHUB_WORKSPACE/generated-repo'
-          flags: --recursive
+      - name: Pull from S3
+        run: |
+          rm -Rf ${{ github.workspace }}/generated-repo
+          aws s3 sync \
+            s3://${{ steps.init.outputs.s3_bucket }} \
+            ${{ github.workspace }}/generated-repo \
+            --delete
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
       - name: Purge Package
         id: purge
         run: |
@@ -55,13 +59,16 @@ jobs:
           # Remove package from debian repo
           reprepro --basedir generated-repo removesrc $codename $pkg_name
 
-          # Remove package manifest entry (causes rebuild)
+          # Remove package manifest entry
           sed -i /^$pkg_name[[:space:]]/d generated-repo/manifest.txt
-      - name: Push repo to S3
-        uses: prewk/s3-cp-action@v2
-        with:
-          aws_access_key_id: ${{ secrets.AWS_ACCESS_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_KEY }}
-          source: '$GITHUB_WORKSPACE/generated-repo'
-          dest: 's3://regolith-${{ github.event.inputs.stage }}-${{ github.event.inputs.distro }}-${{ github.event.inputs.codename }}-${{ github.event.inputs.arch }}'
-          flags: --recursive
+      - name: List Repo Packages
+        run: |
+          set -x
+          reprepro dumpreferences
+      - name: Push to S3
+        run: |
+          set -x
+          aws s3 sync \
+            ${{ github.workspace }}/generated-repo/* \
+            s3://${{ steps.init.outputs.s3_bucket }} \
+            --delete
