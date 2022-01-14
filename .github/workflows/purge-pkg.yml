@@ -24,7 +24,9 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Env Setup
+        id: init
         run: |
+          echo ::set-output name=s3_bucket::regolith-${{ github.event.inputs.stage }}-${{ github.event.inputs.distro }}-${{ github.event.inputs.codename }}-${{ github.event.inputs.arch }}
           sudo apt update
           sudo apt install -y devscripts reprepro
           sudo apt install -y python3-pip          
