@@ -65,12 +65,3 @@ jobs:
           source: '$GITHUB_WORKSPACE/generated-repo'
           dest: 's3://regolith-${{ github.event.inputs.stage }}-${{ github.event.inputs.distro }}-${{ github.event.inputs.codename }}-${{ github.event.inputs.arch }}'
           flags: --recursive
-      - name: Commit Changes
-        run: |
-          set -x
-          git pull
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add stage/*
-          git commit -am "Automated package purge for ${{ github.event.inputs.package }}" || true
-          git push origin ${{ github.ref }} || true
