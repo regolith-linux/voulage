@@ -74,3 +74,6 @@ jobs:
             ${{ github.workspace }}/generated-repo/ \
             s3://${{ steps.init.outputs.s3_bucket }} \
             --delete
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
