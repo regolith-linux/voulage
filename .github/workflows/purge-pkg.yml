@@ -71,6 +71,6 @@ jobs:
         run: |
           set -x
           aws s3 sync \
-            ${{ github.workspace }}/generated-repo/* \
+            ${{ github.workspace }}/generated-repo/ \
             s3://${{ steps.init.outputs.s3_bucket }} \
             --delete
