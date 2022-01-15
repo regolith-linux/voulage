@@ -1,0 +1,63 @@
+name: Test builder script
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ${{ matrix.host-os }}
+    strategy:
+      matrix:
+        host-os: [ubuntu-20.04, [self-hosted, Linux, ARM64]]
+        stage: [unstable, testing, release]
+        distro-codename: [ubuntu-focal, ubuntu-impish, debian-bullseye]
+        include:
+          - host-os: ubuntu-20.04
+            arch: amd64
+          - host-os: [self-hosted, Linux, ARM64]
+            arch: arm64
+          - distro-codename: ubuntu-focal
+            distro: ubuntu
+            codename: focal
+          - distro-codename: ubuntu-impish
+            distro: ubuntu
+            codename: impish
+          - distro-codename: debian-bullseye
+            distro: debian
+            codename: bullseye
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set Job Parameters
+        id: init
+        run: |
+          echo ::set-output name=MANIFEST_PATH::"/tmp/manifests"
+          echo ::set-output name=PKG_REPO_PATH::"/tmp/repo"
+          echo ::set-output name=PKG_BUILD_DIR::"/tmp/packages"
+          echo ::set-output name=stage::${{ matrix.stage }}
+          echo ::set-output name=distro::${{ matrix.distro }}
+          echo ::set-output name=codename::${{ matrix.codename }}
+          echo ::set-output name=arch::${{ matrix.arch }}
+          echo ::set-output name=target::${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}
+      - name: Clean tmp
+        run: |
+          set -x
+          rm -Rf ${{ steps.init.outputs.PKG_REPO_PATH }} || true
+          mkdir ${{ steps.init.outputs.PKG_REPO_PATH }}
+          rm -Rf ${{ steps.init.outputs.MANIFEST_PATH }} || true
+          mkdir ${{ steps.init.outputs.MANIFEST_PATH }}
+          rm -Rf ${{ steps.init.outputs.PKG_BUILD_DIR }} || true
+          mkdir ${{ steps.init.outputs.PKG_BUILD_DIR }}
+      - name: Test Build
+        if: steps.changes.outputs.changed == 1
+        run: |
+          set -x
+          ${{ github.workspace }}/.github/scripts/main.sh \
+            "${{ github.workspace }}" \
+            "${{ github.workspace }}/.github/scripts/ext-tester.sh" \
+            "${{ steps.init.outputs.stage }}" \
+            "${{ steps.init.outputs.distro }}" \
+            "${{ steps.init.outputs.codename }}" \
+            "${{ steps.init.outputs.arch }}" \
+            test_repo_url \
+            Default \
+            check
