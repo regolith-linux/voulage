@@ -9,6 +9,10 @@ on:
   repository_dispatch:
   workflow_dispatch:
 
+concurrency: 
+  group: debian_builder
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ${{ matrix.host-os }}
