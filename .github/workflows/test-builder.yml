@@ -48,7 +48,6 @@ jobs:
           rm -Rf ${{ steps.init.outputs.PKG_BUILD_DIR }} || true
           mkdir ${{ steps.init.outputs.PKG_BUILD_DIR }}
       - name: Test Build
-        if: steps.changes.outputs.changed == 1
         run: |
           set -x
           ${{ github.workspace }}/.github/scripts/main.sh \
