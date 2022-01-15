@@ -54,7 +54,6 @@ jobs:
         run: |
           set -x
           rm -Rf ${{ steps.init.outputs.PKG_REPO_PATH }} || true
-          mkdir ${{ steps.init.outputs.PKG_REPO_PATH }}
           rm -Rf ${{ steps.init.outputs.MANIFEST_PATH }} || true
           mkdir ${{ steps.init.outputs.MANIFEST_PATH }}
           rm -Rf ${{ steps.init.outputs.PKG_BUILD_DIR }} || true
@@ -95,13 +94,13 @@ jobs:
         if: steps.changes.outputs.changed == 1
         run: |
           set -x
-          if [ -d "${{ steps.init.outputs.PKG_REPO_PATH }}" ]; then
-            sudo chown -R $(whoami) ${{ github.workspace }}/generated-repo
-            mv ${{ github.workspace }}/generated-repo "${{ steps.init.outputs.PKG_REPO_PATH }}" || true
-            ls ${{ steps.init.outputs.PKG_REPO_PATH }}
+          if [ ! -d "${{ github.workspace }}/generated-repo" ]; then
+            mkdir -p "${{ github.workspace }}/generated-repo"
           else
-            mkdir -p "${{ steps.init.outputs.PKG_REPO_PATH }}"
-          fi
+            sudo chown -R $(whoami) ${{ github.workspace }}/generated-repo
+          fi          
+          mv ${{ github.workspace }}/generated-repo "${{ steps.init.outputs.PKG_REPO_PATH }}" || true
+          ls -l "${{ steps.init.outputs.PKG_REPO_PATH }}"
       - name: Build
         if: steps.changes.outputs.changed == 1
         run: |
