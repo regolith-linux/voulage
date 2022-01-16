@@ -14,7 +14,15 @@ PACKAGE_URL=$4
 PACKAGE_REF=$5
 CODENAME=$6
 PKG_BUILD_DIR="/tmp/pkgbuild"
+PKG_REPO_PATH="/tmp/pkgrepo"
 
+GIT_EXT="$REPO_ROOT/.github/scripts/ext-git.sh"
+if [ ! -f "$GIT_EXT" ]; then
+  echo "Extension $GIT_EXT doesn't exist, aborting."
+  exit 1
+else 
+  source $GIT_EXT
+fi
 
 if [ ! -f "$EXTENSION" ]; then
   echo "Extension $EXTENSION doesn't exist, aborting."
@@ -22,6 +30,11 @@ if [ ! -f "$EXTENSION" ]; then
 else 
   source $EXTENSION
 fi
+
+# Unused for local build
+source_setup_scripts() {
+  echo nop
+}
 
 setup
 checkout
