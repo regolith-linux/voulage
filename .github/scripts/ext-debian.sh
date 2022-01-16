@@ -6,6 +6,7 @@
 
 # Update the changelog to specify the target distribution codename
 update_changelog() {
+  set -x
   cd "${PKG_BUILD_DIR:?}/$PACKAGE_NAME"
   version=$(dpkg-parsechangelog --show-field Version)
   dch --distribution "$CODENAME" --newversion "${version}-1regolith" "Automated release."
