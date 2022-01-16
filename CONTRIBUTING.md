@@ -73,4 +73,13 @@ Package builds are launched via GitHub workflow triggers.  The following events 
 
 #### Implement a Package Builder
 
-Copy `.github/scripts/ext-template.sh` to another file, implement the functions in the shell script.
+Copy `.github/scripts/ext-template.sh` to another file, implement the functions in the shell script.  When invoking `main.sh`, pass the new extension as the second parameter.  See `ext-debian.sh` as an example.
+
+#### Build and Publish Locally
+
+The script `local-build.sh` will invoke the build and packaging functions as occurs in automation. This can be used to test packages build before committing to git or debug problems with packages or the build system.  Example:
+
+```
+cd .github/scripts
+./local-build.sh ../.. ext-debian.sh regolith-i3status-rust https://github.com/regolith-linux/regolith-i3status-rust.git debian_source focal
+```
