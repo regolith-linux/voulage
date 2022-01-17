@@ -13,8 +13,8 @@ PACKAGE_NAME=$3
 PACKAGE_URL=$4
 PACKAGE_REF=$5
 CODENAME=$6
-PKG_BUILD_DIR="/tmp/pkgbuild"
-PKG_REPO_PATH="/tmp/pkgrepo"
+PKG_BUILD_DIR="$REPO_ROOT/pkgbuild"
+PKG_REPO_PATH="$REPO_ROOT/pkgrepo"
 
 GIT_EXT="$REPO_ROOT/.github/scripts/ext-git.sh"
 if [ ! -f "$GIT_EXT" ]; then

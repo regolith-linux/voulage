@@ -133,6 +133,10 @@ ARCH=$6
 PACKAGE_REPO_URL=$7
 APT_KEY=$8
 MODE=$9
+MANIFEST_PATH=${10}
+PKG_REPO_PATH=${11}
+PKG_BUILD_DIR=${12}
+
 
 GIT_EXT="$REPO_ROOT/.github/scripts/ext-git.sh"
 if [ ! -f "$GIT_EXT" ]; then
@@ -152,9 +156,6 @@ fi
 #### Init globals
 
 ROOT_MODEL_PATH="$REPO_ROOT/stage/package-model.json"
-MANIFEST_PATH="/tmp/manifests"
-PKG_REPO_PATH="/tmp/repo"
-PKG_BUILD_DIR="/tmp/packages"
 
 #### Setup files
 

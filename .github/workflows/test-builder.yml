@@ -30,9 +30,9 @@ jobs:
       - name: Set Job Parameters
         id: init
         run: |
-          echo ::set-output name=MANIFEST_PATH::"/tmp/manifests"
-          echo ::set-output name=PKG_REPO_PATH::"/tmp/repo"
-          echo ::set-output name=PKG_BUILD_DIR::"/tmp/packages"
+          echo ::set-output name=MANIFEST_PATH::"${{ github.workspace }}/manifests"
+          echo ::set-output name=PKG_REPO_PATH::"${{ github.workspace }}/repo"
+          echo ::set-output name=PKG_BUILD_DIR::"${{ github.workspace }}/packages"
           echo ::set-output name=stage::${{ matrix.stage }}
           echo ::set-output name=distro::${{ matrix.distro }}
           echo ::set-output name=codename::${{ matrix.codename }}
@@ -59,4 +59,7 @@ jobs:
             "${{ steps.init.outputs.arch }}" \
             test_repo_url \
             Default \
-            check
+            check \
+            ${{ steps.init.outputs.MANIFEST_PATH }} \
+            ${{ steps.init.outputs.PKG_REPO_PATH }} \
+            ${{ steps.init.outputs.PKG_BUILD_DIR }}
