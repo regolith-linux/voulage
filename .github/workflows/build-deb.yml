@@ -67,7 +67,7 @@ jobs:
         id: changes
         run: |
           set -x
-          CHANGE_OUTPUT=$(${{ github.workspace }}/.github/scripts/main.sh ${{ github.workspace }} ${{ github.workspace }}/.github/scripts/ext-debian.sh "${{ steps.init.outputs.stage }}" "${{ steps.init.outputs.distro }}" "${{ steps.init.outputs.codename }}" "${{ steps.init.outputs.arch }}" "unneeded to check change" "unneeded to check change" check | tail -n1) ${{ steps.init.outputs.MANIFEST_PATH }} ${{ steps.init.outputs.PKG_REPO_PATH }} ${{ steps.init.outputs.PKG_BUILD_DIR }}
+          CHANGE_OUTPUT=$(${{ github.workspace }}/.github/scripts/main.sh ${{ github.workspace }} ${{ github.workspace }}/.github/scripts/ext-debian.sh "${{ steps.init.outputs.stage }}" "${{ steps.init.outputs.distro }}" "${{ steps.init.outputs.codename }}" "${{ steps.init.outputs.arch }}" "unneeded to check change" "unneeded to check change" check ${{ steps.init.outputs.MANIFEST_PATH }} ${{ steps.init.outputs.PKG_REPO_PATH }} ${{ steps.init.outputs.PKG_BUILD_DIR }} | tail -n1)
           if [ "$CHANGE_OUTPUT" == "No package changes found, exiting." ]; then
             echo ::set-output name=changed::0
           else
