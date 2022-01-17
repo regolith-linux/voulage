@@ -1,0 +1,53 @@
+name: Test Build Package
+
+on:
+  workflow_dispatch:
+    inputs:
+      extension:
+        description: 'Build Extension Script'
+        required: true
+        default: ext-debian.sh
+      package-name:
+        description: 'Package Name'
+        required: true
+      package-url:
+        description: 'Package URL (public git)'
+        required: true
+      package-ref:
+        description: 'Package Ref (branch, tag, or hash)'
+        required: true
+      codename:
+        description: 'Package Codename (focal, bullseye)'
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Env Setup
+        id: init
+        run: |
+          sudo apt update
+          sudo apt install -y devscripts reprepro
+          mkdir -p ~/.gnupg/
+          printf "${{ secrets.PACKAGE_PRIVATE_KEY }}" | base64 --decode > ~/.gnupg/private.key
+          gpg --batch --import ~/.gnupg/private.key
+      - name: Build Test Package
+        id: build
+        run: |
+          set -x
+          export DEBEMAIL=regolith.linux@gmail.com
+          export DEBFULLNAME="Regolith Linux"
+          extension=${{ github.event.inputs.extension }}
+          package_name=${{ github.event.inputs.package-name }}
+          package_url=${{ github.event.inputs.package-url }}
+          package_ref=${{ github.event.inputs.package-ref }}
+          codename=${{ github.event.inputs.codename }}
+
+          ${{ github.workspace }}/.github/scripts/local-build.sh \
+            ${{ github.workspace }} \
+            $extension \
+            $package_name \
+            $package_url \
+            $package_ref \
+            $codename
