@@ -55,10 +55,6 @@
       "source": "https://github.com/regolith-linux/i3-next-workspace.git",
       "ref": "main"
     },
-    "regolith-i3status-rust": {
-      "source": "https://github.com/regolith-linux/regolith-i3status-rust.git",
-      "ref": "chore-remove-unused-files"
-    },
     "i3xrocks": {
       "source": "https://github.com/regolith-linux/i3xrocks.git",
       "ref": "master"
