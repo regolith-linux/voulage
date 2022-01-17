@@ -95,9 +95,11 @@ publish() {
 
   if source_pkg_exists "$debian_package_name" "$version"; then
       echo "Ignoring source package, already exists in target repository"
+      allow_failing_bin_package="true"
   else
       echo "Ingesting source package $debian_package_name into $PKG_REPO_PATH"
       reprepro --basedir "$PKG_REPO_PATH" include "$CODENAME" "$DEB_SRC_PKG_PATH"
+      allow_failing_bin_package="false"
   fi
 
   DEB_CONTROL_FILE="$PKG_BUILD_DIR/$PACKAGE_NAME/debian/control"
@@ -107,8 +109,14 @@ publish() {
       cat "$DEB_CONTROL_FILE" | grep ^Package: | cut -d' ' -f2 | while read -r bin_pkg; do
           DEB_BIN_PKG_PATH="$(pwd)/${bin_pkg}_${version}_${target_arch}.deb"
           if [ -f "$DEB_BIN_PKG_PATH" ]; then
-              echo "Ingesting binary package $DEB_BIN_PKG_PATH into $PKG_REPO_PATH"
-              reprepro --basedir "$PKG_REPO_PATH" includedeb "$CODENAME" "$DEB_BIN_PKG_PATH"
+              if [ "$allow_failing_bin_package" == "true" ]; then                
+                # If the source package/version already exists, allow the bin package build to fail (already exists)
+                reprepro --basedir "$PKG_REPO_PATH" includedeb "$CODENAME" "$DEB_BIN_PKG_PATH" || true
+                echo "Ingested binary package $DEB_BIN_PKG_PATH into $PKG_REPO_PATH"
+              else
+                reprepro --basedir "$PKG_REPO_PATH" includedeb "$CODENAME" "$DEB_BIN_PKG_PATH"
+                echo "Ingested binary package $DEB_BIN_PKG_PATH into $PKG_REPO_PATH"
+              fi
           else
               echo "Package $bin_pkg does not exist for $target_arch"
           fi
