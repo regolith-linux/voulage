@@ -39,7 +39,7 @@ jobs:
           set -x
           export DEBEMAIL=regolith.linux@gmail.com
           export DEBFULLNAME="Regolith Linux"
-          extension=${{ github.event.inputs.extension }}
+          extension=${{ github.workspace }}/.github/scripts/${{ github.event.inputs.extension }}
           package_name=${{ github.event.inputs.package-name }}
           package_url=${{ github.event.inputs.package-url }}
           package_ref=${{ github.event.inputs.package-ref }}
