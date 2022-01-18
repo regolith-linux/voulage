@@ -15,6 +15,8 @@ PACKAGE_REF=$5
 CODENAME=$6
 PKG_BUILD_DIR="$REPO_ROOT/pkgbuild"
 PKG_REPO_PATH="$REPO_ROOT/pkgrepo"
+APT_KEY="Default"
+ARCH="amd64"
 
 GIT_EXT="$REPO_ROOT/.github/scripts/ext-git.sh"
 if [ ! -f "$GIT_EXT" ]; then
