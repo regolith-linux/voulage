@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        stage: [ unstable, testing ] #TODO add 'release' 
+        stage: [ unstable, testing, release ]
         arch: [ amd64 ]
         distro: [ ubuntu ]
         codename: [ focal ]
@@ -23,7 +23,7 @@ jobs:
     runs-on: [self-hosted, Linux, ARM64]
     strategy:
       matrix:
-        stage: [ unstable, testing ] #TODO add 'release' 
+        stage: [ unstable, testing, release ]
         arch: [ arm64 ]
         distro: [ ubuntu ]
         codename: [ focal ]
@@ -38,7 +38,7 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        stage: [ unstable, testing ] #TODO add 'release' 
+        stage: [ unstable, testing, release ]
         arch: [ amd64 ]
         distro: [ debian ]
         codename: [ bullseye ]
@@ -53,7 +53,7 @@ jobs:
     runs-on: [self-hosted, Linux, ARM64]
     strategy:
       matrix:
-        stage: [ unstable, testing ] #TODO add 'release' 
+        stage: [ unstable, testing, release ]
         arch: [ arm64 ]
         distro: [ debian ]
         codename: [ bullseye ]
