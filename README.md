@@ -36,7 +36,7 @@ echo deb [arch=amd64] https://regolith-release-ubuntu-focal-amd64.s3.amazonaws.c
 #### Ubuntu - Impish - amd64
 
 ```bash
-echo deb [arch=amd64] https://regolith-ubuntu-impish-amd64.s3.amazonaws.com impish main | sudo tee /etc/apt/sources.list.d/regolith.list
+echo deb [arch=amd64] https://regolith-release-ubuntu-impish-amd64.s3.amazonaws.com impish main | sudo tee /etc/apt/sources.list.d/regolith.list
 ```
 
 #### Debian - Bullseye - amd64
