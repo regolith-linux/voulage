@@ -61,7 +61,7 @@
     },
     "regolith-i3xrocks-config": {
       "source": "https://github.com/regolith-linux/regolith-i3xrocks-config.git",
-      "ref": "i3cp"
+      "ref": "master"
     },
     "regolith-desktop": {
       "source": "https://github.com/regolith-linux/regolith-desktop.git",
