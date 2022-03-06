@@ -3,8 +3,8 @@
     "title": "Package metadata for Regolith Desktop 2.0"
   },
   "packages": {
-    "regolith-system": {
-      "source": "https://github.com/regolith-linux/regolith-system.git",
+    "regolith-system-ubuntu": {
+      "source": "https://github.com/regolith-linux/regolith-system-ubuntu.git",
       "ref": "main"
     },
     "regolith-lightdm-config": {
