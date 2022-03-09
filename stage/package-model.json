@@ -115,6 +115,10 @@
       "source": "https://github.com/regolith-linux/regolith-rofication.git",
       "ref": "master"
     },
+    "regolith-control-center": {
+      "source": "https://github.com/regolith-linux/regolith-control-center.git",
+      "ref": "main"
+    },
     "regolith-default-settings": {
       "source": "https://github.com/regolith-linux/regolith-default-settings.git",
       "ref": "i3cp"
