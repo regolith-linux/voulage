@@ -91,6 +91,10 @@
       "source": "https://github.com/regolith-linux/regolith-compositor-compton-glx.git",
       "ref": "master"
     },
+    "picom": {
+      "source": "https://github.com/regolith-linux/picom.git",
+      "ref": "debian-v9"
+    },
     "regolith-compositor-picom-glx": {
       "source": "https://github.com/regolith-linux/regolith-compositor-picom-glx.git",
       "ref": "master"
