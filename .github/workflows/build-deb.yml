@@ -16,6 +16,7 @@ concurrency:
 jobs:
   build:
     runs-on: ${{ matrix.host-os }}
+    container: ${{ matrix.container }}
     strategy:
       matrix:
         host-os: [ubuntu-20.04, [self-hosted, Linux, ARM64]]
@@ -29,12 +30,15 @@ jobs:
           - distro-codename: ubuntu-focal
             distro: ubuntu
             codename: focal
+            container: ubuntu-20.04
           - distro-codename: ubuntu-impish
             distro: ubuntu
             codename: impish
+            container: ubuntu-21.10
           - distro-codename: debian-bullseye
             distro: debian
             codename: bullseye
+            container: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
       - name: Set Job Parameters
