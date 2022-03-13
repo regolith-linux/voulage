@@ -118,6 +118,7 @@ jobs:
           export DEBFULLNAME="Regolith Linux"
           export DEBIAN_FRONTEND=noninteractive
           sudo apt update
+          DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends tzdata
           sudo apt install -y devscripts reprepro
           mkdir -p ~/.gnupg/
           printf "${{ secrets.PACKAGE_PRIVATE_KEY }}" | base64 --decode > ~/.gnupg/private.key
