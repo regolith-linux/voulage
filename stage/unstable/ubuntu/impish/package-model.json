@@ -1,8 +1,5 @@
 {
   "packages": {
-    "ilia": {
-      "source": "https://github.com/regolith-linux/ilia.git",
-      "ref": "ubuntu/impish"
-    }
+    "ilia": null
   }
 }
