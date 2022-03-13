@@ -116,6 +116,7 @@ jobs:
           set -x
           export DEBEMAIL="regolith.linux@gmail.com"
           export DEBFULLNAME="Regolith Linux"
+          export DEBIAN_FRONTEND=noninteractive
           sudo apt update
           sudo apt install -y devscripts reprepro
           mkdir -p ~/.gnupg/
