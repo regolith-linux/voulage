@@ -47,6 +47,7 @@ jobs:
           echo ::set-output name=MANIFEST_PATH::"/github/home/manifests"
           echo ::set-output name=PKG_REPO_PATH::"/github/home/repo"
           echo ::set-output name=PKG_BUILD_DIR::"/github/home/packages"
+          echo ::set-output name=GH_REPO_ROOT::"/__w/voulage/voulage"
           echo ::set-output name=stage::${{ matrix.stage }}
           echo ::set-output name=distro::${{ matrix.distro }}
           echo ::set-output name=codename::${{ matrix.codename }}
@@ -71,8 +72,7 @@ jobs:
         id: changes
         run: |
           set -x
-          find /__w/voulage/voulage
-          CHANGE_OUTPUT=$(${{ github.workspace }}/.github/scripts/main.sh ${{ github.workspace }} ${{ github.workspace }}/.github/scripts/ext-debian.sh "${{ steps.init.outputs.stage }}" "${{ steps.init.outputs.distro }}" "${{ steps.init.outputs.codename }}" "${{ steps.init.outputs.arch }}" "unneeded to check change" "unneeded to check change" check ${{ steps.init.outputs.MANIFEST_PATH }} ${{ steps.init.outputs.PKG_REPO_PATH }} ${{ steps.init.outputs.PKG_BUILD_DIR }} | tail -n1)
+          CHANGE_OUTPUT=$(${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/main.sh ${{ steps.init.outputs.GH_REPO_ROOT }} ${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/ext-debian.sh "${{ steps.init.outputs.stage }}" "${{ steps.init.outputs.distro }}" "${{ steps.init.outputs.codename }}" "${{ steps.init.outputs.arch }}" "unneeded to check change" "unneeded to check change" check ${{ steps.init.outputs.MANIFEST_PATH }} ${{ steps.init.outputs.PKG_REPO_PATH }} ${{ steps.init.outputs.PKG_BUILD_DIR }} | tail -n1)
           if [ "$CHANGE_OUTPUT" == "No package changes found, exiting." ]; then
             echo ::set-output name=changed::0
           else
@@ -87,10 +87,10 @@ jobs:
         if: steps.changes.outputs.changed == 1
         run: |
           set -x
-          rm -Rf ${{ github.workspace }}/generated-repo
+          rm -Rf ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo
           aws s3 sync \
             s3://${{ steps.init.outputs.s3_bucket }} \
-            ${{ github.workspace }}/generated-repo \
+            ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo \
             --delete
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_ID }}
@@ -99,15 +99,15 @@ jobs:
         if: steps.changes.outputs.changed == 1
         run: |
           set -x
-          if [ ! -d "${{ github.workspace }}/generated-repo" ]; then
-            mkdir -p "${{ github.workspace }}/generated-repo"
+          if [ ! -d "${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo" ]; then
+            mkdir -p "${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo"
           else
-            sudo chown -R $(whoami) ${{ github.workspace }}/generated-repo
+            sudo chown -R $(whoami) ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo
           fi     
           if [ -d "${{ steps.init.outputs.PKG_REPO_PATH }}" ]; then
             rm -Rf "${{ steps.init.outputs.PKG_REPO_PATH }}"
           fi     
-          mv ${{ github.workspace }}/generated-repo "${{ steps.init.outputs.PKG_REPO_PATH }}" || true
+          mv ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo "${{ steps.init.outputs.PKG_REPO_PATH }}" || true
           ls -l "${{ steps.init.outputs.PKG_REPO_PATH }}"
       - name: Build
         if: steps.changes.outputs.changed == 1
@@ -120,9 +120,9 @@ jobs:
           mkdir -p ~/.gnupg/
           printf "${{ secrets.PACKAGE_PRIVATE_KEY }}" | base64 --decode > ~/.gnupg/private.key
           gpg --batch --import ~/.gnupg/private.key
-          ${{ github.workspace }}/.github/scripts/main.sh \
-            ${{ github.workspace }} \
-            ${{ github.workspace }}/.github/scripts/ext-debian.sh \
+          ${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/main.sh \
+            ${{ steps.init.outputs.GH_REPO_ROOT }} \
+            ${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/ext-debian.sh \
             "${{ steps.init.outputs.stage }}" \
             "${{ steps.init.outputs.distro }}" \
             "${{ steps.init.outputs.codename }}" \
@@ -135,13 +135,13 @@ jobs:
             ${{ steps.init.outputs.PKG_BUILD_DIR }}
 
           find ${{ steps.init.outputs.PKG_REPO_PATH }}
-          mv "${{ steps.init.outputs.PKG_REPO_PATH }}" ${{ github.workspace }}/generated-repo
+          mv "${{ steps.init.outputs.PKG_REPO_PATH }}" ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo
       - name: Push to S3
         if: steps.changes.outputs.changed == 1
         run: |
           set -x
           aws s3 sync \
-            ${{ github.workspace }}/generated-repo/ \
+            ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo/ \
             s3://${{ steps.init.outputs.s3_bucket }} \
             --delete
         env:
