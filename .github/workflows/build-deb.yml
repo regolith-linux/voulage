@@ -81,7 +81,7 @@ jobs:
       - name: Install AWS CLI
         if: steps.changes.outputs.changed == 1
         run: |
-          sudo apt install -y python3-pip          
+          apt install -y sudo python3-pip               
           sudo pip install awscli
       - name: Pull from S3
         if: steps.changes.outputs.changed == 1
