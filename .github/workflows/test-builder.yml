@@ -10,7 +10,7 @@ jobs:
       matrix:
         host-os: [ubuntu-20.04, [self-hosted, Linux, ARM64]]
         stage: [unstable, testing, release]
-        distro-codename: [ubuntu-focal, ubuntu-impish, debian-bullseye]
+        distro-codename: [ubuntu-focal, ubuntu-impish, ubuntu-jammy, debian-bullseye]
         include:
           - host-os: ubuntu-20.04
             arch: amd64
@@ -22,6 +22,9 @@ jobs:
           - distro-codename: ubuntu-impish
             distro: ubuntu
             codename: impish
+          - distro-codename: ubuntu-jammy
+            distro: ubuntu
+            codename: jammy
           - distro-codename: debian-bullseye
             distro: debian
             codename: bullseye

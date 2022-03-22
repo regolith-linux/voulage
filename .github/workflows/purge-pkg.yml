@@ -10,7 +10,7 @@ on:
         description: 'Distro (debian, ubuntu)'
         required: true
       codename:
-        description: 'Codename (focal, impish, bullseye'
+        description: 'Codename (focal, impish, jammy, bullseye)'
         required: true
       arch:
         description: 'Arch: (amd64, arm64)'
