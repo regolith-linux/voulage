@@ -38,7 +38,7 @@ jobs:
           - distro-codename: ubuntu-jammy
             distro: ubuntu
             codename: jammy
-            container: ubuntu:22.04
+            container: ubuntu:21.10
           - distro-codename: debian-bullseye
             distro: debian
             codename: bullseye
