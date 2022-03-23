@@ -10,7 +10,7 @@
     },
     "regolith-control-center": {
       "source": "https://github.com/regolith-linux/regolith-control-center.git",
-      "ref": "ubuntu/impish"
+      "ref": "ubuntu/jammy"
     }
   }
 }
