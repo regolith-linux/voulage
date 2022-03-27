@@ -12,7 +12,7 @@ jobs:
         stage: [ unstable, testing, release ]
         arch: [ amd64 ]
         distro: [ ubuntu ]
-        codename: [ focal, impish, jammy ]
+        codename: [ focal, impish ] # jammy
     steps:
       - name: Test Ubuntu 20.04
         uses: kgilmer/test-ubuntu-20.04-action@v1.1.5
@@ -27,7 +27,7 @@ jobs:
         stage: [ unstable, testing, release ]
         arch: [ arm64 ]
         distro: [ ubuntu ]
-        codename: [ focal, impish, jammy ]
+        codename: [ focal, impish ] # jammy
     steps:
       - name: Test Ubuntu 20.04
         uses: kgilmer/test-ubuntu-20.04-action@v1.1.5
