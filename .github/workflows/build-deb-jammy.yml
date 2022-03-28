@@ -14,11 +14,11 @@ jobs:
     runs-on: ${{ matrix.host-os }}
     strategy:
       matrix:
-        host-os: [ubuntu-20.04, [self-hosted, Linux, X64]]
+        host-os: [[self-hosted, Linux, ARM64], [self-hosted, Linux, X64]]
         stage: [unstable, testing, release]
         distro-codename: [ubuntu-jammy]
         include:
-          - host-os: ubuntu-20.04
+          - host-os: [self-hosted, Linux, ARM64]
             arch: arm64
           - host-os: [self-hosted, Linux, X64]
             arch: amd64
