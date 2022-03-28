@@ -1,0 +1,141 @@
+name: .deb -> S3 (jammy)
+
+on:
+  push:
+    branches: main
+    paths:
+      - 'stage/**'
+      - '.github/**'
+  repository_dispatch:
+  workflow_dispatch:
+
+concurrency: 
+  group: debian_builder
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ${{ matrix.host-os }}
+    strategy:
+      matrix:
+        host-os: [ubuntu-20.04, [self-hosted, Linux, X64]]
+        stage: [unstable, testing, release]
+        distro-codename: [ubuntu-jammy]
+        include:
+          - host-os: ubuntu-20.04
+            arch: arm64
+          - host-os: [self-hosted, Linux, X64]
+            arch: amd64
+          - distro-codename: ubuntu-jammy
+            distro: ubuntu
+            codename: jammy
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set Job Parameters
+        id: init
+        run: |
+          echo ::set-output name=MANIFEST_PATH::"${{ github.workspace }}/manifests"
+          echo ::set-output name=PKG_REPO_PATH::"${{ github.workspace }}/repo"
+          echo ::set-output name=PKG_BUILD_DIR::"${{ github.workspace }}/packages"
+          echo ::set-output name=stage::${{ matrix.stage }}
+          echo ::set-output name=distro::${{ matrix.distro }}
+          echo ::set-output name=codename::${{ matrix.codename }}
+          echo ::set-output name=arch::${{ matrix.arch }}
+          echo ::set-output name=target::${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}
+          echo ::set-output name=s3_bucket::regolith-${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}
+          echo ::set-output name=repo_url::https://regolith-${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}.s3.us-east-2.amazonaws.com
+      - name: Clean tmp
+        run: |
+          set -x
+          rm -Rf ${{ steps.init.outputs.PKG_REPO_PATH }} || true
+          rm -Rf ${{ steps.init.outputs.MANIFEST_PATH }} || true
+          mkdir ${{ steps.init.outputs.MANIFEST_PATH }}
+          rm -Rf ${{ steps.init.outputs.PKG_BUILD_DIR }} || true
+          mkdir ${{ steps.init.outputs.PKG_BUILD_DIR }}
+      - name: Pull Manifest
+        run: |
+          set -x
+          manifest_url="https://${{ steps.init.outputs.s3_bucket }}.s3.us-east-2.amazonaws.com/manifest.txt"
+          wget -P "${{ steps.init.outputs.PKG_REPO_PATH }}" "$manifest_url" || true
+      - name: Check for changes
+        id: changes
+        run: |
+          set -x
+          CHANGE_OUTPUT=$(${{ github.workspace }}/.github/scripts/main.sh ${{ github.workspace }} ${{ github.workspace }}/.github/scripts/ext-debian.sh "${{ steps.init.outputs.stage }}" "${{ steps.init.outputs.distro }}" "${{ steps.init.outputs.codename }}" "${{ steps.init.outputs.arch }}" "unneeded to check change" "unneeded to check change" check ${{ steps.init.outputs.MANIFEST_PATH }} ${{ steps.init.outputs.PKG_REPO_PATH }} ${{ steps.init.outputs.PKG_BUILD_DIR }} | tail -n1)
+          if [ "$CHANGE_OUTPUT" == "No package changes found, exiting." ]; then
+            echo ::set-output name=changed::0
+          else
+            echo ::set-output name=changed::1
+          fi
+      - name: Install AWS CLI
+        if: steps.changes.outputs.changed == 1
+        run: |
+          sudo apt install -y python3-pip          
+          sudo pip install awscli
+      - name: Pull from S3
+        if: steps.changes.outputs.changed == 1
+        run: |
+          set -x
+          rm -Rf ${{ github.workspace }}/generated-repo
+          aws s3 sync \
+            s3://${{ steps.init.outputs.s3_bucket }} \
+            ${{ github.workspace }}/generated-repo \
+            --delete
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
+      - name: Build Setup
+        if: steps.changes.outputs.changed == 1
+        run: |
+          set -x
+          if [ ! -d "${{ github.workspace }}/generated-repo" ]; then
+            mkdir -p "${{ github.workspace }}/generated-repo"
+          else
+            sudo chown -R $(whoami) ${{ github.workspace }}/generated-repo
+          fi     
+          if [ -d "${{ steps.init.outputs.PKG_REPO_PATH }}" ]; then
+            rm -Rf "${{ steps.init.outputs.PKG_REPO_PATH }}"
+          fi     
+          mv ${{ github.workspace }}/generated-repo "${{ steps.init.outputs.PKG_REPO_PATH }}" || true
+          ls -l "${{ steps.init.outputs.PKG_REPO_PATH }}"
+      - name: Build
+        if: steps.changes.outputs.changed == 1
+        run: |
+          set -x
+          export DEBEMAIL="regolith.linux@gmail.com"
+          export DEBFULLNAME="Regolith Linux"
+          sudo apt update
+          sudo apt install -y devscripts reprepro
+          mkdir -p ~/.gnupg/
+          printf "${{ secrets.PACKAGE_PRIVATE_KEY }}" | base64 --decode > ~/.gnupg/private.key
+          gpg --batch --import ~/.gnupg/private.key
+          ${{ github.workspace }}/.github/scripts/main.sh \
+            ${{ github.workspace }} \
+            ${{ github.workspace }}/.github/scripts/ext-debian.sh \
+            "${{ steps.init.outputs.stage }}" \
+            "${{ steps.init.outputs.distro }}" \
+            "${{ steps.init.outputs.codename }}" \
+            "${{ steps.init.outputs.arch }}" \
+            "${{ steps.init.outputs.repo_url }}" \
+            Default \
+            build \
+            ${{ steps.init.outputs.MANIFEST_PATH }} \
+            ${{ steps.init.outputs.PKG_REPO_PATH }} \
+            ${{ steps.init.outputs.PKG_BUILD_DIR }}
+
+          find ${{ steps.init.outputs.PKG_REPO_PATH }}
+          mv "${{ steps.init.outputs.PKG_REPO_PATH }}" ${{ github.workspace }}/generated-repo
+      - name: Push to S3
+        if: steps.changes.outputs.changed == 1
+        run: |
+          set -x
+          aws s3 sync \
+            ${{ github.workspace }}/generated-repo/ \
+            s3://${{ steps.init.outputs.s3_bucket }} \
+            --delete
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
+  test:
+    needs: build
+    uses: ./.github/workflows/test-desktop-installable.yml
