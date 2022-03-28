@@ -101,7 +101,7 @@ jobs:
           export DEBEMAIL="regolith.linux@gmail.com"
           export DEBFULLNAME="Regolith Linux"
           sudo apt update
-          sudo apt install -y devscripts reprepro
+          sudo apt install -y devscripts reprepro jq
           mkdir -p ~/.gnupg/
           printf "${{ secrets.PACKAGE_PRIVATE_KEY }}" | base64 --decode > ~/.gnupg/private.key
           gpg --batch --import ~/.gnupg/private.key
