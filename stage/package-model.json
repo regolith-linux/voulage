@@ -15,10 +15,6 @@
       "source": "https://github.com/regolith-linux/regolith-session.git",
       "ref": "main"
     },
-    "xcb-util": {
-      "source": "https://git.launchpad.net/ubuntu/+source/xcb-util",
-      "ref": "applied/ubuntu/groovy"
-    },
     "i3-snapshot": {
       "source": "https://github.com/regolith-linux/i3-snapshot.git",
       "ref": "master"
