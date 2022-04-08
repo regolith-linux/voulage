@@ -19,13 +19,13 @@ jobs:
     container: ${{ matrix.container }}
     strategy:
       matrix:
-        host-os: [ubuntu-20.04, [self-hosted, Linux, ARM64]]
+        host-os: [ubuntu-20.04, [self-hosted, Linux, ARM64, focal]]
         stage: [unstable, testing, release]
         distro-codename: [ubuntu-focal, ubuntu-impish, debian-bullseye] # ubuntu-jammy,
         include:
           - host-os: ubuntu-20.04
             arch: amd64
-          - host-os: [self-hosted, Linux, ARM64]
+          - host-os: [self-hosted, Linux, ARM64, focal]
             arch: arm64
           - distro-codename: ubuntu-focal
             distro: ubuntu
