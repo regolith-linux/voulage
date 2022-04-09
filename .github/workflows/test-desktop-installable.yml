@@ -5,12 +5,34 @@ on:
   workflow_call:
 
 jobs:
-  test-install:
+  test-debian-install:
     runs-on: ${{ matrix.host-os }}
     strategy:
       matrix:
         stage: [unstable] # , testing, release
-        distro-codename: [ubuntu-focal, debian-bullseye]
+        distro-codename: [debian-bullseye]
+        arch: [amd64, arm64]
+        include:
+          - arch: amd64
+            host-os: ubuntu-20.04
+          - arch: arm64
+            host-os: [self-hosted, Linux, ARM64, focal]
+          - distro-codename: debian-bullseye
+            distro: debian
+            codename: bullseye
+    steps:
+      - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
+        uses: kgilmer/test-debian-bullseye-action@v1
+        with:
+          apt-key-url: https://regolith-linux.github.io/package-repo/regolith.key
+          apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}.s3.amazonaws.com ${{ matrix.codename }} main"
+          target-package: "regolith-desktop"
+  test-ubuntu-install:
+    runs-on: ${{ matrix.host-os }}
+    strategy:
+      matrix:
+        stage: [unstable] # , testing, release
+        distro-codename: [ubuntu-focal]
         arch: [amd64, arm64]
         include:
           - arch: amd64
@@ -20,14 +42,9 @@ jobs:
           - distro-codename: ubuntu-focal
             distro: ubuntu
             codename: focal
-            target-action: kgilmer/test-ubuntu-20.04-action@v1.1.5
-          - distro-codename: debian-bullseye
-            distro: debian
-            codename: bullseye
-            target-action: kgilmer/test-debian-bullseye-action@v1
     steps:
       - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
-        uses: ${{ matrix.target-action }}
+        uses: kgilmer/test-ubuntu-20.04-action@v1.1.5
         with:
           apt-key-url: https://regolith-linux.github.io/package-repo/regolith.key
           apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}.s3.amazonaws.com ${{ matrix.codename }} main"
