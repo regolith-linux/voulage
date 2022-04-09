@@ -9,7 +9,7 @@ on:
   repository_dispatch:
   workflow_dispatch:
 
-concurrency: 
+concurrency:
   group: debian_builder
   cancel-in-progress: true
 
@@ -97,8 +97,7 @@ jobs:
         run: |
           export DEBIAN_FRONTEND=noninteractive
           sudo apt update
-          DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends tzdata
-          sudo apt install -y python3-pip               
+          DEBIAN_FRONTEND=noninteractive sudo apt install -y python3-pip
           sudo pip install awscli
       - name: Pull from S3
         if: steps.changes.outputs.changed == 1
@@ -120,10 +119,10 @@ jobs:
             mkdir -p "${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo"
           else
             sudo chown -R $(whoami) ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo
-          fi     
+          fi
           if [ -d "${{ steps.init.outputs.PKG_REPO_PATH }}" ]; then
             rm -Rf "${{ steps.init.outputs.PKG_REPO_PATH }}"
-          fi     
+          fi
           mv ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo "${{ steps.init.outputs.PKG_REPO_PATH }}" || true
           ls -l "${{ steps.init.outputs.PKG_REPO_PATH }}"
       - name: Build
