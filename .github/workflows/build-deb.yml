@@ -16,42 +16,50 @@ concurrency:
 jobs:
   build:
     runs-on: ${{ matrix.host-os }}
-    container: ${{ matrix.container }}
     strategy:
       matrix:
-        host-os: [ubuntu-20.04, [self-hosted, Linux, ARM64, focal]]
         stage: [unstable, testing, release]
-        distro-codename: [ubuntu-focal, ubuntu-impish, debian-bullseye] # ubuntu-jammy,
+        distro-codename: [ubuntu-focal-amd64, ubuntu-focal-arm64, ubuntu-jammy-amd64, ubuntu-jammy-arm64, debian-bullseye-amd64, debian-bullseye-arm64]
         include:
-          - host-os: ubuntu-20.04
+          - distro-codename: ubuntu-focal-amd64
+            host-os: ubuntu-20.04
             arch: amd64
-          - host-os: [self-hosted, Linux, ARM64, focal]
-            arch: arm64
-          - distro-codename: ubuntu-focal
             distro: ubuntu
             codename: focal
-            container: ubuntu:20.04
-          - distro-codename: ubuntu-impish
+          - distro-codename: ubuntu-focal-arm64
+            host-os: [self-hosted, Linux, arm64, focal]
+            arch: arm64
             distro: ubuntu
-            codename: impish
-            container: ubuntu:21.10
-          #- distro-codename: ubuntu-jammy
-          #  distro: ubuntu
-          #  codename: jammy
-          #  container: ubuntu:22.04
-          - distro-codename: debian-bullseye
+            codename: focal
+          - distro-codename: ubuntu-jammy-amd64
+            host-os: [self-hosted, Linux, X64, jammy]
+            arch: amd64
+            distro: ubuntu
+            codename: jammy
+          - distro-codename: ubuntu-jammy-arm64
+            host-os: [self-hosted, Linux, arm64, jammy]
+            arch: arm64
+            distro: ubuntu
+            codename: jammy
+          - distro-codename: debian-bullseye-amd64
+            host-os: ubuntu-20.04
+            arch: amd64
             distro: debian
             codename: bullseye
-            container: ubuntu:20.04
+          - distro-codename: debian-bullseye-arm64
+            host-os: [self-hosted, Linux, arm64, focal]
+            arch: arm64
+            distro: debian
+            codename: bullseye
     steps:
       - uses: actions/checkout@v2
       - name: Set Job Parameters
         id: init
         run: |
-          echo ::set-output name=MANIFEST_PATH::"/github/home/manifests"
-          echo ::set-output name=PKG_REPO_PATH::"/github/home/repo"
-          echo ::set-output name=PKG_BUILD_DIR::"/github/home/packages"
-          echo ::set-output name=GH_REPO_ROOT::"/__w/voulage/voulage"
+          echo ::set-output name=MANIFEST_PATH::"${{ github.workspace }}/manifests"
+          echo ::set-output name=PKG_REPO_PATH::"${{ github.workspace }}/repo"
+          echo ::set-output name=PKG_BUILD_DIR::"${{ github.workspace }}/packages"
+          echo ::set-output name=GH_REPO_ROOT::"${{ github.workspace }}"
           echo ::set-output name=stage::${{ matrix.stage }}
           echo ::set-output name=distro::${{ matrix.distro }}
           echo ::set-output name=codename::${{ matrix.codename }}
@@ -59,7 +67,7 @@ jobs:
           echo ::set-output name=target::${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}
           echo ::set-output name=s3_bucket::regolith-${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}
           echo ::set-output name=repo_url::https://regolith-${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}.s3.us-east-2.amazonaws.com
-      - name: Clean tmp
+      - name: Env setup
         run: |
           set -x
           rm -Rf ${{ steps.init.outputs.PKG_REPO_PATH }} || true
@@ -67,6 +75,9 @@ jobs:
           mkdir ${{ steps.init.outputs.MANIFEST_PATH }}
           rm -Rf ${{ steps.init.outputs.PKG_BUILD_DIR }} || true
           mkdir ${{ steps.init.outputs.PKG_BUILD_DIR }}
+          apt update
+          DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends sudo jq git devscripts reprepro
+
       - name: Pull Manifest
         run: |
           set -x
@@ -76,11 +87,8 @@ jobs:
         id: changes
         run: |
           set -x
-          set -e
-          apt update
-          DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends jq git devscripts reprepro
           CHANGE_OUTPUT=$(${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/main.sh ${{ steps.init.outputs.GH_REPO_ROOT }} ${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/ext-debian.sh "${{ steps.init.outputs.stage }}" "${{ steps.init.outputs.distro }}" "${{ steps.init.outputs.codename }}" "${{ steps.init.outputs.arch }}" "unneeded to check change" "unneeded to check change" check ${{ steps.init.outputs.MANIFEST_PATH }} ${{ steps.init.outputs.PKG_REPO_PATH }} ${{ steps.init.outputs.PKG_BUILD_DIR }} | tail -n1)
-          if [ "$CHANGE_OUTPUT" = "No package changes found, exiting." ]; then
+          if [ "$CHANGE_OUTPUT" == "No package changes found, exiting." ]; then
             echo ::set-output name=changed::0
           else
             echo ::set-output name=changed::1
@@ -91,7 +99,7 @@ jobs:
           export DEBIAN_FRONTEND=noninteractive
           apt update
           DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends tzdata
-          apt install -y sudo python3-pip               
+          apt install -y python3-pip               
           sudo pip install awscli
       - name: Pull from S3
         if: steps.changes.outputs.changed == 1
