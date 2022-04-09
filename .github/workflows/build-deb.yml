@@ -75,9 +75,8 @@ jobs:
           mkdir ${{ steps.init.outputs.MANIFEST_PATH }}
           rm -Rf ${{ steps.init.outputs.PKG_BUILD_DIR }} || true
           mkdir ${{ steps.init.outputs.PKG_BUILD_DIR }}
-          apt update
-          DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends sudo jq git devscripts reprepro
-
+          sudo apt update
+          DEBIAN_FRONTEND=noninteractive sudo apt install -y --no-install-recommends jq git devscripts reprepro wget
       - name: Pull Manifest
         run: |
           set -x
@@ -97,9 +96,9 @@ jobs:
         if: steps.changes.outputs.changed == 1
         run: |
           export DEBIAN_FRONTEND=noninteractive
-          apt update
+          sudo apt update
           DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends tzdata
-          apt install -y python3-pip               
+          sudo apt install -y python3-pip               
           sudo pip install awscli
       - name: Pull from S3
         if: steps.changes.outputs.changed == 1
@@ -134,9 +133,6 @@ jobs:
           export DEBEMAIL="regolith.linux@gmail.com"
           export DEBFULLNAME="Regolith Linux"
           export DEBIAN_FRONTEND=noninteractive
-          sudo apt update
-          DEBIAN_FRONTEND=noninteractive apt install -y --no-install-recommends tzdata
-          sudo apt install -y devscripts reprepro jq
           mkdir -p ~/.gnupg/
           printf "${{ secrets.PACKAGE_PRIVATE_KEY }}" | base64 --decode > ~/.gnupg/private.key
           gpg --batch --import ~/.gnupg/private.key
