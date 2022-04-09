@@ -5,62 +5,30 @@ on:
   workflow_call:
 
 jobs:
-  test-ubuntu-amd64:
-    runs-on: ubuntu-20.04
+  test-install:
+    runs-on: ${{ matrix.host-os }}
     strategy:
       matrix:
-        stage: [ unstable, testing, release ]
-        arch: [ amd64 ]
-        distro: [ ubuntu ]
-        codename: [ focal, impish ] # jammy
+        stage: [unstable] # , testing, release
+        distro-codename: [ubuntu-focal, debian-bullseye]
+        arch: [amd64, arm64]
+        include:
+          - arch: amd64
+            host-os: ubuntu-20.04
+          - arch: arm64
+            host-os: [self-hosted, Linux, ARM64, focal]
+          - distro-codename: ubuntu-focal
+            distro: ubuntu
+            codename: focal
+            target-action: kgilmer/test-ubuntu-20.04-action@v1.1.5
+          include:
+          - distro-codename: debian-bullseye
+            distro: debian
+            codename: bullseye
+            target-action: kgilmer/test-debian-bullseye-action@v1
     steps:
-      - name: Test Ubuntu 20.04
-        uses: kgilmer/test-ubuntu-20.04-action@v1.1.5
-        with:
-          apt-key-url: https://regolith-linux.github.io/package-repo/regolith.key
-          apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}.s3.amazonaws.com ${{ matrix.codename }} main"
-          target-package: "regolith-desktop"
-  test-ubuntu-arm64:
-    runs-on: [self-hosted, Linux, ARM64]
-    strategy:
-      matrix:
-        stage: [ unstable, testing, release ]
-        arch: [ arm64 ]
-        distro: [ ubuntu ]
-        codename: [ focal, impish ] # jammy
-    steps:
-      - name: Test Ubuntu 20.04
-        uses: kgilmer/test-ubuntu-20.04-action@v1.1.5
-        with:
-          apt-key-url: https://regolith-linux.github.io/package-repo/regolith.key
-          apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}.s3.amazonaws.com ${{ matrix.codename }} main"
-          target-package: "regolith-desktop"
-  test-debian-amd64:
-    runs-on: ubuntu-20.04
-    strategy:
-      matrix:
-        stage: [ unstable, testing, release ]
-        arch: [ amd64 ]
-        distro: [ debian ]
-        codename: [ bullseye ]
-    steps:
-      - name: Test Debian Bullseye
-        uses: kgilmer/test-debian-bullseye-action@v1
-        with:
-          apt-key-url: https://regolith-linux.github.io/package-repo/regolith.key
-          apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}.s3.amazonaws.com ${{ matrix.codename }} main"
-          target-package: "regolith-desktop"
-  test-debian-arm64:
-    runs-on: [self-hosted, Linux, ARM64]
-    strategy:
-      matrix:
-        stage: [ unstable, testing, release ]
-        arch: [ arm64 ]
-        distro: [ debian ]
-        codename: [ bullseye ]
-    steps:
-      - name: Test Debian Bullseye
-        uses: kgilmer/test-debian-bullseye-action@v1
+      - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
+        uses: ${{ matrix.target-action }}
         with:
           apt-key-url: https://regolith-linux.github.io/package-repo/regolith.key
           apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}.s3.amazonaws.com ${{ matrix.codename }} main"
