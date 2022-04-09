@@ -21,7 +21,6 @@ jobs:
             distro: ubuntu
             codename: focal
             target-action: kgilmer/test-ubuntu-20.04-action@v1.1.5
-          include:
           - distro-codename: debian-bullseye
             distro: debian
             codename: bullseye
