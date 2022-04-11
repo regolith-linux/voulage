@@ -4,7 +4,7 @@ This repository hosts repositories containing Regolith packages.
 
 ## Status
 
-This repository and the packages it hosts are in active development.  We appreciate bug reports if issues are found.  If you are looking for the stable or release version of Regolith go to https://regolith-linux.org/download.
+This repository and the packages it hosts are in *active development* and should not be considered stable.  We appreciate bug reports if issues are found.  If you are looking for the stable or release version of Regolith go to https://regolith-linux.org/download.
 
 ### `regolith-desktop` installable status
 
