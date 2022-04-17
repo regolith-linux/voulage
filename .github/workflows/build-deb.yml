@@ -180,8 +180,15 @@ jobs:
           find .
           ls -l
           echo ::set-output name=TIMESTAMP::"$(date +%Y%m%d_%H%M%S)"
-          cat CHANGELOG_*/CHANGELOG_*.txt >> CHANGELOG.txt
+          FILES=$(find . -name CHANGELOG\*)
+          if [ -n "$FILES" ]; then
+            cat CHANGELOG_*/CHANGELOG_*.txt >> CHANGELOG.txt
+            echo ::set-output name=changed::1
+          else
+            echo ::set-output name=changed::0
+          fi
       - uses: softprops/action-gh-release@v1
+        if: steps.release-setup.outputs.changed == 1
         with:
           body_path: CHANGELOG.txt
           name: Package Build {{ steps.release-setup.outputs.TIMESTAMP }}
