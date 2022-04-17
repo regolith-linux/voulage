@@ -162,6 +162,7 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
       - uses: actions/upload-artifact@v3
+        if: steps.changes.outputs.changed == 1
         with:
           name: CHANGELOG_${{ steps.init.outputs.target }}
           path: ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
