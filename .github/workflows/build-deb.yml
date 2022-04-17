@@ -176,6 +176,9 @@ jobs:
       - name: Concat Release Notes
         id: release-setup
         run: |
+          set -x
+          find .
+          ls -l
           echo ::set-output name=TIMESTAMP::"$(date +%Y%m%d_%H%M%S)"
           cat CHANGELOG_*.txt >> CHANGELOG.txt
       - uses: softprops/action-gh-release@v1
