@@ -117,6 +117,7 @@ publish() {
                 reprepro --basedir "$PKG_REPO_PATH" includedeb "$CODENAME" "$DEB_BIN_PKG_PATH"
                 echo "Ingested binary package $DEB_BIN_PKG_PATH into $PKG_REPO_PATH"
               fi
+              echo "CHLOG:Published ${bin_pkg}_${version}_${target_arch}.deb"
           else
               echo "Package $bin_pkg does not exist for $target_arch"
           fi
