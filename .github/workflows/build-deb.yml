@@ -168,3 +168,16 @@ jobs:
   test:
     needs: build
     uses: ./.github/workflows/test-desktop-installable.yml
+  generate-release:
+    needs: build
+    - uses: actions/download-artifact@v3
+    - name: Concat Release Notes
+      id: release-setup
+      run: |
+        echo ::set-output name=TIMESTAMP::"$(date +%Y%m%d_%H%M%S)"
+        cat CHANGELOG_*.txt >> CHANGELOG.txt
+    - uses: softprops/action-gh-release@v1
+      with:
+        body_path: CHANGELOG.txt
+        name: Package Build {{ steps.release-setup.outputs.TIMESTAMP }}
+
