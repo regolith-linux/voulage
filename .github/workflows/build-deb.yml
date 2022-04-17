@@ -163,7 +163,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
       - uses: actions/upload-artifact@v3
         with:
-          name: CHANGELOG_${{ steps.init.outputs.target }}.txt
+          name: CHANGELOG_${{ steps.init.outputs.target }}
           path: ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
   test:
     needs: build
@@ -180,7 +180,7 @@ jobs:
           find .
           ls -l
           echo ::set-output name=TIMESTAMP::"$(date +%Y%m%d_%H%M%S)"
-          cat CHANGELOG_*.txt >> CHANGELOG.txt
+          cat CHANGELOG_*/CHANGELOG_*.txt >> CHANGELOG.txt
       - uses: softprops/action-gh-release@v1
         with:
           body_path: CHANGELOG.txt
