@@ -192,4 +192,5 @@ jobs:
         if: steps.release-setup.outputs.changed == 1
         with:
           body_path: CHANGELOG.txt
-          name: Package Build {{ steps.release-setup.outputs.TIMESTAMP }}
+          name: Package Build ${{ steps.release-setup.outputs.TIMESTAMP }}
+          tag_name: pkgbuild-${{ steps.release-setup.outputs.TIMESTAMP }}
