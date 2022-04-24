@@ -11,6 +11,10 @@
     "xcb-util": {
       "source": "https://git.launchpad.net/ubuntu/+source/xcb-util",
       "ref": "applied/ubuntu/groovy"
+    },
+    "regolith-look-default": {
+      "source": "https://github.com/regolith-linux/regolith-look-default.git",
+      "ref": "debian/bullseye"
     }
   }
 }
