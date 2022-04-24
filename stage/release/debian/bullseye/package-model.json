@@ -15,6 +15,10 @@
     "regolith-look-default": {
       "source": "https://github.com/regolith-linux/regolith-look-default.git",
       "ref": "debian/bullseye"
+    },
+    "regolith-session": {
+      "source": "https://github.com/regolith-linux/regolith-session.git",
+      "ref": "debian/bullseye"
     }
   }
 }
