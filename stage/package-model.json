@@ -47,6 +47,10 @@
       "source": "https://github.com/regolith-linux/ayu-theme.git",
       "ref": "master"
     },
+    "gruvbox-gtk": {
+      "source": "https://github.com/regolith-linux/gruvbox-gtk.git",
+      "ref": "master"
+    },
     "regolith-look-default": {
       "source": "https://github.com/regolith-linux/regolith-look-default.git",
       "ref": "main"
