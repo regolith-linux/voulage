@@ -44,6 +44,10 @@
       "source": "https://github.com/regolith-linux/ayu-theme.git",
       "ref": "r2_0-beta1"
     },
+    "solarc-theme": {
+      "source": "https://github.com/regolith-linux/solarc-theme.git",
+      "ref": "master"
+    },
     "gruvbox-gtk": {
       "source": "https://github.com/regolith-linux/gruvbox-gtk.git",
       "ref": "r2_0-beta1"
