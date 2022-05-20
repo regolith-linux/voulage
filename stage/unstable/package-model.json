@@ -53,7 +53,7 @@
       "ref": "master"
     },
     "whitesur-gtk-theme": {
-      "source": "https://github.com/regolith-linuxwhitesur-gtk-theme.git",
+      "source": "https://github.com/regolith-linux/whitesur-gtk-theme.git",
       "ref": "debian"
     },
     "regolith-look-default": {
