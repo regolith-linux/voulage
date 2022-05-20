@@ -52,6 +52,10 @@
       "source": "https://github.com/regolith-linux/gruvbox-gtk.git",
       "ref": "master"
     },
+    "whitesur-gtk-theme": {
+      "source": "https://github.com/regolith-linuxwhitesur-gtk-theme.git",
+      "ref": "debian"
+    },
     "regolith-look-default": {
       "source": "https://github.com/regolith-linux/regolith-look-default.git",
       "ref": "main"
