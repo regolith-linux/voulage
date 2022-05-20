@@ -70,6 +70,7 @@ jobs:
       - name: Env setup
         run: |
           set -x
+          set -e
           rm -Rf ${{ steps.init.outputs.PKG_REPO_PATH }} || true
           rm -Rf ${{ steps.init.outputs.MANIFEST_PATH }} || true
           mkdir ${{ steps.init.outputs.MANIFEST_PATH }}
@@ -80,12 +81,14 @@ jobs:
       - name: Pull Manifest
         run: |
           set -x
+          set -e
           manifest_url="https://${{ steps.init.outputs.s3_bucket }}.s3.us-east-2.amazonaws.com/manifest.txt"
           wget -P "${{ steps.init.outputs.PKG_REPO_PATH }}" "$manifest_url" || true
       - name: Check for changes
         id: changes
         run: |
           set -x
+          set -e
           CHANGE_OUTPUT=$(${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/main.sh ${{ steps.init.outputs.GH_REPO_ROOT }} ${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/ext-debian.sh "${{ steps.init.outputs.stage }}" "${{ steps.init.outputs.distro }}" "${{ steps.init.outputs.codename }}" "${{ steps.init.outputs.arch }}" "unneeded to check change" "unneeded to check change" check ${{ steps.init.outputs.MANIFEST_PATH }} ${{ steps.init.outputs.PKG_REPO_PATH }} ${{ steps.init.outputs.PKG_BUILD_DIR }} | tail -n1)
           if [ "$CHANGE_OUTPUT" == "No package changes found, exiting." ]; then
             echo ::set-output name=changed::0
@@ -103,6 +106,7 @@ jobs:
         if: steps.changes.outputs.changed == 1
         run: |
           set -x
+          set -e
           rm -Rf ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo
           aws s3 sync \
             s3://${{ steps.init.outputs.s3_bucket }} \
@@ -115,6 +119,7 @@ jobs:
         if: steps.changes.outputs.changed == 1
         run: |
           set -x
+          set -e
           if [ ! -d "${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo" ]; then
             mkdir -p "${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo"
           else
@@ -129,6 +134,7 @@ jobs:
         if: steps.changes.outputs.changed == 1
         run: |
           set -x
+          set -e
           export DEBEMAIL="regolith.linux@gmail.com"
           export DEBFULLNAME="Regolith Linux"
           export DEBIAN_FRONTEND=noninteractive
@@ -154,6 +160,7 @@ jobs:
         if: steps.changes.outputs.changed == 1
         run: |
           set -x
+          set -e
           aws s3 sync \
             ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo/ \
             s3://${{ steps.init.outputs.s3_bucket }} \
@@ -178,8 +185,7 @@ jobs:
         id: release-setup
         run: |
           set -x
-          find .
-          ls -l
+          set -e
           echo ::set-output name=TIMESTAMP::"$(date +%Y%m%d_%H%M%S)"
           FILES=$(find . -name CHANGELOG\*)
           if [ -n "$FILES" ]; then
