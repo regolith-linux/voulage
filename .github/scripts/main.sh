@@ -107,7 +107,10 @@ build_packages() {
   echo "Building Packages:"
   echo $PACKAGE_CHANGES
 
+  set -x
   while IFS= read -r PKG_LINE; do
+    echo "Line $PKG_LINE"
+
     PACKAGE_NAME=$(echo "$PKG_LINE" | cut -d" " -f1)
     PACKAGE_URL=$(echo "$PKG_LINE" | cut -d" " -f2)
     PACKAGE_REF=$(echo "$PKG_LINE" | cut -d" " -f3)
@@ -124,7 +127,7 @@ build_packages() {
     else
       echo "dist codename does not match in package changelog, ignoring $PACKAGE_NAME."
     fi
-  done <<<"$PACKAGE_CHANGES"
+  done <<< "$PACKAGE_CHANGES"
 }
 
 #### Init input params
