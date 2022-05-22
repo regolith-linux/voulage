@@ -47,6 +47,8 @@ stage_source() {
 }
 
 build_src_package() {
+  set -e
+
   pushd .
   echo "Building source package $PACKAGE_NAME"
   cd "$PKG_BUILD_DIR/$PACKAGE_NAME" || exit
@@ -59,6 +61,8 @@ build_src_package() {
 }
 
 build_bin_package() {
+  set -e
+  
   pushd .
   echo "Building binary package $PACKAGE_NAME"
   cd "$PKG_BUILD_DIR/$PACKAGE_NAME" || exit

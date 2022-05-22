@@ -1,6 +1,8 @@
 #!/bin/bash
 
 checkout() {
+  set -e
+  
   if [ -z "$PACKAGE_URL" ]; then
     echo "Package model is invalid.  Model field 'source' undefined, aborting."
     exit 1
