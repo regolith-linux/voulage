@@ -46,10 +46,14 @@
     },
     "solarc-theme": {
       "source": "https://github.com/regolith-linux/solarc-theme.git",
-      "ref": "master"
+      "ref": "r2_0-beta2"
     },
     "gruvbox-gtk": {
       "source": "https://github.com/regolith-linux/gruvbox-gtk.git",
+      "ref": "r2_0-beta2"
+    },
+    "whitesur-gtk-theme": {
+      "source": "https://github.com/regolith-linux/whitesur-gtk-theme.git",
       "ref": "r2_0-beta2"
     },
     "regolith-look-default": {
@@ -70,7 +74,7 @@
     },
     "regolith-i3xrocks-config": {
       "source": "https://github.com/regolith-linux/regolith-i3xrocks-config.git",
-      "ref": "master"
+      "ref": "r2_0-beta2"
     },
     "regolith-desktop": {
       "source": "https://github.com/regolith-linux/regolith-desktop.git",
