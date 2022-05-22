@@ -108,13 +108,8 @@ build_packages() {
   echo $PACKAGE_CHANGES
 
   set -x
-  while IFS= read -r PKG_LINE; do
-    echo "KGWH Line $PKG_LINE"
-  done <<< "$PACKAGE_CHANGES"
 
   while IFS= read -r PKG_LINE; do
-    echo "Line $PKG_LINE"
-
     PACKAGE_NAME=$(echo "$PKG_LINE" | cut -d" " -f1)
     PACKAGE_URL=$(echo "$PKG_LINE" | cut -d" " -f2)
     PACKAGE_REF=$(echo "$PKG_LINE" | cut -d" " -f3)
