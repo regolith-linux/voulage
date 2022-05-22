@@ -2,15 +2,15 @@
   "packages": {
     "ilia": {
       "source": "https://github.com/regolith-linux/ilia.git",
-      "ref": "ubuntu/jammy"
+      "ref": "ubuntu-jammy-r2_0-beta2"
     },
     "lago": {
       "source": "https://github.com/regolith-linux/lago.git",
-      "ref": "ubuntu/jammy"
+      "ref": "ubuntu-jammy-r2_0-beta2"
     },
     "regolith-control-center": {
       "source": "https://github.com/regolith-linux/regolith-control-center.git",
-      "ref": "ubuntu/jammy"
+      "ref": "ubuntu-jammy-r2_0-beta2"
     }
   }
 }
