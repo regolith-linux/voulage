@@ -109,6 +109,10 @@ build_packages() {
 
   set -x
   while IFS= read -r PKG_LINE; do
+    echo "KGWH Line $PKG_LINE"
+  done <<< "$PACKAGE_CHANGES"
+
+  while IFS= read -r PKG_LINE; do
     echo "Line $PKG_LINE"
 
     PACKAGE_NAME=$(echo "$PKG_LINE" | cut -d" " -f1)
@@ -128,6 +132,8 @@ build_packages() {
       echo "dist codename does not match in package changelog, ignoring $PACKAGE_NAME."
     fi
   done <<< "$PACKAGE_CHANGES"
+
+  echo "Completed building packages"
 }
 
 #### Init input params
@@ -209,6 +215,7 @@ traverse_package_model
 #### Find packages that need to be built
 echo Diffing "$PREV_MANIFEST_FILE" "$NEXT_MANIFEST_FILE"
 PACKAGE_CHANGES=$(diff "$PREV_MANIFEST_FILE" "$NEXT_MANIFEST_FILE" | grep '^[>][^>]' | cut -c3- | uniq | sort)
+echo "Package diff: $PACKAGE_CHANGES"
 
 if [ -z "$PACKAGE_CHANGES" ]; then
   echo "No package changes found, exiting."
