@@ -104,10 +104,15 @@ source_setup_scripts() {
 }
 
 build_packages() {
+  echo "Building Packages:"
+  echo $PACKAGE_CHANGES
+
   while IFS= read -r PKG_LINE; do
     PACKAGE_NAME=$(echo "$PKG_LINE" | cut -d" " -f1)
     PACKAGE_URL=$(echo "$PKG_LINE" | cut -d" " -f2)
     PACKAGE_REF=$(echo "$PKG_LINE" | cut -d" " -f3)
+
+    echo "Building $PACKAGE_NAME"
 
     checkout
     update_changelog
