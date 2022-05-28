@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+set -o errexit
 # Extension for Debian repo and pacakge support
 
 #### Debian specific functions
@@ -121,7 +123,7 @@ publish() {
                 reprepro --basedir "$PKG_REPO_PATH" includedeb "$CODENAME" "$DEB_BIN_PKG_PATH"
                 echo "Ingested binary package $DEB_BIN_PKG_PATH into $PKG_REPO_PATH"
               fi
-              echo "CHLOG:Published ${bin_pkg}_${version}_${target_arch}.deb in $STAGE $DISTRO $CODENAME $ARCH from $PACKAGE_URL / $PACKAGE_REF"
+              echo "CHLOG:Published ${bin_pkg}_${version}_${target_arch}.deb in $STAGE $DISTRO $CODENAME $ARCH from $PKG_LINE"
           else
               echo "Package $bin_pkg does not exist for $target_arch"
           fi
