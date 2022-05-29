@@ -117,7 +117,6 @@ jobs:
       - name: Build Setup
         if: steps.changes.outputs.changed == 1
         run: |
-          set -x
           set -e
           if [ ! -d "${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo" ]; then
             mkdir -p "${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo"
@@ -153,7 +152,7 @@ jobs:
             ${{ steps.init.outputs.PKG_REPO_PATH }} \
             ${{ steps.init.outputs.PKG_BUILD_DIR }} | tee -a ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt
           mv "${{ steps.init.outputs.PKG_REPO_PATH }}" ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo
-          cat ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt | grep ^CHLOG: | cut -d: -f2 > ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
+          cat ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt | grep ^CHLOG: | cut -c 6- > ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
       - name: Push to S3
         if: steps.changes.outputs.changed == 1
         run: |
