@@ -10,7 +10,7 @@
     },
     "regolith-session": {
       "source": "https://github.com/regolith-linux/regolith-session.git",
-      "ref": "r2_0-beta3"
+      "ref": "r2_0-beta3-patch1"
     },
     "i3-snapshot": {
       "source": "https://github.com/regolith-linux/i3-snapshot.git",
