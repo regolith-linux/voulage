@@ -172,6 +172,7 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
       - name: Push to Netlify
+        if: steps.changes.outputs.changed == 1
         uses: nwtgck/actions-netlify@v1.2
         with:
           publish-dir: ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo/
