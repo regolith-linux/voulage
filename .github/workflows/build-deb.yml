@@ -70,6 +70,7 @@ jobs:
       - name: Env setup
         run: |
           set -e
+          rm -Rf ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo
           rm -Rf ${{ steps.init.outputs.PKG_REPO_PATH }} || true
           rm -Rf ${{ steps.init.outputs.MANIFEST_PATH }} || true
           mkdir ${{ steps.init.outputs.MANIFEST_PATH }}
@@ -102,11 +103,17 @@ jobs:
           sudo apt update
           DEBIAN_FRONTEND=noninteractive sudo apt install -y python3-pip
           sudo pip install awscli
+      - name: Cache S3 repo
+        if: steps.changes.outputs.changed == 1
+        id: cache-npm
+        uses: actions/cache@v3
+        with:
+          path: ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo
+          key: cache-${{ steps.init.outputs.target }}          
       - name: Pull from S3
         if: steps.changes.outputs.changed == 1
         run: |
           set -e
-          rm -Rf ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo
           aws s3 sync \
             s3://${{ steps.init.outputs.s3_bucket }} \
             ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo \
