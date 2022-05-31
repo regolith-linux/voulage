@@ -38,6 +38,7 @@ jobs:
               done
             done
           done
+          tree -H '.' --noreport --charset utf-8 -o ${{ github.workspace }}/index.html
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
