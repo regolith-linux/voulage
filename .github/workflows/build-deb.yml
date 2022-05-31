@@ -171,6 +171,14 @@ jobs:
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
+      - name: Setup for Netlify
+        if: steps.changes.outputs.changed == 1
+        run: |
+          set -x
+          set -e
+          mkdir -p ${{ github.workspace }}/http-out/${{ matrix.stage }}/${{ matrix.distro }}/${{ matrix.codename }}
+          ln -s ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo ${{ github.workspace }}/http-out/${{ matrix.stage }}/${{ matrix.distro }}/${{ matrix.codename }}/${{ matrix.arch }}
+          find ${{ github.workspace }}/http-out
       - name: Push to Netlify
         if: steps.changes.outputs.changed == 1
         uses: nwtgck/actions-netlify@v1.2
@@ -181,6 +189,11 @@ jobs:
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_SECRET_KEY }}
           NETLIFY_SITE_ID: c770f27f-9f9b-4f49-89a3-05b3c8537794
+<<<<<<< HEAD
+=======
+          build_directory: ${{ github.workspace }}/http-out/
+          NETLIFY_DEPLOY_TO_PROD: true
+>>>>>>> 57466f3 (Create path prefix for repo)
       - uses: actions/upload-artifact@v3
         if: steps.changes.outputs.changed == 1
         with:
