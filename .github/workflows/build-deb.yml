@@ -176,8 +176,9 @@ jobs:
         run: |
           set -x
           set -e
-          mkdir -p ${{ github.workspace }}/http-out/${{ matrix.stage }}/${{ matrix.distro }}/${{ matrix.codename }}
-          ln -s ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo ${{ github.workspace }}/http-out/${{ matrix.stage }}/${{ matrix.distro }}/${{ matrix.codename }}/${{ matrix.arch }}
+          find ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo/
+          mkdir -p ${{ github.workspace }}/http-out/${{ matrix.stage }}/${{ matrix.distro }}/${{ matrix.codename }}/${{ matrix.arch }}
+          mv ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo/* ${{ github.workspace }}/http-out/${{ matrix.stage }}/${{ matrix.distro }}/${{ matrix.codename }}/${{ matrix.arch }}/
           find ${{ github.workspace }}/http-out
       - name: Push to Netlify
         if: steps.changes.outputs.changed == 1
