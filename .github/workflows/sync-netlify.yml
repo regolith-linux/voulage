@@ -8,7 +8,6 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - name: Install AWS CLI
-        if: steps.changes.outputs.changed == 1
         run: |
           export DEBIAN_FRONTEND=noninteractive
           sudo apt update
@@ -21,7 +20,6 @@ jobs:
           path: ${{ github.workspace }}
           key: cache-repos      
       - name: Pull from S3
-        if: steps.changes.outputs.changed == 1
         run: |
           for STAGE in unstable testing release
           do
