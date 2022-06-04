@@ -38,14 +38,16 @@ jobs:
                   --delete
               done
             done
-          done
-          tree -H '.' --noreport --charset utf-8 -o ${{ github.workspace }}/index.html
+          done          
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
       - name: Copy public key
         run: |
           wget https://regolith-linux.github.io/package-repo/regolith.key -P ${{ github.workspace }}
+      - name: Generate index
+        run: |
+          tree -H '.' --noreport --charset utf-8 -o ${{ github.workspace }}/index.html
       - name: Push to Netlify
         uses: nwtgck/actions-netlify@v1.2
         with:
