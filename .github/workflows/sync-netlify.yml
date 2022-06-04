@@ -45,7 +45,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
       - name: Copy public key
         run: |
-          wget -qO - https://regolith-linux.github.io/package-repo/regolith.key -P ${{ github.workspace }}
+          wget https://regolith-linux.github.io/package-repo/regolith.key -P ${{ github.workspace }}
       - name: Push to Netlify
         uses: nwtgck/actions-netlify@v1.2
         with:
