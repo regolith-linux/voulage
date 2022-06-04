@@ -102,14 +102,7 @@ jobs:
           export DEBIAN_FRONTEND=noninteractive
           sudo apt update
           DEBIAN_FRONTEND=noninteractive sudo apt install -y python3-pip
-          sudo pip install awscli
-      - name: Cache S3 repo
-        if: steps.changes.outputs.changed == 1
-        id: cache-s3
-        uses: actions/cache@v3
-        with:
-          path: ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo
-          key: cache-${{ steps.init.outputs.target }}          
+          sudo pip install awscli      
       - name: Pull from S3
         if: steps.changes.outputs.changed == 1
         run: |
