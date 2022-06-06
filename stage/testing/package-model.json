@@ -131,6 +131,18 @@
     "regolith-default-settings": {
       "source": "https://github.com/regolith-linux/regolith-default-settings.git",
       "ref": "main"
+    },    
+    "plymouth-theme-regolith": {
+      "source": "https://github.com/regolith-linux/plymouth-theme-regolith.git",
+      "ref": "master"
+    },
+    "regolith-distro-ubuntu": {
+      "source": "https://github.com/regolith-linux/regolith-distro-ubuntu.git",
+      "ref": "main"
+    },
+    "ubiquity-slideshow-regolith": {
+      "source": "https://github.com/regolith-linux/ubiquity-slideshow-regolith.git",
+      "ref": "master"
     },
     "xrescat": {
       "source": "https://github.com/regolith-linux/xrescat.git",
