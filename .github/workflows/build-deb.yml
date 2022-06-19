@@ -32,7 +32,7 @@ jobs:
             distro: ubuntu
             codename: focal
           - distro-codename: ubuntu-jammy-amd64
-            host-os: [self-hosted, Linux, X64, jammy]
+            host-os: ubuntu-22.04
             arch: amd64
             distro: ubuntu
             codename: jammy
