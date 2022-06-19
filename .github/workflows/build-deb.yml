@@ -153,7 +153,7 @@ jobs:
             ${{ steps.init.outputs.PKG_BUILD_DIR }} | tee -a ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt
           mv "${{ steps.init.outputs.PKG_REPO_PATH }}" ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo
           cat ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt | grep ^CHLOG: | cut -c 7- > ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
-          cp ${{ steps.init.outputs.PKG_REPO_PATH }}/manifest.txt ${{ steps.init.outputs.GH_REPO_ROOT }}/MANIFEST_${{ steps.init.outputs.target }}.txt
+          cp ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo/manifest.txt ${{ steps.init.outputs.GH_REPO_ROOT }}/MANIFEST_${{ steps.init.outputs.target }}.txt
       - name: Push to S3
         if: steps.changes.outputs.changed == 1
         run: |
