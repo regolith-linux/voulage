@@ -157,8 +157,6 @@ jobs:
         if: steps.changes.outputs.changed == 1
         run: |
           set -e
-          set -x
-          find ${{ steps.init.outputs.MANIFEST_PATH }}
           aws s3 sync \
             ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo/ \
             s3://${{ steps.init.outputs.s3_bucket }}
@@ -171,7 +169,7 @@ jobs:
           name: CHANGELOG_${{ steps.init.outputs.target }}
           path: |
             ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
-            ${{ steps.init.outputs.MANIFEST_PATH }}/*
+            ${{ steps.init.outputs.MANIFEST_PATH }}/next-manifest.txt
   test:
     needs: build
     uses: ./.github/workflows/test-desktop-installable.yml
@@ -183,9 +181,7 @@ jobs:
       - name: Concat Release Notes
         id: release-setup
         run: |
-          set -x
           set -e
-          find .
           echo ::set-output name=TIMESTAMP::"$(date +%Y%m%d_%H%M%S)"
           FILES=$(find . -name CHANGELOG\*)
           if [ -n "$FILES" ]; then
@@ -200,3 +196,6 @@ jobs:
           body_path: CHANGELOG.txt
           name: Package Build ${{ steps.release-setup.outputs.TIMESTAMP }}
           tag_name: pkgbuild-${{ steps.release-setup.outputs.TIMESTAMP }}
+          files: |
+            CHANGELOG.txt
+            CHANGELOG_*/manifests/*
