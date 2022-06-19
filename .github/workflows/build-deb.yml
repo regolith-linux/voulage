@@ -132,6 +132,7 @@ jobs:
         if: steps.changes.outputs.changed == 1
         run: |
           set -e
+          set -x
           export DEBEMAIL="regolith.linux@gmail.com"
           export DEBFULLNAME="Regolith Linux"
           export DEBIAN_FRONTEND=noninteractive
@@ -172,7 +173,7 @@ jobs:
           name: CHANGELOG_${{ steps.init.outputs.target }}
           path: |
             ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
-            ${{ steps.init.outputs.GH_REPO_ROOT }}/MANIFEST_${{ steps.init.outputs.target }}.txt
+            ${{ steps.init.outputs.GH_REPO_ROOT }}/MANIFEST_*.txt
   test:
     needs: build
     uses: ./.github/workflows/test-desktop-installable.yml
