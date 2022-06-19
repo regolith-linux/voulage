@@ -182,6 +182,8 @@ jobs:
         id: release-setup
         run: |
           set -e
+          set -x
+          find .
           echo ::set-output name=TIMESTAMP::"$(date +%Y%m%d_%H%M%S)"
           FILES=$(find . -name CHANGELOG\*)
           if [ -n "$FILES" ]; then
@@ -193,9 +195,9 @@ jobs:
       - uses: softprops/action-gh-release@v1
         if: steps.release-setup.outputs.changed == 1
         with:
-          body_path: CHANGELOG.txt
+          body: See CHANGELOG.txt for updates and manifests for current state of repos.
           name: Package Build ${{ steps.release-setup.outputs.TIMESTAMP }}
           tag_name: pkgbuild-${{ steps.release-setup.outputs.TIMESTAMP }}
           files: |
             CHANGELOG.txt
-            CHANGELOG_*/manifests/*
+            CHANGELOG_**/manifests/*
