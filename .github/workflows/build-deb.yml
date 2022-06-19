@@ -157,6 +157,8 @@ jobs:
         if: steps.changes.outputs.changed == 1
         run: |
           set -e
+          set -x
+          find ${{ steps.init.outputs.MANIFEST_PATH }}
           aws s3 sync \
             ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo/ \
             s3://${{ steps.init.outputs.s3_bucket }}
@@ -167,7 +169,9 @@ jobs:
         if: steps.changes.outputs.changed == 1
         with:
           name: CHANGELOG_${{ steps.init.outputs.target }}
-          path: ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
+          path: |
+            ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
+            ${{ steps.init.outputs.MANIFEST_PATH }}/*
   test:
     needs: build
     uses: ./.github/workflows/test-desktop-installable.yml
@@ -181,6 +185,7 @@ jobs:
         run: |
           set -x
           set -e
+          find .
           echo ::set-output name=TIMESTAMP::"$(date +%Y%m%d_%H%M%S)"
           FILES=$(find . -name CHANGELOG\*)
           if [ -n "$FILES" ]; then
