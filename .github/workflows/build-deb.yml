@@ -157,6 +157,9 @@ jobs:
         if: steps.changes.outputs.changed == 1
         run: |
           set -e
+          set -x
+          find ${{ steps.init.outputs.MANIFEST_PATH }}
+          file ${{ steps.init.outputs.MANIFEST_PATH }}/next-manifest.txt
           aws s3 sync \
             ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo/ \
             s3://${{ steps.init.outputs.s3_bucket }}
@@ -169,7 +172,7 @@ jobs:
           name: CHANGELOG_${{ steps.init.outputs.target }}
           path: |
             ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
-            ${{ steps.init.outputs.MANIFEST_PATH }}/next-manifest.txt
+            ${{ steps.init.outputs.MANIFEST_PATH }}/*.txt
   test:
     needs: build
     uses: ./.github/workflows/test-desktop-installable.yml
