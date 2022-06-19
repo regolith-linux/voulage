@@ -199,7 +199,8 @@ fi
 # Delete pre-existing manifest before generating new
 if [ -f "$NEXT_MANIFEST_FILE" ]; then
   rm "$NEXT_MANIFEST_FILE"
-  echo "Deleted pre-existing manifest file $NEXT_MANIFEST_FILE"
+  mv "$NEXT_MANIFEST_FILE" "$MANIFEST_PATH/prev-manifest.txt"
+  echo "Moved pre-existing manifest file $NEXT_MANIFEST_FILE to $MANIFEST_PATH/prev-manifest.txt"
 fi
 
 # Merge models across stage, distro, codename, arch
