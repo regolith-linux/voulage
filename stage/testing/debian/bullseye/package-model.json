@@ -2,7 +2,7 @@
   "packages": {
     "regolith-desktop": {
       "source": "https://github.com/regolith-linux/regolith-desktop.git",
-      "ref": "debian-bullseye"
+      "ref": "r2_1-beta1-debian-bullseye"
     },
     "json-glib": {
       "source": "https://salsa.debian.org/gnome-team/json-glib.git",
@@ -14,7 +14,7 @@
     },
     "regolith-session": {
       "source": "https://github.com/regolith-linux/regolith-session.git",
-      "ref": "debian/bullseye"
+      "ref": "r2_1-beta1-debian-bullseye"
     }
   }
 }
