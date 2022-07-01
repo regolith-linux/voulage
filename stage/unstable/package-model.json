@@ -30,7 +30,7 @@
     },
     "i3-wm": {
       "source": "https://github.com/regolith-linux/i3-wm.git",
-      "ref": "next"
+      "ref": "main"
     },
     "i3-gaps-wm": {
       "source": "https://github.com/regolith-linux/i3-gaps-wm.git",
