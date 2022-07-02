@@ -68,6 +68,10 @@
       "source": "https://github.com/regolith-linux/i3-next-workspace.git",
       "ref": "main"
     },
+    "i3-swap-focus": {
+      "source": "https://github.com/regolith-linux/i3-swap-focus.git",
+      "ref": "master"
+    },
     "i3xrocks": {
       "source": "https://github.com/regolith-linux/i3xrocks.git",
       "ref": "master"
