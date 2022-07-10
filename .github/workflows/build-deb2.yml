@@ -12,8 +12,8 @@ jobs:
     runs-on: ${{ matrix.host-os }}
     strategy:
       matrix:
-        stage: [experimental] # [unstable, testing, release]
-        distro-codename: [ubuntu-focal-amd64, ubuntu-focal-arm64] #, ubuntu-jammy-amd64, ubuntu-jammy-arm64, debian-bullseye-amd64, debian-bullseye-arm64]
+        stage: [experimental, unstable, testing, release]
+        distro-codename: [ubuntu-focal-amd64, ubuntu-focal-arm64], ubuntu-jammy-amd64, ubuntu-jammy-arm64, debian-bullseye-amd64, debian-bullseye-arm64]
         include:
           - distro-codename: ubuntu-focal-amd64
             host-os: ubuntu-20.04
@@ -25,26 +25,26 @@ jobs:
             arch: arm64
             distro: ubuntu
             codename: focal
-          #- distro-codename: ubuntu-jammy-amd64
-          #  host-os: ubuntu-22.04
-          #  arch: amd64
-          #  distro: ubuntu
-          #  codename: jammy
-          #- distro-codename: ubuntu-jammy-arm64
-          #  host-os: [self-hosted, Linux, arm64, jammy]
-          #  arch: arm64
-          #  distro: ubuntu
-          #  codename: jammy
-          #- distro-codename: debian-bullseye-amd64
-          #  host-os: ubuntu-20.04
-          #  arch: amd64
-          #  distro: debian
-          #  codename: bullseye
-          #- distro-codename: debian-bullseye-arm64
-          #  host-os: [self-hosted, Linux, arm64, focal]
-          #  arch: arm64
-          #  distro: debian
-          #  codename: bullseye
+          - distro-codename: ubuntu-jammy-amd64
+            host-os: ubuntu-22.04
+            arch: amd64
+            distro: ubuntu
+            codename: jammy
+          - distro-codename: ubuntu-jammy-arm64
+            host-os: [self-hosted, Linux, arm64, jammy]
+            arch: arm64
+            distro: ubuntu
+            codename: jammy
+          - distro-codename: debian-bullseye-amd64
+            host-os: ubuntu-20.04
+            arch: amd64
+            distro: debian
+            codename: bullseye
+          - distro-codename: debian-bullseye-arm64
+            host-os: [self-hosted, Linux, arm64, focal]
+            arch: arm64
+            distro: debian
+            codename: bullseye
     steps:
       - uses: actions/checkout@v2
       - name: Set Job Parameters
