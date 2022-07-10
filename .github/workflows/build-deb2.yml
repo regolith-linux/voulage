@@ -145,8 +145,10 @@ jobs:
             ${{ steps.init.outputs.PKG_BUILD_DIR }} | tee -a ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt
           mv "${{ steps.init.outputs.PKG_REPO_PATH }}" ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo
           cat ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt | grep ^CHLOG: | cut -c 7- > ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
+      - uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.KAMATERA_SSH_KEY }}
       - name: Deploy via rsync
         run: |
           set -x
-          ssh-add - <<< ${{ secrets.KAMATERA_SSH_KEY }}
           rsync -avzh ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo root@${{ secrets.KAMATERA_HOSTNAME }}:/var/www/html/${{ steps.init.outputs.target }} --delete
