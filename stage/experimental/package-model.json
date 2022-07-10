@@ -2,7 +2,7 @@
   "packages": {
    "xrescat": {
       "source": "https://github.com/regolith-linux/xrescat.git",
-      "ref": "master"
+      "ref": "experimental"
     }
   }
 }
