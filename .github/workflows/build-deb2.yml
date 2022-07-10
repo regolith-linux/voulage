@@ -151,6 +151,6 @@ jobs:
           switches: -avzr --delete
           path: ${{ steps.init.outputs.PKG_REPO_PATH }}
           remote_path: /var/www/html/${{ steps.init.outputs.target }}
-          remote_host: 104-238-213-207.cloud-xip.io
+          remote_host: 104.238.213.207
           remote_user: root
           remote_key: ${{ secrets.KAMATERA_SSH_KEY }}      
