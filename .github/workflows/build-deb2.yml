@@ -146,11 +146,7 @@ jobs:
           mv "${{ steps.init.outputs.PKG_REPO_PATH }}" ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo
           cat ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt | grep ^CHLOG: | cut -c 7- > ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
       - name: Deploy via rsync
-        uses: burnett01/rsync-deployments@5.2
-        with:
-          switches: -avzr --delete
-          path: generated-repo/
-          remote_path: /var/www/html/${{ steps.init.outputs.target }}
-          remote_host: 104.238.213.207
-          remote_user: root
-          remote_key: ${{ secrets.KAMATERA_SSH_KEY }}      
+        run: |
+          set -x
+          ssh-add - <<< ${{ secrets.KAMATERA_SSH_KEY }}
+          rsync -avzh ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo root@${{ secrets.KAMATERA_HOSTNAME }}:/var/www/html/${{ steps.init.outputs.target }} --delete
