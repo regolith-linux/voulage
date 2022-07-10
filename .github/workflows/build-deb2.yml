@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         stage: [experimental, unstable, testing, release]
-        distro-codename: [ubuntu-focal-amd64, ubuntu-focal-arm64], ubuntu-jammy-amd64, ubuntu-jammy-arm64, debian-bullseye-amd64, debian-bullseye-arm64]
+        distro-codename: [ubuntu-focal-amd64, ubuntu-focal-arm64, ubuntu-jammy-amd64, ubuntu-jammy-arm64, debian-bullseye-amd64, debian-bullseye-arm64]
         include:
           - distro-codename: ubuntu-focal-amd64
             host-os: ubuntu-20.04
