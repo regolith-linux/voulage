@@ -152,4 +152,4 @@ jobs:
         run: |
           set -x
           ssh-keyscan -H ${{ secrets.KAMATERA_HOSTNAME }} >> ~/.ssh/known_hosts
-          rsync -avzh ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo root@${{ secrets.KAMATERA_HOSTNAME }}:/var/www/html/${{ steps.init.outputs.target }} --delete
+          rsync -avzh ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo/* root@${{ secrets.KAMATERA_HOSTNAME }}:/var/www/html/${{ steps.init.outputs.target }} --delete
