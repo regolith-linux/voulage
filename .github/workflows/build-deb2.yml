@@ -12,7 +12,7 @@ jobs:
     runs-on: ${{ matrix.host-os }}
     strategy:
       matrix:
-        stage: [unstable] #, testing, release]
+        stage: [experimental] # [unstable, testing, release]
         distro-codename: [ubuntu-focal-amd64] #, ubuntu-focal-arm64, ubuntu-jammy-amd64, ubuntu-jammy-arm64, debian-bullseye-amd64, debian-bullseye-arm64]
         include:
           - distro-codename: ubuntu-focal-amd64
@@ -149,7 +149,7 @@ jobs:
         uses: burnett01/rsync-deployments@5.2
         with:
           switches: -avzr --delete
-          path: ${{ steps.init.outputs.PKG_REPO_PATH }}
+          path: generated-repo/
           remote_path: /var/www/html/${{ steps.init.outputs.target }}
           remote_host: 104.238.213.207
           remote_user: root
