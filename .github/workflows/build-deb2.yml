@@ -1,0 +1,162 @@
+name: Package Build (experimental)
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: debian_builder2
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ${{ matrix.host-os }}
+    strategy:
+      matrix:
+        stage: [unstable, testing, release]
+        distro-codename: [ubuntu-focal-amd64, ubuntu-focal-arm64, ubuntu-jammy-amd64, ubuntu-jammy-arm64, debian-bullseye-amd64, debian-bullseye-arm64]
+        include:
+          - distro-codename: ubuntu-focal-amd64
+            host-os: ubuntu-20.04
+            arch: amd64
+            distro: ubuntu
+            codename: focal
+          - distro-codename: ubuntu-focal-arm64
+            host-os: [self-hosted, Linux, arm64, focal]
+            arch: arm64
+            distro: ubuntu
+            codename: focal
+          - distro-codename: ubuntu-jammy-amd64
+            host-os: ubuntu-22.04
+            arch: amd64
+            distro: ubuntu
+            codename: jammy
+          - distro-codename: ubuntu-jammy-arm64
+            host-os: [self-hosted, Linux, arm64, jammy]
+            arch: arm64
+            distro: ubuntu
+            codename: jammy
+          - distro-codename: debian-bullseye-amd64
+            host-os: ubuntu-20.04
+            arch: amd64
+            distro: debian
+            codename: bullseye
+          - distro-codename: debian-bullseye-arm64
+            host-os: [self-hosted, Linux, arm64, focal]
+            arch: arm64
+            distro: debian
+            codename: bullseye
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set Job Parameters
+        id: init
+        run: |
+          echo ::set-output name=MANIFEST_PATH::"${{ github.workspace }}/manifests"
+          echo ::set-output name=PKG_REPO_PATH::"${{ github.workspace }}/repo"
+          echo ::set-output name=PKG_BUILD_DIR::"${{ github.workspace }}/packages"
+          echo ::set-output name=GH_REPO_ROOT::"${{ github.workspace }}"
+          echo ::set-output name=stage::${{ matrix.stage }}
+          echo ::set-output name=distro::${{ matrix.distro }}
+          echo ::set-output name=codename::${{ matrix.codename }}
+          echo ::set-output name=arch::${{ matrix.arch }}
+          echo ::set-output name=target::${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}
+          echo ::set-output name=s3_bucket::regolith-${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}
+          echo ::set-output name=repo_url::https://regolith-${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}.s3.us-east-2.amazonaws.com            
+      - name: Env setup
+        run: |
+          set -e
+          rm -Rf ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo
+          rm -Rf ${{ steps.init.outputs.PKG_REPO_PATH }} || true
+          rm -Rf ${{ steps.init.outputs.MANIFEST_PATH }} || true
+          mkdir ${{ steps.init.outputs.MANIFEST_PATH }}
+          rm -Rf ${{ steps.init.outputs.PKG_BUILD_DIR }} || true
+          mkdir ${{ steps.init.outputs.PKG_BUILD_DIR }}
+          sudo apt update
+          DEBIAN_FRONTEND=noninteractive sudo apt install -y --no-install-recommends jq git devscripts reprepro wget
+      - name: Build cache
+        id: build-cache
+        uses: actions/cache@v3
+        with:
+          path: |
+            ${{ steps.init.outputs.MANIFEST_PATH }}
+            ${{ steps.init.outputs.PKG_REPO_PATH }}
+          key: ${{ steps.init.outputs.target }}
+      - name: Check for changes
+        id: changes
+        run: |
+          set -e
+          ls -l "${{ steps.init.outputs.MANIFEST_PATH }}"
+          ls -l "${{ steps.init.outputs.PKG_REPO_PATH }}"
+          CHANGE_OUTPUT=$(${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/main.sh \
+            ${{ steps.init.outputs.GH_REPO_ROOT }} \
+            ${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/ext-debian.sh \
+            "${{ steps.init.outputs.stage }}" \
+            "${{ steps.init.outputs.distro }}" \
+            "${{ steps.init.outputs.codename }}" \
+            "${{ steps.init.outputs.arch }}" \
+            "unneeded to check change" \
+            "unneeded to check change" \
+            check \
+            ${{ steps.init.outputs.MANIFEST_PATH }} \
+            ${{ steps.init.outputs.PKG_REPO_PATH }} \
+            ${{ steps.init.outputs.PKG_BUILD_DIR }} | tail -n1)
+          if [ "$CHANGE_OUTPUT" == "No package changes found, exiting." ]; then
+            echo ::set-output name=changed::0
+            echo "No package changes to build"
+          else
+            echo ::set-output name=changed::1
+            echo "Package changes: $CHANGE_OUTPUT"
+          fi   
+      - name: Build Setup
+        if: steps.changes.outputs.changed == 1
+        run: |
+          set -e
+          if [ ! -d "${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo" ]; then
+            mkdir -p "${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo"
+          else
+            sudo chown -R $(whoami) ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo
+          fi
+          if [ -d "${{ steps.init.outputs.PKG_REPO_PATH }}" ]; then
+            rm -Rf "${{ steps.init.outputs.PKG_REPO_PATH }}"
+          fi
+          mv ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo "${{ steps.init.outputs.PKG_REPO_PATH }}" || true
+      - name: Build
+        if: steps.changes.outputs.changed == 1
+        run: |
+          set -e
+          set -x
+          export DEBEMAIL="regolith.linux@gmail.com"
+          export DEBFULLNAME="Regolith Linux"
+          export DEBIAN_FRONTEND=noninteractive
+          mkdir -p ~/.gnupg/
+          printf "${{ secrets.PACKAGE_PRIVATE_KEY }}" | base64 --decode > ~/.gnupg/private.key
+          gpg --batch --import ~/.gnupg/private.key
+          ${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/main.sh \
+            ${{ steps.init.outputs.GH_REPO_ROOT }} \
+            ${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/ext-debian.sh \
+            "${{ steps.init.outputs.stage }}" \
+            "${{ steps.init.outputs.distro }}" \
+            "${{ steps.init.outputs.codename }}" \
+            "${{ steps.init.outputs.arch }}" \
+            "${{ steps.init.outputs.repo_url }}" \
+            Default \
+            build \
+            ${{ steps.init.outputs.MANIFEST_PATH }} \
+            ${{ steps.init.outputs.PKG_REPO_PATH }} \
+            ${{ steps.init.outputs.PKG_BUILD_DIR }} | tee -a ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt
+          mv "${{ steps.init.outputs.PKG_REPO_PATH }}" ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo
+          cat ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt | grep ^CHLOG: | cut -c 7- > ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
+          cp ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo/manifest.txt ${{ steps.init.outputs.GH_REPO_ROOT }}/MANIFEST_${{ steps.init.outputs.target }}.txt
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v1.2
+        with:
+          publish-dir: ${{ steps.init.outputs.PKG_REPO_PATH }}
+          production-branch: master
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          deploy-message: "Deploy from GitHub Actions"
+          enable-pull-request-comment: false
+          enable-commit-comment: false
+          overwrites-pull-request-comment: false
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_SECRET_KEY }}
+          NETLIFY_SITE_ID: tubular-dango-b3eb9f.netlify.app
+      
