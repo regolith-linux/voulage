@@ -12,8 +12,8 @@ jobs:
     runs-on: ${{ matrix.host-os }}
     strategy:
       matrix:
-        stage: [unstable, testing, release]
-        distro-codename: [ubuntu-focal-amd64, ubuntu-focal-arm64, ubuntu-jammy-amd64, ubuntu-jammy-arm64, debian-bullseye-amd64, debian-bullseye-arm64]
+        stage: [unstable] #, testing, release]
+        distro-codename: [ubuntu-focal-amd64] #, ubuntu-focal-arm64, ubuntu-jammy-amd64, ubuntu-jammy-arm64, debian-bullseye-amd64, debian-bullseye-arm64]
         include:
           - distro-codename: ubuntu-focal-amd64
             host-os: ubuntu-20.04
@@ -84,8 +84,7 @@ jobs:
         id: changes
         run: |
           set -e
-          ls -l "${{ steps.init.outputs.MANIFEST_PATH }}"
-          ls -l "${{ steps.init.outputs.PKG_REPO_PATH }}"
+          set -x
           CHANGE_OUTPUT=$(${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/main.sh \
             ${{ steps.init.outputs.GH_REPO_ROOT }} \
             ${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/ext-debian.sh \
@@ -105,7 +104,8 @@ jobs:
           else
             echo ::set-output name=changed::1
             echo "Package changes: $CHANGE_OUTPUT"
-          fi   
+          fi
+          find ${{ steps.init.outputs.MANIFEST_PATH }}
       - name: Build Setup
         if: steps.changes.outputs.changed == 1
         run: |
@@ -145,18 +145,12 @@ jobs:
             ${{ steps.init.outputs.PKG_BUILD_DIR }} | tee -a ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt
           mv "${{ steps.init.outputs.PKG_REPO_PATH }}" ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo
           cat ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt | grep ^CHLOG: | cut -c 7- > ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
-          cp ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo/manifest.txt ${{ steps.init.outputs.GH_REPO_ROOT }}/MANIFEST_${{ steps.init.outputs.target }}.txt
-      - name: Deploy to Netlify
-        uses: nwtgck/actions-netlify@v1.2
+      - name: Deploy via rsync
+        uses: burnett01/rsync-deployments@5.2
         with:
-          publish-dir: ${{ steps.init.outputs.PKG_REPO_PATH }}
-          production-branch: master
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          deploy-message: "Deploy from GitHub Actions"
-          enable-pull-request-comment: false
-          enable-commit-comment: false
-          overwrites-pull-request-comment: false
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_SECRET_KEY }}
-          NETLIFY_SITE_ID: tubular-dango-b3eb9f.netlify.app
-      
+          switches: -avzr --delete
+          path: ${{ steps.init.outputs.PKG_REPO_PATH }}
+          remote_path: /var/www/html/${{ steps.init.outputs.target }}
+          remote_host: 104-238-213-207.cloud-xip.io
+          remote_user: root
+          remote_key: ${{ secrets.KAMATERA_SSH_KEY }}      
