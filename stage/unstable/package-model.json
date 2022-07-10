@@ -52,6 +52,10 @@
       "source": "https://github.com/regolith-linux/gruvbox-gtk.git",
       "ref": "master"
     },
+    "dracula-gtk": {
+      "source": "https://github.com/regolith-linux/dracula-gtk.git",
+      "ref": "master"
+    },
     "whitesur-gtk-theme": {
       "source": "https://github.com/regolith-linux/whitesur-gtk-theme.git",
       "ref": "debian"
