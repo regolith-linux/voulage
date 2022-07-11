@@ -4,10 +4,6 @@
       "source": "https://github.com/regolith-linux/regolith-desktop.git",
       "ref": "debian-bullseye"
     },
-    "json-glib": {
-      "source": "https://salsa.debian.org/gnome-team/json-glib.git",
-      "ref": "debian/1.5.2-1"
-    },
     "xcb-util": {
       "source": "https://git.launchpad.net/ubuntu/+source/xcb-util",
       "ref": "applied/ubuntu/groovy"
