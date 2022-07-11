@@ -143,8 +143,13 @@ jobs:
             ${{ steps.init.outputs.MANIFEST_PATH }} \
             ${{ steps.init.outputs.PKG_REPO_PATH }} \
             ${{ steps.init.outputs.PKG_BUILD_DIR }} | tee -a ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt
-          mv "${{ steps.init.outputs.PKG_REPO_PATH }}" ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo
-          cat ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt | grep ^CHLOG: | cut -c 7- > ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
+          if [ -s "${{ steps.init.outputs.PKG_REPO_PATH }}/manifest.txt" ]; then
+            mv "${{ steps.init.outputs.PKG_REPO_PATH }}" ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo
+            cat ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt | grep ^CHLOG: | cut -c 7- > ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
+          else
+            echo "Manifest is empty, build failed"
+            exit 1
+          fi
       - uses: webfactory/ssh-agent@v0.5.4
         with:
           ssh-private-key: ${{ secrets.KAMATERA_SSH_KEY }}

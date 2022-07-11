@@ -1,0 +1,79 @@
+name: regolith-desktop is installable 2
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  test-debian-install:
+    runs-on: ${{ matrix.host-os }}
+    strategy:
+      matrix:
+        stage: [unstable] # , testing, release
+        distro-codename: [debian-bullseye]
+        arch: [amd64, arm64]
+        include:
+          - arch: amd64
+            host-os: ubuntu-20.04
+          - arch: arm64
+            host-os: [self-hosted, Linux, ARM64, focal]
+          - distro-codename: debian-bullseye
+            distro: debian
+            codename: bullseye
+    steps:
+      - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
+        uses: kgilmer/test-debian-bullseye-action@v1
+        with:
+          apt-key-url: http://regolith-desktop.org/regolith.key
+          apt-repo-line: "deb [arch=${{ matrix.arch }}] https://http://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
+          target-package: "regolith-desktop"
+  test-ubuntu-install:
+    runs-on: ${{ matrix.host-os }}
+    strategy:
+      matrix:
+        stage: [unstable] # , testing, release
+        distro-codename: [ubuntu-focal]
+        arch: [amd64, arm64]
+        include:
+          - arch: amd64
+            host-os: ubuntu-20.04
+          - arch: arm64
+            host-os: [self-hosted, Linux, ARM64, focal]
+          - distro-codename: ubuntu-focal
+            distro: ubuntu
+            codename: focal
+    steps:
+      - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
+        uses: kgilmer/test-ubuntu-20.04-action@v1.1.5
+        with:
+          apt-key-url: http://regolith-desktop.org/regolith.key
+          apt-repo-line: "deb [arch=${{ matrix.arch }}] https://http://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
+          target-package: "regolith-desktop"
+  test:
+    needs: build
+    uses: ./.github/workflows/test-desktop-installable2.yml
+  generate-release:
+    needs: build
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/download-artifact@v3
+      - name: Concat Release Notes
+        id: release-setup
+        run: |
+          set -e
+          echo ::set-output name=TIMESTAMP::"$(date +%Y%m%d_%H%M%S)"
+          FILES=$(find . -name CHANGELOG\*)
+          if [ -n "$FILES" ]; then
+            cat CHANGELOG_*/CHANGELOG_*.txt >> CHANGELOG.txt
+            echo ::set-output name=changed::1
+          else
+            echo ::set-output name=changed::0
+          fi
+      - uses: softprops/action-gh-release@v1
+        if: steps.release-setup.outputs.changed == 1
+        with:
+          body: See CHANGELOG.txt for updates and manifests for current state of repos.
+          name: Package Build ${{ steps.release-setup.outputs.TIMESTAMP }}
+          tag_name: pkgbuild-${{ steps.release-setup.outputs.TIMESTAMP }}
+          files: |
+            *.txt
