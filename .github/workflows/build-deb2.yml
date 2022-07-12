@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         stage: [experimental, unstable] #, testing] #, release]
-        distro-codename: [ubuntu-focal-amd64, ubuntu-focal-arm64, ubuntu-jammy-amd64, ubuntu-jammy-arm64, debian-bullseye-amd64, debian-bullseye-arm64]
+        distro-codename: [ubuntu-focal-amd64, ubuntu-focal-arm64] #, ubuntu-jammy-amd64, ubuntu-jammy-arm64, debian-bullseye-amd64, debian-bullseye-arm64]
         include:
           - distro-codename: ubuntu-focal-amd64
             host-os: ubuntu-20.04
@@ -25,26 +25,26 @@ jobs:
             arch: arm64
             distro: ubuntu
             codename: focal
-          - distro-codename: ubuntu-jammy-amd64
-            host-os: ubuntu-22.04
-            arch: amd64
-            distro: ubuntu
-            codename: jammy
-          - distro-codename: ubuntu-jammy-arm64
-            host-os: [self-hosted, Linux, arm64, jammy]
-            arch: arm64
-            distro: ubuntu
-            codename: jammy
-          - distro-codename: debian-bullseye-amd64
-            host-os: ubuntu-20.04
-            arch: amd64
-            distro: debian
-            codename: bullseye
-          - distro-codename: debian-bullseye-arm64
-            host-os: [self-hosted, Linux, arm64, focal]
-            arch: arm64
-            distro: debian
-            codename: bullseye
+          #- distro-codename: ubuntu-jammy-amd64
+          #  host-os: ubuntu-22.04
+          #  arch: amd64
+          #  distro: ubuntu
+          #  codename: jammy
+          #- distro-codename: ubuntu-jammy-arm64
+          #  host-os: [self-hosted, Linux, arm64, jammy]
+          #  arch: arm64
+          #  distro: ubuntu
+          #  codename: jammy
+          #- distro-codename: debian-bullseye-amd64
+          #  host-os: ubuntu-20.04
+          #  arch: amd64
+          #  distro: debian
+          #  codename: bullseye
+          #- distro-codename: debian-bullseye-arm64
+          #  host-os: [self-hosted, Linux, arm64, focal]
+          #  arch: arm64
+          #  distro: debian
+          #  codename: bullseye
     steps:
       - uses: actions/checkout@v2
       - name: Set Job Parameters
@@ -64,12 +64,8 @@ jobs:
       - name: Env setup
         run: |
           set -e
-          rm -Rf ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo
-          rm -Rf ${{ steps.init.outputs.PKG_REPO_PATH }} || true
-          rm -Rf ${{ steps.init.outputs.MANIFEST_PATH }} || true
-          mkdir ${{ steps.init.outputs.MANIFEST_PATH }}
-          rm -Rf ${{ steps.init.outputs.PKG_BUILD_DIR }} || true
-          mkdir ${{ steps.init.outputs.PKG_BUILD_DIR }}
+          mkdir ${{ steps.init.outputs.MANIFEST_PATH }} || true
+          mkdir ${{ steps.init.outputs.PKG_BUILD_DIR }} || true
           sudo apt update
           DEBIAN_FRONTEND=noninteractive sudo apt install -y --no-install-recommends jq git devscripts reprepro wget
       - name: Build cache
@@ -79,6 +75,7 @@ jobs:
           path: |
             ${{ steps.init.outputs.MANIFEST_PATH }}
             ${{ steps.init.outputs.PKG_REPO_PATH }}
+            ${{ steps.init.outputs.PKG_BUILD_DIR }}
           key: ${{ steps.init.outputs.target }}
       - name: Check for changes
         id: changes
@@ -106,19 +103,6 @@ jobs:
             echo "Package changes: $CHANGE_OUTPUT"
           fi
           find ${{ steps.init.outputs.MANIFEST_PATH }}
-      - name: Build Setup
-        if: steps.changes.outputs.changed == 1
-        run: |
-          set -e
-          if [ ! -d "${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo" ]; then
-            mkdir -p "${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo"
-          else
-            sudo chown -R $(whoami) ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo
-          fi
-          if [ -d "${{ steps.init.outputs.PKG_REPO_PATH }}" ]; then
-            rm -Rf "${{ steps.init.outputs.PKG_REPO_PATH }}"
-          fi
-          mv ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo "${{ steps.init.outputs.PKG_REPO_PATH }}" || true
       - name: Build
         if: steps.changes.outputs.changed == 1
         run: |
@@ -144,7 +128,6 @@ jobs:
             ${{ steps.init.outputs.PKG_REPO_PATH }} \
             ${{ steps.init.outputs.PKG_BUILD_DIR }} | tee -a ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt
           if [ -s "${{ steps.init.outputs.PKG_REPO_PATH }}/manifest.txt" ]; then
-            mv "${{ steps.init.outputs.PKG_REPO_PATH }}" ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo
             cat ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt | grep ^CHLOG: | cut -c 7- > ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
           else
             echo "Manifest is empty, build failed"
@@ -157,4 +140,5 @@ jobs:
         run: |
           set -x
           ssh-keyscan -H ${{ secrets.KAMATERA_HOSTNAME }} >> ~/.ssh/known_hosts
-          rsync -avzh ${{ steps.init.outputs.GH_REPO_ROOT }}/generated-repo/* root@${{ secrets.KAMATERA_HOSTNAME }}:/var/www/html/${{ steps.init.outputs.target }} --delete
+          find ${{ steps.init.outputs.GH_REPO_ROOT }}
+          rsync -avzh ${{ steps.init.outputs.PKG_REPO_PATH }}/* root@${{ secrets.KAMATERA_HOSTNAME }}:/var/www/html/${{ steps.init.outputs.target }} --delete
