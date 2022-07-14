@@ -76,6 +76,12 @@ jobs:
             ${{ steps.init.outputs.MANIFEST_PATH }}
             ${{ steps.init.outputs.PKG_REPO_PATH }}
           key: ${{ steps.init.outputs.target }}
+      - name: Inspect cache        
+        run: |
+          set -x
+          ls -l ${{ steps.init.outputs.MANIFEST_PATH }}
+          ls -l ${{ steps.init.outputs.PKG_REPO_PATH }}
+          cat ${{ steps.init.outputs.PKG_REPO_PATH }}/manifest.txt || true
       - name: Check for changes
         id: changes
         run: |
