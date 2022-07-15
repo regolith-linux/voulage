@@ -25,7 +25,7 @@ jobs:
         uses: kgilmer/test-debian-bullseye-action@v1
         with:
           apt-key-url: http://regolith-desktop.org/regolith.key
-          apt-repo-line: "deb [arch=${{ matrix.arch }}] https://http://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
+          apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
           target-package: "regolith-desktop"
   test-ubuntu-install:
     runs-on: ${{ matrix.host-os }}
@@ -47,5 +47,5 @@ jobs:
         uses: kgilmer/test-ubuntu-20.04-action@v1.1.5
         with:
           apt-key-url: http://regolith-desktop.org/regolith.key
-          apt-repo-line: "deb [arch=${{ matrix.arch }}] https://http://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
+          apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
           target-package: "regolith-desktop"
