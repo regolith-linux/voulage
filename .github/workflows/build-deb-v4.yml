@@ -68,19 +68,11 @@ jobs:
           mkdir ${{ steps.init.outputs.PKG_BUILD_DIR }} || true
           sudo apt update
           DEBIAN_FRONTEND=noninteractive sudo apt install -y --no-install-recommends jq git devscripts reprepro wget
-      - name: Build cache
-        id: build-cache
-        uses: actions/cache@v3
-        with:
-          path: ${{ steps.init.outputs.PKG_REPO_PATH }}
-          key: ${{ steps.init.outputs.target }}
-      - name: Inspect cache        
+      - name: Pull Manifest
         run: |
+          set -e
           set -x
-          echo Cache dir: ${{ steps.init.outputs.PKG_REPO_PATH }}
-          ls -l ${{ github.workspace }}
-          find ${{ github.workspace }}
-          cat ${{ steps.init.outputs.PKG_REPO_PATH }}/manifest.txt || true
+          wget -P "${{ steps.init.outputs.PKG_REPO_PATH }}" "https://regolith-desktop.org/${{ steps.init.outputs.target }}/manifest.txt" || true
       - name: Check for changes
         id: changes
         run: |
@@ -106,6 +98,18 @@ jobs:
             echo ::set-output name=changed::1
             echo "Package changes: $CHANGE_OUTPUT"
           fi
+      - uses: webfactory/ssh-agent@v0.5.4
+        if: steps.changes.outputs.changed == 1
+        with:
+          ssh-private-key: ${{ secrets.KAMATERA_SSH_KEY }}
+      - name: Pull repo
+        if: steps.changes.outputs.changed == 1
+        run: |
+          set -x
+          set -e
+          ls -l
+          ssh-keyscan -H ${{ secrets.KAMATERA_HOSTNAME }} >> ~/.ssh/known_hosts
+          scp -r root@${{ secrets.KAMATERA_HOSTNAME }}:/var/www/html/${{ steps.init.outputs.target }} "${{ steps.init.outputs.PKG_REPO_PATH }}"
       - name: Build
         if: steps.changes.outputs.changed == 1
         run: |
@@ -136,14 +140,9 @@ jobs:
             echo "Manifest is empty, build failed"
             exit 1
           fi
-      - uses: webfactory/ssh-agent@v0.5.4
-        if: steps.changes.outputs.changed == 1
-        with:
-          ssh-private-key: ${{ secrets.KAMATERA_SSH_KEY }}
       - name: Deploy via rsync
         if: steps.changes.outputs.changed == 1
         run: |
-          ssh-keyscan -H ${{ secrets.KAMATERA_HOSTNAME }} >> ~/.ssh/known_hosts
           rsync -avzh ${{ steps.init.outputs.PKG_REPO_PATH }}/* root@${{ secrets.KAMATERA_HOSTNAME }}:/var/www/html/${{ steps.init.outputs.target }} --delete
       - name: Inspect cache 2
         run: |
