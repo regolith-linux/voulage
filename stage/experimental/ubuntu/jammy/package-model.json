@@ -2,7 +2,7 @@
   "packages": {
     "lago": {
       "source": "https://github.com/regolith-linux/lago.git",
-      "ref": "ubuntu/jammy"
+      "ref": "experimental"
     }
   }
 }
