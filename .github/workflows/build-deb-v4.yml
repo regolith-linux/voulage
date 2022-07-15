@@ -71,8 +71,8 @@ jobs:
       - name: Pull Manifest
         run: |
           set -e
-          set -x
           wget -P "${{ steps.init.outputs.PKG_REPO_PATH }}" "https://regolith-desktop.org/${{ steps.init.outputs.target }}/manifest.txt" || true
+          cat ${{ steps.init.outputs.PKG_REPO_PATH }}/manifest.txt || true
       - name: Check for changes
         id: changes
         run: |
@@ -105,9 +105,6 @@ jobs:
       - name: Pull repo
         if: steps.changes.outputs.changed == 1
         run: |
-          set -x
-          set -e
-          ls -l
           ssh-keyscan -H ${{ secrets.KAMATERA_HOSTNAME }} >> ~/.ssh/known_hosts
           scp -r root@${{ secrets.KAMATERA_HOSTNAME }}:/var/www/html/${{ steps.init.outputs.target }} "${{ steps.init.outputs.PKG_REPO_PATH }}"
       - name: Build
@@ -144,10 +141,6 @@ jobs:
         if: steps.changes.outputs.changed == 1
         run: |
           rsync -avzh ${{ steps.init.outputs.PKG_REPO_PATH }}/* root@${{ secrets.KAMATERA_HOSTNAME }}:/var/www/html/${{ steps.init.outputs.target }} --delete
-      - name: Inspect cache 2
+      - name: Inspect Manifest
         run: |
-          set -x
-          echo Cache dir: ${{ steps.init.outputs.PKG_REPO_PATH }}
-          ls -l ${{ github.workspace }}
-          find ${{ github.workspace }}
           cat ${{ steps.init.outputs.PKG_REPO_PATH }}/manifest.txt || true
