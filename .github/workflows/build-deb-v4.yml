@@ -77,6 +77,7 @@ jobs:
       - name: Inspect cache        
         run: |
           set -x
+          echo Cache dir: ${{ steps.init.outputs.PKG_REPO_PATH }}
           ls -l ${{ github.workspace }}
           find ${{ github.workspace }}
           cat ${{ steps.init.outputs.PKG_REPO_PATH }}/manifest.txt || true
@@ -147,6 +148,7 @@ jobs:
       - name: Inspect cache 2
         run: |
           set -x
+          echo Cache dir: ${{ steps.init.outputs.PKG_REPO_PATH }}
           ls -l ${{ github.workspace }}
           find ${{ github.workspace }}
           cat ${{ steps.init.outputs.PKG_REPO_PATH }}/manifest.txt || true
