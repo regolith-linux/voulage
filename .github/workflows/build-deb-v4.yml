@@ -20,11 +20,11 @@ jobs:
             arch: amd64
             distro: ubuntu
             codename: focal
-          #- distro-codename: ubuntu-focal-arm64
-          #  host-os: [self-hosted, Linux, arm64, focal]
-          #  arch: arm64
-          #  distro: ubuntu
-          #  codename: focal
+          - distro-codename: ubuntu-focal-arm64
+            host-os: [self-hosted, Linux, arm64, focal]
+            arch: arm64
+            distro: ubuntu
+            codename: focal
           #- distro-codename: ubuntu-jammy-amd64
           #  host-os: ubuntu-22.04
           #  arch: amd64
