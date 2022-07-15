@@ -72,9 +72,7 @@ jobs:
         id: build-cache
         uses: actions/cache@v3
         with:
-          path: |
-            ${{ steps.init.outputs.MANIFEST_PATH }}
-            ${{ steps.init.outputs.PKG_REPO_PATH }}
+          path: ${{ steps.init.outputs.PKG_REPO_PATH }}
           key: ${{ steps.init.outputs.target }}
       - name: Inspect cache        
         run: |
@@ -138,9 +136,11 @@ jobs:
             exit 1
           fi
       - uses: webfactory/ssh-agent@v0.5.4
+        if: steps.changes.outputs.changed == 1
         with:
           ssh-private-key: ${{ secrets.KAMATERA_SSH_KEY }}
       - name: Deploy via rsync
+        if: steps.changes.outputs.changed == 1
         run: |
           ssh-keyscan -H ${{ secrets.KAMATERA_HOSTNAME }} >> ~/.ssh/known_hosts
           rsync -avzh ${{ steps.init.outputs.PKG_REPO_PATH }}/* root@${{ secrets.KAMATERA_HOSTNAME }}:/var/www/html/${{ steps.init.outputs.target }} --delete
