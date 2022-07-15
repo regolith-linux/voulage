@@ -150,6 +150,12 @@ jobs:
       - name: Inspect Manifest
         run: |
           cat ${{ steps.init.outputs.PKG_REPO_PATH }}/manifest.txt || true
+      - uses: actions/upload-artifact@v3
+        if: steps.changes.outputs.changed == 1
+        with:
+          name: CHANGELOG_${{ steps.init.outputs.target }}
+          path: |
+            ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
   test:
     needs: build
     uses: ./.github/workflows/test-desktop-installable2.yml
