@@ -52,6 +52,10 @@
       "source": "https://github.com/regolith-linux/gruvbox-gtk.git",
       "ref": "r2_1"
     },
+    "dracula-gtk": {
+      "source": "https://github.com/regolith-linux/dracula-gtk.git",
+      "ref": "r2_1"
+    },
     "whitesur-gtk-theme": {
       "source": "https://github.com/regolith-linux/whitesur-gtk-theme.git",
       "ref": "r2_1"
@@ -66,6 +70,10 @@
     },
     "i3-next-workspace": {
       "source": "https://github.com/regolith-linux/i3-next-workspace.git",
+      "ref": "r2_1"
+    },
+    "i3-swap-focus": {
+      "source": "https://github.com/regolith-linux/i3-swap-focus.git",
       "ref": "r2_1"
     },
     "i3xrocks": {
@@ -130,6 +138,14 @@
     },
     "regolith-default-settings": {
       "source": "https://github.com/regolith-linux/regolith-default-settings.git",
+      "ref": "r2_1"
+    },
+    "plymouth-theme-regolith": {
+      "source": "https://github.com/regolith-linux/plymouth-theme-regolith.git",
+      "ref": "r2_1"
+    },
+    "regolith-distro-ubuntu": {
+      "source": "https://github.com/regolith-linux/regolith-distro-ubuntu.git",
       "ref": "r2_1"
     },
     "xrescat": {

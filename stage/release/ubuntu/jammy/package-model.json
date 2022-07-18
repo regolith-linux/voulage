@@ -11,6 +11,11 @@
     "regolith-control-center": {
       "source": "https://github.com/regolith-linux/regolith-control-center.git",
       "ref": "r2_1-ubuntu-jammy"
+
+    },
+    "ubiquity-slideshow-regolith": {
+      "source": "https://github.com/regolith-linux/ubiquity-slideshow-regolith.git",
+      "ref": "r2_1-ubuntu-jammy"
     }
   }
 }
