@@ -2,11 +2,7 @@
   "packages": {
     "regolith-desktop": {
       "source": "https://github.com/regolith-linux/regolith-desktop.git",
-      "ref": "debian-bullseye-r2_0"
-    },
-    "json-glib": {
-      "source": "https://salsa.debian.org/gnome-team/json-glib.git",
-      "ref": "debian/1.5.2-1"
+      "ref": "r2_1-debian-bullseye"
     },
     "xcb-util": {
       "source": "https://git.launchpad.net/ubuntu/+source/xcb-util",
@@ -14,7 +10,7 @@
     },
     "regolith-session": {
       "source": "https://github.com/regolith-linux/regolith-session.git",
-      "ref": "debian-bullseye-r2_0"
+      "ref": "r2_1-debian-bullseye"
     }
   }
 }
