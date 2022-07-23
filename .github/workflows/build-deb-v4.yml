@@ -13,7 +13,12 @@ jobs:
     strategy:
       matrix:
         stage: [experimental, unstable, testing, release]
-        distro-codename: [ubuntu-focal-amd64, ubuntu-focal-arm64, ubuntu-jammy-amd64, ubuntu-jammy-arm64, debian-bullseye-amd64, debian-bullseye-arm64]
+        distro-codename: [ubuntu-focal-amd64, ubuntu-focal-arm64, ubuntu-jammy-amd64, ubuntu-jammy-arm64, debian-bullseye-amd64, debian-bullseye-arm64, debian-testing-amd64, debian-testing-arm64]
+        exclude:
+          - stage: release
+            codename: testing
+          - stage: testing
+            codename: testing
         include:
           - distro-codename: ubuntu-focal-amd64
             host-os: ubuntu-20.04
@@ -45,6 +50,16 @@ jobs:
             arch: arm64
             distro: debian
             codename: bullseye
+          - distro-codename: debian-testing-amd64
+            host-os: ubuntu-22.04
+            arch: amd64
+            distro: debian
+            codename: testing
+          - distro-codename: debian-testing-arm64
+            host-os: [self-hosted, Linux, arm64, focal]
+            arch: arm64
+            distro: debian
+            codename: testing
     steps:
       - uses: actions/checkout@v2
       - name: Set Job Parameters
