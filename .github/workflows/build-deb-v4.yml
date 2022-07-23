@@ -57,15 +57,15 @@ jobs:
             distro: debian
             codename: bullseye
           - distro-codename: debian-testing-amd64
-            host-os: ubuntu-22.04
+            host-os: ubuntu-20.04
             arch: amd64
             distro: debian
             codename: testing
-          - distro-codename: debian-testing-arm64
-            host-os: [self-hosted, Linux, arm64, focal]
-            arch: arm64
-            distro: debian
-            codename: testing
+          #- distro-codename: debian-testing-arm64
+          #  host-os: [self-hosted, Linux, arm64, focal]
+          #  arch: arm64
+          #  distro: debian
+          #  codename: testing
     steps:
       - uses: actions/checkout@v2
       - name: Set Job Parameters
