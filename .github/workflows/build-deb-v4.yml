@@ -23,6 +23,8 @@ jobs:
             distro-codename: debian-testing-arm64
           - stage: testing
             distro-codename: debian-testing-arm64
+          - stage: unstable
+            distro-codename: debian-testing-arm64
         include:
           - distro-codename: ubuntu-focal-amd64
             host-os: ubuntu-20.04
