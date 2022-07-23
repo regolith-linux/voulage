@@ -3,14 +3,6 @@
    "xrescat": {
       "source": "https://github.com/regolith-linux/xrescat.git",
       "ref": "experimental"
-    },
-    "lago": {
-      "source": "https://github.com/regolith-linux/lago.git",
-      "ref": "main"
-    },
-    "regolith-session": {
-      "source": "https://github.com/regolith-linux/regolith-session.git",
-      "ref": "main"
     }
   }
 }

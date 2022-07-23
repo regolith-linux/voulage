@@ -1,8 +1,0 @@
-{
-  "packages": {
-    "regolith-session": {
-      "source": "https://github.com/regolith-linux/regolith-session.git",
-      "ref": "debian/bullseye"
-    }
-  }
-}

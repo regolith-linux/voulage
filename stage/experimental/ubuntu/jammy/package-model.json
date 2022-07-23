@@ -1,8 +1,0 @@
-{
-  "packages": {
-    "lago": {
-      "source": "https://github.com/regolith-linux/lago.git",
-      "ref": "experimental"
-    }
-  }
-}
