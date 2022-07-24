@@ -57,7 +57,7 @@ jobs:
             distro: debian
             codename: bullseye
           - distro-codename: debian-testing-amd64
-            host-os: ubuntu-20.04
+            host-os: [self-hosted, Linux, X64, bookworm]
             arch: amd64
             distro: debian
             codename: testing
