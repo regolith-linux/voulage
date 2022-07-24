@@ -19,6 +19,7 @@
     "regolith-i3-config": {
       "source": "https://github.com/regolith-linux/regolith-i3-config.git",
       "ref": "ubuntu/jammy"
-    }
+    },
+    "plymouth-theme-regolith": null
   }
 }
