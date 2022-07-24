@@ -79,9 +79,8 @@ jobs:
           echo ::set-output name=distro::${{ matrix.distro }}
           echo ::set-output name=codename::${{ matrix.codename }}
           echo ::set-output name=arch::${{ matrix.arch }}
-          echo ::set-output name=target::${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}
-          echo ::set-output name=s3_bucket::regolith-${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}
-          echo ::set-output name=repo_url::https://regolith-${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}.s3.us-east-2.amazonaws.com            
+          echo ::set-output name=target::${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}      
+          echo ::set-output name=repo_url::https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}            
       - name: Env setup
         run: |
           set -e
@@ -93,6 +92,7 @@ jobs:
         run: |
           set -e
           wget -P "${{ steps.init.outputs.PKG_REPO_PATH }}" "https://regolith-desktop.org/${{ steps.init.outputs.target }}/manifest.txt" || true
+          echo "Previous manifest:"
           cat ${{ steps.init.outputs.PKG_REPO_PATH }}/manifest.txt || true
       - name: Check for changes
         id: changes
@@ -117,7 +117,8 @@ jobs:
             echo "No package changes to build"
           else
             echo ::set-output name=changed::1
-            echo "Package changes: $CHANGE_OUTPUT"
+            echo "New Manifest: "
+            cat ${{ steps.init.outputs.MANIFEST_PATH }}/next-manifest.txt
           fi
       - uses: webfactory/ssh-agent@v0.5.4
         if: steps.changes.outputs.changed == 1
