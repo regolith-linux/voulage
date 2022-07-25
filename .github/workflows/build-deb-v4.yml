@@ -132,7 +132,6 @@ jobs:
           ssh-keyscan -H ${{ secrets.KAMATERA_HOSTNAME }} >> ~/.ssh/known_hosts
           scp -r root@${{ secrets.KAMATERA_HOSTNAME }}:/var/www/html/${{ steps.init.outputs.target }}/* "${{ steps.init.outputs.PKG_REPO_PATH }}" \
             || mkdirs "${{ steps.init.outputs.PKG_REPO_PATH }}" || true
-          find .
       - name: Build
         if: steps.changes.outputs.changed == 1
         run: |
@@ -168,7 +167,6 @@ jobs:
         run: |
           set -e
           set -x
-          find .
           rsync -avzh ${{ steps.init.outputs.PKG_REPO_PATH }}/* root@${{ secrets.KAMATERA_HOSTNAME }}:/var/www/html/${{ steps.init.outputs.target }}
       - name: Inspect Manifest
         if: steps.changes.outputs.changed == 1
