@@ -10,7 +10,7 @@
     },
     "regolith-control-center": {
       "source": "https://github.com/regolith-linux/regolith-control-center.git",
-      "ref": "debian/bookworm"
+      "ref": "upstream-v43-beta"
     },    
     "regolith-i3-config": {
       "source": "https://github.com/regolith-linux/regolith-i3-config.git",
