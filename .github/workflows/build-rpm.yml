@@ -1,0 +1,133 @@
+name: RPM Package Builder
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: rpm_builder
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ${{ matrix.host-os }}
+    strategy:
+      matrix:
+        stage: [experimental] #, unstable, testing, release]
+        distro-codename: [fedora-36-amd64]
+        include:
+          - distro-codename: fedora-36-amd64
+            host-os: ubuntu-22.04
+            arch: amd64
+            distro: fedora
+            codename: 36
+            container: fedora:36
+   steps:
+      - uses: actions/checkout@v2
+      - name: Set Job Parameters
+        id: init
+        run: |
+          echo ::set-output name=MANIFEST_PATH::"${{ github.workspace }}/manifests"
+          echo ::set-output name=PKG_REPO_PATH::"${{ github.workspace }}/repo"
+          echo ::set-output name=PKG_BUILD_DIR::"${{ github.workspace }}/packages"
+          echo ::set-output name=GH_REPO_ROOT::"${{ github.workspace }}"
+          echo ::set-output name=stage::${{ matrix.stage }}
+          echo ::set-output name=distro::${{ matrix.distro }}
+          echo ::set-output name=codename::${{ matrix.codename }}
+          echo ::set-output name=arch::${{ matrix.arch }}
+          echo ::set-output name=target::${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}      
+          echo ::set-output name=repo_url::https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}            
+      - name: Env setup
+        run: |
+          set -e
+          mkdir ${{ steps.init.outputs.MANIFEST_PATH }} || true
+          mkdir ${{ steps.init.outputs.PKG_BUILD_DIR }} || true          
+      - name: Pull Manifest
+        run: |
+          set -e
+          wget -P "${{ steps.init.outputs.PKG_REPO_PATH }}" "https://regolith-desktop.org/${{ steps.init.outputs.target }}/manifest.txt" || true
+          echo "Previous manifest:"
+          cat ${{ steps.init.outputs.PKG_REPO_PATH }}/manifest.txt || true
+      - name: Check for changes
+        id: changes
+        run: |
+          set -e
+          set -x
+          CHANGE_OUTPUT=$(${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/main.sh \
+            ${{ steps.init.outputs.GH_REPO_ROOT }} \
+            ${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/ext-rpm.sh \
+            "${{ steps.init.outputs.stage }}" \
+            "${{ steps.init.outputs.distro }}" \
+            "${{ steps.init.outputs.codename }}" \
+            "${{ steps.init.outputs.arch }}" \
+            "unneeded to check change" \
+            "unneeded to check change" \
+            check \
+            ${{ steps.init.outputs.MANIFEST_PATH }} \
+            ${{ steps.init.outputs.PKG_REPO_PATH }} \
+            ${{ steps.init.outputs.PKG_BUILD_DIR }} | tail -n1)
+          if [ "$CHANGE_OUTPUT" == "No package changes found, exiting." ]; then
+            echo ::set-output name=changed::0
+            echo "No package changes to build"
+          else
+            echo ::set-output name=changed::1
+            echo "New Manifest: "
+            cat ${{ steps.init.outputs.MANIFEST_PATH }}/next-manifest.txt
+          fi
+      - uses: webfactory/ssh-agent@v0.5.4
+        if: steps.changes.outputs.changed == 1
+        with:
+          ssh-private-key: ${{ secrets.KAMATERA_SSH_KEY }}
+      - name: Pull repo
+        if: steps.changes.outputs.changed == 1
+        run: |
+          set -e
+          set -x
+          ssh-keyscan -H ${{ secrets.KAMATERA_HOSTNAME }} >> ~/.ssh/known_hosts
+          scp -r root@${{ secrets.KAMATERA_HOSTNAME }}:/var/www/html/${{ steps.init.outputs.target }}/* "${{ steps.init.outputs.PKG_REPO_PATH }}" \
+            || mkdirs "${{ steps.init.outputs.PKG_REPO_PATH }}" || true
+      - name: Build
+        if: steps.changes.outputs.changed == 1
+        run: |
+          set -e
+          set -x
+          export DEBEMAIL="regolith.linux@gmail.com"
+          export DEBFULLNAME="Regolith Linux"
+          export DEBIAN_FRONTEND=noninteractive
+          mkdir -p ~/.gnupg/
+          printf "${{ secrets.PACKAGE_PRIVATE_KEY }}" | base64 --decode > ~/.gnupg/private.key
+          gpg --batch --import ~/.gnupg/private.key
+          ${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/main.sh \
+            ${{ steps.init.outputs.GH_REPO_ROOT }} \
+            ${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/ext-rpm.sh \
+            "${{ steps.init.outputs.stage }}" \
+            "${{ steps.init.outputs.distro }}" \
+            "${{ steps.init.outputs.codename }}" \
+            "${{ steps.init.outputs.arch }}" \
+            "${{ steps.init.outputs.repo_url }}" \
+            Default \
+            build \
+            ${{ steps.init.outputs.MANIFEST_PATH }} \
+            ${{ steps.init.outputs.PKG_REPO_PATH }} \
+            ${{ steps.init.outputs.PKG_BUILD_DIR }} | tee -a ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt
+          if [ -s "${{ steps.init.outputs.PKG_REPO_PATH }}/manifest.txt" ]; then
+            cat ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt | grep ^CHLOG: | cut -c 7- > ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
+          else
+            echo "Manifest is empty, build failed"
+            exit 1
+          fi
+      - name: Deploy via rsync
+        if: steps.changes.outputs.changed == 1
+        run: |
+          set -e
+          set -x
+          rsync -avzh ${{ steps.init.outputs.PKG_REPO_PATH }}/* root@${{ secrets.KAMATERA_HOSTNAME }}:/var/www/html/${{ steps.init.outputs.target }}
+      - name: Inspect Manifest
+        if: steps.changes.outputs.changed == 1
+        run: |
+          cat ${{ steps.init.outputs.PKG_REPO_PATH }}/manifest.txt || true
+      - uses: actions/upload-artifact@v3
+        if: steps.changes.outputs.changed == 1
+        with:
+          name: CHANGELOG_${{ steps.init.outputs.target }}
+          path: |
+            ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
