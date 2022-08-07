@@ -21,7 +21,7 @@ jobs:
             distro: fedora
             codename: 36
             container: fedora:36
-   steps:
+    steps:
       - uses: actions/checkout@v2
       - name: Set Job Parameters
         id: init
