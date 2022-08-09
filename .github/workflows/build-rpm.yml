@@ -21,7 +21,7 @@ jobs:
             distro: fedora
             codename: 36
             container: fedora:36
-   steps:
+    steps:
       - uses: actions/checkout@v2
       - name: Set Job Parameters
         id: init
@@ -41,6 +41,7 @@ jobs:
           set -e
           mkdir ${{ steps.init.outputs.MANIFEST_PATH }} || true
           mkdir ${{ steps.init.outputs.PKG_BUILD_DIR }} || true          
+          dnf install -y mock
       - name: Pull Manifest
         run: |
           set -e
