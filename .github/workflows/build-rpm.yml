@@ -10,6 +10,7 @@ concurrency:
 jobs:
   build:
     runs-on: ${{ matrix.host-os }}
+    container: ${{ matrix.container }}
     strategy:
       matrix:
         stage: [experimental] #, unstable, testing, release]
