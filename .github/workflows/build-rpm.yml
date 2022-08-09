@@ -9,8 +9,7 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ${{ matrix.host-os }}
-    container: ${{ matrix.container }}
+    runs-on: [self-hosted, Linux, X64, fedora, fedora-36]
     strategy:
       matrix:
         stage: [experimental] #, unstable, testing, release]
