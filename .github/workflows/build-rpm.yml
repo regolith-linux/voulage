@@ -41,7 +41,7 @@ jobs:
           set -e
           mkdir ${{ steps.init.outputs.MANIFEST_PATH }} || true
           mkdir ${{ steps.init.outputs.PKG_BUILD_DIR }} || true          
-          dnf install -y mock
+          sudo dnf install -y mock
       - name: Pull Manifest
         run: |
           set -e
