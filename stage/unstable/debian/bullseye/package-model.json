@@ -7,10 +7,6 @@
     "xcb-util": {
       "source": "https://git.launchpad.net/ubuntu/+source/xcb-util",
       "ref": "applied/ubuntu/groovy"
-    },
-    "regolith-session": {
-      "source": "https://github.com/regolith-linux/regolith-session.git",
-      "ref": "debian/bullseye"
     }
   }
 }
