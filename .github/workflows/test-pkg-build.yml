@@ -32,6 +32,7 @@ jobs:
       - name: Env Setup
         id: init
         run: |
+          sudo add-apt-repository universe
           sudo apt update
           sudo apt install -y devscripts reprepro
           mkdir -p ~/.gnupg/
