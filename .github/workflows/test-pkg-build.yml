@@ -19,10 +19,14 @@ on:
       codename:
         description: 'Package Codename (focal, bullseye)'
         required: true
+      build-os-image:
+        description: 'Build package on (ubuntu-22.04)'
+        required: true
+        default: ubuntu-20.04
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ${{ github.event.inputs.package-ref }}
     steps:
       - uses: actions/checkout@v2
       - name: Env Setup
