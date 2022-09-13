@@ -1,21 +1,5 @@
 {
-  "packages": {
-    "regolith-displayd": {
-      "source": "https://github.com/regolith-linux/regolith-displayd.git",
-      "ref": "master"
-    },
-    "regolith-session": {
-      "source": "https://github.com/regolith-linux/regolith-session.git",
-      "ref": "wayland-dev"
-    },
-    "trawl": {
-      "source": "https://github.com/regolith-linux/trawl.git",
-      "ref": "master"
-    },
-    "libtrawldb": {
-      "source": "https://github.com/regolith-linux/libtrawldb.git",
-      "ref": "master"
-    },    
+  "packages": { 
     "xrescat": {
       "source": "https://github.com/regolith-linux/xrescat.git",
       "ref": "experimental"

@@ -1,0 +1,24 @@
+{
+  "packages": {
+    "regolith-displayd": {
+      "source": "https://github.com/regolith-linux/regolith-displayd.git",
+      "ref": "master"
+    },
+    "sway-regolith": {
+      "source": "https://github.com/regolith-linux/sway-regolith.git",
+      "ref": "packaging/v1.7-regolith"
+    },
+    "regolith-session": {
+      "source": "https://github.com/regolith-linux/regolith-session.git",
+      "ref": "wayland-dev"
+    },
+    "trawl": {
+      "source": "https://github.com/regolith-linux/trawl.git",
+      "ref": "master"
+    },
+    "libtrawldb": {
+      "source": "https://github.com/regolith-linux/libtrawldb.git",
+      "ref": "master"
+    }
+  }
+}
