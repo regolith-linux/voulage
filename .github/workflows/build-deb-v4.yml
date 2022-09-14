@@ -86,6 +86,8 @@ jobs:
           set -e
           mkdir ${{ steps.init.outputs.MANIFEST_PATH }} || true
           mkdir ${{ steps.init.outputs.PKG_BUILD_DIR }} || true
+          wget -qO - https://regolith-desktop.org/regolith.key | sudo apt-key add -
+          echo deb "[arch=${{ steps.init.outputs.arch }}] ${{ steps.init.outputs.repo_url }} ${{ steps.init.outputs.codename }} main" | sudo tee /etc/apt/sources.list.d/regolith.list
           sudo apt update
           DEBIAN_FRONTEND=noninteractive sudo apt install -y --no-install-recommends jq git devscripts reprepro wget
       - name: Pull Manifest
