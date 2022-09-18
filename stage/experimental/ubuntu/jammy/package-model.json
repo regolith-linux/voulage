@@ -19,6 +19,10 @@
     "regolith-session": {
       "source": "https://github.com/regolith-linux/regolith-session.git",
       "ref": "wayland-dev"
+    },
+    "regolith-desktop": {
+      "source": "https://github.com/regolith-linux/regolith-desktop.git",
+      "ref": "wayland-dev"
     }
   }
 }
