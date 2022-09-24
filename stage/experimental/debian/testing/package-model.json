@@ -4,10 +4,6 @@
       "source": "https://github.com/regolith-linux/regolith-displayd.git",
       "ref": "master"
     },
-    "trawl": {
-      "source": "https://github.com/regolith-linux/trawl.git",
-      "ref": "master"
-    },
     "libtrawldb": {
       "source": "https://github.com/regolith-linux/libtrawldb.git",
       "ref": "master"
