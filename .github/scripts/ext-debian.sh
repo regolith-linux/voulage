@@ -43,7 +43,7 @@ stage_source() {
   cd "$PKG_BUILD_DIR" || exit
 
   echo "Generating source tarball from git repo."
-  tar --force-local -c -z -v -f  "$debian_package_name\_${debian_version}.orig.tar.gz" --exclude .git\* --exclude /debian "$PACKAGE_NAME/../$PACKAGE_NAME"
+  tar --force-local -c -z -v -f  "$debian_package_name_${debian_version}.orig.tar.gz" --exclude .git\* --exclude /debian "$PACKAGE_NAME"
 
   popd
 }
