@@ -23,6 +23,8 @@ jobs:
             distro-codename: debian-testing-arm64
           - stage: testing
             distro-codename: debian-testing-arm64
+          - stage: unstable
+            distro-codename: debian-testing-arm64
           - stage: release
             distro-codename: ubuntu-kinetic-amd64
           - stage: testing
@@ -53,6 +55,11 @@ jobs:
           - distro-codename: ubuntu-kinetic-amd64
             host-os: [self-hosted, Linux, X64, kinetic]
             arch: amd64
+            distro: ubuntu
+            codename: kinetic
+          - distro-codename: ubuntu-kinetic-arm64
+            host-os: [self-hosted, Linux, arm64, kinetic]
+            arch: arm64
             distro: ubuntu
             codename: kinetic
           - distro-codename: debian-bullseye-amd64
