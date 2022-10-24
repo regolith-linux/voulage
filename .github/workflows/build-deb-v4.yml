@@ -31,6 +31,13 @@ jobs:
             distro-codename: ubuntu-kinetic-amd64
           - stage: experimental
             distro-codename: ubuntu-kinetic-amd64
+          - stage: release
+            distro-codename: ubuntu-kinetic-arm64
+          - stage: testing
+            distro-codename: ubuntu-kinetic-arm64
+          - stage: experimental
+            distro-codename: ubuntu-kinetic-arm64
+        include:
         include:
           - distro-codename: ubuntu-focal-amd64
             host-os: ubuntu-20.04
