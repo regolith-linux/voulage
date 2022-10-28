@@ -17,11 +17,7 @@ jobs:
         exclude:
           - stage: release
             distro-codename: debian-testing-amd64
-          - stage: testing
-            distro-codename: debian-testing-amd64
           - stage: release
-            distro-codename: debian-testing-arm64
-          - stage: testing
             distro-codename: debian-testing-arm64
           - stage: unstable
             distro-codename: debian-testing-arm64
@@ -29,13 +25,9 @@ jobs:
             distro-codename: debian-testing-arm64            
           - stage: release
             distro-codename: ubuntu-kinetic-amd64
-          - stage: testing
-            distro-codename: ubuntu-kinetic-amd64
           - stage: experimental
             distro-codename: ubuntu-kinetic-amd64
           - stage: release
-            distro-codename: ubuntu-kinetic-arm64
-          - stage: testing
             distro-codename: ubuntu-kinetic-arm64
           - stage: experimental
             distro-codename: ubuntu-kinetic-arm64
