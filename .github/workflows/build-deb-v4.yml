@@ -19,6 +19,8 @@ jobs:
             distro-codename: debian-testing-amd64
           - stage: release
             distro-codename: debian-testing-arm64
+          - stage: testing
+            distro-codename: debian-testing-arm64
           - stage: unstable
             distro-codename: debian-testing-arm64
           - stage: experimental
