@@ -8,10 +8,6 @@
       "source": "https://github.com/regolith-linux/regolith-control-center.git",
       "ref": "regolith/1%43.0-1"
     },
-    "trawl": {
-      "source": "https://github.com/regolith-linux/trawl.git",
-      "ref": "master"
-    },
     "libtrawldb": {
       "source": "https://github.com/regolith-linux/libtrawldb.git",
       "ref": "master"
