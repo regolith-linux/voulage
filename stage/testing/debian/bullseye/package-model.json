@@ -2,7 +2,7 @@
   "packages": {
     "regolith-desktop": {
       "source": "https://github.com/regolith-linux/regolith-desktop.git",
-      "ref": "r2_2-beta2-debian-bullseye"
+      "ref": "r2_2-beta3-debian-bullseye"
     },
     "xcb-util": {
       "source": "https://git.launchpad.net/ubuntu/+source/xcb-util",
