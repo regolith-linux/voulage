@@ -27,8 +27,6 @@ jobs:
             distro-codename: debian-testing-arm64            
           - stage: release
             distro-codename: ubuntu-kinetic-amd64
-          - stage: experimental
-            distro-codename: ubuntu-kinetic-amd64
           - stage: release
             distro-codename: ubuntu-kinetic-arm64
           - stage: experimental
