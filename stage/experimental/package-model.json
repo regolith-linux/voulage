@@ -3,6 +3,10 @@
     "xrescat": {
       "source": "https://github.com/regolith-linux/xrescat.git",
       "ref": "experimental"
+    },
+    "i3status-rs": {
+      "source": "https://github.com/SoumyaRanjanPatnaik/i3status-rs_debian.git",
+      "ref": "ubuntu/v0.22.0"
     }
   }
 }
