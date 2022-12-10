@@ -18,7 +18,7 @@
     },
     "regolith-i3-config": {
       "source": "https://github.com/regolith-linux/regolith-i3-config.git",
-      "ref": "r2_2-beta4-ubuntu-jammy"
+      "ref": "r2_2-ubuntu-jammy"
     }
   }
 }
