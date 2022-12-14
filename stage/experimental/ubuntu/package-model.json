@@ -35,6 +35,10 @@
     "regolith-i3-config": {
       "source": "https://github.com/regolith-linux/regolith-i3-config.git",
       "ref": "packaging/wayland"
+    },
+    "ilia": {
+      "source": "https://github.com/regolith-linux/ilia.git",
+      "ref": "ubuntu/jammy"
     }
   }
 }
