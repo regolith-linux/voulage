@@ -18,8 +18,6 @@ jobs:
           - stage: release
             distro-codename: debian-testing-amd64
           - stage: experimental
-            distro-codename: ubuntu-kinetic-amd64
-          - stage: experimental
             distro-codename: ubuntu-kinetic-arm64
         include:
           - distro-codename: ubuntu-focal-amd64
