@@ -75,11 +75,7 @@ jobs:
             arch: amd64
             distro: debian
             codename: testing
-          - distro-codename: debian-testing-arm64
-            host-os: [self-hosted, Linux, arm64, focal]
-            arch: arm64
-            distro: debian
-            codename: testing
+
     steps:
       - uses: actions/checkout@v2
       - name: Set Job Parameters
