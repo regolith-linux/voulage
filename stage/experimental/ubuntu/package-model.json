@@ -36,6 +36,10 @@
       "source": "https://github.com/regolith-linux/regolith-i3-config.git",
       "ref": "packaging/wayland"
     },
+    "regolith-avizo": {
+      "source": "https://github.com/SoumyaRanjanPatnaik/avizo.git",
+      "ref": "debian"
+    },
     "ilia": {
       "source": "https://github.com/regolith-linux/ilia.git",
       "ref": "ubuntu/jammy"
