@@ -181,10 +181,12 @@ jobs:
           set -e
           set -x
           rsync -avzh ${{ steps.init.outputs.PKG_REPO_PATH }}/* root@${{ secrets.KAMATERA_HOSTNAME }}:/var/www/html/${{ steps.init.outputs.target }}
-      - name: Inspect Manifest
+      - name: Log Build Output
         if: steps.changes.outputs.changed == 1
         run: |
           cat ${{ steps.init.outputs.PKG_REPO_PATH }}/manifest.txt || true
+          echo "PKG_BUILD_DIR:"
+          find ${{ steps.init.outputs.PKG_BUILD_DIR }}
       - uses: actions/upload-artifact@v3
         if: steps.changes.outputs.changed == 1
         with:
