@@ -12,7 +12,7 @@ jobs:
     runs-on: ${{ matrix.host-os }}
     strategy:
       matrix:
-        stage: [experimental, unstable, testing, release] # release-2_1 one-time build for older release
+        stage: [experimental, unstable, testing, release] #, release-2_1]
         distro-codename: [ubuntu-focal-amd64, ubuntu-focal-arm64, ubuntu-jammy-amd64, ubuntu-jammy-arm64, ubuntu-kinetic-amd64, ubuntu-kinetic-arm64, debian-bullseye-amd64, debian-bullseye-arm64, debian-testing-amd64]
         exclude:
           - stage: release
@@ -99,7 +99,7 @@ jobs:
           # fi
 
           set -e
-          DEBIAN_FRONTEND=noninteractive sudo apt install -y --no-install-recommends jq git devscripts reprepro wget
+          DEBIAN_FRONTEND=noninteractive sudo apt install -y --no-install-recommends jq git devscripts reprepro wget dput
       - name: Pull Manifest
         run: |
           set -e

@@ -129,6 +129,14 @@ publish() {
           fi
       done
   done
+
+  # Preliminary launchpad.net integration. Ideally gated from action rather than distro/stage
+  if [[ "$DISTRO" == "ubuntu" && "$STAGE" == "unstable" ]]; then
+    echo "Publishing $DEB_SRC_PKG_PATH to launchpad.net"
+    LAUNCHPAD_REPO="ppa:regolith-desktop/$STAGE"
+
+    dput $LAUNCHPAD_REPO $DEB_SRC_PKG_PATH
+  fi
 }
 
 # Create repo dist file
