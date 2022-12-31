@@ -16,17 +16,9 @@ jobs:
         distro-codename: [ubuntu-focal-amd64, ubuntu-focal-arm64, ubuntu-jammy-amd64, ubuntu-jammy-arm64, ubuntu-kinetic-amd64, ubuntu-kinetic-arm64, debian-bullseye-amd64, debian-bullseye-arm64, debian-testing-amd64]
         exclude:
           - stage: release
-            distro-codename: debian-testing-amd64
+            distro-codename: debian-testing-amd64 # debian testing is never released
           - stage: release
-            distro-codename: debian-testing-arm64
-          - stage: release-2_1
-            distro-codename: debian-testing-amd64
-          - stage: release-2_1
-            distro-codename: debian-testing-arm64
-          - stage: release-2_1
-            distro-codename: ubuntu-kinetic-amd64
-          - stage: release-2_1
-            distro-codename: ubuntu-kinetic-arm64
+            distro-codename: debian-testing-arm64 # debian testing is never released
           - stage: experimental
             distro-codename: ubuntu-kinetic-arm64
         include:
@@ -189,10 +181,12 @@ jobs:
           set -e
           set -x
           rsync -avzh ${{ steps.init.outputs.PKG_REPO_PATH }}/* root@${{ secrets.KAMATERA_HOSTNAME }}:/var/www/html/${{ steps.init.outputs.target }}
-      - name: Inspect Manifest
+      - name: Log Build Output
         if: steps.changes.outputs.changed == 1
         run: |
           cat ${{ steps.init.outputs.PKG_REPO_PATH }}/manifest.txt || true
+          echo "PKG_BUILD_DIR:"
+          find ${{ steps.init.outputs.PKG_BUILD_DIR }}
       - uses: actions/upload-artifact@v3
         if: steps.changes.outputs.changed == 1
         with:
