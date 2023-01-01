@@ -11,7 +11,7 @@ update_changelog() {
   set -x
   cd "${PKG_BUILD_DIR:?}/$PACKAGE_NAME"
   version=$(dpkg-parsechangelog --show-field Version)
-  dch --distribution "$CODENAME" --newversion "${version}-1regolith" "Automated release."
+  dch --distribution "$CODENAME" --newversion "${version}-1regolith-$CODENAME" "Automated Voulage release"
 
   cd - >/dev/null 2>&1 || exit
 }
@@ -135,7 +135,7 @@ publish() {
     echo "Publishing $DEB_SRC_PKG_PATH to launchpad.net"
     LAUNCHPAD_REPO="ppa:regolith-desktop/$STAGE"
 
-    dput $LAUNCHPAD_REPO $DEB_SRC_PKG_PATH
+    dput -f $LAUNCHPAD_REPO $DEB_SRC_PKG_PATH
   fi
 }
 
