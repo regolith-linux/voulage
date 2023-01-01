@@ -135,7 +135,7 @@ publish() {
     echo "Publishing $DEB_SRC_PKG_PATH to launchpad.net"
     LAUNCHPAD_REPO="ppa:regolith-desktop/$STAGE"
 
-    dput $LAUNCHPAD_REPO $DEB_SRC_PKG_PATH
+    dput -f $LAUNCHPAD_REPO $DEB_SRC_PKG_PATH
   fi
 }
 
