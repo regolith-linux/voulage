@@ -131,11 +131,15 @@ publish() {
   done
 
   # Preliminary launchpad.net integration. Ideally gated from action rather than distro/stage
-  if [[ "$DISTRO" == "ubuntu" && "$STAGE" == "unstable" ]]; then
-    echo "Publishing $DEB_SRC_PKG_PATH to launchpad.net"
+  # Only packages for Ubuntu distro should go to launchpad
+  # Arch is set to amd64 because launchpad handles cross arch builds internally
+  # Remove STAGE check once testing and release PPAs are ready
+  if [[ "$DISTRO" == "ubuntu" && "$ARCH" == "amd64" && "$STAGE" == "unstable" ]]; then    
     LAUNCHPAD_REPO="ppa:regolith-desktop/$STAGE"
 
     dput -f $LAUNCHPAD_REPO $DEB_SRC_PKG_PATH
+
+    echo "CHLOG: Published $PACKAGE_NAME to $LAUNCHPAD_REPO"
   fi
 }
 
