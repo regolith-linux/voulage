@@ -135,7 +135,7 @@ publish() {
   # Arch is set to amd64 because launchpad handles cross arch builds internally
   # Remove STAGE check once testing and release PPAs are ready
   if [[ "$DISTRO" == "ubuntu" && "$ARCH" == "amd64" && "$STAGE" == "unstable" ]]; then    
-    LAUNCHPAD_REPO="ppa:regolith-desktop/$STAGE"
+    LAUNCHPAD_REPO="ppa:regolith-desktop/$CODENAME-$STAGE"
 
     dput -f $LAUNCHPAD_REPO $DEB_SRC_PKG_PATH
 
