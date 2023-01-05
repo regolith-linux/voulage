@@ -21,6 +21,10 @@ jobs:
             distro-codename: debian-testing-arm64 # debian testing is never released
           - stage: experimental
             distro-codename: ubuntu-kinetic-arm64
+          - stage: experimental
+            distro-codename: ubuntu-jammy-amd64 # temp disable, need to re-enable package bootstrapping by consuming from source repo.  See "Disabled to bootstrap release-2_1 stage" section below
+          - stage: experimental
+            distro-codename: ubuntu-jammy-arm64 # as previous
         include:
           - distro-codename: ubuntu-focal-amd64
             host-os: ubuntu-20.04
