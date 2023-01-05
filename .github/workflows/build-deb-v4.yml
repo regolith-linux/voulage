@@ -26,7 +26,9 @@ jobs:
           - stage: experimental
             distro-codename: ubuntu-jammy-arm64 # as previous
           - stage: experimental
-            distro-codename: debian-testing-arm64 # see https://github.com/orgs/regolith-linux/projects/8#card-87473449
+            distro-codename: debian-testing-amd64 # see https://github.com/orgs/regolith-linux/projects/8#card-87473449
+          - stage: experimental
+            distro-codename: debian-testing-arm64 # as previous
         include:
           - distro-codename: ubuntu-focal-amd64
             host-os: ubuntu-20.04
