@@ -40,6 +40,10 @@
       "source": "https://github.com/SoumyaRanjanPatnaik/avizo.git",
       "ref": "debian"
     },
+    "gtklock":{
+      "source": "https://github.com/SoumyaRanjanPatnaik/gtklock.git",
+      "ref": "packaging"
+    },
     "ilia": {
       "source": "https://github.com/regolith-linux/ilia.git",
       "ref": "ubuntu/jammy"
