@@ -51,6 +51,10 @@
     "regolith-powerd": {
       "source": "https://github.com/regolith-linux/regolith-powerd.git",
       "ref": "master"
+    },
+    "sway-audio-idle-inhibit": {
+      "source": "https://github.com/SoumyaRanjanPatnaik/SwayAudioIdleInhibit.git",
+      "ref": "main"
     }
   }
 }
