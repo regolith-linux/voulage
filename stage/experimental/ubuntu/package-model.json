@@ -55,6 +55,18 @@
     "sway-audio-idle-inhibit": {
       "source": "https://github.com/SoumyaRanjanPatnaik/SwayAudioIdleInhibit.git",
       "ref": "main"
+    },
+    "regolith-wm-config": {
+      "source": "https://github.com/regolith-linux/regolith-wm-config.git",
+      "ref": "import-from-legacy"
+    },
+    "regolith-look-default": {
+      "source": "https://github.com/regolith-linux/regolith-look-default.git",
+      "ref": "wayland-dev"
+    },
+    "regolith-look-extra": {
+      "source": "https://github.com/regolith-linux/regolith-look-extra.git",
+      "ref": "wayland-dev"
     }
   }
 }
