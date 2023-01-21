@@ -5,7 +5,7 @@
       "ref": "experimental"
     },
     "i3status-rs": {
-      "source": "https://github.com/SoumyaRanjanPatnaik/i3status-rs_debian.git",
+      "source": "https://github.com/regolith-linux/i3status-rs_debian.git",
       "ref": "ubuntu/v0.22.0"
     },
     "regolith-displayd": {
@@ -45,11 +45,11 @@
       "ref": "import-from-legacy"
     },
     "regolith-avizo": {
-      "source": "https://github.com/SoumyaRanjanPatnaik/avizo.git",
+      "source": "https://github.com/regolith-linux/avizo.git",
       "ref": "debian"
     },
     "gtklock":{
-      "source": "https://github.com/SoumyaRanjanPatnaik/gtklock.git",
+      "source": "https://github.com/regolith-linux/gtklock.git",
       "ref": "packaging"
     },
     "regolith-powerd": {
@@ -57,7 +57,7 @@
       "ref": "master"
     },
     "sway-audio-idle-inhibit": {
-      "source": "https://github.com/SoumyaRanjanPatnaik/SwayAudioIdleInhibit.git",
+      "source": "https://github.com/regolith-linux/SwayAudioIdleInhibit.git",
       "ref": "main"
     },
     "regolith-wm-config": {
