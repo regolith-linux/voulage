@@ -46,7 +46,7 @@
     },
     "regolith-avizo": {
       "source": "https://github.com/regolith-linux/avizo.git",
-      "ref": "debian"
+      "ref": "ubuntu/jammy"
     },
     "gtklock":{
       "source": "https://github.com/regolith-linux/gtklock.git",
