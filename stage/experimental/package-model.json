@@ -40,9 +40,9 @@
       "source": "https://github.com/regolith-linux/regolith-ftue.git",
       "ref": "wayland-dev"
     },
-    "regolith-i3-config": {
+    "regolith-wm-config": {
       "source": "https://github.com/regolith-linux/regolith-wm-config.git",
-      "ref": "import-from-legacy"
+      "ref": "main"
     },
     "regolith-avizo": {
       "source": "https://github.com/regolith-linux/avizo.git",
