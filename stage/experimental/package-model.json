@@ -60,10 +60,6 @@
       "source": "https://github.com/regolith-linux/SwayAudioIdleInhibit.git",
       "ref": "main"
     },
-    "regolith-wm-config": {
-      "source": "https://github.com/regolith-linux/regolith-wm-config.git",
-      "ref": "import-from-legacy"
-    },
     "regolith-look-default": {
       "source": "https://github.com/regolith-linux/regolith-look-default.git",
       "ref": "wayland-dev"
