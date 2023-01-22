@@ -50,7 +50,7 @@
     },
     "gtklock":{
       "source": "https://github.com/regolith-linux/gtklock.git",
-      "ref": "packaging"
+      "ref": "master"
     },
     "regolith-powerd": {
       "source": "https://github.com/regolith-linux/regolith-powerd.git",
