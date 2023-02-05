@@ -104,7 +104,7 @@ source_setup_scripts() {
 }
 
 build_packages() {
-  echo "Building Packages:"
+  echo -e "Building Packages:"
   echo $PACKAGE_CHANGES
 
   set -x
