@@ -2,7 +2,7 @@
 
 checkout() {
   set -e
-  
+
   if [ -z "$PACKAGE_URL" ]; then
     echo "Package model is invalid.  Model field 'source' undefined, aborting."
     exit 1
@@ -22,7 +22,27 @@ checkout() {
   fi
 
   cd "$PKG_BUILD_DIR" || exit
-  git clone --recursive "$PACKAGE_URL" -b "$PACKAGE_REF" "$PACKAGE_NAME"
+
+  max_iteration=10
+
+  for i in $(seq 1 $max_iteration)
+  do
+    git clone --recursive "$PACKAGE_URL" -b "$PACKAGE_REF" "$PACKAGE_NAME"
+    result=$?
+    if [[ $result -eq 0 ]]
+    then
+      echo "git clone successful on try $result"
+      break
+    else
+      echo "git clone failed, retry $result"
+      sleep 5
+    fi
+  done
+
+  if [[ $result -ne 0 ]]
+  then
+    echo "All of the trials failed"
+  fi
 
   cd - >/dev/null 2>&1 || exit
 }
