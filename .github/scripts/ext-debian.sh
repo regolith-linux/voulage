@@ -56,6 +56,7 @@ build_src_package() {
   cd "$PKG_BUILD_DIR/$PACKAGE_NAME" || exit
 
   sanitize_git
+  sudo sed -i 's/azure\.//' /etc/apt/sources.list
   sudo apt build-dep -y .
   debuild -S -sa
 
