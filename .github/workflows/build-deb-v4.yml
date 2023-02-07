@@ -103,6 +103,7 @@ jobs:
           # fi
 
           set -e
+          sudo apt update
           DEBIAN_FRONTEND=noninteractive sudo apt install -y --no-install-recommends jq git devscripts reprepro wget dput
       - name: Pull Manifest
         run: |

@@ -56,7 +56,7 @@ build_src_package() {
   cd "$PKG_BUILD_DIR/$PACKAGE_NAME" || exit
 
   sanitize_git
-  sudo sed -i 's/azure\.//' /etc/apt/sources.list
+  sudo sed -i 's/azure\.//' /etc/apt/sources.list # remove once https://github.com/actions/runner-images/issues/675 is fixed
   sudo apt build-dep -y .
   debuild -S -sa
 
@@ -170,6 +170,8 @@ setup() {
     echo "Existing metadata:"
     cat "$PKG_REPO_PATH/conf/distributions"
   fi
+
+  sudo apt update # remove once https://github.com/actions/runner-images/issues/675 is fixed
 
   source_setup_scripts
 }
