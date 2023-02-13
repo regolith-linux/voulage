@@ -67,6 +67,10 @@
     "regolith-look-extra": {
       "source": "https://github.com/regolith-linux/regolith-look-extra.git",
       "ref": "wayland-dev"
+    },
+    "regolith-default-settings": {
+      "source": "https://github.com/regolith-linux/regolith-default-settings.git",
+      "ref": "main"
     }
   }
 }
