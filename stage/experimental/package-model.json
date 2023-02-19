@@ -71,6 +71,10 @@
     "regolith-default-settings": {
       "source": "https://github.com/regolith-linux/regolith-default-settings.git",
       "ref": "main"
+    },
+    "regolith-rofication": {
+      "source": "https://github.com/regolith-linux/regolith-rofication.git",
+      "ref": "wayland-dev"
     }
   }
 }
