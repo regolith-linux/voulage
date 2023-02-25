@@ -1,5 +1,8 @@
 {
   "packages": {
-    "gtklock": null
+    "gtklock":{
+      "source": "https://github.com/regolith-linux/gtklock.git",
+      "ref": "ubuntu/jammy"
+    }
   }
 }
