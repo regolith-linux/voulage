@@ -93,14 +93,13 @@ jobs:
           mkdir ${{ steps.init.outputs.MANIFEST_PATH }} || true
           mkdir ${{ steps.init.outputs.PKG_BUILD_DIR }} || true
 
-          # Disabled to bootstrap release-2_1 stage
-          # set +e
-          # wget -P /tmp "https://regolith-desktop.org/${{ steps.init.outputs.target }}/manifest.txt" || true
-          # if [ $? -eq 0 ]; then
-          #   wget -qO - https://regolith-desktop.org/regolith.key | sudo apt-key add -
-          #   echo deb "[arch=${{ steps.init.outputs.arch }}] ${{ steps.init.outputs.repo_url }} ${{ steps.init.outputs.codename }} main" | sudo tee /etc/apt/sources.list.d/regolith.list
-          #   sudo apt update
-          # fi
+          # Following allows for internal dependencies
+          wget -P /tmp "https://regolith-desktop.org/${{ steps.init.outputs.target }}/manifest.txt" || true
+          if [ $? -eq 0 ]; then
+            wget -qO - https://regolith-desktop.org/regolith.key | sudo apt-key add -
+            echo deb "[arch=${{ steps.init.outputs.arch }}] ${{ steps.init.outputs.repo_url }} ${{ steps.init.outputs.codename }} main" | sudo tee /etc/apt/sources.list.d/regolith.list
+            sudo apt update
+          fi
 
           set -e
           sudo apt update
