@@ -38,7 +38,7 @@
     },
     "regolith-ftue": {
       "source": "https://github.com/regolith-linux/regolith-ftue.git",
-      "ref": "wayland-dev"
+      "ref": "main"
     },
     "regolith-wm-config": {
       "source": "https://github.com/regolith-linux/regolith-wm-config.git",
