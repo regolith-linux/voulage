@@ -11,10 +11,6 @@
     "regolith-control-center": {
       "source": "https://github.com/regolith-linux/regolith-control-center.git",
       "ref": "regolith/1%43.0-1"
-    }, 
-    "regolith-i3-config": {
-      "source": "https://github.com/regolith-linux/regolith-i3-config.git",
-      "ref": "ubuntu/jammy"
     },
     "ubiquity-slideshow-regolith": null,
     "plymouth-theme-regolith": null

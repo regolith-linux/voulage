@@ -36,10 +36,6 @@
       "source": "https://github.com/regolith-linux/i3-gaps-wm.git",
       "ref": "main"
     },
-    "regolith-i3-config": {
-      "source": "https://github.com/regolith-linux/regolith-i3-config.git",
-      "ref": "master"
-    },
     "ayu-theme": {
       "source": "https://github.com/regolith-linux/ayu-theme.git",
       "ref": "master"
@@ -204,7 +200,7 @@
       "source": "https://github.com/regolith-linux/avizo.git",
       "ref": "ubuntu/jammy"
     },
-    "gtklock":{
+    "gtklock": {
       "source": "https://github.com/regolith-linux/gtklock.git",
       "ref": "master"
     },

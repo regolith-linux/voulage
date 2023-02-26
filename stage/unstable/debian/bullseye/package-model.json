@@ -8,7 +8,7 @@
       "source": "https://git.launchpad.net/ubuntu/+source/xcb-util",
       "ref": "applied/ubuntu/groovy"
     },
-    "gtklock":{
+    "gtklock": {
       "source": "https://github.com/regolith-linux/gtklock.git",
       "ref": "ubuntu/jammy"
     }

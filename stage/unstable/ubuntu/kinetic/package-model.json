@@ -15,10 +15,6 @@
     "ubiquity-slideshow-regolith": {
       "source": "https://github.com/regolith-linux/ubiquity-slideshow-regolith.git",
       "ref": "master"
-    },
-    "regolith-i3-config": {
-      "source": "https://github.com/regolith-linux/regolith-i3-config.git",
-      "ref": "ubuntu/jammy"
     }
   }
 }
