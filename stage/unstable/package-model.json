@@ -171,6 +171,50 @@
     "fonts-nerd-fonts": {
       "source": "https://github.com/regolith-linux/fonts-nerd-fonts.git",
       "ref": "debian"
+    },
+    "regolith-wm-config": {
+      "source": "https://github.com/regolith-linux/regolith-wm-config.git",
+      "ref": "main"
+    },
+    "i3status-rs": {
+      "source": "https://github.com/regolith-linux/i3status-rs_debian.git",
+      "ref": "ubuntu/v0.22.0"
+    },
+    "regolith-displayd": {
+      "source": "https://github.com/regolith-linux/regolith-displayd.git",
+      "ref": "master"
+    },
+    "regolith-inputd": {
+      "source": "https://github.com/regolith-linux/regolith-inputd.git",
+      "ref": "master"
+    },
+    "trawl": {
+      "source": "https://github.com/regolith-linux/trawl.git",
+      "ref": "master"
+    },
+    "libtrawldb": {
+      "source": "https://github.com/regolith-linux/libtrawldb.git",
+      "ref": "master"
+    },
+    "sway-regolith": {
+      "source": "https://github.com/regolith-linux/sway-regolith.git",
+      "ref": "packaging/v1.7-regolith"
+    },
+    "regolith-avizo": {
+      "source": "https://github.com/regolith-linux/avizo.git",
+      "ref": "ubuntu/jammy"
+    },
+    "gtklock":{
+      "source": "https://github.com/regolith-linux/gtklock.git",
+      "ref": "master"
+    },
+    "regolith-powerd": {
+      "source": "https://github.com/regolith-linux/regolith-powerd.git",
+      "ref": "master"
+    },
+    "sway-audio-idle-inhibit": {
+      "source": "https://github.com/regolith-linux/SwayAudioIdleInhibit.git",
+      "ref": "main"
     }
   }
 }

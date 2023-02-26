@@ -19,6 +19,10 @@
     "regolith-i3-config": {
       "source": "https://github.com/regolith-linux/regolith-i3-config.git",
       "ref": "ubuntu/jammy"
+    },
+    "gtklock":{
+      "source": "https://github.com/regolith-linux/gtklock.git",
+      "ref": "ubuntu/jammy"
     }
   }
 }
