@@ -8,9 +8,15 @@
       "source": "https://git.launchpad.net/ubuntu/+source/xcb-util",
       "ref": "applied/ubuntu/groovy"
     },
-    "gtklock": {
-      "source": "https://github.com/regolith-linux/gtklock.git",
-      "ref": "ubuntu/jammy"
-    }
+    "i3status-rs": null,
+    "regolith-displayd": null,
+    "regolith-inputd": null,
+    "trawl": null,
+    "libtrawldb": null,
+    "sway-regolith": null,
+    "regolith-avizo": null,
+    "gtklock": null,
+    "regolith-powerd": null,
+    "sway-audio-idle-inhibit": null
   }
 }
