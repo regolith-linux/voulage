@@ -41,6 +41,10 @@ merge_models() {
     mkdir -p "$MANIFEST_PATH"
   fi
 
+  # Debug why package model merge fails for gtklock
+  set -v 
+  set -x
+
   # Copy root model to build dir
   WORKING_ROOT_MODEL="$MANIFEST_PATH/root-model.json"
   cp "$ROOT_MODEL_PATH" "$WORKING_ROOT_MODEL"
