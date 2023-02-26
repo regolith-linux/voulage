@@ -82,6 +82,9 @@ merge_models() {
   fi
 
   PACKAGE_MODEL_FILE="$WORKING_ARCH_MODEL"
+
+  echo "Merged package model: "
+  cat "$PACKAGE_MODEL_FILE"
 }
 
 # Traverse the stage tree and execute any found setup.sh scripts
