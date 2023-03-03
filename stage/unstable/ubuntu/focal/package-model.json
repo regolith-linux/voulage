@@ -10,10 +10,6 @@
         "gtklock": null,
         "regolith-powerd": null,
         "sway-audio-idle-inhibit": null,
-        "regolith-session": {
-            "source": "https://github.com/regolith-linux/regolith-session.git",
-            "ref": "ubuntu/focal"
-        },
         "regolith-desktop": {
             "source": "https://github.com/regolith-linux/regolith-desktop.git",
             "ref": "ubuntu/focal"
