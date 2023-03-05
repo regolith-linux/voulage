@@ -88,6 +88,9 @@ jobs:
           - distro-codename: ubuntu-kinetic
             distro: ubuntu
             codename: kinetic
+        exclude:
+          - stage: testing # remove this after wayland enters testing
+            wm: regolith-session-sway
     steps:
       - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
         uses: kgilmer/test-ubuntu-22.10-action@v1.1.6
