@@ -43,7 +43,7 @@ jobs:
             codename: testing
     steps:
       - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
-        uses: kgilmer/test-debian-testing-action@v1.0
+        uses: kgilmer/test-debian-testing-action@v1.1
         with:
           apt-key-url: http://regolith-desktop.org/regolith.key
           apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
