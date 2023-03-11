@@ -13,7 +13,7 @@ jobs:
     strategy:
       matrix:
         stage: [experimental, unstable, testing, release] #, release-2_1]
-        distro-codename: [ubuntu-focal-amd64, ubuntu-focal-arm64, ubuntu-jammy-amd64, ubuntu-jammy-arm64, ubuntu-kinetic-amd64, ubuntu-kinetic-arm64, debian-bullseye-amd64, debian-bullseye-arm64, debian-testing-amd64]
+        distro-codename: [ubuntu-focal-amd64, ubuntu-focal-arm64, ubuntu-jammy-amd64, ubuntu-jammy-arm64, ubuntu-kinetic-amd64, ubuntu-kinetic-arm64, debian-bullseye-amd64, debian-bullseye-arm64, debian-testing-amd64, debian-testing-amd64]
         exclude:
           - stage: release
             distro-codename: debian-testing-amd64 # debian testing is never released
@@ -21,10 +21,6 @@ jobs:
             distro-codename: debian-testing-arm64 # debian testing is never released
           - stage: experimental
             distro-codename: ubuntu-kinetic-arm64
-          - stage: experimental
-            distro-codename: debian-testing-amd64 # see https://github.com/orgs/regolith-linux/projects/8#card-87473449
-          - stage: experimental
-            distro-codename: debian-testing-arm64 # as previous
         include:
           - distro-codename: ubuntu-focal-amd64
             host-os: ubuntu-20.04
