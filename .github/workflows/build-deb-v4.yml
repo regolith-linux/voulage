@@ -30,6 +30,10 @@ jobs:
             distro-codename: debian-testing-amd64 # debian testing is never released
           - stage: release
             distro-codename: debian-testing-arm64 # debian testing is never released
+          - stage: release
+            distro-codename: ubuntu-lunar-amd64 # tbd
+          - stage: testing
+            distro-codename: ubuntu-lunar-amd64 # tbd            
           - stage: experimental
             distro-codename: ubuntu-kinetic-arm64
         include:
