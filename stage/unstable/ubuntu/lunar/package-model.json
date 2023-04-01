@@ -15,6 +15,7 @@
     "ubiquity-slideshow-regolith": {
       "source": "https://github.com/regolith-linux/ubiquity-slideshow-regolith.git",
       "ref": "master"
-    }
+    },
+    "sway-regolith": null
   }
 }
