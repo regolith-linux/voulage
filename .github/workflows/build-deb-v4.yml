@@ -20,7 +20,8 @@ jobs:
           ubuntu-jammy-arm64, 
           ubuntu-kinetic-amd64, 
           ubuntu-kinetic-arm64, 
-          ubuntu-lunar-amd64, 
+          ubuntu-lunar-amd64,
+          ubuntu-lunar-arm64,
           debian-bullseye-amd64, 
           debian-bullseye-arm64, 
           debian-testing-amd64
@@ -70,6 +71,11 @@ jobs:
           - distro-codename: ubuntu-lunar-amd64
             host-os: [self-hosted, Linux, X64, lunar]
             arch: amd64
+            distro: ubuntu
+            codename: lunar
+          - distro-codename: ubuntu-lunar-arm64
+            host-os: [self-hosted, Linux, arm64, lunar]
+            arch: arm64
             distro: ubuntu
             codename: lunar
           - distro-codename: debian-bullseye-amd64
