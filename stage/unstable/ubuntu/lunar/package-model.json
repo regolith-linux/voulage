@@ -12,6 +12,7 @@
       "source": "https://github.com/regolith-linux/regolith-control-center.git",
       "ref": "regolith/1%43.0-1"
     },
-    "ubiquity-slideshow-regolith": null
+    "ubiquity-slideshow-regolith": null,
+    "sway-regolith": null
   }
 }
