@@ -117,7 +117,7 @@ jobs:
             wm: regolith-session-sway
     steps:
       - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
-        uses: kgilmer/test-ubuntu-lunar-action@v1.0.0
+        uses: kgilmer/test-ubuntu-lunar-action@1.0.0
         with:
           apt-key-url: http://regolith-desktop.org/regolith.key
           apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
