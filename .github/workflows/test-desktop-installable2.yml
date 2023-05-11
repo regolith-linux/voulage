@@ -96,17 +96,17 @@ jobs:
           apt-key-url: http://regolith-desktop.org/regolith.key
           apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
           target-package: "regolith-desktop ${{ matrix.wm }}"
-  test-ubuntu-kinetic-install:
+  test-ubuntu-lunar-install:
     runs-on: ${{ matrix.host-os }}
     strategy:
       matrix:
         stage: [unstable, testing] #, release
-        distro-codename: [ubuntu-kinetic]
+        distro-codename: [ubuntu-lunar]
         arch: [amd64, arm64]
         wm: [regolith-session-flashback, regolith-session-sway]
         include:
           - arch: amd64
-            host-os: ubuntu-22.04
+            host-os: ubuntu-23.04
           - arch: arm64
             host-os: [self-hosted, Linux, ARM64, kinetic]
           - distro-codename: ubuntu-kinetic
@@ -117,7 +117,7 @@ jobs:
             wm: regolith-session-sway
     steps:
       - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
-        uses: kgilmer/test-ubuntu-22.10-action@v1.1.6
+        uses: kgilmer/test-ubuntu-lunar-action@v1.0.0
         with:
           apt-key-url: http://regolith-desktop.org/regolith.key
           apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
