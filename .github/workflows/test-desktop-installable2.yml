@@ -108,10 +108,10 @@ jobs:
           - arch: amd64
             host-os: ubuntu-23.04
           - arch: arm64
-            host-os: [self-hosted, Linux, ARM64, kinetic]
-          - distro-codename: ubuntu-kinetic
+            host-os: [self-hosted, Linux, ARM64, lunar]
+          - distro-codename: ubuntu-lunar
             distro: ubuntu
-            codename: kinetic
+            codename: lunar
         exclude:
           - stage: testing # remove this after wayland enters testing
             wm: regolith-session-sway
