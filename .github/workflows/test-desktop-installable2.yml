@@ -106,7 +106,7 @@ jobs:
         wm: [regolith-session-flashback, regolith-session-sway]
         include:
           - arch: amd64
-            host-os: ubuntu-23.04
+            host-os: [self-hosted, Linux, X64, lunar]
           - arch: arm64
             host-os: [self-hosted, Linux, ARM64, lunar]
           - distro-codename: ubuntu-lunar
