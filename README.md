@@ -1,10 +1,10 @@
-# Regolith 2.0 Package Repository
+# Regolith Build System
 
-This repository hosts repositories containing Regolith packages. 
+This repository hosts code and configuration to build packages consisting of the Regolith Desktop
 
 ## Status
 
-This repository hosts scripts and package metadata for the Regolith Desktop and Regolith Linux projects.  We appreciate bug reports, PRs, and suggestions. 
+This repo is in active, prod use.
 
 ### `regolith-desktop` installable status
 
