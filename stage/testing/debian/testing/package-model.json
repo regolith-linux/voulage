@@ -2,23 +2,19 @@
   "packages": {
     "regolith-desktop": {
       "source": "https://github.com/regolith-linux/regolith-desktop.git",
-      "ref": "r2_2-beta4-debian-bullseye"
+      "ref": "r3_0-beta1-debian-bullseye"
     },
     "ilia": {
       "source": "https://github.com/regolith-linux/ilia.git",
-      "ref": "r2_2-beta4-ubuntu-jammy"
+      "ref": "r3_0-beta1-ubuntu-jammy"
     },
     "lago": {
       "source": "https://github.com/regolith-linux/lago.git",
-      "ref": "r2_2-beta4-ubuntu-jammy"
+      "ref": "r3_0-beta1-ubuntu-jammy"
     },
     "regolith-control-center": {
       "source": "https://github.com/regolith-linux/regolith-control-center.git",
-      "ref": "r2_2-beta4-ubuntu-kinetic"
-    }, 
-    "regolith-i3-config": {
-      "source": "https://github.com/regolith-linux/regolith-i3-config.git",
-      "ref": "r2_2-beta4-ubuntu-jammy"
+      "ref": "r3_0-beta1-ubuntu-jammy"
     },
     "ubiquity-slideshow-regolith": null,
     "plymouth-theme-regolith": null

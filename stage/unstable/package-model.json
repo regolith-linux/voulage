@@ -32,10 +32,6 @@
       "source": "https://github.com/regolith-linux/i3-wm.git",
       "ref": "main"
     },
-    "i3-gaps-wm": {
-      "source": "https://github.com/regolith-linux/i3-gaps-wm.git",
-      "ref": "main"
-    },
     "ayu-theme": {
       "source": "https://github.com/regolith-linux/ayu-theme.git",
       "ref": "master"
