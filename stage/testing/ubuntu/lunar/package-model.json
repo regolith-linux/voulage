@@ -15,6 +15,7 @@
     "gtklock": {
       "source": "https://github.com/regolith-linux/gtklock.git",
       "ref": "r3_0-beta1-ubuntu-jammy"
-    }
+    },
+    "sway-regolith": null
   }
 }
