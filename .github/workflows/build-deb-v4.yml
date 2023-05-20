@@ -31,12 +31,8 @@ jobs:
             distro-codename: debian-testing-arm64 # debian testing is never released
           - stage: release
             distro-codename: ubuntu-lunar-amd64 # tbd
-          - stage: testing
-            distro-codename: ubuntu-lunar-amd64 # tbd
           - stage: release
             distro-codename: ubuntu-lunar-arm64 # tbd
-          - stage: testing
-            distro-codename: ubuntu-lunar-arm64 # tbd  
         include:
           - distro-codename: ubuntu-focal-amd64
             host-os: ubuntu-20.04
