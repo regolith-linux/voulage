@@ -10,7 +10,7 @@
     },
     "regolith-control-center": {
       "source": "https://github.com/regolith-linux/regolith-control-center.git",
-      "ref": "r3_0-beta1-ubuntu-jammy"
+      "ref": "r3_0-beta1-ubuntu-lunar"
     },
     "gtklock": {
       "source": "https://github.com/regolith-linux/gtklock.git",
