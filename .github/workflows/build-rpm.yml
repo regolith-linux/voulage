@@ -22,7 +22,7 @@ jobs:
             codename: 36
             container: fedora:36
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Set Job Parameters
         id: init
         run: |
