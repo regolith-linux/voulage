@@ -33,14 +33,15 @@ jobs:
       - name: Set Job Parameters
         id: init
         run: |
-          echo ::set-output name=MANIFEST_PATH::"${{ github.workspace }}/manifests"
-          echo ::set-output name=PKG_REPO_PATH::"${{ github.workspace }}/repo"
-          echo ::set-output name=PKG_BUILD_DIR::"${{ github.workspace }}/packages"
-          echo ::set-output name=stage::${{ matrix.stage }}
-          echo ::set-output name=distro::${{ matrix.distro }}
-          echo ::set-output name=codename::${{ matrix.codename }}
-          echo ::set-output name=arch::${{ matrix.arch }}
-          echo ::set-output name=target::${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}
+          echo "MANIFEST_PATH=${{ github.workspace }}/manifests" >> $GITHUB_OUTPUT
+          echo "PKG_REPO_PATH=${{ github.workspace }}/repo" >> $GITHUB_OUTPUT
+          echo "PKG_BUILD_DIR=${{ github.workspace }}/packages" >> $GITHUB_OUTPUT
+          echo "GH_REPO_ROOT=${{ github.workspace }}" >> $GITHUB_OUTPUT
+          echo "stage=${{ matrix.stage }}" >> $GITHUB_OUTPUT
+          echo "distro=${{ matrix.distro }}" >> $GITHUB_OUTPUT
+          echo "codename=${{ matrix.codename }}" >> $GITHUB_OUTPUT
+          echo "arch=${{ matrix.arch }}" >> $GITHUB_OUTPUT
+          echo "target=${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}" >> $GITHUB_OUTPUT          
       - name: Clean tmp
         run: |
           set -x

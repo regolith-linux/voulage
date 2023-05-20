@@ -89,16 +89,16 @@ jobs:
       - name: Set Job Parameters
         id: init
         run: |
-          echo ::set-output name=MANIFEST_PATH::"${{ github.workspace }}/manifests"
-          echo ::set-output name=PKG_REPO_PATH::"${{ github.workspace }}/repo"
-          echo ::set-output name=PKG_BUILD_DIR::"${{ github.workspace }}/packages"
-          echo ::set-output name=GH_REPO_ROOT::"${{ github.workspace }}"
-          echo ::set-output name=stage::${{ matrix.stage }}
-          echo ::set-output name=distro::${{ matrix.distro }}
-          echo ::set-output name=codename::${{ matrix.codename }}
-          echo ::set-output name=arch::${{ matrix.arch }}
-          echo ::set-output name=target::${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}
-          echo ::set-output name=repo_url::https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}
+          echo "MANIFEST_PATH=${{ github.workspace }}/manifests" >> $GITHUB_OUTPUT
+          echo "PKG_REPO_PATH=${{ github.workspace }}/repo" >> $GITHUB_OUTPUT
+          echo "PKG_BUILD_DIR=${{ github.workspace }}/packages" >> $GITHUB_OUTPUT
+          echo "GH_REPO_ROOT=${{ github.workspace }}" >> $GITHUB_OUTPUT
+          echo "stage=${{ matrix.stage }}" >> $GITHUB_OUTPUT
+          echo "distro=${{ matrix.distro }}" >> $GITHUB_OUTPUT
+          echo "codename=${{ matrix.codename }}" >> $GITHUB_OUTPUT
+          echo "arch=${{ matrix.arch }}" >> $GITHUB_OUTPUT
+          echo "target=${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}" >> $GITHUB_OUTPUT
+          echo "repo_url=https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}" >> $GITHUB_OUTPUT
       - name: Env setup
         run: |
           set -e
@@ -144,10 +144,10 @@ jobs:
             ${{ steps.init.outputs.PKG_REPO_PATH }} \
             ${{ steps.init.outputs.PKG_BUILD_DIR }} | tail -n1)
           if [ "$CHANGE_OUTPUT" == "No package changes found, exiting." ]; then
-            echo ::set-output name=changed::0
+            echo "changed=0" >> $GITHUB_OUTPUT
             echo "No package changes to build"
           else
-            echo ::set-output name=changed::1
+            echo "changed=1" >> $GITHUB_OUTPUT
             echo "New Manifest: "
             cat ${{ steps.init.outputs.MANIFEST_PATH }}/next-manifest.txt
           fi
@@ -189,7 +189,7 @@ jobs:
             ${{ steps.init.outputs.PKG_BUILD_DIR }} | tee -a ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt
           if [ -f ${{ steps.init.outputs.MANIFEST_PATH }}/next-manifest.txt ]; then
             echo "Temp manifest not deleted by main.sh, build aborted/failed."
-            echo ::set-output name=changed::0
+            echo "changed=0" >> $GITHUB_OUTPUT
             exit 1            
           else
             cat ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt | grep ^CHLOG: | cut -c 7- > ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
@@ -224,13 +224,13 @@ jobs:
         id: release-setup
         run: |
           set -e
-          echo ::set-output name=TIMESTAMP::"$(date +%Y%m%d_%H%M%S)"
+          echo "TIMESTAMP=$(date +%Y%m%d_%H%M%S)" >> $GITHUB_OUTPUT
           FILES=$(find . -name CHANGELOG\*)
           if [ -n "$FILES" ]; then
             cat CHANGELOG_*/CHANGELOG_*.txt >> CHANGELOG.txt
-            echo ::set-output name=changed::1
+            echo "changed=1" >> $GITHUB_OUTPUT
           else
-            echo ::set-output name=changed::0
+            echo "changed=0" >> $GITHUB_OUTPUT
           fi
       - uses: softprops/action-gh-release@v1
         if: steps.release-setup.outputs.changed == 1
