@@ -100,7 +100,7 @@ jobs:
     runs-on: ${{ matrix.host-os }}
     strategy:
       matrix:
-        stage: [unstable] #, testing, release
+        stage: [unstable, testing] #, release
         distro-codename: [ubuntu-lunar]
         arch: [amd64, arm64]
         wm: [regolith-session-flashback, regolith-session-sway]
