@@ -147,7 +147,7 @@ jobs:
             echo "New Manifest: "
             cat ${{ steps.init.outputs.MANIFEST_PATH }}/next-manifest.txt
           fi
-      - uses: webfactory/ssh-agent@v0.5.4
+      - uses: webfactory/ssh-agent@v0.8.0
         if: steps.changes.outputs.changed == 1
         with:
           ssh-private-key: ${{ secrets.KAMATERA_SSH_KEY }}
