@@ -22,7 +22,8 @@ jobs:
           ubuntu-lunar-arm64,
           debian-bullseye-amd64, 
           debian-bullseye-arm64, 
-          debian-testing-amd64
+          debian-testing-amd64,
+          debian-testing-arm64
           ]
         exclude:
           - stage: release
@@ -77,6 +78,11 @@ jobs:
           - distro-codename: debian-testing-amd64
             host-os: [self-hosted, Linux, X64, bookworm]
             arch: amd64
+            distro: debian
+            codename: testing
+          - distro-codename: debian-testing-arm64
+            host-os: [self-hosted, Linux, X64, bookworm]
+            arch: arm64
             distro: debian
             codename: testing
 
