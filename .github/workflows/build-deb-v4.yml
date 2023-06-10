@@ -81,7 +81,7 @@ jobs:
             distro: debian
             codename: testing
           - distro-codename: debian-testing-arm64
-            host-os: [self-hosted, Linux, X64, bookworm]
+            host-os: [self-hosted, Linux, arm64, bookworm]
             arch: arm64
             distro: debian
             codename: testing
