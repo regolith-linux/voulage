@@ -14,14 +14,16 @@ jobs:
       matrix:
         stage: [experimental, unstable, testing, release] #, release-2_1]
         distro-codename: [
-          ubuntu-focal-amd64, 
-          ubuntu-focal-arm64, 
-          ubuntu-jammy-amd64, 
-          ubuntu-jammy-arm64, 
+          ubuntu-focal-amd64,
+          ubuntu-focal-arm64,
+          ubuntu-jammy-amd64,
+          ubuntu-jammy-arm64,
           ubuntu-lunar-amd64,
           ubuntu-lunar-arm64,
-          debian-bullseye-amd64, 
-          debian-bullseye-arm64, 
+          debian-bullseye-amd64,
+          debian-bullseye-arm64,
+          debian-bookworm-amd64,
+          debian-bookworm-arm64,
           debian-testing-amd64,
           debian-testing-arm64
           ]
@@ -75,6 +77,16 @@ jobs:
             arch: arm64
             distro: debian
             codename: bullseye
+          - distro-codename: debian-bookworm-amd64
+            host-os: ubuntu-20.04
+            arch: amd64
+            distro: debian
+            codename: bookworm
+          - distro-codename: debian-bookworm-arm64
+            host-os: [self-hosted, Linux, arm64, focal]
+            arch: arm64
+            distro: debian
+            codename: bookworm
           - distro-codename: debian-testing-amd64
             host-os: [self-hosted, Linux, X64, bookworm]
             arch: amd64
@@ -192,7 +204,7 @@ jobs:
           if [ -f ${{ steps.init.outputs.MANIFEST_PATH }}/next-manifest.txt ]; then
             echo "Temp manifest not deleted by main.sh, build aborted/failed."
             echo "changed=0" >> $GITHUB_OUTPUT
-            exit 1            
+            exit 1
           else
             cat ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt | grep ^CHLOG: | cut -c 7- > ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
           fi
