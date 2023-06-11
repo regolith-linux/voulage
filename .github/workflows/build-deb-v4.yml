@@ -87,7 +87,7 @@ jobs:
             distro: debian
             codename: bookworm
           - distro-codename: debian-bookworm-arm64
-            host-os: [self-hosted, Linux, arm64, focal]
+            host-os: [self-hosted, Linux, arm64, bookworm]
             arch: arm64
             distro: debian
             codename: bookworm
