@@ -134,6 +134,11 @@ jobs:
           #   sudo apt update
           # fi
 
+          # Remove regolith repo from build system apt config
+          if [ -f /etc/apt/sources.list.d/regolith.list ]; then
+            rm /etc/apt/sources.list.d/regolith.list
+          fi
+
           sudo apt update
           DEBIAN_FRONTEND=noninteractive sudo apt install -y --no-install-recommends jq git devscripts reprepro wget dput
       - name: Pull Manifest
@@ -223,6 +228,12 @@ jobs:
           cat ${{ steps.init.outputs.PKG_REPO_PATH }}/manifest.txt || true
           echo "PKG_BUILD_DIR:"
           find ${{ steps.init.outputs.PKG_BUILD_DIR }}
+      - name: Cleanup
+        run: |
+          # Remove regolith repo from build system apt config
+          if [ -f /etc/apt/sources.list.d/regolith.list ]; then
+            rm /etc/apt/sources.list.d/regolith.list
+          fi
       - uses: actions/upload-artifact@v3
         if: steps.changes.outputs.changed == 1
         with:
