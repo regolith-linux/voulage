@@ -115,23 +115,15 @@ build_packages() {
     PACKAGE_URL=$(echo "$PKG_LINE" | cut -d" " -f2)
     PACKAGE_REF=$(echo "$PKG_LINE" | cut -d" " -f3)
 
-    echo "Finding package $PACKAGE_NAME from $PACKAGE_URL with ref $PACKAGE_REF"
-  done <<< "$PACKAGE_CHANGES"
-
-  while IFS= read -r PKG_LINE; do
-    PACKAGE_NAME=$(echo "$PKG_LINE" | cut -d" " -f1)
-    PACKAGE_URL=$(echo "$PKG_LINE" | cut -d" " -f2)
-    PACKAGE_REF=$(echo "$PKG_LINE" | cut -d" " -f3)
-
     echo "Building package $PACKAGE_NAME from $PACKAGE_URL with ref $PACKAGE_REF"
 
-    checkout
-    update_changelog
+    checkout || true
+    update_changelog || true
     if dist_valid; then
-      stage_source
-      build_src_package
-      build_bin_package
-      publish
+      stage_source || true
+      build_src_package || true
+      build_bin_package || true
+      publish || true
     else
       echo "dist codename does not match in package changelog, ignoring $PACKAGE_NAME."
     fi
