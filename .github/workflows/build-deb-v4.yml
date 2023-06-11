@@ -36,6 +36,10 @@ jobs:
             distro-codename: ubuntu-lunar-amd64 # tbd
           - stage: release
             distro-codename: ubuntu-lunar-arm64 # tbd
+          - stage: release
+            distro-codename: debian-bookworm-amd64 # tbd
+          - stage: release
+            distro-codename: debian-bookworm-arm64 # tbd
         include:
           - distro-codename: ubuntu-focal-amd64
             host-os: ubuntu-20.04
