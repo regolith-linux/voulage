@@ -82,7 +82,7 @@ jobs:
             distro: debian
             codename: bullseye
           - distro-codename: debian-bookworm-amd64
-            host-os: ubuntu-20.04
+            host-os: [self-hosted, Linux, X64, bookworm]
             arch: amd64
             distro: debian
             codename: bookworm
@@ -92,12 +92,12 @@ jobs:
             distro: debian
             codename: bookworm
           - distro-codename: debian-testing-amd64
-            host-os: [self-hosted, Linux, X64, bookworm]
+            host-os: [self-hosted, Linux, X64, bookworm] # FIXME: update once debian 13 is usable
             arch: amd64
             distro: debian
             codename: testing
           - distro-codename: debian-testing-arm64
-            host-os: [self-hosted, Linux, arm64, bookworm]
+            host-os: [self-hosted, Linux, arm64, bookworm] # FIXME: update once debian 13 is usable
             arch: arm64
             distro: debian
             codename: testing
