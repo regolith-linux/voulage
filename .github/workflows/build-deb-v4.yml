@@ -136,7 +136,7 @@ jobs:
 
           # Remove regolith repo from build system apt config
           if [ -f /etc/apt/sources.list.d/regolith.list ]; then
-            rm /etc/apt/sources.list.d/regolith.list
+            sudo rm -f /etc/apt/sources.list.d/regolith.list
           fi
 
           sudo apt update
@@ -232,7 +232,7 @@ jobs:
         run: |
           # Remove regolith repo from build system apt config
           if [ -f /etc/apt/sources.list.d/regolith.list ]; then
-            rm /etc/apt/sources.list.d/regolith.list
+            sudo rm -f /etc/apt/sources.list.d/regolith.list
           fi
       - uses: actions/upload-artifact@v3
         if: steps.changes.outputs.changed == 1
