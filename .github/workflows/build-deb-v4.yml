@@ -189,7 +189,6 @@ jobs:
         if: steps.changes.outputs.changed == 1
         run: |
           set -e
-          set -x
           export DEBEMAIL="regolith.linux@gmail.com"
           export DEBFULLNAME="Regolith Linux"
           export DEBIAN_FRONTEND=noninteractive
