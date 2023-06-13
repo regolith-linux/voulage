@@ -9,7 +9,7 @@ jobs:
     runs-on: ${{ matrix.host-os }}
     strategy:
       matrix:
-        stage: [unstable, testing] # , release
+        stage: [unstable, testing, release]
         distro-codename: [debian-bullseye]
         arch: [amd64, arm64]
         include:
@@ -75,7 +75,7 @@ jobs:
     runs-on: ${{ matrix.host-os }}
     strategy:
       matrix:
-        stage: [unstable, testing] #, release
+        stage: [unstable, testing, release]
         distro-codename: [ubuntu-focal]
         arch: [amd64, arm64]
         include:
@@ -97,7 +97,7 @@ jobs:
     runs-on: ${{ matrix.host-os }}
     strategy:
       matrix:
-        stage: [unstable, testing] #, release
+        stage: [unstable, testing, release]
         distro-codename: [ubuntu-jammy]
         arch: [amd64, arm64]
         wm: [regolith-session-flashback, regolith-session-sway]
