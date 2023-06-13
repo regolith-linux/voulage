@@ -33,7 +33,7 @@ jobs:
       matrix:
         stage: [unstable, testing] # , release
         distro-codename: [debian-testing]
-        arch: [amd64, arm64]  // Need dedicated build host to build arm64
+        arch: [amd64, arm64]
         wm: [regolith-session-flashback, regolith-session-sway]
         include:
           - arch: amd64
