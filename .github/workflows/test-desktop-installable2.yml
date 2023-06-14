@@ -102,6 +102,8 @@ jobs:
         arch: [amd64, arm64]
         wm: [regolith-session-flashback, regolith-session-sway]
         include:
+          - stage: release
+            wm: [regolith-session-flashback]
           - arch: amd64
             host-os: ubuntu-22.04
           - arch: arm64
