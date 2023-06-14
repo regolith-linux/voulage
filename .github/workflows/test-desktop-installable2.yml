@@ -102,8 +102,6 @@ jobs:
         arch: [amd64, arm64]
         wm: [regolith-session-flashback, regolith-session-sway]
         include:
-          - stage: release
-            wm: [regolith-session-flashback]
           - arch: amd64
             host-os: ubuntu-22.04
           - arch: arm64
@@ -112,7 +110,7 @@ jobs:
             distro: ubuntu
             codename: jammy
         exclude:
-          - stage: testing # remove this after wayland enters testing
+          - stage: release
             wm: regolith-session-sway
     steps:
       - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
