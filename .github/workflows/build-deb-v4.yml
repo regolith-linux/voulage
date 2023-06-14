@@ -124,19 +124,13 @@ jobs:
           mkdir ${{ steps.init.outputs.PKG_BUILD_DIR }} || true
 
           # Following allows for internal dependencies
-          # rm /tmp/manifest.txt || true
-          # wget -P /tmp "https://regolith-desktop.org/${{ steps.init.outputs.target }}/manifest.txt" || true
-          # if [ -f /tmp/manifest.txt ]; then
-          #   echo "Adding repo to apt: ${{ steps.init.outputs.target }}"
-          #   rm /tmp/manifest.txt
-          #   wget -qO - https://regolith-desktop.org/regolith.key | sudo apt-key add -
-          #   echo deb "[arch=${{ steps.init.outputs.arch }}] ${{ steps.init.outputs.repo_url }} ${{ steps.init.outputs.codename }} main" | sudo tee /etc/apt/sources.list.d/regolith.list
-          #   sudo apt update
-          # fi
-
-          # Remove regolith repo from build system apt config
-          if [ -f /etc/apt/sources.list.d/regolith.list ]; then
-            sudo rm -f /etc/apt/sources.list.d/regolith.list
+          rm /tmp/manifest.txt || true
+          wget -P /tmp "https://regolith-desktop.org/${{ steps.init.outputs.target }}/manifest.txt" || true
+          if [ -f /tmp/manifest.txt ]; then
+            echo "Adding repo to apt: ${{ steps.init.outputs.target }}"
+            rm /tmp/manifest.txt
+            wget -qO - https://regolith-desktop.org/regolith.key | sudo apt-key add -
+            echo deb "[arch=${{ steps.init.outputs.arch }}] ${{ steps.init.outputs.repo_url }} ${{ steps.init.outputs.codename }} main" | sudo tee /etc/apt/sources.list.d/regolith.list
           fi
 
           sudo apt update
