@@ -38,6 +38,8 @@ jobs:
         include:
           - arch: amd64
             host-os: ubuntu-20.04
+          - arch: arm64
+            host-os: [self-hosted, Linux, ARM64, bookworm] # FIXME: update to testing
           - distro-codename: debian-testing
             distro: debian
             codename: testing
