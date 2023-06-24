@@ -1,10 +1,10 @@
-name: Debian Package Builder v4
+name: Arch Package Builder Prototype
 
 on:
   workflow_dispatch:
 
 concurrency:
-  group: debian_builder_v4
+  group: arch_builder_v1
   cancel-in-progress: true
 
 jobs:
@@ -12,96 +12,14 @@ jobs:
     runs-on: ${{ matrix.host-os }}
     strategy:
       matrix:
-        stage: [experimental, unstable, testing, release] #, release-2_1]
-        distro-codename: [
-          ubuntu-focal-amd64,
-          ubuntu-focal-arm64,
-          ubuntu-jammy-amd64,
-          ubuntu-jammy-arm64,
-          ubuntu-lunar-amd64,
-          ubuntu-lunar-arm64,
-          debian-bullseye-amd64,
-          debian-bullseye-arm64,
-          debian-bookworm-amd64,
-          debian-bookworm-arm64,
-          debian-testing-amd64,
-          debian-testing-arm64
-          ]
-        exclude:
-          - stage: release
-            distro-codename: debian-testing-amd64 # debian testing is never released
-          - stage: release
-            distro-codename: debian-testing-arm64 # debian testing is never released
-          - stage: release
-            distro-codename: ubuntu-lunar-amd64 # tbd
-          - stage: release
-            distro-codename: ubuntu-lunar-arm64 # tbd
-          - stage: release
-            distro-codename: debian-bookworm-amd64 # tbd
-          - stage: release
-            distro-codename: debian-bookworm-arm64 # tbd
+        stage: [experimental, unstable] #, testing, release] 
+        distro-codename: [arch-testing-amd64]
         include:
-          - distro-codename: ubuntu-focal-amd64
-            host-os: ubuntu-20.04
+          - distro-codename: arch-testing-amd64
+            host-os: [self-hosted, Linux, amd64, arch]
             arch: amd64
-            distro: ubuntu
-            codename: focal
-          - distro-codename: ubuntu-focal-arm64
-            host-os: [self-hosted, Linux, arm64, focal]
-            arch: arm64
-            distro: ubuntu
-            codename: focal
-          - distro-codename: ubuntu-jammy-amd64
-            host-os: ubuntu-22.04
-            arch: amd64
-            distro: ubuntu
-            codename: jammy
-          - distro-codename: ubuntu-jammy-arm64
-            host-os: [self-hosted, Linux, arm64, jammy]
-            arch: arm64
-            distro: ubuntu
-            codename: jammy
-          - distro-codename: ubuntu-lunar-amd64
-            host-os: [self-hosted, Linux, X64, lunar]
-            arch: amd64
-            distro: ubuntu
-            codename: lunar
-          - distro-codename: ubuntu-lunar-arm64
-            host-os: [self-hosted, Linux, arm64, lunar]
-            arch: arm64
-            distro: ubuntu
-            codename: lunar
-          - distro-codename: debian-bullseye-amd64
-            host-os: ubuntu-20.04
-            arch: amd64
-            distro: debian
-            codename: bullseye
-          - distro-codename: debian-bullseye-arm64
-            host-os: [self-hosted, Linux, arm64, focal]
-            arch: arm64
-            distro: debian
-            codename: bullseye
-          - distro-codename: debian-bookworm-amd64
-            host-os: [self-hosted, Linux, X64, bookworm]
-            arch: amd64
-            distro: debian
-            codename: bookworm
-          - distro-codename: debian-bookworm-arm64
-            host-os: [self-hosted, Linux, arm64, bookworm]
-            arch: arm64
-            distro: debian
-            codename: bookworm
-          - distro-codename: debian-testing-amd64
-            host-os: [self-hosted, Linux, X64, bookworm] # FIXME: update once debian 13 is usable
-            arch: amd64
-            distro: debian
+            distro: arch
             codename: testing
-          - distro-codename: debian-testing-arm64
-            host-os: [self-hosted, Linux, arm64, bookworm] # FIXME: update once debian 13 is usable
-            arch: arm64
-            distro: debian
-            codename: testing
-
     steps:
       - uses: actions/checkout@v3
       - name: Set Job Parameters
@@ -122,20 +40,6 @@ jobs:
           set -e
           mkdir ${{ steps.init.outputs.MANIFEST_PATH }} || true
           mkdir ${{ steps.init.outputs.PKG_BUILD_DIR }} || true
-
-          # Following allows for internal dependencies
-          # FIXME(kgilmer): extract following logic to distro specific script
-          rm /tmp/manifest.txt || true
-          wget -P /tmp "https://regolith-desktop.org/${{ steps.init.outputs.target }}/manifest.txt" || true
-          if [ -f /tmp/manifest.txt ]; then
-            echo "Adding repo to apt: ${{ steps.init.outputs.target }}"
-            rm /tmp/manifest.txt
-            wget -qO - https://regolith-desktop.org/regolith.key | sudo apt-key add -
-            echo deb "[arch=${{ steps.init.outputs.arch }}] ${{ steps.init.outputs.repo_url }} ${{ steps.init.outputs.codename }} main" | sudo tee /etc/apt/sources.list.d/regolith.list
-          fi
-
-          sudo apt update
-          DEBIAN_FRONTEND=noninteractive sudo apt install -y --no-install-recommends jq git devscripts reprepro wget dput
       - name: Pull Manifest
         run: |
           set -e
@@ -149,7 +53,7 @@ jobs:
           set -x
           CHANGE_OUTPUT=$(${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/main.sh \
             ${{ steps.init.outputs.GH_REPO_ROOT }} \
-            ${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/ext-debian.sh \
+            ${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/ext-arch.sh \
             "${{ steps.init.outputs.stage }}" \
             "${{ steps.init.outputs.distro }}" \
             "${{ steps.init.outputs.codename }}" \
@@ -192,7 +96,7 @@ jobs:
           gpg --batch --import ~/.gnupg/private.key
           ${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/main.sh \
             ${{ steps.init.outputs.GH_REPO_ROOT }} \
-            ${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/ext-debian.sh \
+            ${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/ext-arch.sh \
             "${{ steps.init.outputs.stage }}" \
             "${{ steps.init.outputs.distro }}" \
             "${{ steps.init.outputs.codename }}" \
@@ -222,22 +126,12 @@ jobs:
           cat ${{ steps.init.outputs.PKG_REPO_PATH }}/manifest.txt || true
           echo "PKG_BUILD_DIR:"
           find ${{ steps.init.outputs.PKG_BUILD_DIR }}
-      - name: Cleanup
-        run: |
-          # FIXME(kgilmer) extract following logic to distro-specific script
-          # Remove regolith repo from build system apt config
-          if [ -f /etc/apt/sources.list.d/regolith.list ]; then
-            sudo rm -f /etc/apt/sources.list.d/regolith.list
-          fi
       - uses: actions/upload-artifact@v3
         if: steps.changes.outputs.changed == 1
         with:
           name: CHANGELOG_${{ steps.init.outputs.target }}
           path: |
             ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
-  test:
-    needs: build
-    uses: ./.github/workflows/test-desktop-installable2.yml
   generate-release:
     needs: build
     runs-on: ubuntu-20.04
