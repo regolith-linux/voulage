@@ -50,7 +50,6 @@ jobs:
         id: changes
         run: |
           set -e
-          set -x
           CHANGE_OUTPUT=$(${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/main.sh \
             ${{ steps.init.outputs.GH_REPO_ROOT }} \
             ${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/ext-arch.sh \
@@ -80,7 +79,6 @@ jobs:
         if: steps.changes.outputs.changed == 1
         run: |
           set -e
-          set -x
           ssh-keyscan -H ${{ secrets.KAMATERA_HOSTNAME }} >> ~/.ssh/known_hosts
           scp -r root@${{ secrets.KAMATERA_HOSTNAME }}:/var/www/html/${{ steps.init.outputs.target }}/* "${{ steps.init.outputs.PKG_REPO_PATH }}" \
             || mkdir -p "${{ steps.init.outputs.PKG_REPO_PATH }}" || true
@@ -119,7 +117,7 @@ jobs:
         run: |
           set -e
           set -x
-          rsync -avzh ${{ steps.init.outputs.PKG_REPO_PATH }}/* root@${{ secrets.KAMATERA_HOSTNAME }}:/var/www/html/${{ steps.init.outputs.target }}
+          echo rsync -avzh ${{ steps.init.outputs.PKG_REPO_PATH }}/* root@package-host:/var/www/html/${{ steps.init.outputs.target }}
       - name: Log Build Output
         if: steps.changes.outputs.changed == 1
         run: |

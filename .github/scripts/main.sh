@@ -108,7 +108,6 @@ source_setup_scripts() {
 
 build_packages() {
   echo -e "Package set to build: $PACKAGE_CHANGES"  
-  set -x
 
   while IFS= read -r PKG_LINE; do
     echo "Debug line is $PKG_LINE"
