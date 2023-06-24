@@ -53,6 +53,7 @@ source_pkg_exists() {
 # Commit source and bin packages to target repository
 publish() {
   echo "function called: ${FUNCNAME[0]}"
+  echo "CHLOG:Published arch package of $PACKAGE_NAME in $STAGE $DISTRO $CODENAME $ARCH (dry-run)"
 }
 
 # Create repo dist file - for new repository
