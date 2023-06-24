@@ -32,11 +32,11 @@ build_src_package() {
   echo "Target architecture: $ARCH"
   echo ""
   echo "Contents of package source:"
-  ls -l $PKG_BUILD_DIR
-  if [ -f $PKG_BUILD_DIR/debian/control ]; then 
+  ls -l $PKG_BUILD_DIR/$PACKAGE_NAME
+  if [ -f $PKG_BUILD_DIR/$PACKAGE_NAME/debian/control ]; then 
     echo ""
     echo "Package metadata (dependencies in deb form, etc):"
-    cat $PKG_BUILD_DIR/debian/control
+    cat $PKG_BUILD_DIR/$PACKAGE_NAME/debian/control
   fi
 }
 
