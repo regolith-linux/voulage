@@ -20,6 +20,7 @@ stage_source() {
 # Build the source package
 build_src_package() {
   set -e
+  echo "Build host: $(uname -a)"
   echo "function called: ${FUNCNAME[0]}"
 
   echo "Package Name: $PACKAGE_NAME"
