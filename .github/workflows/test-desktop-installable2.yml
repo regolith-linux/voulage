@@ -137,9 +137,6 @@ jobs:
           - distro-codename: ubuntu-lunar
             distro: ubuntu
             codename: lunar
-        exclude:
-          - stage: testing # remove this after wayland enters testing
-            wm: regolith-session-sway
     steps:
       - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
         uses: kgilmer/test-ubuntu-lunar-action@1.0.0
