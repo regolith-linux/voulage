@@ -19,7 +19,6 @@
     "i3status-rs": {
       "source": "https://github.com/regolith-linux/i3status-rs_debian.git",
       "ref": "r3_0-beta2-ubuntu-lunar"
-    },
-    "sway-regolith": null
+    }
   }
 }
