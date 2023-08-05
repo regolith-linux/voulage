@@ -1,6 +1,10 @@
 #!/bin/bash
 set -e
 
+# This script is used to add tags to git repos based on the package model
+# Usage: 
+#         stage.sh <repo root path> <package model stage id> <source ref id> <target tag id>
+
 handle_package() {
   # echo $PACKAGE_NAME $PACAKGE_SOURCE_URL $PACKAGE_SOURCE_REF $SRC_REF $DST_TAG
   PKG_WORK_DIR=$PKG_STAGE_ROOT/$PACKAGE_NAME
