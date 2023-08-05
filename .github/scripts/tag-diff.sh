@@ -17,7 +17,7 @@ handle_package() {
 
   if [ -d "$PACKAGE_NAME" ]; then
     pushd "$PACKAGE_NAME" > /dev/null
-    git checkout "$PACKAGE_SOURCE_REF"
+    git checkout "$PACKAGE_SOURCE_REF" > /dev/null
   else
     git clone --quiet --no-checkout "$PACAKGE_SOURCE_URL" -b "$PACKAGE_SOURCE_REF" "$PACKAGE_NAME" > /dev/null
     pushd "$PACKAGE_NAME" > /dev/null
@@ -29,11 +29,11 @@ handle_package() {
     tag_date=$(git log -1 --format=%ct)
 
     if [ $branch_date -gt $tag_date ]; then
-      echo "!!! $PACKAGE_NAME has newer commits in $PACKAGE_SOURCE_REF than $DST_TAG ***"
+      echo "+++ $PACKAGE_NAME has newer commits in $PACKAGE_SOURCE_REF than $DST_TAG"
     elif [ $branch_date -lt $tag_date ]; then
-      echo "... $PACKAGE_NAME has newer commits in $DST_TAG than $PACKAGE_SOURCE_REF"
+      echo "--- $PACKAGE_NAME has newer commits in $DST_TAG than $PACKAGE_SOURCE_REF"
     else
-      echo "... $PACKAGE_NAME is in sync between $PACKAGE_SOURCE_REF and $DST_TAG"
+      echo "--- $PACKAGE_NAME is in sync between $PACKAGE_SOURCE_REF and $DST_TAG"
     fi
   else
     echo "$PACKAGE_NAME doesn't contain $DST_TAG"
