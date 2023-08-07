@@ -12,6 +12,10 @@
       "source": "https://github.com/regolith-linux/regolith-control-center.git",
       "ref": "regolith/1%43.0-1"
     },
+    "sway-audio-idle-inhibit": {
+      "source": "https://github.com/regolith-linux/SwayAudioIdleInhibit.git",
+      "ref": "debian/testing"
+    },
     "ubiquity-slideshow-regolith": null,
     "plymouth-theme-regolith": null
   }
