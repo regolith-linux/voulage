@@ -92,12 +92,12 @@ jobs:
             distro: debian
             codename: bookworm
           - distro-codename: debian-testing-amd64
-            host-os: [self-hosted, Linux, X64, bookworm] # FIXME: update once debian 13 is usable
+            host-os: [self-hosted, Linux, X64, testing]
             arch: amd64
             distro: debian
             codename: testing
           - distro-codename: debian-testing-arm64
-            host-os: [self-hosted, Linux, arm64, bookworm] # FIXME: update once debian 13 is usable
+            host-os: [self-hosted, Linux, arm64, testing]
             arch: arm64
             distro: debian
             codename: testing
