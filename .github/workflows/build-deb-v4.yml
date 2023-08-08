@@ -24,8 +24,8 @@ jobs:
           debian-bullseye-arm64,
           debian-bookworm-amd64,
           debian-bookworm-arm64,
-          debian-testing-amd64,
-          debian-testing-arm64
+          # debian-testing-amd64, # https://github.com/regolith-linux/regolith-desktop/issues/882
+          # debian-testing-arm64  
           ]
         exclude:
           - stage: release
@@ -91,16 +91,16 @@ jobs:
             arch: arm64
             distro: debian
             codename: bookworm
-          - distro-codename: debian-testing-amd64
-            host-os: [self-hosted, Linux, X64, testing]
-            arch: amd64
-            distro: debian
-            codename: testing
-          - distro-codename: debian-testing-arm64
-            host-os: [self-hosted, Linux, arm64, testing]
-            arch: arm64
-            distro: debian
-            codename: testing
+        # - distro-codename: debian-testing-amd64  # https://github.com/regolith-linux/regolith-desktop/issues/882
+        #   host-os: [self-hosted, Linux, X64, testing]
+        #   arch: amd64
+        #   distro: debian
+        #   codename: testing
+        # - distro-codename: debian-testing-arm64
+        #   host-os: [self-hosted, Linux, arm64, testing]
+        #   arch: arm64
+        #   distro: debian
+        #   codename: testing
 
     steps:
       - uses: actions/checkout@v3
