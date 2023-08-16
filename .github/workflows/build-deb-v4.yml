@@ -130,7 +130,7 @@ jobs:
           if [ -f /tmp/manifest.txt ]; then
             echo "Adding repo to apt: ${{ steps.init.outputs.target }}"
             rm /tmp/manifest.txt
-            wget -qO - https://regolith-desktop.org/regolith.key | sudo apt-key add -
+            wget -qO - https://regolith-desktop.org/regolith3.key | sudo apt-key add -
             echo deb "[arch=${{ steps.init.outputs.arch }}] ${{ steps.init.outputs.repo_url }} ${{ steps.init.outputs.codename }} main" | sudo tee /etc/apt/sources.list.d/regolith.list
           fi
 
@@ -188,7 +188,7 @@ jobs:
           export DEBFULLNAME="Regolith Linux"
           export DEBIAN_FRONTEND=noninteractive
           mkdir -p ~/.gnupg/
-          printf "${{ secrets.PACKAGE_PRIVATE_KEY }}" | base64 --decode > ~/.gnupg/private.key
+          printf "${{ secrets.PACKAGE_PRIVATE_KEY2 }}" | base64 --decode > ~/.gnupg/private.key
           gpg --batch --import ~/.gnupg/private.key
           ${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/main.sh \
             ${{ steps.init.outputs.GH_REPO_ROOT }} \

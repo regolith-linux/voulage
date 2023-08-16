@@ -90,7 +90,7 @@ jobs:
           export DEBFULLNAME="Regolith Linux"
           export DEBIAN_FRONTEND=noninteractive
           mkdir -p ~/.gnupg/
-          printf "${{ secrets.PACKAGE_PRIVATE_KEY }}" | base64 --decode > ~/.gnupg/private.key
+          printf "${{ secrets.PACKAGE_PRIVATE_KEY2 }}" | base64 --decode > ~/.gnupg/private.key
           gpg --batch --import ~/.gnupg/private.key
           ${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/main.sh \
             ${{ steps.init.outputs.GH_REPO_ROOT }} \

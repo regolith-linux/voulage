@@ -24,7 +24,7 @@ jobs:
       - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
         uses: kgilmer/test-debian-bullseye-action@v1
         with:
-          apt-key-url: http://regolith-desktop.org/regolith.key
+          apt-key-url: http://regolith-desktop.org/regolith3.key
           apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
           target-package: "regolith-desktop"
   test-debian-testing-install:
@@ -47,7 +47,7 @@ jobs:
       - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
         uses: kgilmer/test-debian-testing-action@v1.1
         with:
-          apt-key-url: http://regolith-desktop.org/regolith.key
+          apt-key-url: http://regolith-desktop.org/regolith3.key
           apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
           target-package: "regolith-desktop ${{ matrix.wm }}"
   test-debian-bookworm-install:
@@ -70,7 +70,7 @@ jobs:
       - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
         uses: kgilmer/test-debian-bookworm-action@v1.0
         with:
-          apt-key-url: http://regolith-desktop.org/regolith.key
+          apt-key-url: http://regolith-desktop.org/regolith3.key
           apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
           target-package: "regolith-desktop ${{ matrix.wm }}"
   test-ubuntu-focal-install:
@@ -92,7 +92,7 @@ jobs:
       - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
         uses: kgilmer/test-ubuntu-20.04-action@v1.1.5
         with:
-          apt-key-url: http://regolith-desktop.org/regolith.key
+          apt-key-url: http://regolith-desktop.org/regolith3.key
           apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
           target-package: "regolith-desktop"
   test-ubuntu-jammy-install:
@@ -118,7 +118,7 @@ jobs:
       - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
         uses: kgilmer/test-ubuntu-22.04-action@v1.1.6
         with:
-          apt-key-url: http://regolith-desktop.org/regolith.key
+          apt-key-url: http://regolith-desktop.org/regolith3.key
           apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
           target-package: "regolith-desktop ${{ matrix.wm }}"
   test-ubuntu-lunar-install:
@@ -141,6 +141,6 @@ jobs:
       - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
         uses: kgilmer/test-ubuntu-lunar-action@1.0.0
         with:
-          apt-key-url: http://regolith-desktop.org/regolith.key
+          apt-key-url: http://regolith-desktop.org/regolith3.key
           apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
           target-package: "regolith-desktop ${{ matrix.wm }}"
