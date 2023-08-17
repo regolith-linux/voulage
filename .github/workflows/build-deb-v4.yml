@@ -140,6 +140,7 @@ jobs:
             sudo rm /etc/apt/sources.list.d/regolith.list
             echo "Deleted regolith repo from apt config"
           fi
+          gpg --batch --yes --delete-secret-and-public-key FB9CEE656F304FFCC7A719F9BFE717649A5C3D08 0AFDC525407979326834BF112EA99A914B5CEF41 || true
 
           sudo apt update
           DEBIAN_FRONTEND=noninteractive sudo apt install -y --no-install-recommends jq git devscripts reprepro wget dput
