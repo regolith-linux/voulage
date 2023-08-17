@@ -206,7 +206,7 @@ jobs:
             "${{ steps.init.outputs.codename }}" \
             "${{ steps.init.outputs.arch }}" \
             "${{ steps.init.outputs.repo_url }}" \
-            Default \
+            C91ECAB862037F9474087DBC7107DED133505B88 \
             build \
             ${{ steps.init.outputs.MANIFEST_PATH }} \
             ${{ steps.init.outputs.PKG_REPO_PATH }} \
