@@ -107,6 +107,7 @@ jobs:
       - name: Set Job Parameters
         id: init
         run: |
+          echo "SIGNING_KEY_ID=C91ECAB862037F9474087DBC7107DED133505B88" >> $GITHUB_OUTPUT
           echo "MANIFEST_PATH=${{ github.workspace }}/manifests" >> $GITHUB_OUTPUT
           echo "PKG_REPO_PATH=${{ github.workspace }}/repo" >> $GITHUB_OUTPUT
           echo "PKG_BUILD_DIR=${{ github.workspace }}/packages" >> $GITHUB_OUTPUT
@@ -128,19 +129,12 @@ jobs:
           rm /tmp/manifest.txt || true
           wget -P /tmp "https://regolith-desktop.org/${{ steps.init.outputs.target }}/manifest.txt" || true
 
-          #if [ -f /tmp/manifest.txt ]; then
-          #  echo "Adding repo to apt: ${{ steps.init.outputs.target }}"
-          #  rm /tmp/manifest.txt
-          #  wget -qO - https://regolith-desktop.org/regolith3.key | sudo apt-key add -
-          #  echo deb "[arch=${{ steps.init.outputs.arch }}] ${{ steps.init.outputs.repo_url }} ${{ steps.init.outputs.codename }} main" | sudo tee /etc/apt/sources.list.d/regolith.list
-          #fi
-
-          # Temporary change to unblock building w/ expired regolith key
-          if [ -f /etc/apt/sources.list.d/regolith.list ]; then
-            sudo rm /etc/apt/sources.list.d/regolith.list
-            echo "Deleted regolith repo from apt config"
+          if [ -f /tmp/manifest.txt ]; then
+            echo "Adding repo to apt: ${{ steps.init.outputs.target }}"
+            rm /tmp/manifest.txt
+            wget -qO - https://regolith-desktop.org/regolith3.key | sudo apt-key add -
+            echo deb "[arch=${{ steps.init.outputs.arch }}] ${{ steps.init.outputs.repo_url }} ${{ steps.init.outputs.codename }} main" | sudo tee /etc/apt/sources.list.d/regolith.list
           fi
-          gpg --batch --yes --delete-secret-and-public-key FB9CEE656F304FFCC7A719F9BFE717649A5C3D08 0AFDC525407979326834BF112EA99A914B5CEF41 || true
 
           sudo apt update
           DEBIAN_FRONTEND=noninteractive sudo apt install -y --no-install-recommends jq git devscripts reprepro wget dput
@@ -206,7 +200,7 @@ jobs:
             "${{ steps.init.outputs.codename }}" \
             "${{ steps.init.outputs.arch }}" \
             "${{ steps.init.outputs.repo_url }}" \
-            C91ECAB862037F9474087DBC7107DED133505B88 \
+            "${{ steps.init.outputs.SIGNING_KEY_ID }}" \
             build \
             ${{ steps.init.outputs.MANIFEST_PATH }} \
             ${{ steps.init.outputs.PKG_REPO_PATH }} \
