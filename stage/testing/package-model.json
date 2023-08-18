@@ -188,7 +188,10 @@
       "source": "https://github.com/regolith-linux/libtrawldb.git",
       "ref": "r3_0-beta3"
     },
-    "sway-regolith": null,
+    "sway-regolith": {
+      "source": "https://github.com/regolith-linux/sway-regolith.git",
+      "ref": "r3_0-beta3"
+    },
     "regolith-avizo": {
       "source": "https://github.com/regolith-linux/avizo.git",
       "ref": "r3_0-beta3"
