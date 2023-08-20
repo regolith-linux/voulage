@@ -14,10 +14,12 @@ jobs:
       matrix:
         stage: [experimental, unstable, testing, release] #, release-2_1]
         distro-codename: [
-          ubuntu-focal-amd64,
-          ubuntu-focal-arm64,
-          ubuntu-jammy-amd64,
-          ubuntu-jammy-arm64,
+          ubuntu-focal-amd64, 
+          ubuntu-focal-arm64, 
+          ubuntu-jammy-amd64, 
+          ubuntu-jammy-arm64, 
+          ubuntu-kinetic-amd64, 
+          ubuntu-kinetic-arm64, 
           ubuntu-lunar-amd64,
           ubuntu-lunar-arm64,
           debian-bullseye-amd64,
@@ -61,6 +63,16 @@ jobs:
             arch: arm64
             distro: ubuntu
             codename: jammy
+          - distro-codename: ubuntu-kinetic-amd64
+            host-os: [self-hosted, Linux, X64, kinetic]
+            arch: amd64
+            distro: ubuntu
+            codename: kinetic
+          - distro-codename: ubuntu-kinetic-arm64
+            host-os: [self-hosted, Linux, arm64, kinetic]
+            arch: arm64
+            distro: ubuntu
+            codename: kinetic
           - distro-codename: ubuntu-lunar-amd64
             host-os: [self-hosted, Linux, X64, lunar]
             arch: amd64
