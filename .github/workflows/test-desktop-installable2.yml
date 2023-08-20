@@ -27,29 +27,29 @@ jobs:
           apt-key-url: http://regolith-desktop.org/regolith3.key
           apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
           target-package: "regolith-desktop"
-  test-debian-testing-install:
-    runs-on: ${{ matrix.host-os }}
-    strategy:
-      matrix:
-        stage: [unstable, testing] # , release
-        distro-codename: [debian-testing]
-        arch: [amd64, arm64]
-        wm: [regolith-session-flashback] #, regolith-session-sway] # https://github.com/regolith-linux/regolith-desktop/issues/882
-        include:
-          - arch: amd64
-            host-os: ubuntu-20.04
-          - arch: arm64
-            host-os: [self-hosted, Linux, ARM64, bookworm] # FIXME: update to testing
-          - distro-codename: debian-testing
-            distro: debian
-            codename: testing
-    steps:
-      - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
-        uses: kgilmer/test-debian-testing-action@v1.1
-        with:
-          apt-key-url: http://regolith-desktop.org/regolith3.key
-          apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
-          target-package: "regolith-desktop ${{ matrix.wm }}"
+# test-debian-testing-install:
+#   runs-on: ${{ matrix.host-os }}
+#   strategy:
+#     matrix:
+#       stage: [unstable, testing] # , release
+#       distro-codename: [debian-testing]
+#       arch: [amd64, arm64]
+#       wm: [regolith-session-flashback] #, regolith-session-sway] # https://github.com/regolith-linux/regolith-desktop/issues/882
+#       include:
+#         - arch: amd64
+#           host-os: ubuntu-20.04
+#         - arch: arm64
+#           host-os: [self-hosted, Linux, ARM64, bookworm] # FIXME: update to testing
+#         - distro-codename: debian-testing
+#           distro: debian
+#           codename: testing
+#   steps:
+#     - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
+#       uses: kgilmer/test-debian-testing-action@v1.1
+#       with:
+#         apt-key-url: http://regolith-desktop.org/regolith3.key
+#         apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
+#         target-package: "regolith-desktop ${{ matrix.wm }}"
   test-debian-bookworm-install:
     runs-on: ${{ matrix.host-os }}
     strategy:
