@@ -42,6 +42,18 @@ jobs:
             distro-codename: debian-bookworm-amd64 # tbd
           - stage: release
             distro-codename: debian-bookworm-arm64 # tbd
+          - stage: experimental
+            distro-codename: ubuntu-kinetic-amd64 # tbd
+          - stage: experimental
+            distro-codename: ubuntu-kinetic-arm64 # tbd
+          - stage: unstable
+            distro-codename: ubuntu-kinetic-amd64 # tbd
+          - stage: unstable
+            distro-codename: ubuntu-kinetic-arm64 # tbd
+          - stage: testing
+            distro-codename: ubuntu-kinetic-amd64 # tbd
+          - stage: testing
+            distro-codename: ubuntu-kinetic-arm64 # tbd
         include:
           - distro-codename: ubuntu-focal-amd64
             host-os: ubuntu-20.04
