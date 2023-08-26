@@ -24,10 +24,7 @@
       "source": "https://github.com/regolith-linux/SwayAudioIdleInhibit.git",
       "ref": "r3_0-debian-testing"
     },
-    "sway-regolith": {
-      "source": "https://github.com/regolith-linux/sway-regolith.git",
-      "ref": "r3_0-debian-testing"
-    },
+    "sway-regolith": null,
     "ubiquity-slideshow-regolith": null,
     "plymouth-theme-regolith": null
   }
