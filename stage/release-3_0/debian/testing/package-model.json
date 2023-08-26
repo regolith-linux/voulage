@@ -1,0 +1,34 @@
+{
+  "packages": {
+    "regolith-desktop": {
+      "source": "https://github.com/regolith-linux/regolith-desktop.git",
+      "ref": "r3_0-debian-bullseye"
+    },
+    "ilia": {
+      "source": "https://github.com/regolith-linux/ilia.git",
+      "ref": "r3_0-ubuntu-jammy"
+    },
+    "lago": {
+      "source": "https://github.com/regolith-linux/lago.git",
+      "ref": "r3_0-ubuntu-jammy"
+    },
+    "regolith-control-center": {
+      "source": "https://github.com/regolith-linux/regolith-control-center.git",
+      "ref": "r3_0-debian-bookworm"
+    },
+    "gtklock": {
+      "source": "https://github.com/regolith-linux/gtklock.git",
+      "ref": "r3_0-ubuntu-jammy"
+    },
+    "sway-audio-idle-inhibit": {
+      "source": "https://github.com/regolith-linux/SwayAudioIdleInhibit.git",
+      "ref": "r3_0-debian-testing"
+    },
+    "sway-regolith": {
+      "source": "https://github.com/regolith-linux/sway-regolith.git",
+      "ref": "r3_0-debian-testing"
+    },
+    "ubiquity-slideshow-regolith": null,
+    "plymouth-theme-regolith": null
+  }
+}
