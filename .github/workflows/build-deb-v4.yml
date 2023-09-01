@@ -20,6 +20,8 @@ jobs:
           ubuntu-jammy-arm64, 
           ubuntu-lunar-amd64,
           ubuntu-lunar-arm64,
+          ubuntu-manic-amd64,
+          ubuntu-manic-arm64,
           debian-bullseye-amd64,
           debian-bullseye-arm64,
           debian-bookworm-amd64,
@@ -32,6 +34,14 @@ jobs:
             distro-codename: debian-testing-amd64 # debian testing is never released
           - stage: release-3_0
             distro-codename: debian-testing-arm64 # debian testing is never released
+          - stage: release-3_0
+            distro-codename: ubuntu-manic-amd64
+          - stage: release-3_0
+            distro-codename: ubuntu-manic-arm64
+          - stage: testing
+            distro-codename: ubuntu-manic-amd64
+          - stage: testing
+            distro-codename: ubuntu-manic-arm64
         include:
           - distro-codename: ubuntu-focal-amd64
             host-os: ubuntu-20.04
@@ -63,6 +73,16 @@ jobs:
             arch: arm64
             distro: ubuntu
             codename: lunar
+          - distro-codename: ubuntu-manic-amd64
+            host-os: [self-hosted, Linux, X64, manic]
+            arch: amd64
+            distro: ubuntu
+            codename: manic
+          - distro-codename: ubuntu-manic-arm64
+            host-os: [self-hosted, Linux, arm64, manic]
+            arch: arm64
+            distro: ubuntu
+            codename: manic
           - distro-codename: debian-bullseye-amd64
             host-os: ubuntu-20.04
             arch: amd64
