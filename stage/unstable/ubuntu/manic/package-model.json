@@ -1,0 +1,25 @@
+{
+  "packages": {
+    "ilia": {
+      "source": "https://github.com/regolith-linux/ilia.git",
+      "ref": "ubuntu/jammy"
+    },
+    "lago": {
+      "source": "https://github.com/regolith-linux/lago.git",
+      "ref": "ubuntu/jammy"
+    },
+    "regolith-control-center": {
+      "source": "https://github.com/regolith-linux/regolith-control-center.git",
+      "ref": "regolith/1%43.0-1"
+    },
+    "gtklock": {
+      "source": "https://github.com/regolith-linux/gtklock.git",
+      "ref": "ubuntu/jammy"
+    },
+    "i3status-rs": {
+      "source": "https://github.com/regolith-linux/i3status-rs_debian.git",
+      "ref": "ubuntu/v0.31.5"
+    },
+    "ubiquity-slideshow-regolith": null
+  }
+}
