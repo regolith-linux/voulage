@@ -192,8 +192,10 @@ jobs:
           set -e
           set -x
           ssh-keyscan -H ${{ secrets.KAMATERA_HOSTNAME }} >> ~/.ssh/known_hosts
-          scp -r root@${{ secrets.KAMATERA_HOSTNAME }}:/var/www/html/${{ steps.init.outputs.target }}/* "${{ steps.init.outputs.PKG_REPO_PATH }}" \
-            || mkdir -p "${{ steps.init.outputs.PKG_REPO_PATH }}" || true
+          scp -r root@${{ secrets.KAMATERA_HOSTNAME }}:/var/www/html/${{ steps.init.outputs.target }}/* "${{ steps.init.outputs.PKG_REPO_PATH }}" || true
+          if [ ! -d ${{ steps.init.outputs.PKG_REPO_PATH }} ]; then
+            mkdir -p "${{ steps.init.outputs.PKG_REPO_PATH }}"
+          fi
       - name: Build
         if: steps.changes.outputs.changed == 1
         run: |
