@@ -165,7 +165,7 @@ generate_reprepro_dist() {
 
     if [[ "$LOCAL_REPO_PATH" != "" && ! -f "/etc/apt/sources.list.d/regolith-local.list" ]]; then
       echo "Adding local repo to apt config"
-      echo "deb [trusted=yes] file:$LOCAL_REPO_PATH ./" > /etc/apt/sources.list.d/regolith-local.list
+      sudo echo "deb [trusted=yes] file:$LOCAL_REPO_PATH ./" > /etc/apt/sources.list.d/regolith-local.list
       sudo apt update
     fi
 }
