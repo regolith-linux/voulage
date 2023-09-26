@@ -155,13 +155,13 @@ publish() {
 
 # Create repo dist file
 generate_reprepro_dist() {
-    echo "Origin: $PACKAGE_REPO_URL" > "$PKG_REPO_PATH/conf/distributions"
-    echo "Label: $PACKAGE_REPO_URL" >> "$PKG_REPO_PATH/conf/distributions"
-    echo "Codename: $CODENAME" >> "$PKG_REPO_PATH/conf/distributions"
-    echo "Architectures: $ARCH source" >> "$PKG_REPO_PATH/conf/distributions"
-    echo "Components: main" >> "$PKG_REPO_PATH/conf/distributions"
-    echo "Description: $STAGE $DISTRO $CODENAME $ARCH" >> "$PKG_REPO_PATH/conf/distributions"
-    echo "SignWith: $APT_KEY" >> "$PKG_REPO_PATH/conf/distributions"
+    echo "Origin: $PACKAGE_REPO_URL" > "$1/conf/distributions"
+    echo "Label: $PACKAGE_REPO_URL" >> "$1/conf/distributions"
+    echo "Codename: $CODENAME" >> "$1/conf/distributions"
+    echo "Architectures: $ARCH source" >> "$1/conf/distributions"
+    echo "Components: main" >> "$1/conf/distributions"
+    echo "Description: $STAGE $DISTRO $CODENAME $ARCH" >> "$1/conf/distributions"
+    echo "SignWith: $APT_KEY" >> "$1/conf/distributions"
 
     if [[ "$LOCAL_REPO_PATH" != "" && ! -f "/etc/apt/sources.list.d/regolith-local.list" ]]; then
       echo "Adding local repo to apt config"
@@ -179,7 +179,7 @@ setup() {
 
   if [ ! -f "$1/conf/distributions" ]; then
     echo "Package metadata not found, creating conf dir"
-    generate_reprepro_dist
+    generate_reprepro_dist "$1"
     cat "$1/conf/distributions"
   else
     echo "Existing metadata:"
