@@ -38,7 +38,7 @@ source_setup_scripts() {
   echo nop
 }
 
-setup
+setup $PKG_REPO_PATH
 checkout
 update_changelog
 if dist_valid; then

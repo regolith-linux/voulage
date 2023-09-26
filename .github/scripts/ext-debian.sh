@@ -107,6 +107,11 @@ publish() {
       echo "Ingesting source package $debian_package_name into $PKG_REPO_PATH"
       reprepro --basedir "$PKG_REPO_PATH" include "$CODENAME" "$DEB_SRC_PKG_PATH"
       allow_failing_bin_package="false"
+
+      if [ "$LOCAL_REPO_PATH" != "" ]; then 
+        echo "Publishing source package to local repo: $LOCAL_REPO_PATH"
+        reprepro --basedir "$LOCAL_REPO_PATH" include "$CODENAME" "$DEB_SRC_PKG_PATH"
+      fi
   fi
 
   DEB_CONTROL_FILE="$PKG_BUILD_DIR/$PACKAGE_NAME/debian/control"
@@ -125,6 +130,10 @@ publish() {
                 echo "Ingested binary package $DEB_BIN_PKG_PATH into $PKG_REPO_PATH"
               fi
               echo "CHLOG:Published ${bin_pkg}_${version}_${target_arch}.deb in $STAGE $DISTRO $CODENAME $ARCH from $PKG_LINE"
+              if [ "$LOCAL_REPO_PATH" != "" ]; then 
+                echo "Publishing binary package to local repo: $LOCAL_REPO_PATH"
+                reprepro --basedir "$LOCAL_REPO_PATH" includedeb "$CODENAME" "$DEB_BIN_PKG_PATH" || true
+              fi
           else
               echo "Package $bin_pkg does not exist for $target_arch"
           fi
@@ -153,22 +162,28 @@ generate_reprepro_dist() {
     echo "Components: main" >> "$PKG_REPO_PATH/conf/distributions"
     echo "Description: $STAGE $DISTRO $CODENAME $ARCH" >> "$PKG_REPO_PATH/conf/distributions"
     echo "SignWith: $APT_KEY" >> "$PKG_REPO_PATH/conf/distributions"
+
+    if [[ "$LOCAL_REPO_PATH" != "" && ! -f "/etc/apt/sources.list.d/regolith-local.list" ]]; then
+      echo "Adding local repo to apt config"
+      echo "deb [trusted=yes] file:$LOCAL_REPO_PATH ./" > /etc/apt/sources.list.d/regolith-local.list
+      sudo apt update
+    fi
 }
 
 # Setup debian repo
 setup() {
-  if [ ! -d "$PKG_REPO_PATH/conf" ]; then
+  if [ ! -d "$1/conf" ]; then
     echo "Creating conf dir"
-    mkdir -p "$PKG_REPO_PATH/conf"    
+    mkdir -p "$1/conf"    
   fi
 
-  if [ ! -f "$PKG_REPO_PATH/conf/distributions" ]; then
+  if [ ! -f "$1/conf/distributions" ]; then
     echo "Package metadata not found, creating conf dir"
     generate_reprepro_dist
-    cat "$PKG_REPO_PATH/conf/distributions"
+    cat "$1/conf/distributions"
   else
     echo "Existing metadata:"
-    cat "$PKG_REPO_PATH/conf/distributions"
+    cat "$1/conf/distributions"
   fi
     
   source_setup_scripts
