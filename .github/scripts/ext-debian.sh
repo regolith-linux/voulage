@@ -111,6 +111,14 @@ publish() {
       if [ "$LOCAL_REPO_PATH" != "" ]; then 
         echo "Publishing source package to local repo: $LOCAL_REPO_PATH"
         reprepro --basedir "$LOCAL_REPO_PATH" include "$CODENAME" "$DEB_SRC_PKG_PATH"
+
+        # It seems not possible for apt to be happy with an empty (no Release file) repo.  So, we do not add the repo
+        # to apt's config until there is a package installed into it.  It only needs to be installed once per host.
+        if [[ "$LOCAL_REPO_PATH" != "" && ! -f "/etc/apt/sources.list.d/regolith-local.list" ]]; then
+          echo "Adding local repo to apt config"
+          echo "deb [trusted=yes, arch=$ARCH] file:$LOCAL_REPO_PATH $CODENAME main" | sudo tee /etc/apt/sources.list.d/regolith-local.list > /dev/null
+          sudo apt update
+        fi
       fi
   fi
 
@@ -162,12 +170,6 @@ generate_reprepro_dist() {
     echo "Components: main" >> "$1/conf/distributions"
     echo "Description: $STAGE $DISTRO $CODENAME $ARCH" >> "$1/conf/distributions"
     echo "SignWith: $APT_KEY" >> "$1/conf/distributions"
-
-    if [[ "$LOCAL_REPO_PATH" != "" && ! -f "/etc/apt/sources.list.d/regolith-local.list" ]]; then
-      echo "Adding local repo to apt config"
-      echo "deb [trusted=yes] file:$LOCAL_REPO_PATH ./" | sudo tee /etc/apt/sources.list.d/regolith-local.list > /dev/null
-      sudo apt update
-    fi
 }
 
 # Setup debian repo
