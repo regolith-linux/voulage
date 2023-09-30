@@ -179,7 +179,7 @@ setup() {
     mkdir -p "$1/conf"    
   fi
 
-  if [ ! -f "$1/conf/distributions" ]; then
+  if [[ "$MODE" == "build" && ! -f "$1/conf/distributions" ]]; then
     echo "Package metadata not found, creating conf dir"
     generate_reprepro_dist "$1"
     cat "$1/conf/distributions"
