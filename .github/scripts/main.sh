@@ -182,11 +182,11 @@ if [ -d "$PKG_BUILD_DIR" ]; then
 fi
 
 if [ ! -d "$MANIFEST_PATH" ]; then
-  mkdir -p $MANIFEST_PATH
+  mkdir -p "$MANIFEST_PATH"
 fi
 
 if [ ! -d "$PKG_REPO_PATH" ]; then
-  mkdir -p $PKG_REPO_PATH
+  mkdir -p "$PKG_REPO_PATH"
 fi
 
 if [ "$LOCAL_REPO_PATH" != "" ]; then
