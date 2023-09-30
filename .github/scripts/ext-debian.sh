@@ -183,9 +183,6 @@ setup() {
     echo "Package metadata not found, creating conf dir"
     generate_reprepro_dist "$1"
     cat "$1/conf/distributions"
-  else
-    echo "Existing metadata:"
-    cat "$1/conf/distributions"
   fi
     
   source_setup_scripts
