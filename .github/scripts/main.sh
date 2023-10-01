@@ -147,7 +147,7 @@ MODE=$9
 MANIFEST_PATH=${10}
 PKG_REPO_PATH=${11}
 PKG_BUILD_DIR=${12}
-LOCAL_REPO_PATH="/tmp/localrepo"
+LOCAL_REPO_PATH="$RUNNER_TEMP/tmp/localrepo"
 
 
 GIT_EXT="$REPO_ROOT/.github/scripts/ext-git.sh"
