@@ -147,6 +147,7 @@ MODE=$9
 MANIFEST_PATH=${10}
 PKG_REPO_PATH=${11}
 PKG_BUILD_DIR=${12}
+LOCAL_REPO_PATH="$RUNNER_TEMP/tmp/localrepo"
 
 
 GIT_EXT="$REPO_ROOT/.github/scripts/ext-git.sh"
@@ -181,11 +182,16 @@ if [ -d "$PKG_BUILD_DIR" ]; then
 fi
 
 if [ ! -d "$MANIFEST_PATH" ]; then
-  mkdir -p $MANIFEST_PATH
+  mkdir -p "$MANIFEST_PATH"
 fi
 
 if [ ! -d "$PKG_REPO_PATH" ]; then
-  mkdir -p $PKG_REPO_PATH
+  mkdir -p "$PKG_REPO_PATH"
+fi
+
+if [ "$LOCAL_REPO_PATH" != "" ]; then
+  rm -Rf "LOCAL_REPO_PATH"
+  setup $LOCAL_REPO_PATH  
 fi
 
 #### Generate Manifest from package model tree and git repo state
@@ -222,7 +228,7 @@ fi
 if [ "$MODE" == "build" ]; then
   #### Build packages
 
-  setup
+  setup $PKG_REPO_PATH
   build_packages
 
   #### Cleanup

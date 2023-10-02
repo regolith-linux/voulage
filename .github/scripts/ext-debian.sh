@@ -107,6 +107,19 @@ publish() {
       echo "Ingesting source package $debian_package_name into $PKG_REPO_PATH"
       reprepro --basedir "$PKG_REPO_PATH" include "$CODENAME" "$DEB_SRC_PKG_PATH"
       allow_failing_bin_package="false"
+
+      if [ "$LOCAL_REPO_PATH" != "" ]; then 
+        echo "Publishing source package to local repo: $LOCAL_REPO_PATH"
+        reprepro --basedir "$LOCAL_REPO_PATH" include "$CODENAME" "$DEB_SRC_PKG_PATH"
+
+        # It seems not possible for apt to be happy with an empty (no Release file) repo.  So, we do not add the repo
+        # to apt's config until there is a package installed into it.  It only needs to be installed once per host.
+        if [[ "$LOCAL_REPO_PATH" != "" && ! -f "/etc/apt/sources.list.d/regolith-local.list" ]]; then
+          echo "Adding local repo to apt config"
+          echo "deb [trusted=yes, arch=$ARCH] file:$LOCAL_REPO_PATH $CODENAME main" | sudo tee /etc/apt/sources.list.d/regolith-local.list > /dev/null
+          sudo apt update
+        fi
+      fi
   fi
 
   DEB_CONTROL_FILE="$PKG_BUILD_DIR/$PACKAGE_NAME/debian/control"
@@ -125,6 +138,10 @@ publish() {
                 echo "Ingested binary package $DEB_BIN_PKG_PATH into $PKG_REPO_PATH"
               fi
               echo "CHLOG:Published ${bin_pkg}_${version}_${target_arch}.deb in $STAGE $DISTRO $CODENAME $ARCH from $PKG_LINE"
+              if [ "$LOCAL_REPO_PATH" != "" ]; then 
+                echo "Publishing binary package to local repo: $LOCAL_REPO_PATH"
+                reprepro --basedir "$LOCAL_REPO_PATH" includedeb "$CODENAME" "$DEB_BIN_PKG_PATH"
+              fi
           else
               echo "Package $bin_pkg does not exist for $target_arch"
           fi
@@ -146,29 +163,26 @@ publish() {
 
 # Create repo dist file
 generate_reprepro_dist() {
-    echo "Origin: $PACKAGE_REPO_URL" > "$PKG_REPO_PATH/conf/distributions"
-    echo "Label: $PACKAGE_REPO_URL" >> "$PKG_REPO_PATH/conf/distributions"
-    echo "Codename: $CODENAME" >> "$PKG_REPO_PATH/conf/distributions"
-    echo "Architectures: $ARCH source" >> "$PKG_REPO_PATH/conf/distributions"
-    echo "Components: main" >> "$PKG_REPO_PATH/conf/distributions"
-    echo "Description: $STAGE $DISTRO $CODENAME $ARCH" >> "$PKG_REPO_PATH/conf/distributions"
-    echo "SignWith: $APT_KEY" >> "$PKG_REPO_PATH/conf/distributions"
+    echo "Origin: $PACKAGE_REPO_URL" > "$1/conf/distributions"
+    echo "Label: $PACKAGE_REPO_URL" >> "$1/conf/distributions"
+    echo "Codename: $CODENAME" >> "$1/conf/distributions"
+    echo "Architectures: $ARCH source" >> "$1/conf/distributions"
+    echo "Components: main" >> "$1/conf/distributions"
+    echo "Description: $STAGE $DISTRO $CODENAME $ARCH" >> "$1/conf/distributions"
+    echo "SignWith: $APT_KEY" >> "$1/conf/distributions"
 }
 
 # Setup debian repo
 setup() {
-  if [ ! -d "$PKG_REPO_PATH/conf" ]; then
+  if [ ! -d "$1/conf" ]; then
     echo "Creating conf dir"
-    mkdir -p "$PKG_REPO_PATH/conf"    
+    mkdir -p "$1/conf"    
   fi
 
-  if [ ! -f "$PKG_REPO_PATH/conf/distributions" ]; then
+  if [[ "$MODE" == "build" && ! -f "$1/conf/distributions" ]]; then
     echo "Package metadata not found, creating conf dir"
-    generate_reprepro_dist
-    cat "$PKG_REPO_PATH/conf/distributions"
-  else
-    echo "Existing metadata:"
-    cat "$PKG_REPO_PATH/conf/distributions"
+    generate_reprepro_dist "$1"
+    cat "$1/conf/distributions"
   fi
     
   source_setup_scripts
