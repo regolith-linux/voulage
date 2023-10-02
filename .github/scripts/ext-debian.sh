@@ -140,7 +140,7 @@ publish() {
               echo "CHLOG:Published ${bin_pkg}_${version}_${target_arch}.deb in $STAGE $DISTRO $CODENAME $ARCH from $PKG_LINE"
               if [ "$LOCAL_REPO_PATH" != "" ]; then 
                 echo "Publishing binary package to local repo: $LOCAL_REPO_PATH"
-                reprepro --basedir "$LOCAL_REPO_PATH" includedeb "$CODENAME" "$DEB_BIN_PKG_PATH" || true
+                reprepro --basedir "$LOCAL_REPO_PATH" includedeb "$CODENAME" "$DEB_BIN_PKG_PATH"
               fi
           else
               echo "Package $bin_pkg does not exist for $target_arch"
