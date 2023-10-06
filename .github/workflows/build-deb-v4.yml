@@ -148,6 +148,11 @@ jobs:
             echo deb "[arch=${{ steps.init.outputs.arch }}] ${{ steps.init.outputs.repo_url }} ${{ steps.init.outputs.codename }} main" | sudo tee /etc/apt/sources.list.d/regolith.list
           fi
 
+          if [ -f "/etc/apt/sources.list.d/regolith-local.list" ]; then
+            sudo rm /etc/apt/sources.list.d/regolith-local.list
+            echo "Cleaned up temp apt repo"
+          fi
+          
           sudo apt update
           DEBIAN_FRONTEND=noninteractive sudo apt install -y --no-install-recommends jq git devscripts reprepro wget dput
       - name: Pull Manifest
