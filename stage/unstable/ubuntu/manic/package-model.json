@@ -17,7 +17,10 @@
       "source": "https://github.com/regolith-linux/i3status-rs_debian.git",
       "ref": "ubuntu/v0.31.5"
     },
-    "sway-regolith": null,
+    "sway-regolith": {
+      "source": "https://github.com/regolith-linux/sway-regolith.git",
+      "ref": "packaging/v1.8-regolith"
+    },
     "ubiquity-slideshow-regolith": null
   }
 }
