@@ -154,7 +154,7 @@ jobs:
           fi
           
           sudo apt update
-          DEBIAN_FRONTEND=noninteractive sudo apt install -y --no-install-recommends jq git devscripts reprepro wget dput
+          DEBIAN_FRONTEND=noninteractive sudo apt install -y --no-install-recommends jq git devscripts reprepro wget dput libssl-dev
       - name: Pull Manifest
         run: |
           set -e
