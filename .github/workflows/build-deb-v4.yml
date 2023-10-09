@@ -84,12 +84,12 @@ jobs:
             distro: ubuntu
             codename: manic
           - distro-codename: debian-bullseye-amd64
-            host-os: ubuntu-20.04
+            host-os: [self-hosted, Linux, amd64, bullseye]
             arch: amd64
             distro: debian
             codename: bullseye
           - distro-codename: debian-bullseye-arm64
-            host-os: [self-hosted, Linux, arm64, focal]
+            host-os: [self-hosted, Linux, arm64, bullseye]
             arch: arm64
             distro: debian
             codename: bullseye
