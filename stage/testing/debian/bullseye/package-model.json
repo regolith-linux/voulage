@@ -10,7 +10,7 @@
     },
     "regolith-control-center": {
       "source": "https://github.com/regolith-linux/regolith-control-center.git",
-      "ref": "ubuntu/jammy"
+      "ref": "r3_1-beta1-debian-bullseye"
     },
     "i3status-rs": null,
     "regolith-displayd": null,

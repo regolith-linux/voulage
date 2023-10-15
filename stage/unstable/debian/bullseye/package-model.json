@@ -8,6 +8,10 @@
       "source": "https://git.launchpad.net/ubuntu/+source/xcb-util",
       "ref": "applied/ubuntu/groovy"
     },
+    "regolith-control-center": {
+      "source": "https://github.com/regolith-linux/regolith-control-center.git",
+      "ref": "debian-bullseye"
+    },
     "i3status-rs": null,
     "regolith-displayd": null,
     "regolith-inputd": null,
