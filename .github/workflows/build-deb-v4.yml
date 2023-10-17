@@ -38,10 +38,6 @@ jobs:
             distro-codename: ubuntu-manic-amd64
           - stage: release-3_0
             distro-codename: ubuntu-manic-arm64
-          - stage: testing
-            distro-codename: ubuntu-manic-amd64
-          - stage: testing
-            distro-codename: ubuntu-manic-arm64
         include:
           - distro-codename: ubuntu-focal-amd64
             host-os: ubuntu-20.04
