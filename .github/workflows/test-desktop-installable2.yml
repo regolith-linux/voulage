@@ -156,7 +156,7 @@ jobs:
                   - arch: amd64
                     host-os: [self-hosted, Linux, X64, manic]
                   - arch: arm64
-                    host-os: [self-hosted, Linux, ARM64, mantic]
+                    host-os: [self-hosted, Linux, ARM64, manic]
                   - distro-codename: ubuntu-manic
                     distro: ubuntu
                     codename: mantic
