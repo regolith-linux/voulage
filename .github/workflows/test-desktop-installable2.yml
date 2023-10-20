@@ -148,7 +148,7 @@ jobs:
             runs-on: ${{ matrix.host-os }}
             strategy:
               matrix:
-                stage: [unstable] #, testing, release-3_0]
+                stage: [unstable, testing] #, release-3_1]
                 distro-codename: [ubuntu-mantic]
                 arch: [amd64, arm64]
                 wm: [regolith-session-flashback, regolith-session-sway]
@@ -157,7 +157,7 @@ jobs:
                     host-os: [self-hosted, Linux, X64, manic]
                   - arch: arm64
                     host-os: [self-hosted, Linux, ARM64, manic]
-                  - distro-codename: ubuntu-manic
+                  - distro-codename: ubuntu-mantic
                     distro: ubuntu
                     codename: mantic
             steps:
