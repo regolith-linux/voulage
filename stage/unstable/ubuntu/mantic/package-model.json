@@ -8,7 +8,10 @@
       "source": "https://github.com/regolith-linux/lago.git",
       "ref": "ubuntu/jammy"
     },
-    "regolith-control-center": null,
+    "regolith-control-center": {
+      "source": "https://github.com/regolith-linux/regolith-control-center.git",
+      "ref": "regolith/1%43.0-1"
+    },
     "gtklock": {
       "source": "https://github.com/regolith-linux/gtklock.git",
       "ref": "ubuntu/jammy"
