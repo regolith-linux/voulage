@@ -24,6 +24,10 @@
       "source": "https://github.com/regolith-linux/sway-regolith.git",
       "ref": "packaging/v1.8-regolith"
     },
+    "childe": {
+      "source": "https://github.com/regolith-linux/childe.git",
+      "ref": "main"
+    },
     "ubiquity-slideshow-regolith": null
   }
 }
