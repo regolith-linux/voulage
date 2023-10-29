@@ -22,7 +22,7 @@
     },
     "sway-regolith": {
       "source": "https://github.com/regolith-linux/sway-regolith.git",
-      "ref": "packaging/v1.8-regolith"
+      "ref": "packaging/v1.8-regolith-fix-wallpaper"
     },
     "childe": {
       "source": "https://github.com/regolith-linux/childe.git",
