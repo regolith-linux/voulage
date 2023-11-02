@@ -78,7 +78,7 @@
     },
     "regolith-desktop": {
       "source": "https://github.com/regolith-linux/regolith-desktop.git",
-      "ref": "fix-desktop-portal"
+      "ref": "main"
     },
     "regolith-ftue": {
       "source": "https://github.com/regolith-linux/regolith-ftue.git",
