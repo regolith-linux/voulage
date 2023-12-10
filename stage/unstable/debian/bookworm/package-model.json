@@ -16,6 +16,10 @@
       "source": "https://github.com/regolith-linux/childe.git",
       "ref": "debian-bookworm"
     },
+    "xdg-desktop-portal-regolith": {
+      "source": "https://github.com/regolith-linux/xdg-desktop-portal-regolith.git",
+      "ref": "main"
+    },
     "ubiquity-slideshow-regolith": null,
     "plymouth-theme-regolith": null,
     "regolith-displayd": null
