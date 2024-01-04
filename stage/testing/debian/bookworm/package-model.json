@@ -18,7 +18,7 @@
     },
     "childe": {
       "source": "https://github.com/regolith-linux/childe.git",
-      "ref": "debian-bookworm"
+      "ref": "r3_1-beta1-debian-bookworm"
     },
     "ubiquity-slideshow-regolith": null,
     "plymouth-theme-regolith": null,
