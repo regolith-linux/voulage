@@ -30,7 +30,7 @@
     },
     "childe": {
       "source": "https://github.com/regolith-linux/childe.git",
-      "ref": "main"
+      "ref": "debian-bookworm"
     },
     "xdg-desktop-portal-regolith": {
       "source": "https://github.com/regolith-linux/xdg-desktop-portal-regolith.git",
