@@ -36,6 +36,10 @@
       "source": "https://github.com/regolith-linux/xdg-desktop-portal-regolith.git",
       "ref": "main"
     },
+    "regolith-powerd": {
+      "source": "https://github.com/regolith-linux/regolith-powerd.git",
+      "ref": "debian-bookworm-compat"
+    },
     "ubiquity-slideshow-regolith": null,
     "plymouth-theme-regolith": null
   }
