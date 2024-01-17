@@ -27,29 +27,29 @@ jobs:
           apt-key-url: http://regolith-desktop.org/regolith3.key
           apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
           target-package: "regolith-desktop"
-# test-debian-testing-install:
-#   runs-on: ${{ matrix.host-os }}
-#   strategy:
-#     matrix:
-#       stage: [unstable, testing] # , release
-#       distro-codename: [debian-testing]
-#       arch: [amd64, arm64]
-#       wm: [regolith-session-flashback] #, regolith-session-sway] # https://github.com/regolith-linux/regolith-desktop/issues/882
-#       include:
-#         - arch: amd64
-#           host-os: ubuntu-20.04
-#         - arch: arm64
-#           host-os: [self-hosted, Linux, ARM64, bookworm] # FIXME: update to testing
-#         - distro-codename: debian-testing
-#           distro: debian
-#           codename: testing
-#   steps:
-#     - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
-#       uses: kgilmer/test-debian-testing-action@v1.1
-#       with:
-#         apt-key-url: http://regolith-desktop.org/regolith3.key
-#         apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
-#         target-package: "regolith-desktop ${{ matrix.wm }}"
+ test-debian-testing-install:
+   runs-on: ${{ matrix.host-os }}
+   strategy:
+     matrix:
+       stage: [unstable, testing] # , release
+       distro-codename: [debian-testing]
+       arch: [amd64, arm64]
+       wm: [regolith-session-flashback, regolith-session-sway] # https://github.com/regolith-linux/regolith-desktop/issues/882
+       include:
+         - arch: amd64
+           host-os: ubuntu-22.04
+         - arch: arm64
+           host-os: [self-hosted, Linux, ARM64, bookworm] # FIXME: update to testing
+         - distro-codename: debian-testing
+           distro: debian
+           codename: testing
+   steps:
+     - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
+       uses: kgilmer/test-debian-testing-action@v1.1
+       with:
+         apt-key-url: http://regolith-desktop.org/regolith3.key
+         apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
+         target-package: "regolith-desktop ${{ matrix.wm }}"
   test-debian-bookworm-install:
     runs-on: ${{ matrix.host-os }}
     strategy:
@@ -57,7 +57,7 @@ jobs:
         stage: [unstable, testing] # , release
         distro-codename: [debian-bookworm]
         arch: [amd64, arm64]
-        wm: [regolith-session-flashback, regolith-session-sway]
+        wm: [regolith-session-flashback]
         include:
           - arch: amd64
             host-os: ubuntu-20.04
@@ -117,29 +117,6 @@ jobs:
     steps:
       - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
         uses: kgilmer/test-ubuntu-22.04-action@v1.1.6
-        with:
-          apt-key-url: http://regolith-desktop.org/regolith3.key
-          apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
-          target-package: "regolith-desktop ${{ matrix.wm }}"
-  test-ubuntu-lunar-install:
-    runs-on: ${{ matrix.host-os }}
-    strategy:
-      matrix:
-        stage: [unstable, testing, release-3_0]
-        distro-codename: [ubuntu-lunar]
-        arch: [amd64, arm64]
-        wm: [regolith-session-flashback, regolith-session-sway]
-        include:
-          - arch: amd64
-            host-os: [self-hosted, Linux, X64, lunar]
-          - arch: arm64
-            host-os: [self-hosted, Linux, ARM64, lunar]
-          - distro-codename: ubuntu-lunar
-            distro: ubuntu
-            codename: lunar
-    steps:
-      - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
-        uses: kgilmer/test-ubuntu-lunar-action@1.0.0
         with:
           apt-key-url: http://regolith-desktop.org/regolith3.key
           apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
