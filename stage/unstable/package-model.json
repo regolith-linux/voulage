@@ -10,7 +10,7 @@
     },
     "regolith-session": {
       "source": "https://github.com/regolith-linux/regolith-session.git",
-      "ref": "main"
+      "ref": "session-name-change"
     },
     "i3-snapshot": {
       "source": "https://github.com/regolith-linux/i3-snapshot.git",
@@ -206,6 +206,10 @@
     },
     "sway-audio-idle-inhibit": {
       "source": "https://github.com/regolith-linux/SwayAudioIdleInhibit.git",
+      "ref": "main"
+    },
+    "xdg-desktop-portal-regolith": {
+      "source": "https://github.com/regolith-linux/xdg-desktop-portal-regolith.git",
       "ref": "main"
     }
   }

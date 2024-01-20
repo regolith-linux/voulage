@@ -32,17 +32,9 @@
       "source": "https://github.com/regolith-linux/childe.git",
       "ref": "debian-bookworm"
     },
-    "xdg-desktop-portal-regolith": {
-      "source": "https://github.com/regolith-linux/xdg-desktop-portal-regolith.git",
-      "ref": "main"
-    },
     "regolith-powerd": {
       "source": "https://github.com/regolith-linux/regolith-powerd.git",
       "ref": "debian-bookworm-compat"
-    },
-    "regolith-session": {
-      "source": "https://github.com/regolith-linux/regolith-session.git",
-      "ref": "session-name-change"
     },
     "ubiquity-slideshow-regolith": null,
     "plymouth-theme-regolith": null
