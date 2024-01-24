@@ -210,7 +210,7 @@
     },
     "xdg-desktop-portal-regolith": {
       "source": "https://github.com/regolith-linux/xdg-desktop-portal-regolith.git",
-      "ref": "refactor-fork-portal-configs"
+      "ref": "main"
     }
   }
 }
