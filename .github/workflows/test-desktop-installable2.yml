@@ -34,12 +34,12 @@ jobs:
         stage: [unstable, testing] # , release
         distro-codename: [debian-testing]
         arch: [amd64, arm64]
-        wm: [regolith-session-flashback, regolith-session-sway] # https://github.com/regolith-linux/regolith-desktop/issues/882
+        wm: [regolith-session-flashback, regolith-session-sway]
         include:
           - arch: amd64
-            host-os: ubuntu-22.04
+            host-os: [self-hosted, Linux, X64, testing]
           - arch: arm64
-            host-os: [self-hosted, Linux, ARM64, bookworm] # FIXME: update to testing
+            host-os: [self-hosted, Linux, ARM64, testing]
           - distro-codename: debian-testing
             distro: debian
             codename: testing
