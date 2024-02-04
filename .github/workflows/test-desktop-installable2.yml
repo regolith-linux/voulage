@@ -34,7 +34,7 @@ jobs:
         stage: [unstable, testing] # , release
         distro-codename: [debian-testing]
         arch: [amd64, arm64]
-        wm: [regolith-session-flashback, regolith-session-sway]
+        wm: [regolith-session-flashback] #, regolith-session-sway] // See https://github.com/regolith-linux/sway-regolith/issues/12
         include:
           - arch: amd64
             host-os: [self-hosted, Linux, X64, testing]
