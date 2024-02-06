@@ -58,12 +58,12 @@ jobs:
             distro: ubuntu
             codename: jammy
           - distro-codename: ubuntu-mantic-amd64
-            host-os: [self-hosted, Linux, X64, manic]
+            host-os: [self-hosted, Linux, X64, mantic]
             arch: amd64
             distro: ubuntu
             codename: mantic
           - distro-codename: ubuntu-mantic-arm64
-            host-os: [self-hosted, Linux, arm64, manic]
+            host-os: [self-hosted, Linux, arm64, mantic]
             arch: arm64
             distro: ubuntu
             codename: mantic

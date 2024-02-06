@@ -131,9 +131,9 @@ jobs:
                 wm: [regolith-session-flashback, regolith-session-sway]
                 include:
                   - arch: amd64
-                    host-os: [self-hosted, Linux, X64, manic]
+                    host-os: [self-hosted, Linux, X64, mantic]
                   - arch: arm64
-                    host-os: [self-hosted, Linux, ARM64, manic]
+                    host-os: [self-hosted, Linux, ARM64, mantic]
                   - distro-codename: ubuntu-mantic
                     distro: ubuntu
                     codename: mantic
