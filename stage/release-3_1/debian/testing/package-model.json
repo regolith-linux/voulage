@@ -28,10 +28,7 @@
       "source": "https://github.com/regolith-linux/i3status-rs_debian.git",
       "ref": "r3_1"
     },
-    "sway-regolith": {
-      "source": "https://github.com/regolith-linux/sway-regolith.git",
-      "ref": "r3_1"
-    },
+    "sway-regolith": null,
     "childe": {
       "source": "https://github.com/regolith-linux/childe.git",
       "ref": "r3_1-debian-bookworm"
