@@ -1,0 +1,28 @@
+{
+  "packages": {
+    "ilia": {
+      "source": "https://github.com/regolith-linux/ilia.git",
+      "ref": "r3_1-ubuntu-jammy"
+    },
+    "lago": {
+      "source": "https://github.com/regolith-linux/lago.git",
+      "ref": "r3_1-ubuntu-jammy"
+    },
+    "regolith-control-center": {
+      "source": "https://github.com/regolith-linux/regolith-control-center.git",
+      "ref": "r3_1-ubuntu-jammy"
+    },
+    "ubiquity-slideshow-regolith": {
+      "source": "https://github.com/regolith-linux/ubiquity-slideshow-regolith.git",
+      "ref": "r3_1"
+    },
+    "gtklock": {
+      "source": "https://github.com/regolith-linux/gtklock.git",
+      "ref": "r3_1-ubuntu-jammy"
+    },
+    "sway-regolith": {
+      "source": "https://github.com/regolith-linux/sway-regolith.git",
+      "ref": "r3_1-ubuntu-jammy"
+    }
+  }
+}
