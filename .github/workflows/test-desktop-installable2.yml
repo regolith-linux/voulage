@@ -9,7 +9,7 @@ jobs:
     runs-on: ${{ matrix.host-os }}
     strategy:
       matrix:
-        stage: [unstable, testing, release-3_0]
+        stage: [unstable, testing, release-3_0, release-3_1]
         distro-codename: [debian-bullseye]
         arch: [amd64, arm64]
         include:
@@ -77,7 +77,7 @@ jobs:
     runs-on: ${{ matrix.host-os }}
     strategy:
       matrix:
-        stage: [unstable, testing, release-3_0]
+        stage: [unstable, testing, release-3_0, release-3_1]
         distro-codename: [ubuntu-focal]
         arch: [amd64, arm64]
         include:
@@ -99,7 +99,7 @@ jobs:
     runs-on: ${{ matrix.host-os }}
     strategy:
       matrix:
-        stage: [unstable, testing, release-3_0]
+        stage: [unstable, testing, release-3_0, release-3_1]
         distro-codename: [ubuntu-jammy]
         arch: [amd64, arm64]
         wm: [regolith-session-flashback, regolith-session-sway]
@@ -113,6 +113,8 @@ jobs:
             codename: jammy
         exclude:
           - stage: release-3_0
+            wm: regolith-session-sway
+          - stage: release-3_1
             wm: regolith-session-sway
     steps:
       - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
