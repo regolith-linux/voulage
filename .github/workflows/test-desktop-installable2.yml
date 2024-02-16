@@ -114,8 +114,6 @@ jobs:
         exclude:
           - stage: release-3_0
             wm: regolith-session-sway
-          - stage: release-3_1
-            wm: regolith-session-sway
     steps:
       - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
         uses: kgilmer/test-ubuntu-22.04-action@v1.1.6
@@ -127,7 +125,7 @@ jobs:
             runs-on: ${{ matrix.host-os }}
             strategy:
               matrix:
-                stage: [unstable, testing] #, release-3_1]
+                stage: [unstable, testing, release-3_1]
                 distro-codename: [ubuntu-mantic]
                 arch: [amd64, arm64]
                 wm: [regolith-session-flashback, regolith-session-sway]

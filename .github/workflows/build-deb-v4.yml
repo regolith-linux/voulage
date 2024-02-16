@@ -20,6 +20,8 @@ jobs:
           ubuntu-jammy-arm64, 
           ubuntu-mantic-amd64,
           ubuntu-mantic-arm64,
+          ubuntu-noble-amd64,
+          ubuntu-noble-arm64,
           debian-bullseye-amd64,
           debian-bullseye-arm64,
           debian-bookworm-amd64,
@@ -32,6 +34,14 @@ jobs:
             distro-codename: debian-testing-amd64 # debian testing is never released
           - stage: release-3_1
             distro-codename: debian-testing-arm64 # debian testing is never released
+          - stage: release-3_1
+            distro-codename: ubuntu-noble-arm64   # enable w/ 3.2
+          - stage: release-3_1
+            distro-codename: ubuntu-noble-amd64
+          - stage: testing
+            distro-codename: ubuntu-noble-arm64   # enable once everything builds in unstable
+          - stage: testing
+            distro-codename: ubuntu-noble-amd64
         include:
           - distro-codename: ubuntu-focal-amd64
             host-os: ubuntu-20.04
@@ -63,6 +73,16 @@ jobs:
             arch: arm64
             distro: ubuntu
             codename: mantic
+          - distro-codename: ubuntu-noble-amd64
+            host-os: [self-hosted, Linux, X64, noble]
+            arch: amd64
+            distro: ubuntu
+            codename: noble
+          - distro-codename: ubuntu-noble-arm64
+            host-os: [self-hosted, Linux, arm64, noble]
+            arch: arm64
+            distro: ubuntu
+            codename: noble
           - distro-codename: debian-bullseye-amd64
             host-os: [self-hosted, Linux, X64, bullseye]
             arch: amd64
