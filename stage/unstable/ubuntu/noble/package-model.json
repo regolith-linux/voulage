@@ -1,0 +1,37 @@
+{
+  "packages": {
+    "regolith-desktop": {
+      "source": "https://github.com/regolith-linux/regolith-desktop.git",
+      "ref": "main"
+    },
+    "ilia": {
+      "source": "https://github.com/regolith-linux/ilia.git",
+      "ref": "ubuntu/jammy"
+    },
+    "lago": {
+      "source": "https://github.com/regolith-linux/lago.git",
+      "ref": "ubuntu/jammy"
+    },
+    "regolith-control-center": {
+      "source": "https://github.com/regolith-linux/regolith-control-center.git",
+      "ref": "regolith/45"
+    },
+    "gtklock": {
+      "source": "https://github.com/regolith-linux/gtklock.git",
+      "ref": "ubuntu/jammy"
+    },
+    "i3status-rs": {
+      "source": "https://github.com/regolith-linux/i3status-rs_debian.git",
+      "ref": "ubuntu/v0.32.1"
+    },
+    "sway-regolith": {
+      "source": "https://github.com/regolith-linux/sway-regolith.git",
+      "ref": "packaging/v1.8-regolith"
+    },
+    "childe": {
+      "source": "https://github.com/regolith-linux/childe.git",
+      "ref": "main"
+    },
+    "ubiquity-slideshow-regolith": null
+  }
+}
