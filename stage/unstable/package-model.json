@@ -211,6 +211,10 @@
     "xdg-desktop-portal-regolith": {
       "source": "https://github.com/regolith-linux/xdg-desktop-portal-regolith.git",
       "ref": "main"
+    },
+    "armesto": {
+      "source": "https://github.com/kgilmer/armesto.git",
+      "ref": "main"
     }
   }
 }
