@@ -3,10 +3,6 @@
     "xrescat": {
       "source": "https://github.com/regolith-linux/xrescat.git",
       "ref": "experimental"
-    },
-    "armesto": {
-      "source": "https://github.com/kgilmer/armesto.git",
-      "ref": "main"
     }
   }
 }
