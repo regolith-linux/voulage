@@ -26,7 +26,7 @@
     },
     "sway-regolith": {
       "source": "https://github.com/regolith-linux/sway-regolith.git",
-      "ref": "packaging/v1.9-regolith-wip"
+      "ref": "packaging/v1.9-regolith-wip2"
     },
     "childe": {
       "source": "https://github.com/regolith-linux/childe.git",
