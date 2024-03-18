@@ -14,7 +14,7 @@
     },
     "regolith-control-center": {
       "source": "https://github.com/regolith-linux/regolith-control-center.git",
-      "ref": "regolith/45"
+      "ref": "regolith/46"
     },
     "gtklock": {
       "source": "https://github.com/regolith-linux/gtklock.git",

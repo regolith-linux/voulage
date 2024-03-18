@@ -10,7 +10,7 @@
     },
     "regolith-control-center": {
       "source": "https://github.com/regolith-linux/regolith-control-center.git",
-      "ref": "regolith/45"
+      "ref": "regolith/46"
     },
     "sway-audio-idle-inhibit": {
       "source": "https://github.com/regolith-linux/SwayAudioIdleInhibit.git",
