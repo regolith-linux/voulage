@@ -74,7 +74,7 @@ jobs:
             echo "New Manifest: "
             cat ${{ steps.init.outputs.MANIFEST_PATH }}/next-manifest.txt
           fi
-      - uses: webfactory/ssh-agent@v0.8.0
+      - uses: webfactory/ssh-agent@v0.9.0
         if: steps.changes.outputs.changed == 1
         with:
           ssh-private-key: ${{ secrets.KAMATERA_SSH_KEY }}
@@ -126,7 +126,7 @@ jobs:
         if: steps.changes.outputs.changed == 1
         run: |
           cat ${{ steps.init.outputs.PKG_REPO_PATH }}/manifest.txt || true
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: steps.changes.outputs.changed == 1
         with:
           name: CHANGELOG_${{ steps.init.outputs.target }}
