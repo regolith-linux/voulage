@@ -276,7 +276,7 @@ jobs:
           else
             echo "changed=0" >> $GITHUB_OUTPUT
           fi
-      - uses: softprops/action-gh-release@v1
+      - uses: softprops/action-gh-release@v2
         if: steps.release-setup.outputs.changed == 1
         with:
           body: See CHANGELOG.txt for updates and manifests for current state of repos.
