@@ -121,25 +121,25 @@ jobs:
           apt-key-url: http://regolith-desktop.org/regolith3.key
           apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
           target-package: "regolith-desktop ${{ matrix.wm }}"
-  test-ubuntu-mantic-install:
+  test-ubuntu-noble-install:
             runs-on: ${{ matrix.host-os }}
             strategy:
               matrix:
-                stage: [unstable, testing, release-3_1]
-                distro-codename: [ubuntu-mantic]
+                stage: [unstable]
+                distro-codename: [ubuntu-noble]
                 arch: [amd64, arm64]
                 wm: [regolith-session-flashback, regolith-session-sway]
                 include:
                   - arch: amd64
-                    host-os: [self-hosted, Linux, X64, mantic]
+                    host-os: [self-hosted, Linux, X64, noble]
                   - arch: arm64
-                    host-os: [self-hosted, Linux, ARM64, mantic]
-                  - distro-codename: ubuntu-mantic
+                    host-os: [self-hosted, Linux, ARM64, noble]
+                  - distro-codename: ubuntu-noble
                     distro: ubuntu
-                    codename: mantic
+                    codename: noble
             steps:
               - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
-                uses: kgilmer/test-ubuntu-manic-action@1.0.0
+                uses: regolith-linux/test-ubuntu-noble-action@1.0.0
                 with:
                   apt-key-url: http://regolith-desktop.org/regolith3.key
                   apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
