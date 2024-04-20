@@ -32,6 +32,10 @@
       "source": "https://github.com/regolith-linux/childe.git",
       "ref": "main"
     },
+    "regolith-session": {
+      "source": "https://github.com/regolith-linux/regolith-session.git",
+      "ref": "fix-gnome-session-break"
+    },
     "ubiquity-slideshow-regolith": null
   }
 }
