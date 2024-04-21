@@ -4,13 +4,17 @@
       "source": "https://github.com/regolith-linux/regolith-system-ubuntu.git",
       "ref": "main"
     },
+    "regolith-session": {
+      "source": "https://github.com/regolith-linux/regolith-session.git",
+      "ref": "feat/systemd-session"
+    },
+    "regolith-wm-config": {
+      "source": "https://github.com/regolith-linux/regolith-wm-config.git",
+      "ref": "feat-systemd-notify"
+    },
     "regolith-lightdm-config": {
       "source": "https://github.com/regolith-linux/regolith-lightdm-config.git",
       "ref": "master"
-    },
-    "regolith-session": {
-      "source": "https://github.com/regolith-linux/regolith-session.git",
-      "ref": "main"
     },
     "i3-snapshot": {
       "source": "https://github.com/regolith-linux/i3-snapshot.git",
@@ -163,10 +167,6 @@
     "fonts-nerd-fonts": {
       "source": "https://github.com/regolith-linux/fonts-nerd-fonts.git",
       "ref": "debian"
-    },
-    "regolith-wm-config": {
-      "source": "https://github.com/regolith-linux/regolith-wm-config.git",
-      "ref": "main"
     },
     "i3status-rs": {
       "source": "https://github.com/regolith-linux/i3status-rs_debian.git",
