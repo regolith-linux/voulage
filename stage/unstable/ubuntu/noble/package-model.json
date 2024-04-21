@@ -34,7 +34,11 @@
     },
     "regolith-session": {
       "source": "https://github.com/regolith-linux/regolith-session.git",
-      "ref": "fix-gnome-session-break"
+      "ref": "feat/systemd-session"
+    },
+    "regolith-wm-config": {
+      "source": "https://github.com/regolith-linux/regolith-wm-config.git",
+      "ref": "feat-systemd-notify"
     },
     "ubiquity-slideshow-regolith": null
   }
