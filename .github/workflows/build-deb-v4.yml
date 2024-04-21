@@ -18,8 +18,6 @@ jobs:
           ubuntu-focal-arm64, 
           ubuntu-jammy-amd64, 
           ubuntu-jammy-arm64, 
-          ubuntu-mantic-amd64,
-          ubuntu-mantic-arm64,
           ubuntu-noble-amd64,
           ubuntu-noble-arm64,
           debian-bullseye-amd64,
@@ -63,16 +61,6 @@ jobs:
             arch: arm64
             distro: ubuntu
             codename: jammy
-          - distro-codename: ubuntu-mantic-amd64
-            host-os: [self-hosted, Linux, X64, mantic]
-            arch: amd64
-            distro: ubuntu
-            codename: mantic
-          - distro-codename: ubuntu-mantic-arm64
-            host-os: [self-hosted, Linux, arm64, mantic]
-            arch: arm64
-            distro: ubuntu
-            codename: mantic
           - distro-codename: ubuntu-noble-amd64
             host-os: [self-hosted, Linux, X64, noble]
             arch: amd64
