@@ -10,7 +10,7 @@
     },
     "regolith-wm-config": {
       "source": "https://github.com/regolith-linux/regolith-wm-config.git",
-      "ref": "feat-systemd-notify"
+      "ref": "main"
     },
     "regolith-lightdm-config": {
       "source": "https://github.com/regolith-linux/regolith-lightdm-config.git",
