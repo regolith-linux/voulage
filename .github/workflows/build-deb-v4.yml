@@ -26,7 +26,7 @@ jobs:
           debian-bookworm-arm64,
           debian-testing-amd64,
           debian-testing-arm64  
-          ]
+        ]
         exclude:
           - stage: release-3_1
             distro-codename: debian-testing-amd64 # debian testing is never released
@@ -244,9 +244,11 @@ jobs:
           name: CHANGELOG_${{ steps.init.outputs.target }}
           path: |
             ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
+
   test:
     needs: build
     uses: ./.github/workflows/test-desktop-installable2.yml
+
   generate-release:
     needs: build
     runs-on: ubuntu-20.04

@@ -1,4 +1,4 @@
-name: regolith-desktop is installable 2
+name: Test regolith-desktop is installable
 
 on:
   workflow_dispatch:
@@ -27,6 +27,7 @@ jobs:
           apt-key-url: http://regolith-desktop.org/regolith3.key
           apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
           target-package: "regolith-desktop"
+
   test-debian-testing-install:
     runs-on: ${{ matrix.host-os }}
     strategy:
@@ -50,6 +51,7 @@ jobs:
           apt-key-url: http://regolith-desktop.org/regolith3.key
           apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
           target-package: "regolith-desktop ${{ matrix.wm }}"
+
   test-debian-bookworm-install:
     runs-on: ${{ matrix.host-os }}
     strategy:
@@ -73,6 +75,7 @@ jobs:
           apt-key-url: http://regolith-desktop.org/regolith3.key
           apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
           target-package: "regolith-desktop ${{ matrix.wm }}"
+
   test-ubuntu-focal-install:
     runs-on: ${{ matrix.host-os }}
     strategy:
@@ -95,6 +98,7 @@ jobs:
           apt-key-url: http://regolith-desktop.org/regolith3.key
           apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
           target-package: "regolith-desktop"
+
   test-ubuntu-jammy-install:
     runs-on: ${{ matrix.host-os }}
     strategy:
@@ -121,26 +125,27 @@ jobs:
           apt-key-url: http://regolith-desktop.org/regolith3.key
           apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
           target-package: "regolith-desktop ${{ matrix.wm }}"
+
   test-ubuntu-noble-install:
-            runs-on: ${{ matrix.host-os }}
-            strategy:
-              matrix:
-                stage: [unstable]
-                distro-codename: [ubuntu-noble]
-                arch: [amd64, arm64]
-                wm: [regolith-session-flashback, regolith-session-sway]
-                include:
-                  - arch: amd64
-                    host-os: [self-hosted, Linux, X64, noble]
-                  - arch: arm64
-                    host-os: [self-hosted, Linux, ARM64, noble]
-                  - distro-codename: ubuntu-noble
-                    distro: ubuntu
-                    codename: noble
-            steps:
-              - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
-                uses: regolith-linux/test-ubuntu-noble-action@1.0.0
-                with:
-                  apt-key-url: http://regolith-desktop.org/regolith3.key
-                  apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
-                  target-package: "regolith-desktop ${{ matrix.wm }}"
+    runs-on: ${{ matrix.host-os }}
+    strategy:
+      matrix:
+        stage: [unstable]
+        distro-codename: [ubuntu-noble]
+        arch: [amd64, arm64]
+        wm: [regolith-session-flashback, regolith-session-sway]
+        include:
+          - arch: amd64
+            host-os: [self-hosted, Linux, X64, noble]
+          - arch: arm64
+            host-os: [self-hosted, Linux, ARM64, noble]
+          - distro-codename: ubuntu-noble
+            distro: ubuntu
+            codename: noble
+    steps:
+      - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
+        uses: regolith-linux/test-ubuntu-noble-action@1.0.0
+        with:
+          apt-key-url: http://regolith-desktop.org/regolith3.key
+          apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
+          target-package: "regolith-desktop ${{ matrix.wm }}"
