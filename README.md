@@ -1,6 +1,7 @@
 # Regolith Build System
 
-This repository hosts code and configuration to build packages consisting of the Regolith Desktop
+This repository hosts code and configuration to build packages consisting of
+the Regolith Desktop
 
 ## Status
 
@@ -12,4 +13,6 @@ This repo is in active, prod use.
 
 ## How To Install Packages - Debian and Ubuntu
 
-Refer to the [Regolith Desktop](https://regolith-desktop.com) site for installation instructions.
+Refer to the [Regolith Desktop] site for installation instructions.
+
+[Regolith Desktop]: https://regolith-desktop.com
