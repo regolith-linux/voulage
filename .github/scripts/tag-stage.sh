@@ -14,10 +14,10 @@ tag_package() {
   else
     # echo "# Creating new tag $TAG for $PACKAGE_NAME"
     # echo "~~ git tag $TAG"
-    # git tag $TAG
+    git tag $TAG
     # echo "# Pushing tag $TAG for $PACKAGE_NAME"
     # echo "~~ git push origin $TAG"
-    # git push origin $TAG
+    git push origin $TAG
     if [ "$TAG" == "$DEFAULT_DEST_TAG" ]; then
       echo "$STAGE-$DISTRO-$CODENAME $PACKAGE_NAME $TAG DEFAULT"
     else
@@ -52,8 +52,8 @@ handle_package() {
 
   # Here lies a mapping for how all the various branch naming strategies over the years
   # collapse into tags of this form:
-  # r<major version>[_<minor version>[-beta<1-based index>[-variant]]]  (ex: "r4", "r3_1", "r3_2-beta7")
-  # where "variant" is of the form: <distro>-<codename> OR gnome-<gnome version>  (ex: "ubuntu-jammy", "gnome-43")
+  # r<major version>[_<non-zero minor version>[-beta<1-based index>[-VARIANT]]]  (ex: "r4", "r3_1", "r3_2-beta7")
+  # where "VARIANT" is of the form: <distro>-<codename> OR <library>-<library version>  (ex: "ubuntu-jammy", "gnome-43")
   # complete examples: "r4-ubuntu-jammy", "r3_1-beta2-debian-bullseye"
   if [ "$PACKAGE_SOURCE_REF" == "main" ]; then
     tag_package "$DEFAULT_DEST_TAG"
@@ -78,7 +78,7 @@ handle_package() {
   elif [[ "$PACKAGE_SOURCE_REF" == "debian" && "$PACKAGE_NAME" == "whitesur-gtk-theme" ]]; then
     tag_package "$DEFAULT_DEST_TAG"
   elif [[ "$PACKAGE_SOURCE_REF" == "applied/ubuntu/groovy" && "$PACKAGE_NAME" == "xcb-util" ]]; then
-    tag_package "$DEFAULT_DEST_TAG"
+    : # this package is exceptional, is not built from a regoolith repo.  cannot push tags.  deprecated.
   elif [[ "$PACKAGE_SOURCE_REF" == "ubuntu/v0.32.1" && "$PACKAGE_NAME" == "i3status-rs" ]]; then
     tag_package "$DEFAULT_DEST_TAG"
   elif [[ "$PACKAGE_SOURCE_REF" == "ubuntu/v0.22.0" && "$PACKAGE_NAME" == "i3status-rs" ]]; then
