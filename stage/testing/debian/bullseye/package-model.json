@@ -10,7 +10,7 @@
     },
     "regolith-control-center": {
       "source": "https://github.com/regolith-linux/regolith-control-center.git",
-      "ref": "r3_2-beta1-gnome-43"
+      "ref": "r3_2-beta1-debian-bullseye"
     },
     "i3status-rs": null,
     "regolith-displayd": null,
