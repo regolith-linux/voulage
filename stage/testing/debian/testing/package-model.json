@@ -2,43 +2,43 @@
   "packages": {
     "regolith-desktop": {
       "source": "https://github.com/regolith-linux/regolith-desktop.git",
-      "ref": "r3_1-beta1-debian-bullseye"
+      "ref": "r3_2-beta1-debian-bullseye"
     },
     "ilia": {
       "source": "https://github.com/regolith-linux/ilia.git",
-      "ref": "r3_1-beta1-ubuntu-jammy"
+      "ref": "r3_2-beta1-ubuntu-jammy"
     },
     "lago": {
       "source": "https://github.com/regolith-linux/lago.git",
-      "ref": "r3_1-beta1-ubuntu-jammy"
+      "ref": "r3_2-beta1-ubuntu-jammy"
     },
     "regolith-control-center": {
       "source": "https://github.com/regolith-linux/regolith-control-center.git",
-      "ref": "r3_1-beta1-debian-bookworm"
+      "ref": "r3_2-beta1-gnome-46"
     },
     "sway-audio-idle-inhibit": {
       "source": "https://github.com/regolith-linux/SwayAudioIdleInhibit.git",
-      "ref": "r3_1-beta1-debian-testing"
+      "ref": "r3_2-beta1-debian-testing"
     },
     "gtklock": {
       "source": "https://github.com/regolith-linux/gtklock.git",
-      "ref": "r3_1-beta1-ubuntu-jammy"
+      "ref": "r3_2-beta1-ubuntu-jammy"
     },
     "i3status-rs": {
       "source": "https://github.com/regolith-linux/i3status-rs_debian.git",
-      "ref": "r3_1-beta1"
+      "ref": "r3_2-beta1"
     },
     "sway-regolith": {
       "source": "https://github.com/regolith-linux/sway-regolith.git",
-      "ref": "r3_1-beta1"
+      "ref": "r3_2-beta1"
     },
     "childe": {
       "source": "https://github.com/regolith-linux/childe.git",
-      "ref": "r3_1-beta1-debian-bookworm"
+      "ref": "r3_2-beta1-debian-bookworm"
     },
     "regolith-powerd": {
       "source": "https://github.com/regolith-linux/regolith-powerd.git",
-      "ref": "r3_1-beta1-debian-bookworm"
+      "ref": "r3_2-beta1-debian-bookworm"
     },
     "ubiquity-slideshow-regolith": null,
     "plymouth-theme-regolith": null

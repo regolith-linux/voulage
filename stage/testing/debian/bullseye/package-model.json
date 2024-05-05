@@ -2,7 +2,7 @@
   "packages": {
     "regolith-desktop": {
       "source": "https://github.com/regolith-linux/regolith-desktop.git",
-      "ref": "r3_1-beta1-debian-bullseye"
+      "ref": "r3_2-beta1-debian-bullseye"
     },
     "xcb-util": {
       "source": "https://git.launchpad.net/ubuntu/+source/xcb-util",
@@ -10,7 +10,7 @@
     },
     "regolith-control-center": {
       "source": "https://github.com/regolith-linux/regolith-control-center.git",
-      "ref": "r3_1-beta1-debian-bullseye"
+      "ref": "r3_2-beta1-gnome-43"
     },
     "i3status-rs": null,
     "regolith-displayd": null,
