@@ -14,7 +14,7 @@
     },
     "regolith-control-center": {
       "source": "https://github.com/regolith-linux/regolith-control-center.git",
-      "ref": "regolith/45"
+      "ref": "regolith/46"
     },
     "gtklock": {
       "source": "https://github.com/regolith-linux/gtklock.git",
@@ -26,7 +26,7 @@
     },
     "sway-regolith": {
       "source": "https://github.com/regolith-linux/sway-regolith.git",
-      "ref": "packaging/v1.8-regolith"
+      "ref": "packaging/v1.9-regolith"
     },
     "childe": {
       "source": "https://github.com/regolith-linux/childe.git",
