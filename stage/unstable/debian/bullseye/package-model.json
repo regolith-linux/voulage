@@ -12,6 +12,14 @@
       "source": "https://github.com/regolith-linux/regolith-control-center.git",
       "ref": "debian-bullseye"
     },
+    "ilia": {
+      "source": "https://github.com/regolith-linux/ilia.git",
+      "ref": "ubuntu/focal"
+    },
+    "lago": {
+      "source": "https://github.com/regolith-linux/lago.git",
+      "ref": "ubuntu/focal"
+    },
     "armesto": null,
     "gtklock": null,
     "i3status-rs": null,

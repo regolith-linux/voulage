@@ -14,6 +14,14 @@
         "regolith-desktop": {
             "source": "https://github.com/regolith-linux/regolith-desktop.git",
             "ref": "ubuntu/focal"
+        },
+        "ilia": {
+            "source": "https://github.com/regolith-linux/ilia.git",
+            "ref": "ubuntu/focal"
+        },
+        "lago": {
+            "source": "https://github.com/regolith-linux/lago.git",
+            "ref": "ubuntu/focal"
         }
     }
 }
