@@ -35,11 +35,7 @@ jobs:
           - stage: release-3_1
             distro-codename: ubuntu-noble-arm64   # enable w/ 3.2
           - stage: release-3_1
-            distro-codename: ubuntu-noble-amd64
-          - stage: testing
-            distro-codename: ubuntu-noble-arm64   # enable once everything builds in unstable
-          - stage: testing
-            distro-codename: ubuntu-noble-amd64
+            distro-codename: ubuntu-noble-amd64          
         include:
           - distro-codename: ubuntu-focal-amd64
             host-os: ubuntu-20.04
