@@ -3,11 +3,7 @@
     "regolith-desktop": {
       "source": "https://github.com/regolith-linux/regolith-desktop.git",
       "ref": "r3_2-beta1-debian-bullseye"
-    },
-    "regolith-control-center": {
-      "source": "https://github.com/regolith-linux/regolith-control-center.git",
-      "ref": "r3_2-beta1-gnome-46"
-    },
+    },    
     "sway-audio-idle-inhibit": {
       "source": "https://github.com/regolith-linux/SwayAudioIdleInhibit.git",
       "ref": "r3_2-beta1-debian-testing"
@@ -32,6 +28,7 @@
       "source": "https://github.com/regolith-linux/regolith-powerd.git",
       "ref": "r3_2-beta1-debian-bookworm"
     },
+    "regolith-control-center": null,
     "ubiquity-slideshow-regolith": null,
     "plymouth-theme-regolith": null
   }
