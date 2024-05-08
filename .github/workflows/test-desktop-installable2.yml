@@ -22,7 +22,7 @@ jobs:
             codename: bullseye
     steps:
       - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
-        uses: regolith-linux/test-desktop-installable-action/debian/bullseye@33d494aa7cb1fcb90c430b74a564a120341d77e7
+        uses: regolith-linux/test-desktop-installable-action/debian/bullseye@a46d23d5752c3bd45e1c692f908975e4a63c8e26
         with:
           apt-key-url: http://regolith-desktop.org/regolith3.key
           apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
@@ -46,7 +46,7 @@ jobs:
             codename: testing
     steps:
       - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
-        uses: regolith-linux/test-desktop-installable-action/debian/testing@33d494aa7cb1fcb90c430b74a564a120341d77e7
+        uses: regolith-linux/test-desktop-installable-action/debian/testing@a46d23d5752c3bd45e1c692f908975e4a63c8e26
         with:
           apt-key-url: http://regolith-desktop.org/regolith3.key
           apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
@@ -70,7 +70,7 @@ jobs:
             codename: bookworm
     steps:
       - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
-        uses: regolith-linux/test-desktop-installable-action/debian/bookworm@33d494aa7cb1fcb90c430b74a564a120341d77e7
+        uses: regolith-linux/test-desktop-installable-action/debian/bookworm@a46d23d5752c3bd45e1c692f908975e4a63c8e26
         with:
           apt-key-url: http://regolith-desktop.org/regolith3.key
           apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
@@ -93,7 +93,7 @@ jobs:
             codename: focal
     steps:
       - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
-        uses: regolith-linux/test-desktop-installable-action/ubuntu/focal@33d494aa7cb1fcb90c430b74a564a120341d77e7
+        uses: regolith-linux/test-desktop-installable-action/ubuntu/focal@a46d23d5752c3bd45e1c692f908975e4a63c8e26
         with:
           apt-key-url: http://regolith-desktop.org/regolith3.key
           apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
@@ -120,7 +120,7 @@ jobs:
             wm: regolith-session-sway
     steps:
       - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
-        uses: regolith-linux/test-desktop-installable-action/ubuntu/jammy@33d494aa7cb1fcb90c430b74a564a120341d77e7
+        uses: regolith-linux/test-desktop-installable-action/ubuntu/jammy@a46d23d5752c3bd45e1c692f908975e4a63c8e26
         with:
           apt-key-url: http://regolith-desktop.org/regolith3.key
           apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
@@ -144,7 +144,7 @@ jobs:
             codename: noble
     steps:
       - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
-        uses: regolith-linux/test-desktop-installable-action/ubuntu/noble@33d494aa7cb1fcb90c430b74a564a120341d77e7
+        uses: regolith-linux/test-desktop-installable-action/ubuntu/noble@a46d23d5752c3bd45e1c692f908975e4a63c8e26
         with:
           apt-key-url: http://regolith-desktop.org/regolith3.key
           apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
