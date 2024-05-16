@@ -16,10 +16,6 @@
       "source": "https://github.com/regolith-linux/i3status-rs_debian.git",
       "ref": "ubuntu/v0.32.1"
     },
-    "sway-regolith": {
-      "source": "https://github.com/regolith-linux/sway-regolith.git",
-      "ref": "packaging/v1.9-regolith"
-    },
     "childe": {
       "source": "https://github.com/regolith-linux/childe.git",
       "ref": "main"
