@@ -12,7 +12,6 @@
       "source": "https://github.com/regolith-linux/i3status-rs_debian.git",
       "ref": "r3_2-beta1-ubuntu-jammy"
     },
-    "sway-regolith": null,    
     "ubiquity-slideshow-regolith": null
   }
 }
