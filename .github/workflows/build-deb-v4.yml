@@ -14,10 +14,10 @@ jobs:
       matrix:
         stage: [experimental, unstable, testing ] # release-3_1, release-3_0, release-2_2, release-2_1]
         distro-codename: [
-          ubuntu-focal-amd64,
-          ubuntu-focal-arm64,
-          ubuntu-jammy-amd64,
-          ubuntu-jammy-arm64,
+          ubuntu-focal-amd64, 
+          ubuntu-focal-arm64, 
+          ubuntu-jammy-amd64, 
+          ubuntu-jammy-arm64, 
           ubuntu-noble-amd64,
           ubuntu-noble-arm64,
           debian-bullseye-amd64,
@@ -25,7 +25,7 @@ jobs:
           debian-bookworm-amd64,
           debian-bookworm-arm64,
           debian-testing-amd64,
-          debian-testing-arm64
+          debian-testing-arm64  
         ]
         exclude:
           - stage: release-3_1
@@ -35,7 +35,7 @@ jobs:
           - stage: release-3_1
             distro-codename: ubuntu-noble-arm64   # enable w/ 3.2
           - stage: release-3_1
-            distro-codename: ubuntu-noble-amd64
+            distro-codename: ubuntu-noble-amd64          
         include:
           - distro-codename: ubuntu-focal-amd64
             host-os: ubuntu-20.04
@@ -136,7 +136,7 @@ jobs:
             sudo rm /etc/apt/sources.list.d/regolith-local.list
             echo "Cleaned up temp apt repo"
           fi
-
+          
           sudo apt update
           DEBIAN_FRONTEND=noninteractive sudo apt install -y --no-install-recommends jq git devscripts reprepro wget dput
       - name: Pull Manifest
@@ -217,15 +217,10 @@ jobs:
           fi
       - name: Deploy via rsync
         if: steps.changes.outputs.changed == 1
-        uses: nick-fields/retry@v3
-			  with:
-          max_attempts: 10
-          retry_on: error
-          timeout_seconds: 5
-          command: |
-            set -e
-            set -x
-            rsync -avzh ${{ steps.init.outputs.PKG_REPO_PATH }}/* root@${{ secrets.KAMATERA_HOSTNAME }}:/var/www/html/${{ steps.init.outputs.target }}
+        run: |
+          set -e
+          set -x
+          rsync -avzh ${{ steps.init.outputs.PKG_REPO_PATH }}/* root@${{ secrets.KAMATERA_HOSTNAME }}:/var/www/html/${{ steps.init.outputs.target }}
       - name: Log Build Output
         if: steps.changes.outputs.changed == 1
         run: |
