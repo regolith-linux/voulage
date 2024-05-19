@@ -220,7 +220,7 @@ jobs:
         run: |
           set -e
           set -x
-          rsync -avzh ${{ steps.init.outputs.PKG_REPO_PATH }}/* root@${{ secrets.KAMATERA_HOSTNAME }}:/var/www/html/${{ steps.init.outputs.target }}
+          for i in 1 2 3 4 5; do echo "Attempt $i" && rsync -avzh ${{ steps.init.outputs.PKG_REPO_PATH }}/* root@${{ secrets.KAMATERA_HOSTNAME }}:/var/www/html/${{ steps.init.outputs.target }} && break || sleep 5; done          
       - name: Log Build Output
         if: steps.changes.outputs.changed == 1
         run: |
