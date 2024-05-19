@@ -20,6 +20,10 @@
       "source": "https://github.com/regolith-linux/childe.git",
       "ref": "main"
     },
+    "regolith-session": {
+      "source": "https://github.com/regolith-linux/regolith-session.git",
+      "ref": "experiment-package-priority"
+    },
     "ubiquity-slideshow-regolith": null
   }
 }
