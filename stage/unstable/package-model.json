@@ -190,7 +190,7 @@
     },
     "sway-regolith": {
       "source": "https://github.com/regolith-linux/sway-regolith.git",
-      "ref": "fix-isolate-collisions"
+      "ref": "fix-conflict-upstream"
     },
     "regolith-avizo": {
       "source": "https://github.com/regolith-linux/avizo.git",
