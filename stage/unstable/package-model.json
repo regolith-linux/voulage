@@ -6,7 +6,7 @@
     },
     "regolith-session": {
       "source": "https://github.com/regolith-linux/regolith-session.git",
-      "ref": "main"
+      "ref": "chore-rename-sway-bin"
     },
     "regolith-wm-config": {
       "source": "https://github.com/regolith-linux/regolith-wm-config.git",
