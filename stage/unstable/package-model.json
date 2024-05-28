@@ -6,7 +6,7 @@
     },
     "regolith-session": {
       "source": "https://github.com/regolith-linux/regolith-session.git",
-      "ref": "chore-rename-sway-bin"
+      "ref": "main"
     },
     "regolith-wm-config": {
       "source": "https://github.com/regolith-linux/regolith-wm-config.git",
@@ -190,7 +190,7 @@
     },
     "sway-regolith": {
       "source": "https://github.com/regolith-linux/sway-regolith.git",
-      "ref": "fix-conflict-upstream"
+      "ref": "packaging/v1.9-regolith"
     },
     "regolith-avizo": {
       "source": "https://github.com/regolith-linux/avizo.git",
