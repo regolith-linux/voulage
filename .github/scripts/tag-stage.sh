@@ -14,10 +14,10 @@ tag_package() {
   else
     # echo "# Creating new tag $TAG for $PACKAGE_NAME"
     # echo "~~ git tag $TAG"
-    git tag $TAG
+    # git tag $TAG
     # echo "# Pushing tag $TAG for $PACKAGE_NAME"
     # echo "~~ git push origin $TAG"
-    git push origin $TAG
+    # git push origin $TAG
     if [ "$TAG" == "$DEFAULT_DEST_TAG" ]; then
       echo "$STAGE-$DISTRO-$CODENAME $PACKAGE_NAME $TAG DEFAULT"
     else
@@ -28,7 +28,9 @@ tag_package() {
 
 # This script is used to create new tags from existing tags on source refs from the package model
 # Usage: 
-#         tag-cp.sh <repo root path> <package model stage id> [package filter]
+#   tag-cp.sh <repo root> <source stage> <baseline tag> [package filter]
+# Example:
+#   .github/scripts/tag-stage.sh . unstable r3_2
 
 handle_package() {
   # echo "# --- $PACKAGE_NAME $PACAKGE_SOURCE_URL $PACKAGE_SOURCE_REF $STAGE-$DISTRO-$CODENAME"
@@ -177,7 +179,7 @@ DEFAULT_DEST_TAG=$3 # base tag to create, w varations. ex: r3_2-beta1
 PACKAGE_FILTER=$4 # Filter only package name (optional)
 
 if [[ -z "$STAGE" || -z "$DEFAULT_DEST_TAG" ]]; then
-  echo "usage: tag-stage.sh <repo root> <stage> <baseline tag> [package filter]"
+  echo "usage: tag-stage.sh <repo root> <source stage> <baseline tag> [package filter]"
   exit 1
 fi
 
