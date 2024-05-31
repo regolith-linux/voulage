@@ -23,6 +23,10 @@ on:
         description: 'Build package on (ubuntu-22.04)'
         required: true
         default: ubuntu-20.04
+      supplemental-deb-repo:
+        description: 'Supplemental apt repo apt line (optional)'
+        required: false
+        default: 
 
 jobs:
   build:
@@ -37,6 +41,9 @@ jobs:
           mkdir -p ~/.gnupg/
           printf "${{ secrets.PACKAGE_PRIVATE_KEY2 }}" | base64 --decode > ~/.gnupg/private.key
           gpg --batch --import ~/.gnupg/private.key
+          if [ ! -z "${{ github.event.inputs.package-ref }}" ]; then
+            
+          fi
       - name: Build Test Package
         id: build
         run: |
