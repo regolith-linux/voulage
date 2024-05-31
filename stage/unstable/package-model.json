@@ -215,6 +215,10 @@
     "armesto": {
       "source": "https://github.com/kgilmer/armesto.git",
       "ref": "main"
+    },
+    "childe": {
+      "source": "https://github.com/regolith-linux/childe.git",
+      "ref": "main"
     }
   }
 }

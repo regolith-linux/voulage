@@ -15,6 +15,7 @@
     "sway-regolith": {
       "source": "https://github.com/regolith-linux/sway-regolith.git",
       "ref": "r3_2-beta1-ubuntu-jammy"
-    }
+    },
+    "childe": null
   }
 }

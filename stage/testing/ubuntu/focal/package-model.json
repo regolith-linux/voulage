@@ -17,6 +17,7 @@
         "lago": {
             "source": "https://github.com/regolith-linux/lago.git",
             "ref": "r3_2-beta1-ubuntu-focal"
-        }
+        },
+        "childe": null
     }
 }

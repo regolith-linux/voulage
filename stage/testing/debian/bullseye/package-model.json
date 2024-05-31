@@ -29,6 +29,7 @@
     "regolith-avizo": null,
     "gtklock": null,
     "regolith-powerd": null,
-    "sway-audio-idle-inhibit": null
+    "sway-audio-idle-inhibit": null,
+    "childe": null
   }
 }

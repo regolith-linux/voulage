@@ -16,14 +16,6 @@
       "source": "https://github.com/regolith-linux/i3status-rs_debian.git",
       "ref": "ubuntu/v0.32.1"
     },
-    "childe": {
-      "source": "https://github.com/regolith-linux/childe.git",
-      "ref": "main"
-    },
-    "regolith-session": {
-      "source": "https://github.com/regolith-linux/regolith-session.git",
-      "ref": "experiment-package-priority"
-    },
     "ubiquity-slideshow-regolith": null
   }
 }

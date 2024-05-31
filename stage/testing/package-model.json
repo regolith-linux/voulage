@@ -207,6 +207,10 @@
     "sway-audio-idle-inhibit": {
       "source": "https://github.com/regolith-linux/SwayAudioIdleInhibit.git",
       "ref": "r3_2-beta1"
+    },
+    "childe": {
+      "source": "https://github.com/regolith-linux/childe.git",
+      "ref": "r3_2-beta1"
     }
   }
 }
