@@ -184,8 +184,19 @@ walk_package_models() {
 REPO_ROOT=$(realpath "$1")
 STAGE=$2   # this tool only works within a single stage
 DEFAULT_DEST_TAG=$3 # base tag to create, w varations. ex: r3_2-beta1
-PACKAGE_FILTER=$4 # Filter only package name (optional)
-DRY_RUN=$5
+
+if [ "$4" == "dry-run" ]; then
+  DRY_RUN=$4
+elif [ -n "$4" ]; then
+  PACKAGE_FILTER=$4 # Filter only package name (optional)
+  DRY_RUN=$5
+fi
+
+if [ -z "$DRY_RUN" ]; then
+  echo "Running in write mode"
+else
+  echo "Running in read-only mode (dry-run)"
+fi
 
 if [[ -z "$STAGE" || -z "$DEFAULT_DEST_TAG" ]]; then
   echo "usage: tag-stage.sh <repo root> <source stage> <baseline tag> [package filter] ['dry-run']"
