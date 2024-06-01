@@ -19,9 +19,9 @@ tag_package() {
     # echo "~~ git push origin $TAG"
     # git push origin $TAG
     if [ "$TAG" == "$DEFAULT_DEST_TAG" ]; then
-      echo "$STAGE-$DISTRO-$CODENAME $PACKAGE_NAME $TAG DEFAULT"
+      : # echo "$STAGE-$DISTRO-$CODENAME $PACKAGE_NAME $TAG DEFAULT"
     else
-      echo "$STAGE-$DISTRO-$CODENAME $PACKAGE_NAME $TAG SPECIAL"
+      echo "$STAGE-$DISTRO-$CODENAME $PACKAGE_NAME $TAG SPECIAL ($PACKAGE_SOURCE_REF)"
     fi
   fi
 }
@@ -61,6 +61,10 @@ handle_package() {
     tag_package "$DEFAULT_DEST_TAG"
   elif [ "$PACKAGE_SOURCE_REF" == "master" ]; then
     tag_package "$DEFAULT_DEST_TAG"
+  elif [[ "$PACKAGE_SOURCE_REF" == "ubuntu-jammy" || "$PACKAGE_SOURCE_REF" == "ubuntu/jammy" ]]; then
+    tag_package "$DEFAULT_DEST_TAG-ubuntu-jammy"
+  elif [[ "$PACKAGE_SOURCE_REF" == "ubuntu-focal" || "$PACKAGE_SOURCE_REF" == "ubuntu/focal" ]]; then
+    tag_package "$DEFAULT_DEST_TAG-ubuntu-focal"
   elif [ "$PACKAGE_SOURCE_REF" == "debian-bullseye" ]; then
     tag_package "$DEFAULT_DEST_TAG-debian-bullseye"
   elif [[ "$PACKAGE_SOURCE_REF" == "debian-testing" || "$PACKAGE_SOURCE_REF" == "debian/testing" ]]; then
@@ -71,10 +75,6 @@ handle_package() {
     tag_package "$DEFAULT_DEST_TAG-gnome-43"
   elif [ "$PACKAGE_SOURCE_REF" == "regolith/46" ]; then
     tag_package "$DEFAULT_DEST_TAG-gnome-46"
-  elif [[ "$PACKAGE_SOURCE_REF" == "ubuntu-jammy" || "$PACKAGE_SOURCE_REF" == "ubuntu/jammy" ]]; then
-    tag_package "$DEFAULT_DEST_TAG-ubuntu-jammy"
-  elif [[ "$PACKAGE_SOURCE_REF" == "ubuntu-focal" || "$PACKAGE_SOURCE_REF" == "ubuntu/focal" ]]; then
-    tag_package "$DEFAULT_DEST_TAG-ubuntu-focal"
   elif [[ "$PACKAGE_SOURCE_REF" == "debian-v9" && "$PACKAGE_NAME" == "picom" ]]; then
     tag_package "$DEFAULT_DEST_TAG"
   elif [[ "$PACKAGE_SOURCE_REF" == "debian" && "$PACKAGE_NAME" == "whitesur-gtk-theme" ]]; then
