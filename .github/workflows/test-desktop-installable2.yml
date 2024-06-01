@@ -1,57 +1,10 @@
-name: Test regolith-desktop is installable
+name: Test Regolith desktop is installable
 
 on:
   workflow_dispatch:
   workflow_call:
 
 jobs:
-  test-debian-bullseye-install:
-    runs-on: ${{ matrix.host-os }}
-    strategy:
-      matrix:
-        stage: [unstable, testing, release-3_0, release-3_1]
-        distro-codename: [debian-bullseye]
-        arch: [amd64, arm64]
-        include:
-          - arch: amd64
-            host-os: ubuntu-20.04
-          - arch: arm64
-            host-os: [self-hosted, Linux, ARM64, focal]
-          - distro-codename: debian-bullseye
-            distro: debian
-            codename: bullseye
-    steps:
-      - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
-        uses: regolith-linux/test-desktop-installable-action/debian/bullseye@a46d23d5752c3bd45e1c692f908975e4a63c8e26
-        with:
-          apt-key-url: http://regolith-desktop.org/regolith3.key
-          apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
-          target-package: "regolith-desktop"
-
-  test-debian-testing-install:
-    runs-on: ${{ matrix.host-os }}
-    strategy:
-      matrix:
-        stage: [unstable, testing] # , release
-        distro-codename: [debian-testing]
-        arch: [amd64, arm64]
-        wm: [regolith-session-flashback] #, regolith-session-sway] // See https://github.com/regolith-linux/sway-regolith/issues/12
-        include:
-          - arch: amd64
-            host-os: [self-hosted, Linux, X64, testing]
-          - arch: arm64
-            host-os: [self-hosted, Linux, ARM64, testing]
-          - distro-codename: debian-testing
-            distro: debian
-            codename: testing
-    steps:
-      - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
-        uses: regolith-linux/test-desktop-installable-action/debian/testing@a46d23d5752c3bd45e1c692f908975e4a63c8e26
-        with:
-          apt-key-url: http://regolith-desktop.org/regolith3.key
-          apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
-          target-package: "regolith-desktop ${{ matrix.wm }}"
-
   test-debian-bookworm-install:
     runs-on: ${{ matrix.host-os }}
     strategy:
@@ -75,29 +28,30 @@ jobs:
           apt-key-url: http://regolith-desktop.org/regolith3.key
           apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
           target-package: "regolith-desktop ${{ matrix.wm }}"
-
-  test-ubuntu-focal-install:
+  
+  test-debian-testing-install:
     runs-on: ${{ matrix.host-os }}
     strategy:
       matrix:
-        stage: [unstable, testing, release-3_0, release-3_1]
-        distro-codename: [ubuntu-focal]
+        stage: [unstable, testing] # , release
+        distro-codename: [debian-testing]
         arch: [amd64, arm64]
+        wm: [regolith-session-flashback] #, regolith-session-sway] // See https://github.com/regolith-linux/sway-regolith/issues/12
         include:
           - arch: amd64
-            host-os: ubuntu-20.04
+            host-os: [self-hosted, Linux, X64, testing]
           - arch: arm64
-            host-os: [self-hosted, Linux, ARM64, focal]
-          - distro-codename: ubuntu-focal
-            distro: ubuntu
-            codename: focal
+            host-os: [self-hosted, Linux, ARM64, testing]
+          - distro-codename: debian-testing
+            distro: debian
+            codename: testing
     steps:
       - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
-        uses: regolith-linux/test-desktop-installable-action/ubuntu/focal@a46d23d5752c3bd45e1c692f908975e4a63c8e26
+        uses: regolith-linux/test-desktop-installable-action/debian/testing@a46d23d5752c3bd45e1c692f908975e4a63c8e26
         with:
           apt-key-url: http://regolith-desktop.org/regolith3.key
           apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
-          target-package: "regolith-desktop"
+          target-package: "regolith-desktop ${{ matrix.wm }}"
 
   test-ubuntu-jammy-install:
     runs-on: ${{ matrix.host-os }}
