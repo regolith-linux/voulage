@@ -13,8 +13,11 @@ on:
       package-name:
         description: 'Package Name Filter (optional)'
       dry-run-mode:
-        description: 'Dry-run (empty for write mode)'
-        default: dry-run
+        type: choice
+        description: 'Mode'
+        options:
+        - dry-run
+        - push-tags
 
 jobs:
   build:
@@ -26,9 +29,17 @@ jobs:
         run: |
           set -x
 
-          ${{ github.workspace }}/.github/scripts/tag-stage.sh \
-            ${{ github.workspace }} \
-            ${{ github.event.inputs.stage-id }} \
-            ${{ github.event.inputs.base-tag-name }} \
-            ${{ github.event.inputs.package-name }} \
-            ${{ github.event.inputs.dry-run-mode }}
+          if [ "${{ github.event.inputs.dry-run-mode }}" == "push-tags" ]; then
+            ${{ github.workspace }}/.github/scripts/tag-stage.sh \
+              ${{ github.workspace }} \
+              ${{ github.event.inputs.stage-id }} \
+              ${{ github.event.inputs.base-tag-name }} \
+              ${{ github.event.inputs.package-name }}
+          else
+            ${{ github.workspace }}/.github/scripts/tag-stage.sh \
+              ${{ github.workspace }} \
+              ${{ github.event.inputs.stage-id }} \
+              ${{ github.event.inputs.base-tag-name }} \
+              ${{ github.event.inputs.package-name }} \
+              dry-run
+          fi
