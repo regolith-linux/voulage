@@ -1,0 +1,35 @@
+name: Promote Stage
+
+on:
+  workflow_dispatch:
+    inputs:
+      stage-id:
+        description: 'Stage to promote from'
+        required: true
+        default: unstable
+      base-tag-name:
+        description: 'Base tag name (eg "3_2-beta2")'
+        required: true
+      package-name:
+        description: 'Package Name Filter (optional)'
+      dry-run-mode:
+        description: 'Dry-run (empty for write mode)'
+        required: true
+        default: dry-run
+
+jobs:
+  build:
+    runs-on: ${{ github.event.inputs.build-os-image }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Promote Stage
+        id: build
+        run: |
+          set -x
+
+          ${{ github.workspace }}/.github/scripts/tag-stage.sh \
+            ${{ github.workspace }} \
+            ${{ github.event.inputs.stage-id }} \
+            ${{ github.event.inputs.base-tag-name }} \
+            ${{ github.event.inputs.package-name }} \
+            ${{ github.event.inputs.dry-run-mode }}
