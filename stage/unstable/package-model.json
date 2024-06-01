@@ -6,7 +6,7 @@
     },
     "armesto": {
       "ref": "main",
-      "source": "https://github.com/kgilmer/armesto.git"
+      "source": "https://github.com/regolith-linux/armesto.git"
     },
     "ayu-theme": {
       "ref": "master",
