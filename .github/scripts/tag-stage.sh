@@ -1,8 +1,6 @@
 #!/bin/bash
 #
 # This script creates tags in repos based on a truth table contained within.
-# Usage of this script is for tagging repos with a tag scheme suitable for
-# usage in package models that is obvious and intuitive.
 # See handle_package() function for specific mappings.
 #
 set -e
@@ -12,15 +10,18 @@ tag_package() {
   if [ $(git tag -l "$TAG") ]; then
     : # echo "# ignoring, $TAG already exists for $PACKAGE_NAME"
   else
-    # echo "# Creating new tag $TAG for $PACKAGE_NAME"
-    # echo "~~ git tag $TAG"
-    # git tag $TAG
+    echo "# Creating new tag $TAG for $PACKAGE_NAME"
+    git tag $TAG
     # echo "# Pushing tag $TAG for $PACKAGE_NAME"
-    # echo "~~ git push origin $TAG"
-    # git push origin $TAG
-    if [ "$TAG" == "$DEFAULT_DEST_TAG" ]; then
-      : # echo "$STAGE-$DISTRO-$CODENAME $PACKAGE_NAME $TAG DEFAULT"
-    else
+    
+    if [ -z "$DRY_RUN" ]; then
+      git push origin $TAG
+    else 
+      echo "# (dry-run): git push origin $TAG"
+    fi
+
+    # Print special cases for auditing
+    if [ "$TAG" != "$DEFAULT_DEST_TAG" ]; then
       echo "$STAGE-$DISTRO-$CODENAME $PACKAGE_NAME $TAG SPECIAL ($PACKAGE_SOURCE_REF)"
     fi
   fi
@@ -51,16 +52,19 @@ handle_package() {
     # echo "# cloned $PACKAGE_SOURCE_REF ref $PACKAGE_SOURCE_REF"
   fi
 
-
   # Here lies a mapping for how all the various branch naming strategies over the years
   # collapse into tags of this form:
   # r<major version>[_<non-zero minor version>[-beta<1-based index>[-VARIANT]]]  (ex: "r4", "r3_1", "r3_2-beta7")
   # where "VARIANT" is of the form: <distro>-<codename> OR <library>-<library version>  (ex: "ubuntu-jammy", "gnome-43")
   # complete examples: "r4-ubuntu-jammy", "r3_1-beta2-debian-bullseye"
+  
+  # default main/master branches ~ convention is main
   if [ "$PACKAGE_SOURCE_REF" == "main" ]; then
     tag_package "$DEFAULT_DEST_TAG"
   elif [ "$PACKAGE_SOURCE_REF" == "master" ]; then
     tag_package "$DEFAULT_DEST_TAG"
+  
+  # distro/codename specific branches ~ convention is <distro>-<codename>
   elif [[ "$PACKAGE_SOURCE_REF" == "ubuntu-jammy" || "$PACKAGE_SOURCE_REF" == "ubuntu/jammy" ]]; then
     tag_package "$DEFAULT_DEST_TAG-ubuntu-jammy"
   elif [[ "$PACKAGE_SOURCE_REF" == "ubuntu-focal" || "$PACKAGE_SOURCE_REF" == "ubuntu/focal" ]]; then
@@ -71,10 +75,14 @@ handle_package() {
     tag_package "$DEFAULT_DEST_TAG-debian-testing"
   elif [[ "$PACKAGE_SOURCE_REF" == "debian-bookworm" || "$PACKAGE_SOURCE_REF" == "debian-bookworm-compat" ]]; then
     tag_package "$DEFAULT_DEST_TAG-debian-bookworm"
+
+  # library/platform specific branches ~ convention is <library-name>-<version>
   elif [ "$PACKAGE_SOURCE_REF" == "regolith/1%43.0-1" ]; then
     tag_package "$DEFAULT_DEST_TAG-gnome-43"
   elif [ "$PACKAGE_SOURCE_REF" == "regolith/46" ]; then
     tag_package "$DEFAULT_DEST_TAG-gnome-46"
+
+  # Miscellaneous edge cases
   elif [[ "$PACKAGE_SOURCE_REF" == "debian-v9" && "$PACKAGE_NAME" == "picom" ]]; then
     tag_package "$DEFAULT_DEST_TAG"
   elif [[ "$PACKAGE_SOURCE_REF" == "debian" && "$PACKAGE_NAME" == "whitesur-gtk-theme" ]]; then
@@ -96,7 +104,7 @@ handle_package() {
   elif [[ "$PACKAGE_SOURCE_REF" == "debian" && "$PACKAGE_NAME" == "fonts-nerd-fonts" ]]; then
     tag_package "$DEFAULT_DEST_TAG"
   else
-    echo "### Ignoring unhandled variant: $PACKAGE_NAME on $STAGE-$DISTRO-$CODENAME with tag $PACKAGE_SOURCE_REF"
+    echo "# Warning: Ignoring unhandled variant: $PACKAGE_NAME on $STAGE-$DISTRO-$CODENAME with tag $PACKAGE_SOURCE_REF"
   fi
 
   popd > /dev/null
@@ -124,7 +132,7 @@ process_model() {
 # Generate a json file from a root and any additions in each level of the stage tree
 walk_package_models() {
   if [ ! -f "$ROOT_MODEL_PATH" ]; then
-    echo "Invalid root model path: $ROOT_MODEL_PATH"
+    echo "Error: invalid root model path: $ROOT_MODEL_PATH.  Aborting."
     exit 1
   fi
 
@@ -177,9 +185,10 @@ REPO_ROOT=$(realpath "$1")
 STAGE=$2   # this tool only works within a single stage
 DEFAULT_DEST_TAG=$3 # base tag to create, w varations. ex: r3_2-beta1
 PACKAGE_FILTER=$4 # Filter only package name (optional)
+DRY_RUN=$5
 
 if [[ -z "$STAGE" || -z "$DEFAULT_DEST_TAG" ]]; then
-  echo "usage: tag-stage.sh <repo root> <source stage> <baseline tag> [package filter]"
+  echo "usage: tag-stage.sh <repo root> <source stage> <baseline tag> [package filter] ['dry-run']"
   exit 1
 fi
 
@@ -187,9 +196,10 @@ fi
 ROOT_MODEL_PATH="$REPO_ROOT/stage/$STAGE/package-model.json"
 PKG_STAGE_ROOT="/tmp/voulage-stage-tool"
 
-# if [ -d "$PKG_STAGE_ROOT" ]; then
-#   rm -Rf "$PKG_STAGE_ROOT"
-# fi
+if [ -d "$PKG_STAGE_ROOT" ]; then
+   rm -Rf "$PKG_STAGE_ROOT"
+   echo "Deleted pre-existing temp dir $PKG_STAGE_ROOT"
+fi
 
 # Walk across stage, distro, codename, arch
 walk_package_models
