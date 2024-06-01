@@ -14,7 +14,6 @@ on:
         description: 'Package Name Filter (optional)'
       dry-run-mode:
         description: 'Dry-run (empty for write mode)'
-        required: true
         default: dry-run
 
 jobs:
