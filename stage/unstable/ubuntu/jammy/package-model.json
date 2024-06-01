@@ -1,18 +1,18 @@
 {
   "packages": {
+    "childe": null,
+    "gtklock": {
+      "ref": "ubuntu/jammy",
+      "source": "https://github.com/regolith-linux/gtklock.git"
+    },
     "regolith-control-center": {
-      "source": "https://github.com/regolith-linux/regolith-control-center.git",
-      "ref": "ubuntu/jammy"
+      "ref": "ubuntu/jammy",
+      "source": "https://github.com/regolith-linux/regolith-control-center.git"
     },
     "sway-regolith": {
-      "source": "https://github.com/regolith-linux/sway-regolith.git",
-      "ref": "packaging/v1.7-regolith"
+      "ref": "packaging/v1.7-regolith",
+      "source": "https://github.com/regolith-linux/sway-regolith.git"
     },
-    "gtklock": {
-      "source": "https://github.com/regolith-linux/gtklock.git",
-      "ref": "ubuntu/jammy"
-    },
-    "childe": null,
     "xdg-desktop-portal-regolith": null
   }
 }

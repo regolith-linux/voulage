@@ -1,34 +1,34 @@
 {
   "packages": {
-    "regolith-control-center": {
-      "source": "https://github.com/regolith-linux/regolith-control-center.git",
-      "ref": "regolith/46"
-    },
-    "sway-audio-idle-inhibit": {
-      "source": "https://github.com/regolith-linux/SwayAudioIdleInhibit.git",
-      "ref": "debian/testing"
+    "childe": {
+      "ref": "debian-bookworm",
+      "source": "https://github.com/regolith-linux/childe.git"
     },
     "gtklock": {
-      "source": "https://github.com/regolith-linux/gtklock.git",
-      "ref": "ubuntu/jammy"
+      "ref": "ubuntu/jammy",
+      "source": "https://github.com/regolith-linux/gtklock.git"
     },
     "i3status-rs": {
-      "source": "https://github.com/regolith-linux/i3status-rs_debian.git",
-      "ref": "ubuntu/v0.32.1"
+      "ref": "ubuntu/v0.32.1",
+      "source": "https://github.com/regolith-linux/i3status-rs_debian.git"
     },
-    "sway-regolith": {
-      "source": "https://github.com/regolith-linux/sway-regolith.git",
-      "ref": "packaging/v1.8-regolith"
-    },
-    "childe": {
-      "source": "https://github.com/regolith-linux/childe.git",
-      "ref": "debian-bookworm"
+    "plymouth-theme-regolith": null,
+    "regolith-control-center": {
+      "ref": "regolith/46",
+      "source": "https://github.com/regolith-linux/regolith-control-center.git"
     },
     "regolith-powerd": {
-      "source": "https://github.com/regolith-linux/regolith-powerd.git",
-      "ref": "debian-bookworm-compat"
+      "ref": "debian-bookworm-compat",
+      "source": "https://github.com/regolith-linux/regolith-powerd.git"
     },
-    "ubiquity-slideshow-regolith": null,
-    "plymouth-theme-regolith": null
+    "sway-audio-idle-inhibit": {
+      "ref": "debian/testing",
+      "source": "https://github.com/regolith-linux/SwayAudioIdleInhibit.git"
+    },
+    "sway-regolith": {
+      "ref": "packaging/v1.8-regolith",
+      "source": "https://github.com/regolith-linux/sway-regolith.git"
+    },
+    "ubiquity-slideshow-regolith": null
   }
 }
