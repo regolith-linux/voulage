@@ -30,6 +30,7 @@
     "gtklock": null,
     "regolith-powerd": null,
     "sway-audio-idle-inhibit": null,
-    "childe": null
+    "childe": null,
+    "ubiquity-slideshow-regolith": null
   }
 }

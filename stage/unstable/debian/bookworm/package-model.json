@@ -8,10 +8,6 @@
       "source": "https://github.com/regolith-linux/childe.git",
       "ref": "debian-bookworm"
     },
-    "xdg-desktop-portal-regolith": {
-      "source": "https://github.com/regolith-linux/xdg-desktop-portal-regolith.git",
-      "ref": "main"
-    },
     "armesto": null,
     "gtklock": null,
     "i3status-rs": null,

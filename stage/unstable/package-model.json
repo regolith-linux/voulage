@@ -219,6 +219,10 @@
     "childe": {
       "source": "https://github.com/regolith-linux/childe.git",
       "ref": "main"
+    },
+    "ubiquity-slideshow-regolith": {
+      "source": "https://github.com/regolith-linux/ubiquity-slideshow-regolith.git",
+      "ref": "master"
     }
   }
 }

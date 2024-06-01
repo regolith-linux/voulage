@@ -1,9 +1,5 @@
 {
   "packages": {
-    "regolith-desktop": {
-      "source": "https://github.com/regolith-linux/regolith-desktop.git",
-      "ref": "main"
-    },
     "regolith-control-center": {
       "source": "https://github.com/regolith-linux/regolith-control-center.git",
       "ref": "regolith/46"
