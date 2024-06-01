@@ -1,24 +1,24 @@
 {
     "packages": {
-        "i3status-rs": null,
-        "regolith-displayd": null,
-        "regolith-inputd": null,
-        "trawl": null,
-        "libtrawldb": null,
-        "sway-regolith": null,
-        "regolith-avizo": null,
+        "childe": null,
         "gtklock": null,
-        "regolith-powerd": null,
-        "sway-audio-idle-inhibit": null,
+        "i3status-rs": null,
         "ilia": {
-            "source": "https://github.com/regolith-linux/ilia.git",
-            "ref": "r3_2-beta1-ubuntu-focal"
+            "ref": "r3_2-beta1-ubuntu-focal",
+            "source": "https://github.com/regolith-linux/ilia.git"
         },
         "lago": {
-            "source": "https://github.com/regolith-linux/lago.git",
-            "ref": "r3_2-beta1-ubuntu-focal"
+            "ref": "r3_2-beta1-ubuntu-focal",
+            "source": "https://github.com/regolith-linux/lago.git"
         },
-        "childe": null,
+        "libtrawldb": null,
+        "regolith-avizo": null,
+        "regolith-displayd": null,
+        "regolith-inputd": null,
+        "regolith-powerd": null,
+        "sway-audio-idle-inhibit": null,
+        "sway-regolith": null,
+        "trawl": null,
         "ubiquity-slideshow-regolith": null
     }
 }

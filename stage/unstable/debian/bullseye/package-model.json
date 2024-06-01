@@ -1,38 +1,38 @@
 {
   "packages": {
-    "regolith-desktop": {
-      "source": "https://github.com/regolith-linux/regolith-desktop.git",
-      "ref": "debian-bullseye"
-    },
-    "xcb-util": {
-      "source": "https://git.launchpad.net/ubuntu/+source/xcb-util",
-      "ref": "applied/ubuntu/groovy"
-    },
-    "regolith-control-center": {
-      "source": "https://github.com/regolith-linux/regolith-control-center.git",
-      "ref": "debian-bullseye"
-    },
-    "ilia": {
-      "source": "https://github.com/regolith-linux/ilia.git",
-      "ref": "ubuntu/focal"
-    },
-    "lago": {
-      "source": "https://github.com/regolith-linux/lago.git",
-      "ref": "ubuntu/focal"
-    },
     "armesto": null,
+    "childe": null,
     "gtklock": null,
     "i3status-rs": null,
+    "ilia": {
+      "ref": "ubuntu/focal",
+      "source": "https://github.com/regolith-linux/ilia.git"
+    },
+    "lago": {
+      "ref": "ubuntu/focal",
+      "source": "https://github.com/regolith-linux/lago.git"
+    },
     "libtrawldb": null,
     "regolith-avizo": null,
+    "regolith-control-center": {
+      "ref": "debian-bullseye",
+      "source": "https://github.com/regolith-linux/regolith-control-center.git"
+    },
+    "regolith-desktop": {
+      "ref": "debian-bullseye",
+      "source": "https://github.com/regolith-linux/regolith-desktop.git"
+    },
     "regolith-displayd": null,
     "regolith-inputd": null,
     "regolith-powerd": null,
     "sway-audio-idle-inhibit": null,
     "sway-regolith": null,
     "trawl": null,
-    "xdg-desktop-portal-regolith": null,
-    "childe": null,
-    "ubiquity-slideshow-regolith": null
+    "ubiquity-slideshow-regolith": null,
+    "xcb-util": {
+      "ref": "applied/ubuntu/groovy",
+      "source": "https://git.launchpad.net/ubuntu/+source/xcb-util"
+    },
+    "xdg-desktop-portal-regolith": null
   }
 }
