@@ -12,6 +12,7 @@
     "sway-regolith": {
       "ref": "r3_2-beta1-ubuntu-jammy",
       "source": "https://github.com/regolith-linux/sway-regolith.git"
-    }
+    },
+    "xdg-desktop-portal-regolith": null
   }
 }

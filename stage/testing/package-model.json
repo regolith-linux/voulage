@@ -211,6 +211,10 @@
     "whitesur-gtk-theme": {
       "ref": "r3_2-beta1",
       "source": "https://github.com/regolith-linux/whitesur-gtk-theme.git"
+    },    
+    "xdg-desktop-portal-regolith": {
+      "ref": "r3_2-beta1",
+      "source": "https://github.com/regolith-linux/xdg-desktop-portal-regolith.git"
     },
     "xrescat": {
       "ref": "r3_2-beta1",
