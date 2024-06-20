@@ -15,7 +15,7 @@ tag_package() {
     # echo "# Pushing tag $TAG for $PACKAGE_NAME"
     
     if [ -z "$DRY_RUN" ]; then
-      echo git push origin $TAG
+      git push origin $TAG
     else 
       echo "# (dry-run): git push origin $TAG"
     fi

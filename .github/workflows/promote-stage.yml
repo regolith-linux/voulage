@@ -4,14 +4,14 @@ on:
   workflow_dispatch:
     inputs:
       stage-id:
-        description: 'Stage to promote from'
+        description: 'Stage to promote from (eg "unstable")'
         required: true
         default: unstable
       base-tag-name:
         description: 'Base tag name (eg "r3_2-beta2")'
         required: true
       package-name:
-        description: 'Package Name Filter (optional)'
+        description: 'Package Name Filter (inclusive, optional)'
       dry-run-mode:
         type: choice
         description: 'Mode'
