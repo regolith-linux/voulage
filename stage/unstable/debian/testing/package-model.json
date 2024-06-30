@@ -5,10 +5,6 @@
       "ref": "regolith/46",
       "source": "https://github.com/regolith-linux/regolith-control-center.git"
     },
-    "sway-regolith": {
-      "ref": "packaging/v1.8-regolith",
-      "source": "https://github.com/regolith-linux/sway-regolith.git"
-    },
     "ubiquity-slideshow-regolith": null
   }
 }
