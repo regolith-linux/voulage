@@ -1,29 +1,9 @@
 {
   "packages": {
-    "childe": {
-      "ref": "debian-bookworm",
-      "source": "https://github.com/regolith-linux/childe.git"
-    },
-    "gtklock": {
-      "ref": "ubuntu/jammy",
-      "source": "https://github.com/regolith-linux/gtklock.git"
-    },
-    "i3status-rs": {
-      "ref": "ubuntu/v0.32.1",
-      "source": "https://github.com/regolith-linux/i3status-rs_debian.git"
-    },
     "plymouth-theme-regolith": null,
     "regolith-control-center": {
       "ref": "regolith/46",
       "source": "https://github.com/regolith-linux/regolith-control-center.git"
-    },
-    "regolith-powerd": {
-      "ref": "debian-bookworm-compat",
-      "source": "https://github.com/regolith-linux/regolith-powerd.git"
-    },
-    "sway-audio-idle-inhibit": {
-      "ref": "debian/testing",
-      "source": "https://github.com/regolith-linux/SwayAudioIdleInhibit.git"
     },
     "sway-regolith": {
       "ref": "packaging/v1.8-regolith",
