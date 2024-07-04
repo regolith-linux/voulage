@@ -81,8 +81,8 @@
       "source": "https://github.com/regolith-linux/nordic.git"
     },
     "picom": {
-      "ref": "debian-v9",
-      "source": "https://github.com/regolith-linux/picom.git"
+      "ref": "packaging/v11-regolith",
+      "source": "https://github.com/regolith-linux/picom.git"      
     },
     "plymouth-theme-regolith": {
       "ref": "master",
