@@ -56,10 +56,6 @@
       "ref": "master",
       "source": "https://github.com/regolith-linux/i3-swap-focus.git"
     },
-    "i3-wm": {
-      "ref": "main",
-      "source": "https://github.com/regolith-linux/i3-wm.git"
-    },
     "i3status-rs": {
       "ref": "ubuntu/v0.22.0",
       "source": "https://github.com/regolith-linux/i3status-rs_debian.git"
