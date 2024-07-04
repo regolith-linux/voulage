@@ -1,9 +1,5 @@
 {
   "packages": {
-    "picom": {
-      "source": "https://github.com/regolith-linux/picom.git",
-      "ref": "packaging/v11-regolith"
-    },
     "xrescat": {
       "source": "https://github.com/regolith-linux/xrescat.git",
       "ref": "experimental"
