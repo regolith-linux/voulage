@@ -14,6 +14,7 @@
     "regolith-displayd": null,
     "regolith-inputd": null,
     "regolith-powerd": null,
+    "regolith-sway-touchpad-gestures": null,
     "sway-audio-idle-inhibit": null,
     "sway-regolith": null,
     "trawl": null,

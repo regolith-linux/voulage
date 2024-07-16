@@ -9,6 +9,7 @@
       "ref": "ubuntu/jammy",
       "source": "https://github.com/regolith-linux/regolith-control-center.git"
     },
+    "regolith-sway-touchpad-gestures": null,
     "sway-regolith": {
       "ref": "packaging/v1.7-regolith",
       "source": "https://github.com/regolith-linux/sway-regolith.git"
