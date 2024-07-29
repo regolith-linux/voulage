@@ -1,18 +1,9 @@
 {
   "packages": {
-    "gtklock": {
-      "ref": "r3_2-beta3-ubuntu-jammy",
-      "source": "https://github.com/regolith-linux/gtklock.git"
-    },
     "plymouth-theme-regolith": null,
-    "regolith-control-center": null,
-    "regolith-powerd": {
-      "ref": "r3_2-beta3-debian-bookworm",
-      "source": "https://github.com/regolith-linux/regolith-powerd.git"
-    },
-    "sway-audio-idle-inhibit": {
-      "ref": "r3_2-beta3-debian-testing",
-      "source": "https://github.com/regolith-linux/SwayAudioIdleInhibit.git"
+    "regolith-control-center": {
+      "ref": "r3_2-beta3-gnome-46",
+      "source": "https://github.com/regolith-linux/regolith-control-center.git"
     },
     "ubiquity-slideshow-regolith": null
   }
