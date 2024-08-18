@@ -10,7 +10,7 @@ tag_package() {
   if [ $(git tag -l "$TAG") ]; then
     : # echo "# ignoring, $TAG already exists for $PACKAGE_NAME"
   else
-    echo "# Creating new tag $TAG for $PACKAGE_NAME"
+    echo "# Creating new tag $TAG on $PACKAGE_SOURCE_REF for $PACKAGE_NAME"
     git tag $TAG
     # echo "# Pushing tag $TAG for $PACKAGE_NAME"
     
