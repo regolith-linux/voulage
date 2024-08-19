@@ -2,7 +2,7 @@
   "packages": {
     "plymouth-theme-regolith": null,
     "regolith-control-center": {
-      "ref": "r3_2-beta3-gnome-46",
+      "ref": "r3_2-beta4-gnome-46",
       "source": "https://github.com/regolith-linux/regolith-control-center.git"
     },
     "ubiquity-slideshow-regolith": null
