@@ -22,7 +22,7 @@ tag_package() {
 
     # Print special cases for auditing
     if [ "$TAG" != "$DEFAULT_DEST_TAG" ]; then
-      echo "$STAGE-$DISTRO-$CODENAME $PACKAGE_NAME $TAG SPECIAL ($PACKAGE_SOURCE_REF)"
+      echo "# SPECIAL $STAGE-$DISTRO-$CODENAME $PACKAGE_NAME tag: $TAG source: ($PACKAGE_SOURCE_REF)"
     fi
   fi
 }
@@ -57,9 +57,12 @@ handle_package() {
   # r<major version>[_<non-zero minor version>[-beta<1-based index>[-VARIANT]]]  (ex: "r4", "r3_1", "r3_2-beta7")
   # where "VARIANT" is of the form: <distro>-<codename> OR <library>-<library version>  (ex: "ubuntu-jammy", "gnome-43")
   # complete examples: "r4-ubuntu-jammy", "r3_1-beta2-debian-bullseye"
-  
-  # default main/master branches ~ convention is main
-  if [ "$PACKAGE_SOURCE_REF" == "main" ]; then
+  # set -x
+
+  if [ "$STAGE" == "testing" ]; then # When tagging from 'testing', simply remove 'beta' postfix
+    PROD_TAG=${PACKAGE_SOURCE_REF//\-beta?/}
+    tag_package "$PROD_TAG"
+  elif [ "$PACKAGE_SOURCE_REF" == "main" ]; then # default main/master branches ~ convention is main
     tag_package "$DEFAULT_DEST_TAG"
   elif [ "$PACKAGE_SOURCE_REF" == "master" ]; then
     tag_package "$DEFAULT_DEST_TAG"
@@ -106,6 +109,8 @@ handle_package() {
   else
     echo "# Warning: Ignoring unhandled variant: $PACKAGE_NAME on $STAGE-$DISTRO-$CODENAME with tag $PACKAGE_SOURCE_REF"
   fi
+
+  # set +x
 
   popd > /dev/null
 }
@@ -191,6 +196,11 @@ elif [ -n "$4" ]; then
   PACKAGE_FILTER=$4 # Filter only package name (optional)
   DRY_RUN=$5
 fi
+
+echo "STAGE:            $STAGE"
+echo "DEFAULT_DEST_TAG: $DEFAULT_DEST_TAG"
+echo "PACKAGE_FILTER:   $PACKAGE_FILTER"
+echo "DRY_RUN:          $DRY_RUN"
 
 if [ -z "$DRY_RUN" ]; then
   echo "Running in write mode"
