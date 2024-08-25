@@ -192,7 +192,10 @@
       "ref": "r3_2",
       "source": "https://github.com/regolith-linux/SwayAudioIdleInhibit.git"
     },
-    "sway-regolith": null,
+    "sway-regolith": {
+      "ref": "r3_2",
+      "source": "https://github.com/regolith-linux/sway-regolith.git"
+    },
     "trawl": {
       "ref": "r3_2",
       "source": "https://github.com/regolith-linux/trawl.git"
