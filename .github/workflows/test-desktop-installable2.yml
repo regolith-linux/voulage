@@ -9,7 +9,7 @@ jobs:
     runs-on: ${{ matrix.host-os }}
     strategy:
       matrix:
-        stage: [unstable, testing] # , release
+        stage: [unstable, testing, release-3_2] # , release
         distro-codename: [debian-bookworm]
         arch: [amd64, arm64]
         wm: [regolith-session-flashback]
@@ -33,7 +33,7 @@ jobs:
     runs-on: ${{ matrix.host-os }}
     strategy:
       matrix:
-        stage: [unstable, testing] # , release
+        stage: [unstable, testing] # , testing is never released
         distro-codename: [debian-testing]
         arch: [amd64, arm64]
         wm: [regolith-session-flashback, regolith-session-sway]
@@ -57,7 +57,7 @@ jobs:
     runs-on: ${{ matrix.host-os }}
     strategy:
       matrix:
-        stage: [unstable, testing, release-3_0, release-3_1]
+        stage: [unstable, testing, release-3_0, release-3_1, release-3_2]
         distro-codename: [ubuntu-jammy]
         arch: [amd64, arm64]
         wm: [regolith-session-flashback, regolith-session-sway]
@@ -84,7 +84,7 @@ jobs:
     runs-on: ${{ matrix.host-os }}
     strategy:
       matrix:
-        stage: [unstable, testing]
+        stage: [unstable, testing, release-3_2]
         distro-codename: [ubuntu-noble]
         arch: [amd64, arm64]
         wm: [regolith-session-flashback, regolith-session-sway]
