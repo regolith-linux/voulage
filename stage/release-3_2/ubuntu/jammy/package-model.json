@@ -9,10 +9,7 @@
       "ref": "r3_2-ubuntu-jammy",
       "source": "https://github.com/regolith-linux/regolith-control-center.git"
     },
-    "sway-regolith": {
-      "ref": "r3_2-ubuntu-jammy",
-      "source": "https://github.com/regolith-linux/sway-regolith.git"
-    },
+    "sway-regolith": null,
     "xdg-desktop-portal-regolith": null
   }
 }
