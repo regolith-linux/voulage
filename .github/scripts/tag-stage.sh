@@ -8,22 +8,28 @@ set -e
 tag_package() {
   TAG=$1
   if [ $(git tag -l "$TAG") ]; then
-    : # echo "# ignoring, $TAG already exists for $PACKAGE_NAME"
-  else
-    echo "# Creating new tag $TAG on $PACKAGE_SOURCE_REF for $PACKAGE_NAME"
-    git tag $TAG
-    # echo "# Pushing tag $TAG for $PACKAGE_NAME"
-    
-    if [ -z "$DRY_RUN" ]; then
-      git push origin $TAG
-    else 
-      echo "# (dry-run): git push origin $TAG"
-    fi
+      if [ -z "$DRY_RUN" ]; then
+        git push --delete origin "$TAG" || :
+        git tag -d "$TAG"
+      else 
+        echo "# (dry-run): delete local and remote tag $TAG"
+        git tag -d "$TAG"
+      fi
+  fi
+  
+  echo "# Creating new tag $TAG on $PACKAGE_SOURCE_REF for $PACKAGE_NAME"
+  git tag $TAG
+  # echo "# Pushing tag $TAG for $PACKAGE_NAME"
+  
+  if [ -z "$DRY_RUN" ]; then
+    git push origin $TAG
+  else 
+    echo "# (dry-run): git push origin $TAG"
+  fi
 
-    # Print special cases for auditing
-    if [ "$TAG" != "$DEFAULT_DEST_TAG" ]; then
-      echo "# SPECIAL $STAGE-$DISTRO-$CODENAME $PACKAGE_NAME tag: $TAG source: ($PACKAGE_SOURCE_REF)"
-    fi
+  # Print special cases for auditing
+  if [ "$TAG" != "$DEFAULT_DEST_TAG" ]; then
+    echo "# SPECIAL $STAGE-$DISTRO-$CODENAME $PACKAGE_NAME tag: $TAG source: ($PACKAGE_SOURCE_REF)"
   fi
 }
 
@@ -40,6 +46,11 @@ handle_package() {
   mkdir -p $PKG_WORK_DIR
   
   pushd $PKG_WORK_DIR > /dev/null
+
+  if [[ $PACAKGE_SOURCE_URL == https://* ]]; then
+    # Extract domain, user, and repo name
+    PACAKGE_SOURCE_URL=$(echo $PACAKGE_SOURCE_URL | sed -r 's|https://([^/]*)/([^/]*)/([^/]*)(.git)?|git@\1:\2/\3|')
+  fi
 
   if [ -d "$PACKAGE_NAME" ]; then  
     pushd "$PACKAGE_NAME" > /dev/null
