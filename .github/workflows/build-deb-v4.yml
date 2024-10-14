@@ -18,6 +18,8 @@ jobs:
           ubuntu-jammy-arm64, 
           ubuntu-noble-amd64,
           ubuntu-noble-arm64,
+          ubuntu-oracular-amd64,
+          # ubuntu-noble-arm64,
           debian-bookworm-amd64,
           debian-bookworm-arm64,
           debian-testing-amd64,
@@ -28,6 +30,14 @@ jobs:
             distro-codename: debian-testing-amd64 # debian testing is never released
           - stage: release-3_2
             distro-codename: debian-testing-arm64 # debian testing is never released
+          - stage: release-3_2
+            distro-codename: ubuntu-oracular-amd64 # 3.2 released before oracular
+          - stage: release-3_2
+            distro-codename: ubuntu-oracular-arm64
+          - stage: testing
+            distro-codename: ubuntu-oracular-amd64 # Remove when beta ready
+          - stage: testing
+            distro-codename: ubuntu-oracular-arm64
         include:
           - distro-codename: ubuntu-jammy-amd64
             host-os: ubuntu-22.04
@@ -49,6 +59,16 @@ jobs:
             arch: arm64
             distro: ubuntu
             codename: noble
+          - distro-codename: ubuntu-oracular-amd64
+            host-os: [self-hosted, Linux, X64, oracular]
+            arch: amd64
+            distro: ubuntu
+            codename: oracular
+          - distro-codename: ubuntu-oracular-arm64
+            host-os: [self-hosted, Linux, arm64, oracular]
+            arch: arm64
+            distro: ubuntu
+            codename: oracular
           - distro-codename: debian-bookworm-amd64
             host-os: [self-hosted, Linux, X64, bookworm]
             arch: amd64
