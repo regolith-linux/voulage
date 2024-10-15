@@ -13,6 +13,7 @@
       "source": "https://github.com/regolith-linux/regolith-control-center.git"
     },
     "ubiquity-slideshow-regolith": null,
-    "armesto": null 
+    "armesto": null,
+    "sway-regolith": null
   }
 }
