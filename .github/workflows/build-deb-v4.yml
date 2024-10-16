@@ -12,14 +12,14 @@ jobs:
     runs-on: ${{ matrix.host-os }}
     strategy:
       matrix:
-        stage: [experimental, unstable, testing, release-3_2 ] # release-3_1, release-3_0, release-2_2, release-2_1]
+        stage: [experimental, unstable, testing ] #release-3_2, release-3_1, release-3_0, release-2_2, release-2_1]
         distro-codename: [
           ubuntu-jammy-amd64, 
           ubuntu-jammy-arm64, 
           ubuntu-noble-amd64,
           ubuntu-noble-arm64,
           ubuntu-oracular-amd64,
-          # ubuntu-noble-arm64,
+          # ubuntu-oracular-arm64,
           debian-bookworm-amd64,
           debian-bookworm-arm64,
           debian-testing-amd64,
@@ -64,11 +64,11 @@ jobs:
             arch: amd64
             distro: ubuntu
             codename: oracular
-          - distro-codename: ubuntu-oracular-arm64
-            host-os: [self-hosted, Linux, arm64, oracular]
-            arch: arm64
-            distro: ubuntu
-            codename: oracular
+          #- distro-codename: ubuntu-oracular-arm64
+          #  host-os: [self-hosted, Linux, arm64, oracular]
+          #  arch: arm64
+          #  distro: ubuntu
+          #  codename: oracular
           - distro-codename: debian-bookworm-amd64
             host-os: [self-hosted, Linux, X64, bookworm]
             arch: amd64
