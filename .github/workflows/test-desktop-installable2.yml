@@ -103,3 +103,27 @@ jobs:
           apt-key-url: http://regolith-desktop.org/regolith3.key
           apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
           target-package: "regolith-desktop ${{ matrix.wm }}"
+
+  test-ubuntu-oracular-install:
+    runs-on: ${{ matrix.host-os }}
+    strategy:
+      matrix:
+        stage: [unstable] #, testing, release-3_2]
+        distro-codename: [ubuntu-oracular]
+        arch: [amd64, arm64]
+        wm: [regolith-session-flashback, regolith-session-sway]
+        include:
+          - arch: amd64
+            host-os: [self-hosted, Linux, X64, oracular]
+          - arch: arm64
+            host-os: [self-hosted, Linux, ARM64, oracular]
+          - distro-codename: ubuntu-oracular
+            distro: ubuntu
+            codename: oracular
+    steps:
+      - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
+        uses: regolith-linux/test-desktop-installable-action/ubuntu/oracular@bbc152ea6a55737affa65cbf77e5ff69bee844e4
+        with:
+          apt-key-url: http://regolith-desktop.org/regolith3.key
+          apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
+          target-package: "regolith-desktop ${{ matrix.wm }}"
