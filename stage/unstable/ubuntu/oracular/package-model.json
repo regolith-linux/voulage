@@ -12,8 +12,6 @@
       "ref": "regolith/46",
       "source": "https://github.com/regolith-linux/regolith-control-center.git"
     },
-    "ubiquity-slideshow-regolith": null,
-    "armesto": null,
-    "xdg-desktop-portal-regolith": null
+    "ubiquity-slideshow-regolith": null
   }
 }
