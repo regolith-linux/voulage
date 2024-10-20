@@ -8,10 +8,7 @@
       "ref": "ubuntu/v0.32.1",
       "source": "https://github.com/regolith-linux/i3status-rs_debian.git"
     },
-    "regolith-control-center": {
-      "ref": "regolith/46",
-      "source": "https://github.com/regolith-linux/regolith-control-center.git"
-    },
+    "regolith-control-center": null,
     "ubiquity-slideshow-regolith": null
   }
 }
