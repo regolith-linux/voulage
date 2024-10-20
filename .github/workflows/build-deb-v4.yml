@@ -34,10 +34,6 @@ jobs:
             distro-codename: ubuntu-oracular-amd64 # 3.2 released before oracular
           - stage: release-3_2
             distro-codename: ubuntu-oracular-arm64
-          - stage: testing
-            distro-codename: ubuntu-oracular-amd64 # Remove when beta ready
-          - stage: testing
-            distro-codename: ubuntu-oracular-arm64
         include:
           - distro-codename: ubuntu-jammy-amd64
             host-os: ubuntu-22.04
