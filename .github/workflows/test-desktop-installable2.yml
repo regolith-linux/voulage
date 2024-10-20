@@ -108,7 +108,7 @@ jobs:
     runs-on: ${{ matrix.host-os }}
     strategy:
       matrix:
-        stage: [unstable] #, testing, release-3_2]
+        stage: [unstable, testing] #, release-3_2]
         distro-codename: [ubuntu-oracular]
         arch: [amd64, arm64]
         wm: [regolith-session-flashback, regolith-session-sway]
