@@ -10,6 +10,10 @@
     },
     "regolith-control-center": null,
     "ubiquity-slideshow-regolith": null,
-    "sway-regolith": null
+    "sway-regolith": null,
+    "xdg-desktop-portal-regolith": {
+      "ref": "r3_2-beta4-ubuntu-oracular",
+      "source": "https://github.com/regolith-linux/xdg-desktop-portal-regolith.git"
+    }
   }
 }
