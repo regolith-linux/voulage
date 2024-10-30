@@ -12,7 +12,7 @@ jobs:
     runs-on: ${{ matrix.host-os }}
     strategy:
       matrix:
-        stage: [experimental, unstable, testing ] #release-3_2, release-3_1, release-3_0, release-2_2, release-2_1]
+        stage: [ experimental, unstable, testing, release-3_2 ] #, release-3_1, release-3_0, release-2_2, release-2_1]
         distro-codename: [
           ubuntu-jammy-amd64, 
           ubuntu-jammy-arm64, 
