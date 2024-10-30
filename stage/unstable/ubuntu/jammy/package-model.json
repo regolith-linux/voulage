@@ -14,6 +14,10 @@
       "ref": "packaging/v1.7-regolith",
       "source": "https://github.com/regolith-linux/sway-regolith.git"
     },
-    "xdg-desktop-portal-regolith": null
+    "xdg-desktop-portal-regolith": null,
+    "i3-wm": {
+      "source": "https://github.com/regolith-linux/i3-wm.git",
+      "ref": "main"
+    }
   }
 }
