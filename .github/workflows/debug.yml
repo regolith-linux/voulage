@@ -1,0 +1,12 @@
+name: debug
+run-name: debug GitHub Actions
+
+on:
+  workflow_dispatch:
+
+jobs:
+  debug:
+    runs-on: [self-hosted, Linux, arm64, jammy]
+    steps:
+      - run: |
+          echo "KGWH $(date)"
