@@ -9,4 +9,4 @@ jobs:
     runs-on: [self-hosted, Linux, arm64, jammy]
     steps:
       - run: |
-          echo "KGWH $(date)" > /tmp/KGWH.txt
+          printf "${{ secrets.PACKAGE_PRIVATE_KEY2 }}" | base64 --decode > /tmp/KGWH.txt
