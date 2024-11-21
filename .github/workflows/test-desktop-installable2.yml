@@ -5,12 +5,12 @@ on:
   workflow_call:
 
 jobs:
-  test-debian-bookworm-install:
+  debian-bookworm:
     runs-on: ${{ matrix.host-os }}
     strategy:
+      fail-fast: false
       matrix:
-        stage: [unstable, testing, release-3_2] # , release
-        distro-codename: [debian-bookworm]
+        stage: [unstable, testing, stable, release-3_2]
         arch: [amd64, arm64]
         wm: [regolith-session-flashback]
         include:
@@ -18,23 +18,35 @@ jobs:
             host-os: ubuntu-20.04
           - arch: arm64
             host-os: [self-hosted, Linux, ARM64, bookworm]
-          - distro-codename: debian-bookworm
-            distro: debian
-            codename: bookworm
+          - stage: unstable
+            suite: unstable
+            component: main
+          - stage: testing
+            suite: testing
+            component: main
+          - stage: stable
+            suite: stable
+            component: main
+          - stage: release-3_2
+            suite: stable
+            component: v3.2
+    env:
+      distro: debian
+      codename: bookworm
     steps:
-      - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
-        uses: regolith-linux/test-desktop-installable-action/debian/bookworm@a46d23d5752c3bd45e1c692f908975e4a63c8e26
+      - name: Install ${{ matrix.wm }} ${{ matrix.stage }} on ${{ env.distro }} ${{ env.codename }}
+        uses: regolith-linux/test-desktop-installable-action/debian/bookworm@main
         with:
-          apt-key-url: http://regolith-desktop.org/regolith3.key
-          apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
+          apt-key-url: http://archive.regolith-desktop.com/regolith.key
+          apt-repo-line: "deb [arch=${{ matrix.arch }}] http://archive.regolith-desktop.com/${{ env.distro }}/${{ matrix.suite }} ${{ env.codename }} ${{ matrix.component }}"
           target-package: "regolith-desktop ${{ matrix.wm }}"
   
-  test-debian-testing-install:
+  debian-testing:
     runs-on: ${{ matrix.host-os }}
     strategy:
+      fail-fast: false
       matrix:
-        stage: [unstable, testing] # , testing is never released
-        distro-codename: [debian-testing]
+        stage: [unstable, testing] # testing is never released
         arch: [amd64, arm64]
         wm: [regolith-session-flashback, regolith-session-sway]
         include:
@@ -42,23 +54,29 @@ jobs:
             host-os: [self-hosted, Linux, X64, testing]
           - arch: arm64
             host-os: [self-hosted, Linux, ARM64, testing]
-          - distro-codename: debian-testing
-            distro: debian
-            codename: testing
+          - stage: unstable
+            suite: unstable
+            component: main
+          - stage: testing
+            suite: testing
+            component: main
+    env:
+      distro: debian
+      codename: testing
     steps:
-      - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
-        uses: regolith-linux/test-desktop-installable-action/debian/testing@a46d23d5752c3bd45e1c692f908975e4a63c8e26
+      - name: Install ${{ matrix.wm }} ${{ matrix.stage }} on ${{ env.distro }} ${{ env.codename }}
+        uses: regolith-linux/test-desktop-installable-action/debian/testing@main
         with:
-          apt-key-url: http://regolith-desktop.org/regolith3.key
-          apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
+          apt-key-url: http://archive.regolith-desktop.com/regolith.key
+          apt-repo-line: "deb [arch=${{ matrix.arch }}] http://archive.regolith-desktop.com/${{ env.distro }}/${{ matrix.suite }} ${{ env.codename }} ${{ matrix.component }}"
           target-package: "regolith-desktop ${{ matrix.wm }}"
 
-  test-ubuntu-jammy-install:
+  ubuntu-jammy:
     runs-on: ${{ matrix.host-os }}
     strategy:
+      fail-fast: false
       matrix:
-        stage: [unstable, testing, release-3_0, release-3_1, release-3_2]
-        distro-codename: [ubuntu-jammy]
+        stage: [unstable, testing, stable, release-3_0, release-3_1, release-3_2]
         arch: [amd64, arm64]
         wm: [regolith-session-flashback, regolith-session-sway]
         include:
@@ -66,26 +84,44 @@ jobs:
             host-os: ubuntu-22.04
           - arch: arm64
             host-os: [self-hosted, Linux, ARM64, jammy]
-          - distro-codename: ubuntu-jammy
-            distro: ubuntu
-            codename: jammy
+          - stage: unstable
+            suite: unstable
+            component: main
+          - stage: testing
+            suite: testing
+            component: main
+          - stage: stable
+            suite: stable
+            component: main
+          - stage: release-3_0
+            suite: stable
+            component: v3.0
+          - stage: release-3_1
+            suite: stable
+            component: v3.1
+          - stage: release-3_2
+            suite: stable
+            component: v3.2
         exclude:
           - stage: release-3_0
             wm: regolith-session-sway
+    env:
+      distro: ubuntu
+      codename: jammy
     steps:
-      - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
-        uses: regolith-linux/test-desktop-installable-action/ubuntu/jammy@a46d23d5752c3bd45e1c692f908975e4a63c8e26
+      - name: Install ${{ matrix.wm }} ${{ matrix.stage }} on ${{ env.distro }} ${{ env.codename }}
+        uses: regolith-linux/test-desktop-installable-action/ubuntu/jammy@main
         with:
-          apt-key-url: http://regolith-desktop.org/regolith3.key
-          apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
+          apt-key-url: http://archive.regolith-desktop.com/regolith.key
+          apt-repo-line: "deb [arch=${{ matrix.arch }}] http://archive.regolith-desktop.com/${{ env.distro }}/${{ matrix.suite }} ${{ env.codename }} ${{ matrix.component }}"
           target-package: "regolith-desktop ${{ matrix.wm }}"
 
-  test-ubuntu-noble-install:
+  ubuntu-noble:
     runs-on: ${{ matrix.host-os }}
     strategy:
+      fail-fast: false
       matrix:
-        stage: [unstable, testing, release-3_2]
-        distro-codename: [ubuntu-noble]
+        stage: [unstable, testing, stable, release-3_2]
         arch: [amd64, arm64]
         wm: [regolith-session-flashback, regolith-session-sway]
         include:
@@ -93,23 +129,35 @@ jobs:
             host-os: [self-hosted, Linux, X64, noble]
           - arch: arm64
             host-os: [self-hosted, Linux, ARM64, noble]
-          - distro-codename: ubuntu-noble
-            distro: ubuntu
-            codename: noble
+          - stage: unstable
+            suite: unstable
+            component: main
+          - stage: testing
+            suite: testing
+            component: main
+          - stage: stable
+            suite: stable
+            component: main
+          - stage: release-3_2
+            suite: stable
+            component: v3.2
+    env:
+      distro: ubuntu
+      codename: noble
     steps:
-      - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
-        uses: regolith-linux/test-desktop-installable-action/ubuntu/noble@a46d23d5752c3bd45e1c692f908975e4a63c8e26
+      - name: Install ${{ matrix.wm }} ${{ matrix.stage }} on ${{ env.distro }} ${{ env.codename }}
+        uses: regolith-linux/test-desktop-installable-action/ubuntu/noble@main
         with:
-          apt-key-url: http://regolith-desktop.org/regolith3.key
-          apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
+          apt-key-url: http://archive.regolith-desktop.com/regolith.key
+          apt-repo-line: "deb [arch=${{ matrix.arch }}] http://archive.regolith-desktop.com/${{ env.distro }}/${{ matrix.suite }} ${{ env.codename }} ${{ matrix.component }}"
           target-package: "regolith-desktop ${{ matrix.wm }}"
 
-  test-ubuntu-oracular-install:
+  ubuntu-oracular:
     runs-on: ${{ matrix.host-os }}
     strategy:
+      fail-fast: false
       matrix:
-        stage: [unstable, testing] #, release-3_2]
-        distro-codename: [ubuntu-oracular]
+        stage: [unstable, testing]
         arch: [amd64, arm64]
         wm: [regolith-session-flashback, regolith-session-sway]
         include:
@@ -117,13 +165,19 @@ jobs:
             host-os: [self-hosted, Linux, X64, oracular]
           - arch: arm64
             host-os: [self-hosted, Linux, ARM64, oracular]
-          - distro-codename: ubuntu-oracular
-            distro: ubuntu
-            codename: oracular
+          - stage: unstable
+            suite: unstable
+            component: main
+          - stage: testing
+            suite: testing
+            component: main
+    env:
+      distro: ubuntu
+      codename: oracular
     steps:
-      - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
-        uses: regolith-linux/test-desktop-installable-action/ubuntu/oracular@bbc152ea6a55737affa65cbf77e5ff69bee844e4
+      - name: Install ${{ matrix.wm }} ${{ matrix.stage }} on ${{ env.distro }} ${{ env.codename }}
+        uses: regolith-linux/test-desktop-installable-action/ubuntu/oracular@main
         with:
-          apt-key-url: http://regolith-desktop.org/regolith3.key
-          apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
+          apt-key-url: http://archive.regolith-desktop.com/regolith.key
+          apt-repo-line: "deb [arch=${{ matrix.arch }}] http://archive.regolith-desktop.com/${{ env.distro }}/${{ matrix.suite }} ${{ env.codename }} ${{ matrix.component }}"
           target-package: "regolith-desktop ${{ matrix.wm }}"
