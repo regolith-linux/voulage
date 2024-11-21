@@ -1,129 +1,426 @@
-name: Test Regolith desktop is installable
+name: Test Regolith Desktop
+run-name: Test ${{ inputs.stage }} Regolith Desktop ${{ inputs.distro }} ${{ inputs.codename }} ${{ inputs.arch }}
 
 on:
+  schedule:
+    - cron: '0 2 * * 0'
   workflow_dispatch:
+    inputs:
+      legacy:
+        description: "Test legacy distros"
+        type: choice
+        options:
+          - "yes"
+          - "no"
+        required: false
+        default: "no"
+      stage:
+        description: "Stages to test"
+        type: choice
+        options:
+          - all
+          - experimental
+          - unstable
+          - testing
+          - stable
+          - release-3_0
+          - release-3_1
+          - release-3_2
+        required: true
+        default: "unstable"
+      distro:
+        description: "Distro to test (debian, ubuntu)"
+        type: choice
+        options:
+          - ""
+          - debian
+          - ubuntu
+        required: false
+        default: ""
+      codename:
+        description: "Codename to test (e.g. noble, bookworm)"
+        type: string
+        required: false
+        default: ""
+      arch:
+        description: "Architecture to test (amd64, arm64)"
+        type: choice
+        options:
+          - ""
+          - amd64
+          - arm64
+        required: false
+        default: ""
   workflow_call:
+    inputs:
+      legacy:
+        description: "Test legacy distros"
+        type: string
+        required: false
+        default: "no"
+      stage:
+        description: "Stage to test"
+        type: string
+        required: true
+        default: "unstable"
+      distro:
+        description: "Distro to test (debian, ubuntu)"
+        type: string
+        required: false
+        default: ""
+      codename:
+        description: "Codename to test (e.g. noble, bookworm)"
+        type: string
+        required: false
+        default: ""
+      arch:
+        description: "Architecture to test (amd64, arm64)"
+        type: string
+        required: false
+        default: ""
 
 jobs:
-  test-debian-bookworm-install:
-    runs-on: ${{ matrix.host-os }}
+  matrix-builder:
+    runs-on: ubuntu-24.04
+    outputs:
+      stages: ${{ steps.calc-matrix.outputs.stages }}
+      arches: ${{ steps.calc-matrix.outputs.arches }}
+      suites: ${{ steps.calc-matrix.outputs.suites }}
+      runners: ${{ steps.calc-matrix.outputs.runners }}
+    steps:
+      - name: Calculate Matrix
+        id: calc-matrix
+        run: |
+          debian_bullseye=(unstable testing stable release-3_0 release-3_1)
+          debian_bookworm=(unstable testing stable release-3_2)
+          debian_testing=(unstable testing) # testing is never released
+          ubuntu_focal=(unstable testing stable release-3_0 release-3_1)
+          ubuntu_jammy=(unstable testing stable release-3_0 release-3_1 release-3_2)
+          ubuntu_lunar=(unstable testing stable release-3_0)
+          ubuntu_mantic=(unstable testing stable release-3_1)
+          ubuntu_noble=(unstable testing stable release-3_2)
+          ubuntu_oracular=(unstable testing)
+
+          debian_bullseye_list=()
+          debian_bookworm_list=()
+          debian_testing_list=()
+          ubuntu_focal_list=()
+          ubuntu_jammy_list=()
+          ubuntu_lunar_list=()
+          ubuntu_mantic_list=()
+          ubuntu_noble_list=()
+          ubuntu_oracular_list=()
+
+          if [ -n "${{ inputs.stage }}" ] && [ "${{ inputs.stage }}" != "all" ]; then
+            if [[ " ${debian_bullseye[*]} " =~ [[:space:]]${{ inputs.stage }}[[:space:]] ]]; then
+              debian_bullseye_list=(${{ inputs.stage }})
+            fi
+            if [[ " ${debian_bookworm[*]} " =~ [[:space:]]${{ inputs.stage }}[[:space:]] ]]; then
+              debian_bookworm_list=(${{ inputs.stage }})
+            fi
+            if [[ " ${debian_testing[*]} " =~ [[:space:]]${{ inputs.stage }}[[:space:]] ]]; then
+              debian_testing_list=(${{ inputs.stage }})
+            fi
+            if [[ " ${ubuntu_focal[*]} " =~ [[:space:]]${{ inputs.stage }}[[:space:]] ]]; then
+              ubuntu_focal_list=(${{ inputs.stage }})
+            fi
+            if [[ " ${ubuntu_jammy[*]} " =~ [[:space:]]${{ inputs.stage }}[[:space:]] ]]; then
+              ubuntu_jammy_list=(${{ inputs.stage }})
+            fi
+            if [[ " ${ubuntu_lunar[*]} " =~ [[:space:]]${{ inputs.stage }}[[:space:]] ]]; then
+              ubuntu_lunar_list=(${{ inputs.stage }})
+            fi
+            if [[ " ${ubuntu_mantic[*]} " =~ [[:space:]]${{ inputs.stage }}[[:space:]] ]]; then
+              ubuntu_mantic_list=(${{ inputs.stage }})
+            fi
+            if [[ " ${ubuntu_noble[*]} " =~ [[:space:]]${{ inputs.stage }}[[:space:]] ]]; then
+              ubuntu_noble_list=(${{ inputs.stage }})
+            fi
+            if [[ " ${ubuntu_oracular[*]} " =~ [[:space:]]${{ inputs.stage }}[[:space:]] ]]; then
+              ubuntu_oracular_list=(${{ inputs.stage }})
+            fi
+          else
+            debian_bullseye_list=(${debian_bullseye[@]})
+            debian_bookworm_list=(${debian_bookworm[@]})
+            debian_testing_list=(${debian_testing[@]})
+            ubuntu_focal_list=(${ubuntu_focal[@]})
+            ubuntu_jammy_list=(${ubuntu_jammy[@]})
+            ubuntu_lunar_list=(${ubuntu_lunar[@]})
+            ubuntu_mantic_list=(${ubuntu_mantic[@]})
+            ubuntu_noble_list=(${ubuntu_noble[@]})
+            ubuntu_oracular_list=(${ubuntu_oracular[@]})
+          fi
+
+          STAGES=$(jq -n -c \
+            --argjson debian-bullseye "$(jq -n -c '$ARGS.positional' --args -- "${debian_bullseye_list[@]}")" \
+            --argjson debian-bookworm "$(jq -n -c '$ARGS.positional' --args -- "${debian_bookworm_list[@]}")" \
+            --argjson debian-testing "$(jq -n -c '$ARGS.positional' --args -- "${debian_testing_list[@]}")" \
+            --argjson ubuntu-focal "$(jq -n -c '$ARGS.positional' --args -- "${ubuntu_focal_list[@]}")" \
+            --argjson ubuntu-jammy "$(jq -n -c '$ARGS.positional' --args -- "${ubuntu_jammy_list[@]}")" \
+            --argjson ubuntu-lunar "$(jq -n -c '$ARGS.positional' --args -- "${ubuntu_lunar_list[@]}")" \
+            --argjson ubuntu-mantic "$(jq -n -c '$ARGS.positional' --args -- "${ubuntu_mantic_list[@]}")" \
+            --argjson ubuntu-noble "$(jq -n -c '$ARGS.positional' --args -- "${ubuntu_noble_list[@]}")" \
+            --argjson ubuntu-oracular "$(jq -n -c '$ARGS.positional' --args -- "${ubuntu_oracular_list[@]}")" \
+            '$ARGS.named'
+          )
+
+          if [ -n "${{ inputs.arch }}" ]; then
+            ARCHES=(${{ inputs.arch }})
+          else
+            ARCHES=(amd64 arm64)
+          fi
+
+          SUITES=$(jq -n "$(jq -n -c \
+            --argjson unstable "$(jq -n -c --arg suite "unstable" --arg component "main" '$ARGS.named')" \
+            --argjson testing "$(jq -n -c --arg suite "testing" --arg component "main" '$ARGS.named')" \
+            --argjson stable "$(jq -n -c --arg suite "stable" --arg component "main" '$ARGS.named')" \
+            --argjson release-3_0 "$(jq -n -c --arg suite "stable" --arg component "v3.0" '$ARGS.named')" \
+            --argjson release-3_1 "$(jq -n -c --arg suite "stable" --arg component "v3.1" '$ARGS.named')" \
+            --argjson release-3_2 "$(jq -n -c --arg suite "stable" --arg component "v3.2" '$ARGS.named')" \
+            '$ARGS.named'\
+          )" '$ARGS.named')
+
+          echo "stages=$(jq -n -c "${STAGES}" '$ARGS.named')" >> $GITHUB_OUTPUT
+          echo "arches=$(jq -n -c '$ARGS.positional' --args -- "${ARCHES[@]}")" >> $GITHUB_OUTPUT
+          echo "suites=$(jq -n -c "${SUITES}" '$ARGS.named')" >> $GITHUB_OUTPUT
+          echo "runners=$(jq -n -c "$(jq -n -c --arg amd64 "X64" --arg arm64 "arm64" '$ARGS.named')" '$ARGS.named')" >> $GITHUB_OUTPUT
+
+  debian-bullseye:
+    runs-on: [self-hosted, Linux, "${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}", bullseye] 
+    needs: matrix-builder
+    if: |
+      (inputs.legacy == 'yes') &&
+      (
+        (inputs.distro == '' && inputs.codename == '') ||
+        (inputs.distro == 'debian' && inputs.codename == '') ||
+        (inputs.distro == '' && inputs.codename == 'bullseye') ||
+        (inputs.distro == 'debian' && inputs.codename == 'bullseye')
+      )
     strategy:
+      fail-fast: false
       matrix:
-        stage: [unstable, testing, release-3_2] # , release
-        distro-codename: [debian-bookworm]
-        arch: [amd64, arm64]
+        stage: ${{ fromJSON(needs.matrix-builder.outputs.stages)['debian-bullseye'] }}
+        arch: ${{ fromJson(needs.matrix-builder.outputs.arches) }}
         wm: [regolith-session-flashback]
-        include:
-          - arch: amd64
-            host-os: ubuntu-20.04
-          - arch: arm64
-            host-os: [self-hosted, Linux, ARM64, bookworm]
-          - distro-codename: debian-bookworm
-            distro: debian
-            codename: bookworm
+    env:
+      distro: debian
+      codename: bullseye
     steps:
-      - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
-        uses: regolith-linux/test-desktop-installable-action/debian/bookworm@a46d23d5752c3bd45e1c692f908975e4a63c8e26
+      - name: Install ${{ matrix.wm }} ${{ matrix.stage }} on ${{ env.distro }} ${{ env.codename }}
+        uses: regolith-linux/test-desktop-installable-action/debian/bullseye@main
         with:
-          apt-key-url: http://regolith-desktop.org/regolith3.key
-          apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
-          target-package: "regolith-desktop ${{ matrix.wm }}"
-  
-  test-debian-testing-install:
-    runs-on: ${{ matrix.host-os }}
-    strategy:
-      matrix:
-        stage: [unstable, testing] # , testing is never released
-        distro-codename: [debian-testing]
-        arch: [amd64, arm64]
-        wm: [regolith-session-flashback, regolith-session-sway]
-        include:
-          - arch: amd64
-            host-os: [self-hosted, Linux, X64, testing]
-          - arch: arm64
-            host-os: [self-hosted, Linux, ARM64, testing]
-          - distro-codename: debian-testing
-            distro: debian
-            codename: testing
-    steps:
-      - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
-        uses: regolith-linux/test-desktop-installable-action/debian/testing@a46d23d5752c3bd45e1c692f908975e4a63c8e26
-        with:
-          apt-key-url: http://regolith-desktop.org/regolith3.key
-          apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
+          apt-key-url: http://archive.regolith-desktop.com/regolith.key
+          apt-repo-line: "deb [arch=${{ matrix.arch }}] http://archive.regolith-desktop.com/${{ env.distro }}/${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['suite'] }} ${{ env.codename }} ${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['component'] }}"
           target-package: "regolith-desktop ${{ matrix.wm }}"
 
-  test-ubuntu-jammy-install:
-    runs-on: ${{ matrix.host-os }}
+  debian-bookworm:
+    runs-on: [self-hosted, Linux, "${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}", bookworm] 
+    needs: matrix-builder
+    if: |
+      (inputs.distro == '' && inputs.codename == '') ||
+      (inputs.distro == 'debian' && inputs.codename == '') ||
+      (inputs.distro == '' && inputs.codename == 'bookworm') ||
+      (inputs.distro == 'debian' && inputs.codename == 'bookworm')
     strategy:
+      fail-fast: false
       matrix:
-        stage: [unstable, testing, release-3_0, release-3_1, release-3_2]
-        distro-codename: [ubuntu-jammy]
-        arch: [amd64, arm64]
+        stage: ${{ fromJSON(needs.matrix-builder.outputs.stages)['debian-bookworm'] }}
+        arch: ${{ fromJson(needs.matrix-builder.outputs.arches) }}
+        wm: [regolith-session-flashback]
+    env:
+      distro: debian
+      codename: bookworm
+    steps:
+      - name: Install ${{ matrix.wm }} ${{ matrix.stage }} on ${{ env.distro }} ${{ env.codename }}
+        uses: regolith-linux/test-desktop-installable-action/debian/bookworm@main
+        with:
+          apt-key-url: http://archive.regolith-desktop.com/regolith.key
+          apt-repo-line: "deb [arch=${{ matrix.arch }}] http://archive.regolith-desktop.com/${{ env.distro }}/${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['suite'] }} ${{ env.codename }} ${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['component'] }}"
+          target-package: "regolith-desktop ${{ matrix.wm }}"
+  
+  debian-testing:
+    runs-on: [self-hosted, Linux, "${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}", testing] 
+    needs: matrix-builder
+    if: |
+      (inputs.distro == '' && inputs.codename == '') ||
+      (inputs.distro == 'debian' && inputs.codename == '') ||
+      (inputs.distro == '' && inputs.codename == 'testing') ||
+      (inputs.distro == 'debian' && inputs.codename == 'testing')
+    strategy:
+      fail-fast: false
+      matrix:
+        stage: ${{ fromJSON(needs.matrix-builder.outputs.stages)['debian-testing'] }}
+        arch: ${{ fromJson(needs.matrix-builder.outputs.arches) }}
         wm: [regolith-session-flashback, regolith-session-sway]
-        include:
-          - arch: amd64
-            host-os: ubuntu-22.04
-          - arch: arm64
-            host-os: [self-hosted, Linux, ARM64, jammy]
-          - distro-codename: ubuntu-jammy
-            distro: ubuntu
-            codename: jammy
+    env:
+      distro: debian
+      codename: testing
+    steps:
+      - name: Install ${{ matrix.wm }} ${{ matrix.stage }} on ${{ env.distro }} ${{ env.codename }}
+        uses: regolith-linux/test-desktop-installable-action/debian/testing@main
+        with:
+          apt-key-url: http://archive.regolith-desktop.com/regolith.key
+          apt-repo-line: "deb [arch=${{ matrix.arch }}] http://archive.regolith-desktop.com/${{ env.distro }}/${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['suite'] }} ${{ env.codename }} ${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['component'] }}"
+          target-package: "regolith-desktop ${{ matrix.wm }}"
+
+  ubuntu-focal:
+    runs-on: [self-hosted, Linux, "${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}", focal] 
+    needs: matrix-builder
+    if: |
+      (inputs.legacy == 'yes') &&
+      (
+        (inputs.distro == '' && inputs.codename == '') ||
+        (inputs.distro == 'ubuntu' && inputs.codename == '') ||
+        (inputs.distro == '' && inputs.codename == 'focal') ||
+        (inputs.distro == 'ubuntu' && inputs.codename == 'focal')
+      )
+    strategy:
+      fail-fast: false
+      matrix:
+        stage: ${{ fromJSON(needs.matrix-builder.outputs.stages)['ubuntu-focal'] }}
+        arch: ${{ fromJson(needs.matrix-builder.outputs.arches) }}
+        wm: [regolith-session-flashback, regolith-session-sway]
+    env:
+      distro: ubuntu
+      codename: focal
+    steps:
+      - name: Install ${{ matrix.wm }} ${{ matrix.stage }} on ${{ env.distro }} ${{ env.codename }}
+        uses: regolith-linux/test-desktop-installable-action/ubuntu/focal@main
+        with:
+          apt-key-url: http://archive.regolith-desktop.com/regolith.key
+          apt-repo-line: "deb [arch=${{ matrix.arch }}] http://archive.regolith-desktop.com/${{ env.distro }}/${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['suite'] }} ${{ env.codename }} ${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['component'] }}"
+          target-package: "regolith-desktop ${{ matrix.wm }}"
+
+  ubuntu-jammy:
+    runs-on: [self-hosted, Linux, "${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}", jammy] 
+    needs: matrix-builder
+    if: |
+      (inputs.distro == '' && inputs.codename == '') ||
+      (inputs.distro == 'ubuntu' && inputs.codename == '') ||
+      (inputs.distro == '' && inputs.codename == 'jammy') ||
+      (inputs.distro == 'ubuntu' && inputs.codename == 'jammy')
+    strategy:
+      fail-fast: false
+      matrix:
+        stage: ${{ fromJSON(needs.matrix-builder.outputs.stages)['ubuntu-jammy'] }}
+        arch: ${{ fromJson(needs.matrix-builder.outputs.arches) }}
+        wm: [regolith-session-flashback, regolith-session-sway]
         exclude:
           - stage: release-3_0
             wm: regolith-session-sway
+    env:
+      distro: ubuntu
+      codename: jammy
     steps:
-      - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
-        uses: regolith-linux/test-desktop-installable-action/ubuntu/jammy@a46d23d5752c3bd45e1c692f908975e4a63c8e26
+      - name: Install ${{ matrix.wm }} ${{ matrix.stage }} on ${{ env.distro }} ${{ env.codename }}
+        uses: regolith-linux/test-desktop-installable-action/ubuntu/jammy@main
         with:
-          apt-key-url: http://regolith-desktop.org/regolith3.key
-          apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
+          apt-key-url: http://archive.regolith-desktop.com/regolith.key
+          apt-repo-line: "deb [arch=${{ matrix.arch }}] http://archive.regolith-desktop.com/${{ env.distro }}/${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['suite'] }} ${{ env.codename }} ${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['component'] }}"
           target-package: "regolith-desktop ${{ matrix.wm }}"
 
-  test-ubuntu-noble-install:
-    runs-on: ${{ matrix.host-os }}
+  ubuntu-lunar:
+    runs-on: [self-hosted, Linux, "${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}", lunar] 
+    needs: matrix-builder
+    if: |
+      (inputs.legacy == 'yes') &&
+      (
+        (inputs.distro == '' && inputs.codename == '') ||
+        (inputs.distro == 'ubuntu' && inputs.codename == '') ||
+        (inputs.distro == '' && inputs.codename == 'lunar') ||
+        (inputs.distro == 'ubuntu' && inputs.codename == 'lunar')
+      )
     strategy:
+      fail-fast: false
       matrix:
-        stage: [unstable, testing, release-3_2]
-        distro-codename: [ubuntu-noble]
-        arch: [amd64, arm64]
+        stage: ${{ fromJSON(needs.matrix-builder.outputs.stages)['ubuntu-lunar'] }}
+        arch: ${{ fromJson(needs.matrix-builder.outputs.arches) }}
         wm: [regolith-session-flashback, regolith-session-sway]
-        include:
-          - arch: amd64
-            host-os: [self-hosted, Linux, X64, noble]
-          - arch: arm64
-            host-os: [self-hosted, Linux, ARM64, noble]
-          - distro-codename: ubuntu-noble
-            distro: ubuntu
-            codename: noble
+    env:
+      distro: ubuntu
+      codename: lunar
     steps:
-      - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
-        uses: regolith-linux/test-desktop-installable-action/ubuntu/noble@a46d23d5752c3bd45e1c692f908975e4a63c8e26
+      - name: Install ${{ matrix.wm }} ${{ matrix.stage }} on ${{ env.distro }} ${{ env.codename }}
+        uses: regolith-linux/test-desktop-installable-action/ubuntu/lunar@main
         with:
-          apt-key-url: http://regolith-desktop.org/regolith3.key
-          apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
+          apt-key-url: http://archive.regolith-desktop.com/regolith.key
+          apt-repo-line: "deb [arch=${{ matrix.arch }}] http://archive.regolith-desktop.com/${{ env.distro }}/${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['suite'] }} ${{ env.codename }} ${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['component'] }}"
           target-package: "regolith-desktop ${{ matrix.wm }}"
 
-  test-ubuntu-oracular-install:
-    runs-on: ${{ matrix.host-os }}
+  ubuntu-mantic:
+    runs-on: [self-hosted, Linux, "${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}", mantic] 
+    needs: matrix-builder
+    if: |
+      (inputs.legacy == 'yes') &&
+      (
+        (inputs.distro == '' && inputs.codename == '') ||
+        (inputs.distro == 'ubuntu' && inputs.codename == '') ||
+        (inputs.distro == '' && inputs.codename == 'mantic') ||
+        (inputs.distro == 'ubuntu' && inputs.codename == 'mantic')
+      )
     strategy:
+      fail-fast: false
       matrix:
-        stage: [unstable, testing] #, release-3_2]
-        distro-codename: [ubuntu-oracular]
-        arch: [amd64, arm64]
+        stage: ${{ fromJSON(needs.matrix-builder.outputs.stages)['ubuntu-mantic'] }}
+        arch: ${{ fromJson(needs.matrix-builder.outputs.arches) }}
         wm: [regolith-session-flashback, regolith-session-sway]
-        include:
-          - arch: amd64
-            host-os: [self-hosted, Linux, X64, oracular]
-          - arch: arm64
-            host-os: [self-hosted, Linux, ARM64, oracular]
-          - distro-codename: ubuntu-oracular
-            distro: ubuntu
-            codename: oracular
+    env:
+      distro: ubuntu
+      codename: mantic
     steps:
-      - name: Test ${{ matrix.stage }} ${{ matrix.distro-codename }} ${{ matrix.arch }}
-        uses: regolith-linux/test-desktop-installable-action/ubuntu/oracular@bbc152ea6a55737affa65cbf77e5ff69bee844e4
+      - name: Install ${{ matrix.wm }} ${{ matrix.stage }} on ${{ env.distro }} ${{ env.codename }}
+        uses: regolith-linux/test-desktop-installable-action/ubuntu/mantic@main
         with:
-          apt-key-url: http://regolith-desktop.org/regolith3.key
-          apt-repo-line: "deb [arch=${{ matrix.arch }}] https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }} ${{ matrix.codename }} main"
+          apt-key-url: http://archive.regolith-desktop.com/regolith.key
+          apt-repo-line: "deb [arch=${{ matrix.arch }}] http://archive.regolith-desktop.com/${{ env.distro }}/${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['suite'] }} ${{ env.codename }} ${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['component'] }}"
+          target-package: "regolith-desktop ${{ matrix.wm }}"
+
+  ubuntu-noble:
+    runs-on: [self-hosted, Linux, "${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}", noble] 
+    needs: matrix-builder
+    if: |
+      (inputs.distro == '' && inputs.codename == '') ||
+      (inputs.distro == 'ubuntu' && inputs.codename == '') ||
+      (inputs.distro == '' && inputs.codename == 'noble') ||
+      (inputs.distro == 'ubuntu' && inputs.codename == 'noble')
+    strategy:
+      fail-fast: false
+      matrix:
+        stage: ${{ fromJSON(needs.matrix-builder.outputs.stages)['ubuntu-noble'] }}
+        arch: ${{ fromJson(needs.matrix-builder.outputs.arches) }}
+        wm: [regolith-session-flashback, regolith-session-sway]
+    env:
+      distro: ubuntu
+      codename: noble
+    steps:
+      - name: Install ${{ matrix.wm }} ${{ matrix.stage }} on ${{ env.distro }} ${{ env.codename }}
+        uses: regolith-linux/test-desktop-installable-action/ubuntu/noble@main
+        with:
+          apt-key-url: http://archive.regolith-desktop.com/regolith.key
+          apt-repo-line: "deb [arch=${{ matrix.arch }}] http://archive.regolith-desktop.com/${{ env.distro }}/${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['suite'] }} ${{ env.codename }} ${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['component'] }}"
+          target-package: "regolith-desktop ${{ matrix.wm }}"
+
+  ubuntu-oracular:
+    runs-on: [self-hosted, Linux, "${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}", oracular] 
+    needs: matrix-builder
+    if: |
+      (inputs.distro == '' && inputs.codename == '') ||
+      (inputs.distro == 'ubuntu' && inputs.codename == '') ||
+      (inputs.distro == '' && inputs.codename == 'oracular') ||
+      (inputs.distro == 'ubuntu' && inputs.codename == 'oracular')
+    strategy:
+      fail-fast: false
+      matrix:
+        stage: ${{ fromJSON(needs.matrix-builder.outputs.stages)['ubuntu-oracular'] }}
+        arch: ${{ fromJson(needs.matrix-builder.outputs.arches) }}
+        wm: [regolith-session-flashback, regolith-session-sway]
+    env:
+      distro: ubuntu
+      codename: oracular
+    steps:
+      - name: Install ${{ matrix.wm }} ${{ matrix.stage }} on ${{ env.distro }} ${{ env.codename }}
+        uses: regolith-linux/test-desktop-installable-action/ubuntu/oracular@main
+        with:
+          apt-key-url: http://archive.regolith-desktop.com/regolith.key
+          apt-repo-line: "deb [arch=${{ matrix.arch }}] http://archive.regolith-desktop.com/${{ env.distro }}/${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['suite'] }} ${{ env.codename }} ${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['component'] }}"
           target-package: "regolith-desktop ${{ matrix.wm }}"
