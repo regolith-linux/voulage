@@ -16,9 +16,23 @@ on:
       package-ref:
         description: 'Package Ref (branch, tag, or hash)'
         required: true
-      codename:
-        description: 'Package Codename (focal, bullseye)'
+      distro:
+        description: 'Package Distro'
         required: true
+        options:
+          - debian
+          - ubuntu
+      codename:
+        description: 'Package Codename (e.g. focal, bullseye)'
+        required: true
+      stage:
+        description: 'Package Stage'
+        required: true
+        options:
+          - experimental
+          - unstable
+          - testing
+          - stable
       build-os-image:
         description: 'Build package on (ubuntu-22.04)'
         required: true
@@ -26,33 +40,31 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ github.event.inputs.build-os-image }}
+    runs-on: ${{ inputs.build-os-image }}
     steps:
       - uses: actions/checkout@v4
-      - name: Env Setup
-        id: init
+      - name: Environment Setup
         run: |
           sudo apt update
-          sudo apt install -y devscripts reprepro
+          sudo apt install -y devscripts
+
           mkdir -p ~/.gnupg/
           printf "${{ secrets.PACKAGE_PRIVATE_KEY2 }}" | base64 --decode > ~/.gnupg/private.key
           gpg --batch --import ~/.gnupg/private.key
-      - name: Build Test Package
-        id: build
+
+      - name: Build ${{ inputs.package-name }} @ ${{ inputs.package-ref }} for ${{ inputs.distro }}-${{ inputs.codename }} (${{ inputs.stage }})
         run: |
           set -x
+
           export DEBEMAIL=regolith.linux@gmail.com
           export DEBFULLNAME="Regolith Linux"
-          extension=${{ github.workspace }}/.github/scripts/${{ github.event.inputs.extension }}
-          package_name=${{ github.event.inputs.package-name }}
-          package_url=${{ github.event.inputs.package-url }}
-          package_ref=${{ github.event.inputs.package-ref }}
-          codename=${{ github.event.inputs.codename }}
 
           ${{ github.workspace }}/.github/scripts/local-build.sh \
-            ${{ github.workspace }} \
-            $extension \
-            $package_name \
-            $package_url \
-            $package_ref \
-            $codename
+            --extension ${{ github.workspace }}/.github/scripts/${{ inputs.extension }} \
+            --git-repo-path "${{ github.workspace }}" \
+            --package-name ${{ inputs.package-name }} \
+            --package-url "${{ inputs.package-url }}" \
+            --package-ref "${{ inputs.package-ref }}" \
+            --distro "${{ inputs.distro }}" \
+            --codename "${{ inputs.codename }}" \
+            --stage "${{ inputs.stage }}"
