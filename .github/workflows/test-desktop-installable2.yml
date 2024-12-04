@@ -37,8 +37,8 @@ jobs:
       - name: Install ${{ matrix.wm }} ${{ matrix.stage }} on ${{ env.distro }} ${{ env.codename }}
         uses: regolith-linux/test-desktop-installable-action/debian/bookworm@main
         with:
-          apt-key-url: http://archive.regolith-desktop.com/regolith.key
-          apt-repo-line: "deb [arch=${{ matrix.arch }}] http://archive.regolith-desktop.com/${{ env.distro }}/${{ matrix.suite }} ${{ env.codename }} ${{ matrix.component }}"
+          apt-key-url: http://66.175.213.120/_regolith.key
+          apt-repo-line: "deb [arch=${{ matrix.arch }}] http://66.175.213.120/${{ env.distro }}/${{ matrix.suite }} ${{ env.codename }} ${{ matrix.component }}"
           target-package: "regolith-desktop ${{ matrix.wm }}"
   
   debian-testing:
@@ -67,8 +67,8 @@ jobs:
       - name: Install ${{ matrix.wm }} ${{ matrix.stage }} on ${{ env.distro }} ${{ env.codename }}
         uses: regolith-linux/test-desktop-installable-action/debian/testing@main
         with:
-          apt-key-url: http://archive.regolith-desktop.com/regolith.key
-          apt-repo-line: "deb [arch=${{ matrix.arch }}] http://archive.regolith-desktop.com/${{ env.distro }}/${{ matrix.suite }} ${{ env.codename }} ${{ matrix.component }}"
+          apt-key-url: http://66.175.213.120/_regolith.key
+          apt-repo-line: "deb [arch=${{ matrix.arch }}] http://66.175.213.120/${{ env.distro }}/${{ matrix.suite }} ${{ env.codename }} ${{ matrix.component }}"
           target-package: "regolith-desktop ${{ matrix.wm }}"
 
   ubuntu-jammy:
@@ -112,8 +112,8 @@ jobs:
       - name: Install ${{ matrix.wm }} ${{ matrix.stage }} on ${{ env.distro }} ${{ env.codename }}
         uses: regolith-linux/test-desktop-installable-action/ubuntu/jammy@main
         with:
-          apt-key-url: http://archive.regolith-desktop.com/regolith.key
-          apt-repo-line: "deb [arch=${{ matrix.arch }}] http://archive.regolith-desktop.com/${{ env.distro }}/${{ matrix.suite }} ${{ env.codename }} ${{ matrix.component }}"
+          apt-key-url: http://66.175.213.120/_regolith.key
+          apt-repo-line: "deb [arch=${{ matrix.arch }}] http://66.175.213.120/${{ env.distro }}/${{ matrix.suite }} ${{ env.codename }} ${{ matrix.component }}"
           target-package: "regolith-desktop ${{ matrix.wm }}"
 
   ubuntu-noble:
@@ -148,8 +148,8 @@ jobs:
       - name: Install ${{ matrix.wm }} ${{ matrix.stage }} on ${{ env.distro }} ${{ env.codename }}
         uses: regolith-linux/test-desktop-installable-action/ubuntu/noble@main
         with:
-          apt-key-url: http://archive.regolith-desktop.com/regolith.key
-          apt-repo-line: "deb [arch=${{ matrix.arch }}] http://archive.regolith-desktop.com/${{ env.distro }}/${{ matrix.suite }} ${{ env.codename }} ${{ matrix.component }}"
+          apt-key-url: http://66.175.213.120/_regolith.key
+          apt-repo-line: "deb [arch=${{ matrix.arch }}] http://66.175.213.120/${{ env.distro }}/${{ matrix.suite }} ${{ env.codename }} ${{ matrix.component }}"
           target-package: "regolith-desktop ${{ matrix.wm }}"
 
   ubuntu-oracular:
@@ -178,6 +178,6 @@ jobs:
       - name: Install ${{ matrix.wm }} ${{ matrix.stage }} on ${{ env.distro }} ${{ env.codename }}
         uses: regolith-linux/test-desktop-installable-action/ubuntu/oracular@main
         with:
-          apt-key-url: http://archive.regolith-desktop.com/regolith.key
-          apt-repo-line: "deb [arch=${{ matrix.arch }}] http://archive.regolith-desktop.com/${{ env.distro }}/${{ matrix.suite }} ${{ env.codename }} ${{ matrix.component }}"
+          apt-key-url: http://66.175.213.120/_regolith.key
+          apt-repo-line: "deb [arch=${{ matrix.arch }}] http://66.175.213.120/${{ env.distro }}/${{ matrix.suite }} ${{ env.codename }} ${{ matrix.component }}"
           target-package: "regolith-desktop ${{ matrix.wm }}"

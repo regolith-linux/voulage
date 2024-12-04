@@ -98,7 +98,7 @@ jobs:
           set -e
           set -x
 
-          ssh-keyscan -H ${{ secrets.KAMATERA_HOSTNAME2 }} >> ~/.ssh/known_hosts
+          ssh-keyscan -H 66.175.213.120 >> ~/.ssh/known_hosts
           mkdir -p "${{ steps.init.outputs.package-build-path }}"
           rsync \
             -avzh \
@@ -108,7 +108,7 @@ jobs:
             --include="*.debian.tar.xz" \
             --include="*.diff.gz" \
             --exclude="*" \
-            root@${{ secrets.KAMATERA_HOSTNAME2 }}:${{ inputs.pull-from }} \
+            root@66.175.213.120:${{ inputs.pull-from }} \
             "${{ steps.init.outputs.package-build-path }}"
 
       - name: Rebuild Sources
@@ -142,5 +142,5 @@ jobs:
             rsync \
               -avzhH \
               ${{ steps.init.outputs.package-build-path }}/* \
-              root@${{ secrets.KAMATERA_HOSTNAME2 }}:${{ inputs.push-to }} && break || sleep 5
+              root@66.175.213.120:${{ inputs.push-to }} && break || sleep 5
           done

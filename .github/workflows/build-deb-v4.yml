@@ -2,6 +2,9 @@ name: Package Builder Debian v4
 
 on:
   workflow_dispatch:
+  push:
+    branches-ignore:
+      - main
 
 concurrency:
   group: debian_builder_v4
@@ -133,7 +136,7 @@ jobs:
       - name: Pull Manifest
         run: |
           set -e
-          wget -P "${{ steps.init.outputs.manifest-path }}" "http://archive.regolith-desktop.com/manifests/${{ matrix.distro }}/${{ matrix.codename }}/${{ matrix.suite }}-${{ matrix.component }}/${{ matrix.arch }}/manifest.txt" || true
+          wget -P "${{ steps.init.outputs.manifest-path }}" "http://66.175.213.120/manifests/${{ matrix.distro }}/${{ matrix.codename }}/${{ matrix.suite }}-${{ matrix.component }}/${{ matrix.arch }}/manifest.txt" || true
           echo "Current manifest:"
           cat ${{ steps.init.outputs.manifest-path }}/manifest.txt || true
 
@@ -213,7 +216,7 @@ jobs:
           set -e
           set -x
 
-          ssh-keyscan -H ${{ secrets.KAMATERA_HOSTNAME2 }} >> ~/.ssh/known_hosts
+          ssh-keyscan -H 66.175.213.120 >> ~/.ssh/known_hosts
 
           for i in 1 2 3 4 5; do
             echo "Attempt $i"
@@ -221,7 +224,7 @@ jobs:
               -avzhH \
               --ignore-existing \
               ${{ steps.init.outputs.package-publish-path }}/* \
-              root@${{ secrets.KAMATERA_HOSTNAME2 }}:/opt/archives/packages && break || sleep 5
+              root@66.175.213.120:/mnt/regolith-archive-volume/packages && break || sleep 5
           done
 
           for i in 1 2 3 4 5; do
@@ -237,11 +240,11 @@ jobs:
               --include="*.dsc" \
               --exclude="*" \
               ${{ steps.init.outputs.package-publish-path }}/* \
-              root@${{ secrets.KAMATERA_HOSTNAME2 }}:/opt/archives/workspace && break || sleep 5
+              root@66.175.213.120:/mnt/regolith-archive-volume/workspace && break || sleep 5
           done
 
-          ssh root@${{ secrets.KAMATERA_HOSTNAME2 }} "mkdir -p /opt/archives/manifests/${{ matrix.distro }}/${{ matrix.codename }}/${{ matrix.suite }}-${{ matrix.component }}/${{ matrix.arch }}/"
-          scp ${{ steps.init.outputs.manifest-path }}/manifest.txt root@${{ secrets.KAMATERA_HOSTNAME2 }}:/opt/archives/manifests/${{ matrix.distro }}/${{ matrix.codename }}/${{ matrix.suite }}-${{ matrix.component }}/${{ matrix.arch }}/
+          ssh root@66.175.213.120 "mkdir -p /mnt/regolith-archive-volume/manifests/${{ matrix.distro }}/${{ matrix.codename }}/${{ matrix.suite }}-${{ matrix.component }}/${{ matrix.arch }}/"
+          scp ${{ steps.init.outputs.manifest-path }}/manifest.txt root@66.175.213.120:/mnt/regolith-archive-volume/manifests/${{ matrix.distro }}/${{ matrix.codename }}/${{ matrix.suite }}-${{ matrix.component }}/${{ matrix.arch }}/
 
       - name: Log Build Output
         if: steps.changes.outputs.changed == 1
@@ -278,14 +281,14 @@ jobs:
             echo "changed=0" >> $GITHUB_OUTPUT
           fi
 
-      - uses: softprops/action-gh-release@v2
-        if: steps.release-setup.outputs.changed == 1
-        with:
-          body: See CHANGELOG.txt for updates and manifests for current state of repos.
-          name: Package Build ${{ steps.release-setup.outputs.TIMESTAMP }}
-          tag_name: pkgbuild-${{ steps.release-setup.outputs.TIMESTAMP }}
-          files: |
-            *.txt
+      # - uses: softprops/action-gh-release@v2
+      #   if: steps.release-setup.outputs.changed == 1
+      #   with:
+      #     body: See CHANGELOG.txt for updates and manifests for current state of repos.
+      #     name: Package Build ${{ steps.release-setup.outputs.TIMESTAMP }}
+      #     tag_name: pkgbuild-${{ steps.release-setup.outputs.TIMESTAMP }}
+      #     files: |
+      #       *.txt
 
   # rebuild sources
   sources:
@@ -293,8 +296,8 @@ jobs:
     if: needs.release.outputs.changed == 1
     uses: ./.github/workflows/rebuild-sources.yml
     with:
-      pull-from: /opt/archives/workspace/
-      push-to: /opt/archives/packages/
+      pull-from: /mnt/regolith-archive-volume/workspace/
+      push-to: /mnt/regolith-archive-volume/packages/
     secrets: inherit
 
   # publish archives
@@ -303,8 +306,8 @@ jobs:
     if: needs.release.outputs.changed == 1
     uses: ./.github/workflows/publish-packages.yml
     with:
-      packages-path: /opt/archives/packages/
-      workspace-path: /opt/archives/workspace/
+      packages-path: /mnt/regolith-archive-volume/packages/
+      workspace-path: /mnt/regolith-archive-volume/workspace/
     secrets: inherit
 
   # run the tests

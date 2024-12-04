@@ -45,7 +45,7 @@ stage_source() {
 
   # try to download the .orig.tar.gz from existing archive, otherwise build it
   if [ "$LOCAL_BUILD" == "false" ]; then
-    wget "http://archive.regolith-desktop.com/$DISTRO/$SUITE/pool/main/${debian_package_name:0:1}/${debian_package_name}/${debian_package_name}_${debian_version}.orig.tar.gz" || true
+    wget "http://66.175.213.120/$DISTRO/$SUITE/pool/main/${debian_package_name:0:1}/${debian_package_name}/${debian_package_name}_${debian_version}.orig.tar.gz" || true
   fi
 
   if [ "$LOCAL_BUILD" == "true" ] || [ ! -f "${debian_package_name}_${debian_version}.orig.tar.gz" ]; then
@@ -158,7 +158,7 @@ publish() {
 archive_setup_scripts() {
   # Following allows for internal dependencies
   rm /tmp/Release || true
-  wget -P /tmp "http://archive.regolith-desktop.com/$DISTRO/$SUITE/dists/$CODENAME/Release" || true
+  wget -P /tmp "http://66.175.213.120/$DISTRO/$SUITE/dists/$CODENAME/Release" || true
   
   if [ -f /tmp/Release ]; then
     rm /tmp/Release
@@ -166,14 +166,14 @@ archive_setup_scripts() {
     local repo_line=""
     if [ "$LOCAL_BUILD" == "false" ] && [ "$SUITE" == "stable" ]; then
       # fixed version component
-      repo_line="http://archive.regolith-desktop.com/$DISTRO/$SUITE $CODENAME v$COMPONENT"
+      repo_line="http://66.175.213.120/$DISTRO/$SUITE $CODENAME v$COMPONENT"
     else
       # main component
-      repo_line="http://archive.regolith-desktop.com/$DISTRO/$SUITE $CODENAME $COMPONENT"
+      repo_line="http://66.175.213.120/$DISTRO/$SUITE $CODENAME $COMPONENT"
     fi
 
     echo "Adding repo to apt: $repo_line"
-    wget -qO - http://archive.regolith-desktop.com/regolith.key | sudo apt-key add -
+    wget -qO - http://66.175.213.120/_regolith.key | sudo apt-key add -
     echo "deb [arch=$ARCH] $repo_line" | sudo tee /etc/apt/sources.list.d/regolith.list
 
     sudo apt update

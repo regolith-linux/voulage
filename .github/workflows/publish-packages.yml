@@ -67,6 +67,6 @@ jobs:
           set -e
           set -x
 
-          ssh-keyscan -H ${{ secrets.KAMATERA_HOSTNAME2 }} >> ~/.ssh/known_hosts
-          ssh root@${{ secrets.KAMATERA_HOSTNAME2 }} "publish-repos.sh \"${{ inputs.packages-path }}\" \"${{ inputs.only-distro }}\" \"${{ inputs.only-codename }}\" \"${{ inputs.only-component }}\""
-          ssh root@${{ secrets.KAMATERA_HOSTNAME2 }} "rm -rf ${{ inputs.workspace-path }}/*"
+          ssh-keyscan -H 66.175.213.120 >> ~/.ssh/known_hosts
+          ssh root@66.175.213.120 "publish-repos.sh \"${{ inputs.packages-path }}\" \"${{ inputs.only-distro }}\" \"${{ inputs.only-codename }}\" \"${{ inputs.only-component }}\""
+          ssh root@66.175.213.120 "rm -rf ${{ inputs.workspace-path }}/*"
