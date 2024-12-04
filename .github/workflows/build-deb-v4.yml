@@ -222,26 +222,25 @@ jobs:
             echo "Attempt $i"
             rsync \
               -avzhH \
-              --ignore-existing \
               ${{ steps.init.outputs.package-publish-path }}/* \
               root@66.175.213.120:/mnt/regolith-archive-volume/packages && break || sleep 5
           done
 
-          for i in 1 2 3 4 5; do
-            echo "Attempt $i"
-            rsync \
-              -avzhH \
-              --ignore-existing \
-              --exclude="*.*/" \
-              --include="*/" \
-              --include="*.orig.tar.gz" \
-              --include="*.debian.tar.xz" \
-              --include="*.diff.gz" \
-              --include="*.dsc" \
-              --exclude="*" \
-              ${{ steps.init.outputs.package-publish-path }}/* \
-              root@66.175.213.120:/mnt/regolith-archive-volume/workspace && break || sleep 5
-          done
+          # for i in 1 2 3 4 5; do
+          #   echo "Attempt $i"
+          #   rsync \
+          #     -avzhH \
+          #     --ignore-existing \
+          #     --exclude="*.*/" \
+          #     --include="*/" \
+          #     --include="*.orig.tar.gz" \
+          #     --include="*.debian.tar.xz" \
+          #     --include="*.diff.gz" \
+          #     --include="*.dsc" \
+          #     --exclude="*" \
+          #     ${{ steps.init.outputs.package-publish-path }}/* \
+          #     root@66.175.213.120:/mnt/regolith-archive-volume/workspace && break || sleep 5
+          # done
 
           ssh root@66.175.213.120 "mkdir -p /mnt/regolith-archive-volume/manifests/${{ matrix.distro }}/${{ matrix.codename }}/${{ matrix.suite }}-${{ matrix.component }}/${{ matrix.arch }}/"
           scp ${{ steps.init.outputs.manifest-path }}/manifest.txt root@66.175.213.120:/mnt/regolith-archive-volume/manifests/${{ matrix.distro }}/${{ matrix.codename }}/${{ matrix.suite }}-${{ matrix.component }}/${{ matrix.arch }}/
@@ -290,19 +289,20 @@ jobs:
       #     files: |
       #       *.txt
 
-  # rebuild sources
-  sources:
-    needs: release
-    if: needs.release.outputs.changed == 1
-    uses: ./.github/workflows/rebuild-sources.yml
-    with:
-      pull-from: /mnt/regolith-archive-volume/workspace/
-      push-to: /mnt/regolith-archive-volume/packages/
-    secrets: inherit
+  # # rebuild sources
+  # sources:
+  #   needs: release
+  #   if: needs.release.outputs.changed == 1
+  #   uses: ./.github/workflows/rebuild-sources.yml
+  #   with:
+  #     pull-from: /mnt/regolith-archive-volume/workspace/
+  #     push-to: /mnt/regolith-archive-volume/packages/
+  #   secrets: inherit
 
   # publish archives
   publish:
-    needs: sources
+    # needs: sources
+    needs: release
     if: needs.release.outputs.changed == 1
     uses: ./.github/workflows/publish-packages.yml
     with:

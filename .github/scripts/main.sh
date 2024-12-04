@@ -121,8 +121,8 @@ build_packages() {
     checkout
     update_changelog
     if dist_valid; then
-      stage_source
-      build_src_package
+      # stage_source
+      # build_src_package
       build_bin_package
       publish
     else

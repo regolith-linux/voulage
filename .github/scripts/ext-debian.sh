@@ -89,44 +89,44 @@ publish() {
   debian_package_name=$(dpkg-parsechangelog --show-field Source)
   cd "$PKG_BUILD_PATH"
 
-  DEB_SRC_PKG_PATH="$(pwd)/${debian_package_name}_${version}_source.changes"
-
-  if [ ! -f "$DEB_SRC_PKG_PATH" ]; then
-    echo "Failed to find changes file."
-  else
-    short_version="${version%-*}"
-
-    mkdir -p $PKG_PUBLISH_PATH/$DISTRO/$CODENAME/$SUITE
-
-    cp "$(pwd)/${debian_package_name}_${version}.dsc" "$PKG_PUBLISH_PATH/$DISTRO/$CODENAME/$SUITE"
-    cp "$(pwd)/${debian_package_name}_${short_version}.orig.tar.gz" "$PKG_PUBLISH_PATH/$DISTRO/$CODENAME/$SUITE"
-
-    if [ -f "$(pwd)/${debian_package_name}_${version}.debian.tar.xz" ]; then
-      cp "$(pwd)/${debian_package_name}_${version}.debian.tar.xz" "$PKG_PUBLISH_PATH/$DISTRO/$CODENAME/$SUITE"
-    fi
-    if [ -f "$(pwd)/${debian_package_name}_${version}.diff.gz" ]; then
-      cp "$(pwd)/${debian_package_name}_${version}.diff.gz" "$PKG_PUBLISH_PATH/$DISTRO/$CODENAME/$SUITE"
-    fi
-
-    if [ "$LOCAL_BUILD" == "false" ] && [ "$SUITE" == "stable" ]; then
-      mkdir -p "$PKG_PUBLISH_PATH/$DISTRO/$CODENAME/$COMPONENT"
-      cd "$PKG_PUBLISH_PATH/$DISTRO/$CODENAME/$COMPONENT" >/dev/null 2>&1
-
-      ln "../$SUITE/${debian_package_name}_${version}.dsc" .
-      ln "../$SUITE/${debian_package_name}_${short_version}.orig.tar.gz" .
-
-      if [ -f "../$SUITE/${debian_package_name}_${version}.debian.tar.xz" ]; then
-        ln "../$SUITE/${debian_package_name}_${version}.debian.tar.xz" .
-      fi
-      if [ -f "../$SUITE/${debian_package_name}_${version}.diff.gz" ]; then
-        ln "../$SUITE/${debian_package_name}_${version}.diff.gz" .
-      fi
-
-      cd - >/dev/null 2>&1
-    fi
-
-    echo "Publishing source package $debian_package_name into $PKG_PUBLISH_PATH"
-  fi
+  # DEB_SRC_PKG_PATH="$(pwd)/${debian_package_name}_${version}_source.changes"
+  #
+  # if [ ! -f "$DEB_SRC_PKG_PATH" ]; then
+  #   echo "Failed to find changes file."
+  # else
+  #   short_version="${version%-*}"
+  #
+  #   mkdir -p $PKG_PUBLISH_PATH/$DISTRO/$CODENAME/$SUITE
+  #
+  #   cp "$(pwd)/${debian_package_name}_${version}.dsc" "$PKG_PUBLISH_PATH/$DISTRO/$CODENAME/$SUITE"
+  #   cp "$(pwd)/${debian_package_name}_${short_version}.orig.tar.gz" "$PKG_PUBLISH_PATH/$DISTRO/$CODENAME/$SUITE"
+  #
+  #   if [ -f "$(pwd)/${debian_package_name}_${version}.debian.tar.xz" ]; then
+  #     cp "$(pwd)/${debian_package_name}_${version}.debian.tar.xz" "$PKG_PUBLISH_PATH/$DISTRO/$CODENAME/$SUITE"
+  #   fi
+  #   if [ -f "$(pwd)/${debian_package_name}_${version}.diff.gz" ]; then
+  #     cp "$(pwd)/${debian_package_name}_${version}.diff.gz" "$PKG_PUBLISH_PATH/$DISTRO/$CODENAME/$SUITE"
+  #   fi
+  #
+  #   if [ "$LOCAL_BUILD" == "false" ] && [ "$SUITE" == "stable" ]; then
+  #     mkdir -p "$PKG_PUBLISH_PATH/$DISTRO/$CODENAME/$COMPONENT"
+  #     cd "$PKG_PUBLISH_PATH/$DISTRO/$CODENAME/$COMPONENT" >/dev/null 2>&1
+  #
+  #     ln "../$SUITE/${debian_package_name}_${version}.dsc" .
+  #     ln "../$SUITE/${debian_package_name}_${short_version}.orig.tar.gz" .
+  #
+  #     if [ -f "../$SUITE/${debian_package_name}_${version}.debian.tar.xz" ]; then
+  #       ln "../$SUITE/${debian_package_name}_${version}.debian.tar.xz" .
+  #     fi
+  #     if [ -f "../$SUITE/${debian_package_name}_${version}.diff.gz" ]; then
+  #       ln "../$SUITE/${debian_package_name}_${version}.diff.gz" .
+  #     fi
+  #
+  #     cd - >/dev/null 2>&1
+  #   fi
+  #
+  #   echo "Publishing source package $debian_package_name into $PKG_PUBLISH_PATH"
+  # fi
 
   DEB_CONTROL_FILE="$PKG_BUILD_PATH/$PACKAGE_NAME/debian/control"
   ALL_ARCH="$ARCH,all"
