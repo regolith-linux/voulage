@@ -37,16 +37,18 @@ publish() {
   echo "Publishing $PACKAGE_NAME to repo"
 }
 
-# Create repo dist file - for new repository
-generate_reprepro_dist() {
-    echo "Generating config files for new repository"
+archive_setup_scripts() {
+  echo "Setting up local archive repo for internal dependencies"
+}
+
+archive_cleanup_scripts() {
+  echo "Cleaning up local archive repo definition"
 }
 
 # Setup repo layout
 setup() {
   echo "Setting up $PKG_REPO_PATH"
   
-  generate_reprepro_dist  
-
   source_setup_scripts
+  archive_setup_scripts
 }
