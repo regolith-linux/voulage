@@ -21,8 +21,8 @@ jobs:
           ubuntu-jammy-arm64,
           ubuntu-noble-amd64,
           ubuntu-noble-arm64,
-          # ubuntu-oracular-amd64,
-          # ubuntu-oracular-arm64,
+          ubuntu-oracular-amd64,
+          ubuntu-oracular-arm64,
           debian-bookworm-amd64,
           debian-bookworm-arm64,
           debian-testing-amd64,
@@ -33,10 +33,19 @@ jobs:
             distro-codename: debian-testing-amd64 # debian testing is never released
           - stage: release-3_2
             distro-codename: debian-testing-arm64 # debian testing is never released
-          # - stage: release-3_2
-          #   distro-codename: ubuntu-oracular-amd64 # 3.2 released before oracular
-          # - stage: release-3_2
-          #   distro-codename: ubuntu-oracular-arm64
+          - stage: release-3_2
+            distro-codename: ubuntu-oracular-amd64 # 3.2 released before oracular
+          - stage: release-3_2
+            distro-codename: ubuntu-oracular-arm64
+          # temp
+          - stage: unstable
+            distro-codename: ubuntu-oracular-amd64
+          - stage: unstable
+            distro-codename: ubuntu-oracular-arm64
+          - stage: testing
+            distro-codename: ubuntu-oracular-amd64
+          - stage: testing
+            distro-codename: ubuntu-oracular-arm64
         include:
           # ubuntu
           - distro-codename: ubuntu-jammy-amd64
@@ -59,16 +68,16 @@ jobs:
             arch: arm64
             distro: ubuntu
             codename: noble
-          # - distro-codename: ubuntu-oracular-amd64
-          #   host-os: [self-hosted, Linux, X64, oracular]
-          #   arch: amd64
-          #   distro: ubuntu
-          #   codename: oracular
-          # - distro-codename: ubuntu-oracular-arm64
-          #   host-os: [self-hosted, Linux, arm64, oracular]
-          #   arch: arm64
-          #   distro: ubuntu
-          #   codename: oracular
+          - distro-codename: ubuntu-oracular-amd64
+            host-os: [self-hosted, Linux, X64, oracular]
+            arch: amd64
+            distro: ubuntu
+            codename: oracular
+          - distro-codename: ubuntu-oracular-arm64
+            host-os: [self-hosted, Linux, arm64, oracular]
+            arch: arm64
+            distro: ubuntu
+            codename: oracular
 
           # debian
           - distro-codename: debian-bookworm-amd64
@@ -131,7 +140,7 @@ jobs:
 
           sudo rm -rf /etc/apt/sources.list.d/regolith.list
           sudo apt update
-          DEBIAN_FRONTEND=noninteractive sudo apt install -y --no-install-recommends jq git devscripts wget dput
+          DEBIAN_FRONTEND=noninteractive sudo apt install -y --no-install-recommends jq git devscripts wget dput diffutils
 
       - name: Pull Manifest
         run: |
@@ -208,7 +217,14 @@ jobs:
             exit 1
           else
             cat ${{ steps.init.outputs.gh-repo-path }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt | grep ^CHLOG: | cut -c 7- > ${{ steps.init.outputs.gh-repo-path }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
+            if [ ! -s ${{ steps.init.outputs.gh-repo-path }}/CHANGELOG_${{ steps.init.outputs.target }}.txt ] ; then
+              rm ${{ steps.init.outputs.gh-repo-path }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
+            fi
+
             cat ${{ steps.init.outputs.gh-repo-path }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt | grep ^SRCLOG: | cut -c 7- > ${{ steps.init.outputs.gh-repo-path }}/SOURCELOG_${{ steps.init.outputs.target }}.txt
+            if [ ! -s ${{ steps.init.outputs.gh-repo-path }}/SOURCELOG_${{ steps.init.outputs.target }}.txt ] ; then
+              rm ${{ steps.init.outputs.gh-repo-path }}/SOURCELOG_${{ steps.init.outputs.target }}.txt
+            fi
           fi
 
       - name: Deploy via rsync
@@ -227,7 +243,12 @@ jobs:
               root@66.175.213.120:/mnt/regolith-archive-volume/packages && break || sleep 5
           done
 
-          rsync ${{ steps.init.outputs.gh-repo-path }}/SOURCELOG_${{ steps.init.outputs.target }}.txt root@66.175.213.120:/mnt/regolith-archive-volume/workspace/
+          if [ -f ${{ steps.init.outputs.gh-repo-path }}/SOURCELOG_${{ steps.init.outputs.target }}.txt ]; then
+            ssh root@66.175.213.120 "mkdir -p /mnt/regolith-archive-volume/workspace/"
+            rsync ${{ steps.init.outputs.gh-repo-path }}/SOURCELOG_${{ steps.init.outputs.target }}.txt root@66.175.213.120:/mnt/regolith-archive-volume/workspace/
+          fi
+
+          ssh root@66.175.213.120 "mkdir -p /mnt/regolith-archive-volume/manifests/${{ matrix.distro }}/${{ matrix.codename }}/${{ matrix.suite }}-${{ matrix.component }}/${{ matrix.arch }}/"
           rsync ${{ steps.init.outputs.manifest-path }}/manifest.txt root@66.175.213.120:/mnt/regolith-archive-volume/manifests/${{ matrix.distro }}/${{ matrix.codename }}/${{ matrix.suite }}-${{ matrix.component }}/${{ matrix.arch }}/
 
       - name: Log Build Output
@@ -240,8 +261,8 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: steps.changes.outputs.changed == 1
         with:
-          name: changelogs
-          path: "[CHANGE|SOURCE]LOG_${{ steps.init.outputs.target }}.txt"
+          name: CHANGELOG_${{ steps.init.outputs.target }}
+          path: ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
 
   changelog:
     needs: build
@@ -310,6 +331,7 @@ jobs:
         run: |
           echo "TIMESTAMP=$(date +%Y%m%d_%H%M%S)" >> $GITHUB_OUTPUT
           find changelogs -name CHANGELOG_\*.txt -exec sh -c 'cat "$1" >> CHANGELOG.txt' -- {} \;
+          cat CHANGELOG.txt
 
       # - uses: softprops/action-gh-release@v2
       #   with:
@@ -321,7 +343,7 @@ jobs:
 
   # run the tests
   test:
-    needs: release
-    if: ${{ success() }}
+    needs: [changelog, release]
+    if: needs.changelog.outputs.package-changed != 0
     # if: ${{ !cancelled() }}
     uses: ./.github/workflows/test-desktop-installable2.yml
