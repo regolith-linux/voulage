@@ -43,14 +43,29 @@ stage_source() {
   debian_version="${full_version%-*}"
   cd "$PKG_BUILD_PATH" || exit
 
-  # try to download the .orig.tar.gz from existing archive, otherwise build it
-  if [ "$LOCAL_BUILD" == "false" ]; then
-    wget "http://66.175.213.120/$DISTRO/$SUITE/pool/main/${debian_package_name:0:1}/${debian_package_name}/${debian_package_name}_${debian_version}.orig.tar.gz" || true
-  fi
+  echo "Generating source tarball from git repo."
+  tar --force-local -c -z -v -f  "${debian_package_name}_${debian_version}.orig.tar.gz" --exclude .git\* --exclude debian "$PACKAGE_NAME"
 
-  if [ "$LOCAL_BUILD" == "true" ] || [ ! -f "${debian_package_name}_${debian_version}.orig.tar.gz" ]; then
-    echo "Generating source tarball from git repo."
-    tar --force-local -c -z -v -f  "${debian_package_name}_${debian_version}.orig.tar.gz" --exclude .git\* --exclude debian "$PACKAGE_NAME"
+  if [ "$LOCAL_BUILD" == "false" ]; then
+    # try to download the .orig.tar.gz from existing archive, and check if they are identical or not
+    wget -O "${debian_package_name}_${debian_version}-existing.orig.tar.gz" "http://66.175.213.120/$DISTRO/$SUITE/pool/main/${debian_package_name:0:1}/${debian_package_name}/${debian_package_name}_${debian_version}.orig.tar.gz" || true
+
+    if [ -f "${debian_package_name}_${debian_version}-existing.orig.tar.gz" ]; then
+      result=$(diff <(tar -tvf "${debian_package_name}_${debian_version}.orig.tar.gz" | awk '{printf "%10s %s\n",$3,$6}' | sort -k 2) <(tar -tvf "${debian_package_name}_${debian_version}-existing.orig.tar.gz" | awk '{printf "%10s %s\n",$3,$6}' | sort -k 2) 2>&1)
+
+      if [ -n "$result" ]; then
+        # existing .orig.tar.gz file is different that the one we just built
+        # keep the one we just built and override push it to the repository.
+        rm -f "${debian_package_name}_${debian_version}-existing.orig.tar.gz" || true
+
+        echo "SRCLOG:Published ${debian_package_name}_${debian_version}.orig.tar.gz in $DISTRO/$CODENAME/$STAGE from $PKG_LINE"
+      else
+        # both .orig.tar.gz files are identical!
+        # remove the one ae just built and reuse the existign one.
+        rm -f "${debian_package_name}_${debian_version}.orig.tar.gz" || true
+        mv "${debian_package_name}_${debian_version}-existing.orig.tar.gz" "${debian_package_name}_${debian_version}.orig.tar.gz"
+      fi
+    fi
   fi
 
   popd

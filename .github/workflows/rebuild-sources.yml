@@ -6,7 +6,7 @@ on:
       pull-from:
         description: "Path on disk to pull from"
         required: true
-        default: "/opt/archives/workspace/"
+        default: "/opt/archives/published/"
       push-to:
         description: "Path on disk to push to"
         required: true
@@ -33,7 +33,7 @@ on:
         description: "Path on disk to pull from"
         type: string
         required: true
-        default: "/opt/archives/workspace/"
+        default: "/opt/archives/published/"
       push-to:
         description: "Path on disk to push to"
         type: string
@@ -100,16 +100,19 @@ jobs:
 
           ssh-keyscan -H 66.175.213.120 >> ~/.ssh/known_hosts
           mkdir -p "${{ steps.init.outputs.package-build-path }}"
-          rsync \
-            -avzh \
-            --exclude="*.*/" \
-            --include="*/" \
-            --include="*.orig.tar.gz" \
-            --include="*.debian.tar.xz" \
-            --include="*.diff.gz" \
-            --exclude="*" \
-            root@66.175.213.120:${{ inputs.pull-from }} \
-            "${{ steps.init.outputs.package-build-path }}"
+
+          # # TODO: pull-from needs to be changed based on value of SOURCELOG_* files
+          # #
+          # rsync \
+          #   -avzh \
+          #   --exclude="*.*/" \
+          #   --include="*/" \
+          #   --include="*.orig.tar.gz" \
+          #   --include="*.debian.tar.xz" \
+          #   --include="*.diff.gz" \
+          #   --exclude="*" \
+          #   root@66.175.213.120:${{ inputs.pull-from }} \
+          #   "${{ steps.init.outputs.package-build-path }}"
 
       - name: Rebuild Sources
         run: |

@@ -93,8 +93,8 @@ find_packages() {
       continue
     fi
 
-    # skip named version folder (e.g. 3_x), the contents are symlinks
-    if [[ $component == *"_"* ]]; then
+    # skip named version folder (e.g. 3.x), the contents are symlinks
+    if [[ $component == *"."* ]]; then
       continue
     fi
 
@@ -193,18 +193,5 @@ if [ ! -d "$PKG_BUILD_PATH" ]; then
   exit 1
 fi
 PKG_BUILD_PATH=$(realpath $PKG_BUILD_PATH)
-
-if [ -n "$ONLY_CODENAME" ] && [ -z "$ONLY_DISTRO" ]; then
-  echo "Error: required value for --only-distro is missing while using --only-codename"
-  exit 1
-fi
-if [ -n "$ONLY_COMPONENT" ] && [ -z "$ONLY_CODENAME" ]; then
-  echo "Error: required value for --only-codename is missing while using --only-component"
-  exit 1
-fi
-if [ -n "$ONLY_PACKAGE" ] && [ -z "$ONLY_COMPONENT" ]; then
-  echo "Error: required value for --only-component is missing while using --only-package"
-  exit 1
-fi
 
 main
