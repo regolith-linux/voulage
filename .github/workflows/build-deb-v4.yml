@@ -33,10 +33,10 @@ jobs:
             distro-codename: debian-testing-amd64 # debian testing is never released
           - stage: release-3_2
             distro-codename: debian-testing-arm64 # debian testing is never released
-          - stage: release-3_2
-            distro-codename: ubuntu-oracular-amd64 # 3.2 released before oracular
-          - stage: release-3_2
-            distro-codename: ubuntu-oracular-arm64
+          # - stage: release-3_2
+          #   distro-codename: ubuntu-oracular-amd64 # 3.2 released before oracular
+          # - stage: release-3_2
+          #   distro-codename: ubuntu-oracular-arm64
         include:
           # ubuntu
           - distro-codename: ubuntu-jammy-amd64
@@ -59,16 +59,16 @@ jobs:
             arch: arm64
             distro: ubuntu
             codename: noble
-          - distro-codename: ubuntu-oracular-amd64
-            host-os: [self-hosted, Linux, X64, oracular]
-            arch: amd64
-            distro: ubuntu
-            codename: oracular
-          - distro-codename: ubuntu-oracular-arm64
-            host-os: [self-hosted, Linux, arm64, oracular]
-            arch: arm64
-            distro: ubuntu
-            codename: oracular
+          # - distro-codename: ubuntu-oracular-amd64
+          #   host-os: [self-hosted, Linux, X64, oracular]
+          #   arch: amd64
+          #   distro: ubuntu
+          #   codename: oracular
+          # - distro-codename: ubuntu-oracular-arm64
+          #   host-os: [self-hosted, Linux, arm64, oracular]
+          #   arch: arm64
+          #   distro: ubuntu
+          #   codename: oracular
 
           # debian
           - distro-codename: debian-bookworm-amd64
@@ -254,8 +254,14 @@ jobs:
       - name: Check Changelogs
         id: check
         run: |
-          echo "package-changed=$(find changelogs -name CHANGELOG_\*.txt | wc -l)" >> $GITHUB_OUTPUT
-          echo "source-changed=$(find changelogs -name SOURCELOG_\*.txt | wc -l)" >> $GITHUB_OUTPUT
+          set -e
+          if [ ! -d changelogs ]; then
+            echo "package-changed=0" >> $GITHUB_OUTPUT
+            echo "source-changed=0" >> $GITHUB_OUTPUT
+          else
+            echo "package-changed=$(find changelogs -name CHANGELOG_\*.txt | wc -l)" >> $GITHUB_OUTPUT
+            echo "source-changed=$(find changelogs -name SOURCELOG_\*.txt | wc -l)" >> $GITHUB_OUTPUT
+          fi
           
   # # rebuild sources
   # sources:
@@ -272,7 +278,6 @@ jobs:
   #         pull-from: /mnt/regolith-archive-volume/workspace/
   #         push-to: /mnt/regolith-archive-volume/packages/
 
-  # TODO
   # rebuild sources
   sources:
     needs: changelog
@@ -285,7 +290,7 @@ jobs:
 
   # publish archives
   publish:
-    needs: sources
+    needs: [changelog, sources]
     if: needs.changelog.outputs.package-changed != 0
     uses: ./.github/workflows/publish-packages.yml
     with:
@@ -295,7 +300,7 @@ jobs:
 
   # create a release with changlogs
   release:
-    needs: publish
+    needs: [changelog, publish]
     runs-on: ubuntu-24.04
     if: needs.changelog.outputs.package-changed != 0
     steps:
@@ -317,5 +322,6 @@ jobs:
   # run the tests
   test:
     needs: release
-    if: ${{ !cancelled() }}
+    if: ${{ success() }}
+    # if: ${{ !cancelled() }}
     uses: ./.github/workflows/test-desktop-installable2.yml
