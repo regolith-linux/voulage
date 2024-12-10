@@ -1,4 +1,4 @@
-name: Test builder script
+name: Test Builder Scripts
 
 on:
   workflow_dispatch:
@@ -28,42 +28,61 @@ jobs:
           - distro-codename: debian-bullseye
             distro: debian
             codename: bullseye
+
+          - stage: unstable
+            suite: unstable
+            component: main
+          - stage: testing
+            suite: testing
+            component: main
+          - stage: release
+            suite: stable
+            component: main
+
     steps:
       - uses: actions/checkout@v4
+
       - name: Set Job Parameters
         id: init
         run: |
-          echo "MANIFEST_PATH=${{ github.workspace }}/manifests" >> $GITHUB_OUTPUT
-          echo "PKG_REPO_PATH=${{ github.workspace }}/repo" >> $GITHUB_OUTPUT
-          echo "PKG_BUILD_DIR=${{ github.workspace }}/packages" >> $GITHUB_OUTPUT
-          echo "GH_REPO_ROOT=${{ github.workspace }}" >> $GITHUB_OUTPUT
+          echo "gh-repo-path=${{ github.workspace }}" >> $GITHUB_OUTPUT
+          echo "manifest-path=${{ github.workspace }}/manifests" >> $GITHUB_OUTPUT
+          echo "package-build-path=${{ github.workspace }}/packages" >> $GITHUB_OUTPUT
+          echo "package-publish-path=${{ github.workspace }}/publish" >> $GITHUB_OUTPUT
           echo "stage=${{ matrix.stage }}" >> $GITHUB_OUTPUT
           echo "distro=${{ matrix.distro }}" >> $GITHUB_OUTPUT
           echo "codename=${{ matrix.codename }}" >> $GITHUB_OUTPUT
           echo "arch=${{ matrix.arch }}" >> $GITHUB_OUTPUT
-          echo "target=${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}" >> $GITHUB_OUTPUT          
+          echo "suite=${{ matrix.suite }}" >> $GITHUB_OUTPUT
+          echo "component=${{ matrix.component }}" >> $GITHUB_OUTPUT
+
       - name: Clean tmp
         run: |
           set -x
-          rm -Rf ${{ steps.init.outputs.PKG_REPO_PATH }} || true
-          mkdir ${{ steps.init.outputs.PKG_REPO_PATH }}
-          rm -Rf ${{ steps.init.outputs.MANIFEST_PATH }} || true
-          mkdir ${{ steps.init.outputs.MANIFEST_PATH }}
-          rm -Rf ${{ steps.init.outputs.PKG_BUILD_DIR }} || true
-          mkdir ${{ steps.init.outputs.PKG_BUILD_DIR }}
+
+          rm -Rf ${{ steps.init.outputs.manifest-path }} || true
+          mkdir -p ${{ steps.init.outputs.manifest-path }}
+
+          rm -Rf ${{ steps.init.outputs.package-build-path }} || true
+          mkdir -p ${{ steps.init.outputs.package-build-path }}
+
+          rm -Rf ${{ steps.init.outputs.package-publish-path }} || true
+          mkdir -p ${{ steps.init.outputs.package-publish-path }}
+
       - name: Test Build
         run: |
           set -x
+
           ${{ github.workspace }}/.github/scripts/main.sh \
-            "${{ github.workspace }}" \
-            "${{ github.workspace }}/.github/scripts/ext-tester.sh" \
-            "${{ steps.init.outputs.stage }}" \
-            "${{ steps.init.outputs.distro }}" \
-            "${{ steps.init.outputs.codename }}" \
-            "${{ steps.init.outputs.arch }}" \
-            test_repo_url \
-            Default \
             check \
-            ${{ steps.init.outputs.MANIFEST_PATH }} \
-            ${{ steps.init.outputs.PKG_REPO_PATH }} \
-            ${{ steps.init.outputs.PKG_BUILD_DIR }}
+            --extension "${{ github.workspace }}/.github/scripts/ext-tester.sh" \
+            --git-repo-path "${{ steps.init.outputs.gh-repo-path }}" \
+            --manifest-path ${{ steps.init.outputs.manifest-path }} \
+            --pkg-build-path ${{ steps.init.outputs.package-build-path }} \
+            --pkg-publish-path ${{ steps.init.outputs.package-publish-path }} \
+            --distro "${{ steps.init.outputs.distro }}" \
+            --codename "${{ steps.init.outputs.codename }}" \
+            --arch "${{ steps.init.outputs.arch }}" \
+            --stage "${{ steps.init.outputs.stage }}" \
+            --suite "${{ steps.init.outputs.suite }}" \
+            --component "${{ steps.init.outputs.component }}"
