@@ -51,7 +51,7 @@ stage_source() {
     wget -O "${debian_package_name}_${debian_version}-existing.orig.tar.gz" "http://66.175.213.120/$DISTRO/$SUITE/pool/main/${debian_package_name:0:1}/${debian_package_name}/${debian_package_name}_${debian_version}.orig.tar.gz" || true
 
     if [ -f "${debian_package_name}_${debian_version}-existing.orig.tar.gz" ]; then
-      result=$(diff <(tar -tvf "${debian_package_name}_${debian_version}.orig.tar.gz" | awk '{printf "%10s %s\n",$3,$6}' | sort -k 2) <(tar -tvf "${debian_package_name}_${debian_version}-existing.orig.tar.gz" | awk '{printf "%10s %s\n",$3,$6}' | sort -k 2) 2>&1)
+      result=$(diff <(tar -tvzf "${debian_package_name}_${debian_version}.orig.tar.gz" | awk '{printf "%10s %s\n",$3,$6}' | sort -k 2 | sed 's|\./||') <(tar -tvzf "${debian_package_name}_${debian_version}-existing.orig.tar.gz" | awk '{printf "%10s %s\n",$3,$6}' | sort -k 2 | sed 's|\./||'))
 
       if [ -n "$result" ]; then
         # existing .orig.tar.gz file is different that the one we just built

@@ -188,7 +188,7 @@ PKG_PUBLISH_PATH=""  # e.g. /path/to/publish
 
 DISTRO=""            # ubuntu, debian
 CODENAME=""          # e.g. jammy, noble, bookworm, etc
-STAGE=""             # experimental, unstable, testing, release-x_Y (different release stages from github action point-of-view)
+STAGE=""             # experimental, unstable, testing, release-x_y (different release stages from github action point-of-view)
 SUITE=""             # experimental, unstable, testing, stable      (corresponding value from published arcvhies point-of-view)
 COMPONENT=""         # e.g. main, 3.2, 3.1, etc.
 ARCH=""              # amd64, arm64
