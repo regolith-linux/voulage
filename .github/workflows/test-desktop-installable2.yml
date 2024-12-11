@@ -2,22 +2,157 @@ name: Test Regolith desktop is installable
 
 on:
   workflow_dispatch:
+    inputs:
+      stages:
+        description: "Stages to test"
+        type: string
+        # options:
+        #   - ""
+        #   - all
+        #   - experimental
+        #   - unstable
+        #   - testing
+        #   - release-3_2
+        required: false
+        default: ""
+      distros:
+        description: "Distros to test (debian, ubuntu)"
+        type: string
+        required: false
+        default: ""
+      codenames:
+        description: "Codenames to test (e.g. jammy, noble, bookworm, etc)"
+        type: string
+        required: false
+      arches:
+        description: "Architectures to test"
+        type: string
+        required: false
+        default: "amd64, arm64"
   workflow_call:
+    inputs:
+      stages:
+        description: "Stages to test (e.g. all, experimental, unstable, testing, release-x_y)"
+        type: string
+        required: false
+        default: ""
+      distros:
+        description: "Distros to test (debian, ubuntu)"
+        type: string
+        required: false
+      codenames:
+        description: "Codenames to test (e.g. jammy, noble, bookworm, etc)"
+        type: string
+        required: false
+      arches:
+        description: "Architectures to test"
+        type: string
+        required: false
+        default: "amd64, arm64"
 
 jobs:
+  matrix-builder:
+    runs-on: ubuntu-24.04
+    outputs:
+      # stages: ${{ steps.calc-matrix.outputs.stages }}
+      # distros: ${{ steps.calc-matrix.outputs.distros }}
+      # codenames: ${{ steps.calc-matrix.outputs.codenames }}
+      arches: ${{ steps.calc-matrix.outputs.arches }}
+      # includes: ${{ steps.calc-matrix.outputs.includes }}
+      # excludes: ${{ steps.calc-matrix.outputs.excludes }}
+    steps:
+      - name: Calculate Matrix
+        id: calc-matrix
+        run: |
+          # if [ -n "${{ inputs.stage }}" ] && [ "${{ inputs.stage }}" != "all" ]; then
+          #   STAGES=(${{ inputs.stage }})
+          # else
+          #   STAGES=(experimental testing unstable)
+          # fi
+          # DISTROS=()
+          # CODENAMES=()
+          # INCLUDES=()
+          # EXCLUDES=()
+
+          # valid_distro_codenames=()
+
+
+
+
+          if [ -n "${{ inputs.arches }}" ]; then
+            ARCHES=(${{ inputs.arches }})
+          else
+            ARCHES=(amd64 arm64)
+          fi
+          echo "arches=$(jq -n -c '$ARGS.positional' --args -- "${ARCHES[@]}")" >> $GITHUB_OUTPUT
+
+
+          # for stage in "${STAGES[@]}"; do
+          #   if [ ! -d "stage/${stage}" ]; then
+          #     echo "Package model for stage ${stage} not found!"
+          #     continue
+          #   fi
+
+          #   INCLUDES+=($(jq -n -c --arg stage "$stage" --arg suite "$stage" --arg component "main" '$ARGS.named'))
+
+          #   for dir in $(find stage/${stage}/ -mindepth 2 -maxdepth 2 -type d | sort); do
+          #     for arch in "${ARCHES[@]}"; do
+          #       distro=$(echo $dir | cut -d/ -f3)
+          #       if [ -n "${{ inputs.distro }}" ] && [ "${{ inputs.distro }}" != "$distro" ]; then
+          #         continue
+          #       fi
+
+          #       codename=$(echo $dir | cut -d/ -f4)
+          #       if [ -n "${{ inputs.codename }}" ] && [ "${{ inputs.codename }}" != "$codename" ]; then
+          #         continue
+          #       fi
+
+          #       if [[ ! " ${DISTROS[*]} " =~ [[:space:]]${distro}[[:space:]] ]]; then
+          #         DISTROS+=("${distro}")
+          #       fi
+          #       if [[ ! " ${CODENAMES[*]} " =~ [[:space:]]${codename}[[:space:]] ]]; then
+          #         CODENAMES+=("${codename}")
+          #       fi
+          #       if [[ ! " ${valid_distro_codenames[*]} " =~ [[:space:]]${distro}-${codename}[[:space:]] ]]; then
+          #         valid_distro_codenames+=("${distro}-${codename}")
+          #       fi
+          #     done
+          #   done
+          # done
+
+          # for distro in "${DISTROS[@]}"; do
+          #   for codename in "${CODENAMES[@]}"; do
+          #     if [[ ! " ${valid_distro_codenames[*]} " =~ [[:space:]]${distro}-${codename}[[:space:]] ]]; then
+          #       EXCLUDES+=($(jq -n -c --arg distro "$distro" --arg codename "$codename" '$ARGS.named'))
+          #     fi
+          #   done
+          # done
+
+          # INCLUDES+=($(jq -n -c --arg arch "amd64" --arg runner-arch "X64" '$ARGS.named'))
+          # INCLUDES+=($(jq -n -c --arg arch "arm64" --arg runner-arch "arm64" '$ARGS.named'))
+
+          # echo "stages=$(jq -n -c '$ARGS.positional' --args -- "${STAGES[@]}")" >> $GITHUB_OUTPUT
+          # echo "distros=$(jq -n -c '$ARGS.positional' --args -- "${DISTROS[@]}")" >> $GITHUB_OUTPUT
+          # echo "codenames=$(jq -n -c '$ARGS.positional' --args -- "${CODENAMES[@]}")" >> $GITHUB_OUTPUT
+          # echo "includes=$(jq -n -c "[$(printf '%s\n' "${INCLUDES[@]}" | paste -sd,)]" '$ARGS.named')" >> $GITHUB_OUTPUT
+          # echo "excludes=$(jq -n -c "[$(printf '%s\n' "${EXCLUDES[@]}" | paste -sd,)]" '$ARGS.named')" >> $GITHUB_OUTPUT
+
   debian-bookworm:
-    runs-on: ${{ matrix.host-os }}
+    # runs-on: ${{ matrix.host-os }}
+    runs-on: [self-hosted, Linux, "${{ matrix.arch }}", bookworm] 
+    needs: matrix-builder
+    if: contains(inputs.distros, 'debian') && contains(inputs.codenames, 'bookworm')
     strategy:
       fail-fast: false
       matrix:
         stage: [unstable, testing, stable, release-3_2]
-        arch: [amd64, arm64]
+        arch: ${{ fromJson(needs.matrix-builder.outputs.arches) }}
         wm: [regolith-session-flashback]
         include:
-          - arch: amd64
-            host-os: ubuntu-20.04
-          - arch: arm64
-            host-os: [self-hosted, Linux, ARM64, bookworm]
+          # - arch: amd64
+          #   host-os: ubuntu-20.04
+          # - arch: arm64
+          #   host-os: [self-hosted, Linux, ARM64, bookworm]
           - stage: unstable
             suite: unstable
             component: main
@@ -42,18 +177,21 @@ jobs:
           target-package: "regolith-desktop ${{ matrix.wm }}"
   
   debian-testing:
-    runs-on: ${{ matrix.host-os }}
+    # runs-on: ${{ matrix.host-os }}
+    runs-on: [self-hosted, Linux, "${{ matrix.arch }}", testing] 
+    needs: matrix-builder
+    if: contains(inputs.distros, 'debian') && contains(inputs.codenames, 'testing')
     strategy:
       fail-fast: false
       matrix:
         stage: [unstable, testing] # testing is never released
-        arch: [amd64, arm64]
+        arch: ${{ fromJson(needs.matrix-builder.outputs.arches) }}
         wm: [regolith-session-flashback, regolith-session-sway]
         include:
-          - arch: amd64
-            host-os: [self-hosted, Linux, X64, testing]
-          - arch: arm64
-            host-os: [self-hosted, Linux, ARM64, testing]
+          # - arch: amd64
+          #   host-os: [self-hosted, Linux, X64, testing]
+          # - arch: arm64
+          #   host-os: [self-hosted, Linux, ARM64, testing]
           - stage: unstable
             suite: unstable
             component: main
@@ -72,18 +210,21 @@ jobs:
           target-package: "regolith-desktop ${{ matrix.wm }}"
 
   ubuntu-jammy:
-    runs-on: ${{ matrix.host-os }}
+    # runs-on: ${{ matrix.host-os }}
+    runs-on: [self-hosted, Linux, "${{ matrix.arch }}", jammy] 
+    needs: matrix-builder
+    if: contains(inputs.distros, 'ubuntu') && contains(inputs.codenames, 'jammy')
     strategy:
       fail-fast: false
       matrix:
         stage: [unstable, testing, stable, release-3_0, release-3_1, release-3_2]
-        arch: [amd64, arm64]
+        arch: ${{ fromJson(needs.matrix-builder.outputs.arches) }}
         wm: [regolith-session-flashback, regolith-session-sway]
         include:
-          - arch: amd64
-            host-os: ubuntu-22.04
-          - arch: arm64
-            host-os: [self-hosted, Linux, ARM64, jammy]
+          # - arch: amd64
+          #   host-os: ubuntu-22.04
+          # - arch: arm64
+          #   host-os: [self-hosted, Linux, ARM64, jammy]
           - stage: unstable
             suite: unstable
             component: main
@@ -117,18 +258,21 @@ jobs:
           target-package: "regolith-desktop ${{ matrix.wm }}"
 
   ubuntu-noble:
-    runs-on: ${{ matrix.host-os }}
+    # runs-on: ${{ matrix.host-os }}
+    runs-on: [self-hosted, Linux, "${{ matrix.arch }}", noble] 
+    needs: matrix-builder
+    if: contains(inputs.distros, 'ubuntu') && contains(inputs.codenames, 'noble')
     strategy:
       fail-fast: false
       matrix:
         stage: [unstable, testing, stable, release-3_2]
-        arch: [amd64, arm64]
+        arch: ${{ fromJson(needs.matrix-builder.outputs.arches) }}
         wm: [regolith-session-flashback, regolith-session-sway]
         include:
-          - arch: amd64
-            host-os: [self-hosted, Linux, X64, noble]
-          - arch: arm64
-            host-os: [self-hosted, Linux, ARM64, noble]
+          # - arch: amd64
+          #   host-os: [self-hosted, Linux, X64, noble]
+          # - arch: arm64
+          #   host-os: [self-hosted, Linux, ARM64, noble]
           - stage: unstable
             suite: unstable
             component: main
@@ -153,18 +297,21 @@ jobs:
           target-package: "regolith-desktop ${{ matrix.wm }}"
 
   ubuntu-oracular:
-    runs-on: ${{ matrix.host-os }}
+    # runs-on: ${{ matrix.host-os }}
+    runs-on: [self-hosted, Linux, "${{ matrix.arch }}", oracular] 
+    needs: matrix-builder
+    if: contains(inputs.distros, 'ubuntu') && contains(inputs.codenames, 'oracular')
     strategy:
       fail-fast: false
       matrix:
         stage: [unstable, testing]
-        arch: [amd64, arm64]
+        arch: ${{ fromJson(needs.matrix-builder.outputs.arches) }}
         wm: [regolith-session-flashback, regolith-session-sway]
         include:
-          - arch: amd64
-            host-os: [self-hosted, Linux, X64, oracular]
-          - arch: arm64
-            host-os: [self-hosted, Linux, ARM64, oracular]
+          # - arch: amd64
+          #   host-os: [self-hosted, Linux, X64, oracular]
+          # - arch: arm64
+          #   host-os: [self-hosted, Linux, ARM64, oracular]
           - stage: unstable
             suite: unstable
             component: main
