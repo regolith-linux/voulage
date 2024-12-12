@@ -13,7 +13,6 @@ on:
           - unstable
           - testing
           - release-3_2
-          - release-3_3
         required: true
         default: "unstable"
       distro:
@@ -26,9 +25,10 @@ on:
         required: false
         default: ""
       codename:
-        description: "Codename to build (e.g. jammy, noble, bookworm, etc)"
+        description: "Codename to build (e.g. noble, bookworm)"
         type: string
         required: false
+        default: ""
       arch:
         description: "Architecture to build (amd64, arm64)"
         type: choice
@@ -41,7 +41,7 @@ on:
   workflow_call:
     inputs:
       stage:
-        description: "Stage to build (e.g. all, experimental, unstable, testing, release-x_y)"
+        description: "Stage to build"
         type: string
         required: true
         default: "unstable"
@@ -50,7 +50,7 @@ on:
         type: string
         required: false
       codename:
-        description: "Codename to build (e.g. jammy, noble, bookworm, etc)"
+        description: "Codename to build (e.g. noble, bookworm)"
         type: string
         required: false
       arch:
@@ -401,13 +401,12 @@ jobs:
 
   # run the tests
   test:
-    # needs: [matrix-builder, changelog, release]
-    needs: [matrix-builder]
+    # needs: [changelog, release]
     # if: needs.changelog.outputs.package-changed != 0
     # if: ${{ !cancelled() }}
     uses: ./.github/workflows/test-desktop-installable2.yml
     with:
-      stages: ${{ inputs.stage }}
-      distros: ${{ inputs.distro }}
-      codenames: ${{ inputs.codename }}
-      arches: ${{ inputs.arch }}
+      stage: ${{ inputs.stage }}
+      distro: ${{ inputs.distro }}
+      codename: ${{ inputs.codename }}
+      arch: ${{ inputs.arch }}
