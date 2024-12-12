@@ -110,8 +110,15 @@ occurs in automation. This can be used to test packages build before committing
 to git or debug problems with packages or the build system. Example:
 
 ```console
-cd .github/scripts
-./local-build.sh ../.. ext-debian.sh regolith-i3status-rust https://github.com/regolith-linux/regolith-i3status-rust.git debian_source focal
+$ .github/scripts/local-build.sh \
+    --git-repo-path . \
+    --extension .github/scripts/ext-debian.sh \
+    --package-name regolith-i3status-rust \
+    --package-url https://github.com/regolith-linux/regolith-i3status-rust.git \
+    --package-ref debian_source \
+    --distro ubuntu \
+    --codename focal \
+    --stage unstable
 ```
 
 [Debian releases]: https://www.debian.org/releases/
