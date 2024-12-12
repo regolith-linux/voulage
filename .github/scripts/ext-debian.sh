@@ -56,6 +56,7 @@ stage_source() {
         # keep the one we just built and override push it to the repository.
         rm -f "${debian_package_name}_${debian_version}-existing.orig.tar.gz" || true
 
+        # TODO: change sourcelog entry to something more machine readable
         echo "SRCLOG:Published ${debian_package_name}_${debian_version}.orig.tar.gz in $DISTRO/$CODENAME/$STAGE from $PKG_LINE"
       else
         # both .orig.tar.gz files are identical!

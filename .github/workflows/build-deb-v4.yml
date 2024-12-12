@@ -147,200 +147,209 @@ jobs:
           echo "includes=$(jq -n -c "[$(printf '%s\n' "${INCLUDES[@]}" | paste -sd,)]" '$ARGS.named')" >> $GITHUB_OUTPUT
           echo "excludes=$(jq -n -c "[$(printf '%s\n' "${EXCLUDES[@]}" | paste -sd,)]" '$ARGS.named')" >> $GITHUB_OUTPUT
 
-  # build:
-  #   runs-on: [self-hosted, Linux, "${{ matrix.runner-arch }}", "${{ matrix.codename }}"] 
-  #   needs: matrix-builder
-  #   strategy:
-  #     matrix:
-  #       stage: ${{ fromJSON(needs.matrix-builder.outputs.stages) }}
-  #       distro: ${{ fromJSON(needs.matrix-builder.outputs.distros) }}
-  #       codename: ${{ fromJSON(needs.matrix-builder.outputs.codenames) }}
-  #       arch: ${{ fromJSON(needs.matrix-builder.outputs.arches) }}
+  build:
+    runs-on: [self-hosted, Linux, "${{ matrix.runner-arch }}", "${{ matrix.codename }}"] 
+    needs: matrix-builder
+    strategy:
+      matrix:
+        stage: ${{ fromJSON(needs.matrix-builder.outputs.stages) }}
+        distro: ${{ fromJSON(needs.matrix-builder.outputs.distros) }}
+        codename: ${{ fromJSON(needs.matrix-builder.outputs.codenames) }}
+        arch: ${{ fromJSON(needs.matrix-builder.outputs.arches) }}
 
-  #       include: ${{ fromJSON(needs.matrix-builder.outputs.includes) }}
-  #       exclude: ${{ fromJSON(needs.matrix-builder.outputs.excludes) }}
+        include: ${{ fromJSON(needs.matrix-builder.outputs.includes) }}
+        exclude: ${{ fromJSON(needs.matrix-builder.outputs.excludes) }}
 
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v4
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-  #     - name: Set Job Parameters
-  #       id: init
-  #       run: |
-  #         echo "gh-repo-path=${{ github.workspace }}" >> $GITHUB_OUTPUT
-  #         echo "changelogs-path=${{ github.workspace }}/changelogs" >> $GITHUB_OUTPUT
-  #         echo "manifest-path=${{ github.workspace }}/manifests" >> $GITHUB_OUTPUT
-  #         echo "package-build-path=${{ github.workspace }}/packages" >> $GITHUB_OUTPUT
-  #         echo "package-publish-path=${{ github.workspace }}/publish" >> $GITHUB_OUTPUT
-  #         echo "stage=${{ matrix.stage }}" >> $GITHUB_OUTPUT
-  #         echo "distro=${{ matrix.distro }}" >> $GITHUB_OUTPUT
-  #         echo "codename=${{ matrix.codename }}" >> $GITHUB_OUTPUT
-  #         echo "arch=${{ matrix.arch }}" >> $GITHUB_OUTPUT
-  #         echo "suite=${{ matrix.suite }}" >> $GITHUB_OUTPUT
-  #         echo "component=${{ matrix.component }}" >> $GITHUB_OUTPUT
-  #         echo "target=${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}" >> $GITHUB_OUTPUT
+      - name: Set Job Parameters
+        id: init
+        run: |
+          echo "gh-repo-path=${{ github.workspace }}" >> $GITHUB_OUTPUT
+          echo "changelogs-path=${{ github.workspace }}/changelogs" >> $GITHUB_OUTPUT
+          echo "manifest-path=${{ github.workspace }}/manifests" >> $GITHUB_OUTPUT
+          echo "package-build-path=${{ github.workspace }}/packages" >> $GITHUB_OUTPUT
+          echo "package-publish-path=${{ github.workspace }}/publish" >> $GITHUB_OUTPUT
+          echo "stage=${{ matrix.stage }}" >> $GITHUB_OUTPUT
+          echo "distro=${{ matrix.distro }}" >> $GITHUB_OUTPUT
+          echo "codename=${{ matrix.codename }}" >> $GITHUB_OUTPUT
+          echo "arch=${{ matrix.arch }}" >> $GITHUB_OUTPUT
+          echo "suite=${{ matrix.suite }}" >> $GITHUB_OUTPUT
+          echo "component=${{ matrix.component }}" >> $GITHUB_OUTPUT
+          echo "target=${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}" >> $GITHUB_OUTPUT
 
-  #     - name: Environment Setup
-  #       run: |
-  #         set -e
-  #         mkdir -p ${{ steps.init.outputs.changelogs-path }} || true
-  #         mkdir -p ${{ steps.init.outputs.manifest-path }} || true
+      - name: Environment Setup
+        run: |
+          set -e
+          mkdir -p ${{ steps.init.outputs.changelogs-path }} || true
+          mkdir -p ${{ steps.init.outputs.manifest-path }} || true
 
-  #         sudo rm -rf /etc/apt/sources.list.d/regolith.list
-  #         sudo apt update
-  #         DEBIAN_FRONTEND=noninteractive sudo apt install -y --no-install-recommends jq git devscripts wget dput diffutils
+          sudo rm -rf /etc/apt/sources.list.d/regolith.list
+          sudo apt update
+          DEBIAN_FRONTEND=noninteractive sudo apt install -y --no-install-recommends jq git devscripts wget dput diffutils
 
-  #     - name: Pull Manifest
-  #       run: |
-  #         set -e
-  #         wget -P "${{ steps.init.outputs.manifest-path }}" "http://66.175.213.120/manifests/${{ matrix.distro }}/${{ matrix.codename }}/${{ matrix.suite }}-${{ matrix.component }}/${{ matrix.arch }}/manifest.txt" || true
-  #         echo "Current manifest:"
-  #         cat ${{ steps.init.outputs.manifest-path }}/manifest.txt || true
+      - name: Pull Manifest
+        run: |
+          set -e
+          wget -P "${{ steps.init.outputs.manifest-path }}" "http://66.175.213.120/manifests/${{ matrix.distro }}/${{ matrix.codename }}/${{ matrix.suite }}-${{ matrix.component }}/${{ matrix.arch }}/manifest.txt" || true
+          echo "Current manifest:"
+          cat ${{ steps.init.outputs.manifest-path }}/manifest.txt || true
 
-  #     - name: Check for changes
-  #       id: changes
-  #       run: |
-  #         set -e
-  #         set -x
+      - name: Check for changes
+        id: changes
+        run: |
+          set -e
+          set -x
 
-  #         CHANGE_OUTPUT=$(${{ steps.init.outputs.gh-repo-path }}/.github/scripts/main.sh \
-  #           check \
-  #           --extension ${{ steps.init.outputs.gh-repo-path }}/.github/scripts/ext-debian.sh \
-  #           --git-repo-path ${{ steps.init.outputs.gh-repo-path }} \
-  #           --manifest-path ${{ steps.init.outputs.manifest-path }} \
-  #           --pkg-build-path ${{ steps.init.outputs.package-build-path }} \
-  #           --pkg-publish-path ${{ steps.init.outputs.package-publish-path }} \
-  #           --distro "${{ steps.init.outputs.distro }}" \
-  #           --codename "${{ steps.init.outputs.codename }}" \
-  #           --arch "${{ steps.init.outputs.arch }}" \
-  #           --stage "${{ steps.init.outputs.stage }}" \
-  #           --suite "${{ steps.init.outputs.suite }}" \
-  #           --component "${{ steps.init.outputs.component }}" | tail -n1)
+          CHANGE_OUTPUT=$(${{ steps.init.outputs.gh-repo-path }}/.github/scripts/main.sh \
+            check \
+            --extension ${{ steps.init.outputs.gh-repo-path }}/.github/scripts/ext-debian.sh \
+            --git-repo-path ${{ steps.init.outputs.gh-repo-path }} \
+            --manifest-path ${{ steps.init.outputs.manifest-path }} \
+            --pkg-build-path ${{ steps.init.outputs.package-build-path }} \
+            --pkg-publish-path ${{ steps.init.outputs.package-publish-path }} \
+            --distro "${{ steps.init.outputs.distro }}" \
+            --codename "${{ steps.init.outputs.codename }}" \
+            --arch "${{ steps.init.outputs.arch }}" \
+            --stage "${{ steps.init.outputs.stage }}" \
+            --suite "${{ steps.init.outputs.suite }}" \
+            --component "${{ steps.init.outputs.component }}" | tail -n1)
 
-  #         if [ "$CHANGE_OUTPUT" == "No package changes found, exiting." ]; then
-  #           echo "changed=0" >> $GITHUB_OUTPUT
-  #           echo "No package changes to build"
-  #         else
-  #           echo "changed=1" >> $GITHUB_OUTPUT
-  #           echo "New Manifest: "
-  #           cat ${{ steps.init.outputs.manifest-path }}/next-manifest.txt
-  #         fi
+          if [ "$CHANGE_OUTPUT" == "No package changes found, exiting." ]; then
+            echo "changed=0" >> $GITHUB_OUTPUT
+            echo "No package changes to build"
+          else
+            echo "changed=1" >> $GITHUB_OUTPUT
+            echo "New Manifest: "
+            cat ${{ steps.init.outputs.manifest-path }}/next-manifest.txt
+          fi
 
-  #     - name: Setup SSH agent
-  #       uses: webfactory/ssh-agent@v0.9.0
-  #       if: steps.changes.outputs.changed == 1
-  #       with:
-  #         ssh-private-key: ${{ secrets.KAMATERA_SSH_KEY }}
+      - name: Setup SSH agent
+        uses: webfactory/ssh-agent@v0.9.0
+        if: steps.changes.outputs.changed == 1
+        with:
+          ssh-private-key: ${{ secrets.KAMATERA_SSH_KEY }}
 
-  #     - name: Build Packages
-  #       if: steps.changes.outputs.changed == 1
-  #       run: |
-  #         set -e
+      - name: Build Packages
+        if: steps.changes.outputs.changed == 1
+        run: |
+          set -e
 
-  #         export DEBEMAIL="regolith.linux@gmail.com"
-  #         export DEBFULLNAME="Regolith Linux"
-  #         export DEBIAN_FRONTEND=noninteractive
+          export DEBEMAIL="regolith.linux@gmail.com"
+          export DEBFULLNAME="Regolith Linux"
+          export DEBIAN_FRONTEND=noninteractive
 
-  #         mkdir -p ~/.gnupg/
-  #         printf "${{ secrets.PACKAGE_PRIVATE_KEY2 }}" | base64 --decode > ~/.gnupg/private.key
-  #         gpg --batch --import ~/.gnupg/private.key
+          mkdir -p ~/.gnupg/
+          printf "${{ secrets.PACKAGE_PRIVATE_KEY2 }}" | base64 --decode > ~/.gnupg/private.key
+          gpg --batch --import ~/.gnupg/private.key
 
-  #         ${{ steps.init.outputs.gh-repo-path }}/.github/scripts/main.sh \
-  #           build \
-  #           --extension ${{ steps.init.outputs.gh-repo-path }}/.github/scripts/ext-debian.sh \
-  #           --git-repo-path ${{ steps.init.outputs.gh-repo-path }} \
-  #           --manifest-path ${{ steps.init.outputs.manifest-path }} \
-  #           --pkg-build-path ${{ steps.init.outputs.package-build-path }} \
-  #           --pkg-publish-path ${{ steps.init.outputs.package-publish-path }} \
-  #           --distro "${{ steps.init.outputs.distro }}" \
-  #           --codename "${{ steps.init.outputs.codename }}" \
-  #           --arch "${{ steps.init.outputs.arch }}" \
-  #           --stage "${{ steps.init.outputs.stage }}" \
-  #           --suite "${{ steps.init.outputs.suite }}" \
-  #           --component "${{ steps.init.outputs.component }}" | tee -a ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt
+          ${{ steps.init.outputs.gh-repo-path }}/.github/scripts/main.sh \
+            build \
+            --extension ${{ steps.init.outputs.gh-repo-path }}/.github/scripts/ext-debian.sh \
+            --git-repo-path ${{ steps.init.outputs.gh-repo-path }} \
+            --manifest-path ${{ steps.init.outputs.manifest-path }} \
+            --pkg-build-path ${{ steps.init.outputs.package-build-path }} \
+            --pkg-publish-path ${{ steps.init.outputs.package-publish-path }} \
+            --distro "${{ steps.init.outputs.distro }}" \
+            --codename "${{ steps.init.outputs.codename }}" \
+            --arch "${{ steps.init.outputs.arch }}" \
+            --stage "${{ steps.init.outputs.stage }}" \
+            --suite "${{ steps.init.outputs.suite }}" \
+            --component "${{ steps.init.outputs.component }}" | tee -a ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt
 
-  #         if [ -f ${{ steps.init.outputs.manifest-path }}/next-manifest.txt ]; then
-  #           echo "Temp manifest not deleted by main.sh, build aborted/failed."
-  #           exit 1
-  #         fi
+          if [ -f ${{ steps.init.outputs.manifest-path }}/next-manifest.txt ]; then
+            echo "Temp manifest not deleted by main.sh, build aborted/failed."
+            exit 1
+          fi
 
-  #         cat ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt | grep ^CHLOG: | cut -c 7- > ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
-  #         cat ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt | grep ^SRCLOG: | cut -c 7- > ${{ steps.init.outputs.changelogs-path }}/SOURCELOG_${{ steps.init.outputs.target }}.txt
+          cat ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt | grep ^CHLOG: | cut -c 7- > ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
+          cat ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt | grep ^SRCLOG: | cut -c 7- > ${{ steps.init.outputs.changelogs-path }}/SOURCELOG_${{ steps.init.outputs.target }}.txt
 
-  #         if [ ! -s ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.txt ] ; then
-  #           rm ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
-  #         fi
+          if [ ! -s ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.txt ] ; then
+            rm ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
+          fi
 
-  #         if [ ! -s ${{ steps.init.outputs.changelogs-path }}/SOURCELOG_${{ steps.init.outputs.target }}.txt ] ; then
-  #           rm ${{ steps.init.outputs.changelogs-path }}/SOURCELOG_${{ steps.init.outputs.target }}.txt
-  #         fi
+          if [ ! -s ${{ steps.init.outputs.changelogs-path }}/SOURCELOG_${{ steps.init.outputs.target }}.txt ] ; then
+            rm ${{ steps.init.outputs.changelogs-path }}/SOURCELOG_${{ steps.init.outputs.target }}.txt
+          fi
 
-  #     - name: Deploy via rsync
-  #       if: steps.changes.outputs.changed == 1
-  #       run: |
-  #         set -e
-  #         set -x
+      - name: Deploy via rsync
+        if: steps.changes.outputs.changed == 1
+        run: |
+          set -e
+          set -x
 
-  #         ssh-keyscan -H 66.175.213.120 >> ~/.ssh/known_hosts
+          ssh-keyscan -H 66.175.213.120 >> ~/.ssh/known_hosts
 
-  #         for i in 1 2 3 4 5; do
-  #           echo "Attempt $i"
-  #           rsync \
-  #             -avzhH \
-  #             ${{ steps.init.outputs.package-publish-path }}/* \
-  #             root@66.175.213.120:/mnt/regolith-archive-volume/packages && break || sleep 5
-  #         done
+          for i in 1 2 3 4 5; do
+            echo "Attempt $i"
+            rsync \
+              -avzhH \
+              ${{ steps.init.outputs.package-publish-path }}/* \
+              root@66.175.213.120:/mnt/regolith-archive-volume/packages && break || sleep 5
+          done
 
-  #         rsync --ignore-missing-args ${{ steps.init.outputs.changelogs-path }}/SOURCELOG_${{ steps.init.outputs.target }}.txt root@66.175.213.120:/mnt/regolith-archive-volume/workspace/
-  #         rsync --mkpath ${{ steps.init.outputs.manifest-path }}/manifest.txt root@66.175.213.120:/mnt/regolith-archive-volume/manifests/${{ matrix.distro }}/${{ matrix.codename }}/${{ matrix.suite }}-${{ matrix.component }}/${{ matrix.arch }}/
+          rsync --ignore-missing-args ${{ steps.init.outputs.changelogs-path }}/SOURCELOG_${{ steps.init.outputs.target }}.txt root@66.175.213.120:/mnt/regolith-archive-volume/workspace/
+          rsync --mkpath ${{ steps.init.outputs.manifest-path }}/manifest.txt root@66.175.213.120:/mnt/regolith-archive-volume/manifests/${{ matrix.distro }}/${{ matrix.codename }}/${{ matrix.suite }}-${{ matrix.component }}/${{ matrix.arch }}/
 
-  #     - name: Log Build Output
-  #       if: steps.changes.outputs.changed == 1
-  #       run: |
-  #         cat ${{ steps.init.outputs.manifest-path }}/manifest.txt || true
-  #         echo "package-publish-path:"
-  #         find ${{ steps.init.outputs.package-publish-path }}
+      - name: Log Build Output
+        if: steps.changes.outputs.changed == 1
+        run: |
+          cat ${{ steps.init.outputs.manifest-path }}/manifest.txt || true
+          echo "package-publish-path:"
+          find ${{ steps.init.outputs.package-publish-path }}
 
-  #     - uses: actions/upload-artifact@v4
-  #       if: steps.changes.outputs.changed == 1
-  #       with:
-  #         name: CHANGELOG_${{ steps.init.outputs.target }}
-  #         path: ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        if: steps.changes.outputs.changed == 1
+        with:
+          name: CHANGELOG_${{ steps.init.outputs.target }}
+          path: ${{ steps.init.outputs.changelogs-path }}/*${{ steps.init.outputs.target }}.txt
 
-  # changelog:
-  #   needs: build
-  #   runs-on: ubuntu-24.04
-  #   outputs:
-  #     package-changed: ${{ steps.check.outputs.package-changed }}
-  #     source-changed: ${{ steps.check.outputs.source-changed }}
-  #   steps:
-  #     - name: Download Artifacts
-  #       uses: actions/download-artifact@v4
-  #       with:
-  #         path: changelogs
-  #         pattern: CHANGELOG_*
-  #         merge-multiple: true
+      - name: Cleanup Failed Build
+        if: failure()
+        run: |
+          ssh root@66.175.213.120 "rm -rf /mnt/regolith-archive-volume/manifests/${{ matrix.distro }}/${{ matrix.codename }}/${{ matrix.suite }}-${{ matrix.component }}/${{ matrix.arch }}/"
+          ssh root@66.175.213.120 "rm -rf /mnt/regolith-archive-volume/packages/${{ matrix.distro }}/${{ matrix.codename }}/${{ matrix.suite }}/"
+          ssh root@66.175.213.120 "rm -rf /mnt/regolith-archive-volume/packages/${{ matrix.distro }}/${{ matrix.codename }}/${{ matrix.component }}/"
+          ssh root@66.175.213.120 "rm -rf /mnt/regolith-archive-volume/workspace/*"
 
-  #     - name: Check Changelogs
-  #       id: check
-  #       run: |
-  #         set -e
+  changelog:
+    needs: build
+    runs-on: ubuntu-24.04
+    outputs:
+      package-changed: ${{ steps.check.outputs.package-changed }}
+      source-changed: ${{ steps.check.outputs.source-changed }}
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: changelogs
+          pattern: CHANGELOG_*
+          merge-multiple: true
 
-  #         ls -R changelogs/
+      - name: Check Changelogs
+        id: check
+        run: |
+          set -e
 
-  #         if [ ! -d changelogs ]; then
-  #           echo "package-changed=0"
-  #           echo "source-changed=0"
+          ls -R changelogs/
 
-  #           echo "package-changed=0" >> $GITHUB_OUTPUT
-  #           echo "source-changed=0" >> $GITHUB_OUTPUT
-  #         else
-  #           echo "package-changed=$(find . -name CHANGELOG_\*.txt | wc -l)"
-  #           echo "source-changed=$(find . -name SOURCELOG_\*.txt | wc -l)"
+          if [ ! -d changelogs ]; then
+            echo "package-changed=0"
+            echo "source-changed=0"
 
-  #           echo "package-changed=$(find . -name CHANGELOG_\*.txt | wc -l)" >> $GITHUB_OUTPUT
-  #           echo "source-changed=$(find . -name SOURCELOG_\*.txt | wc -l)" >> $GITHUB_OUTPUT
-  #         fi
+            echo "package-changed=0" >> $GITHUB_OUTPUT
+            echo "source-changed=0" >> $GITHUB_OUTPUT
+          else
+            echo "package-changed=$(find . -name CHANGELOG_\*.txt | wc -l)"
+            echo "source-changed=$(find . -name SOURCELOG_\*.txt | wc -l)"
+
+            echo "package-changed=$(find . -name CHANGELOG_\*.txt | wc -l)" >> $GITHUB_OUTPUT
+            echo "source-changed=$(find . -name SOURCELOG_\*.txt | wc -l)" >> $GITHUB_OUTPUT
+          fi
           
 #   # # rebuild sources
 #   # sources:
@@ -377,33 +386,39 @@ jobs:
 #       workspace-path: /mnt/regolith-archive-volume/workspace/
 #     secrets: inherit
 
-#   # create a release with changlogs
-#   release:
-#     needs: [changelog, publish]
-#     runs-on: ubuntu-24.04
-#     if: needs.changelog.outputs.package-changed != 0
-#     steps:
-#       - uses: actions/download-artifact@v4
-#       - name: Release Timestamp
-#         id: release-timestamp
-#         run: |
-#           echo "TIMESTAMP=$(date +%Y%m%d_%H%M%S)" >> $GITHUB_OUTPUT
-#           find changelogs -name CHANGELOG_\*.txt -exec sh -c 'cat "$1" >> CHANGELOG.txt' -- {} \;
-#           cat CHANGELOG.txt
+  # create a release with changlogs
+  release:
+    # needs: [changelog, publish]
+    needs: [changelog]
+    runs-on: ubuntu-24.04
+    if: needs.changelog.outputs.package-changed != 0
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: changelogs
+          pattern: CHANGELOG_*
+          merge-multiple: true
 
-#       # - uses: softprops/action-gh-release@v2
-#       #   with:
-#       #     body: See CHANGELOG.txt for updates and manifests for current state of repos.
-#       #     name: Package Build ${{ steps.release-timestamp.outputs.TIMESTAMP }}
-#       #     tag_name: pkgbuild-${{ steps.release-timestamp.outputs.TIMESTAMP }}
-#       #     files: |
-#       #       *.txt
+      - name: Prepare Release
+        id: prepare
+        run: |
+          echo "TIMESTAMP=$(date +%Y%m%d_%H%M%S)" >> $GITHUB_OUTPUT
+          find changelogs/ -name CHANGELOG_\*.txt -exec sh -c 'cat "$1" >> CHANGELOG.txt' -- {} \;
+          cat CHANGELOG.txt
+
+      # - uses: softprops/action-gh-release@v2
+      #   with:
+      #     body: See CHANGELOG.txt for updates and manifests for current state of repos.
+      #     name: Package Build ${{ steps.prepare.outputs.TIMESTAMP }}
+      #     tag_name: pkgbuild-${{ steps.prepare.outputs.TIMESTAMP }}
+      #     files: |
+      #       *.txt
 
   # run the tests
   test:
-    # needs: [changelog, release]
-    # if: needs.changelog.outputs.package-changed != 0
-    # if: ${{ !cancelled() }}
+    needs: [changelog, release]
+    if: needs.changelog.outputs.package-changed != 0
     uses: ./.github/workflows/test-desktop-installable2.yml
     with:
       stage: ${{ inputs.stage }}
