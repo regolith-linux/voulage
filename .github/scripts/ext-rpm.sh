@@ -41,6 +41,16 @@ publish() {
   : 
 }
 
+archive_setup_scripts() {
+  # Setting up local archive repo for internal dependencies
+  :
+}
+
+archive_cleanup_scripts() {
+  # Cleaning up local archive repo definition
+  :
+}
+
 # Setup debian repo
 setup() {
   :

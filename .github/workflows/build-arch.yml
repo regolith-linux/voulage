@@ -1,4 +1,4 @@
-name: Arch Package Builder Prototype
+name: Package Builder Arch (Prototype)
 
 on:
   workflow_dispatch:
@@ -20,6 +20,13 @@ jobs:
             arch: amd64
             distro: arch
             codename: testing
+
+          - stage: experimental
+            suite: experimental
+            component: main
+          - stage: unstable
+            suite: unstable
+            component: main
     steps:
       - uses: actions/checkout@v4
       - name: Set Job Parameters
@@ -34,6 +41,8 @@ jobs:
           echo "codename=${{ matrix.codename }}" >> $GITHUB_OUTPUT
           echo "arch=${{ matrix.arch }}" >> $GITHUB_OUTPUT
           echo "target=${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}" >> $GITHUB_OUTPUT
+          echo "suite=${{ matrix.suite }}" >> $GITHUB_OUTPUT
+          echo "component=${{ matrix.component }}" >> $GITHUB_OUTPUT
           echo "repo_url=https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}" >> $GITHUB_OUTPUT
       - name: Env setup
         run: |
@@ -51,18 +60,18 @@ jobs:
         run: |
           set -e
           CHANGE_OUTPUT=$(${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/main.sh \
-            ${{ steps.init.outputs.GH_REPO_ROOT }} \
-            ${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/ext-arch.sh \
-            "${{ steps.init.outputs.stage }}" \
-            "${{ steps.init.outputs.distro }}" \
-            "${{ steps.init.outputs.codename }}" \
-            "${{ steps.init.outputs.arch }}" \
-            "unneeded to check change" \
-            "unneeded to check change" \
             check \
-            ${{ steps.init.outputs.MANIFEST_PATH }} \
-            ${{ steps.init.outputs.PKG_REPO_PATH }} \
-            ${{ steps.init.outputs.PKG_BUILD_DIR }} | tail -n1)
+            --extension ${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/ext-arch.sh \
+            --git-repo-path ${{ steps.init.outputs.GH_REPO_ROOT }} \
+            --manifest-path ${{ steps.init.outputs.MANIFEST_PATH }} \
+            --pkg-build-path ${{ steps.init.outputs.PKG_BUILD_DIR }} \
+            --pkg-publish-path ${{ steps.init.outputs.PKG_REPO_PATH }} \
+            --distro "${{ steps.init.outputs.distro }}" \
+            --codename "${{ steps.init.outputs.codename }}" \
+            --arch "${{ steps.init.outputs.arch }}" \
+            --stage "${{ steps.init.outputs.stage }}" \
+            --suite "${{ steps.init.outputs.suite }}" \
+            --component "${{ steps.init.outputs.component }}" | tail -n1)
           if [ "$CHANGE_OUTPUT" == "No package changes found, exiting." ]; then
             echo "changed=0" >> $GITHUB_OUTPUT
             echo "No package changes to build"
@@ -93,18 +102,18 @@ jobs:
           printf "${{ secrets.PACKAGE_PRIVATE_KEY2 }}" | base64 --decode > ~/.gnupg/private.key
           gpg --batch --import ~/.gnupg/private.key
           ${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/main.sh \
-            ${{ steps.init.outputs.GH_REPO_ROOT }} \
-            ${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/ext-arch.sh \
-            "${{ steps.init.outputs.stage }}" \
-            "${{ steps.init.outputs.distro }}" \
-            "${{ steps.init.outputs.codename }}" \
-            "${{ steps.init.outputs.arch }}" \
-            "${{ steps.init.outputs.repo_url }}" \
-            Default \
             build \
-            ${{ steps.init.outputs.MANIFEST_PATH }} \
-            ${{ steps.init.outputs.PKG_REPO_PATH }} \
-            ${{ steps.init.outputs.PKG_BUILD_DIR }} | tee -a ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt
+            --extension ${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/ext-arch.sh \
+            --git-repo-path ${{ steps.init.outputs.GH_REPO_ROOT }} \
+            --manifest-path ${{ steps.init.outputs.MANIFEST_PATH }} \
+            --pkg-build-path ${{ steps.init.outputs.PKG_BUILD_DIR }} \
+            --pkg-publish-path ${{ steps.init.outputs.PKG_REPO_PATH }} \
+            --distro "${{ steps.init.outputs.distro }}" \
+            --codename "${{ steps.init.outputs.codename }}" \
+            --arch "${{ steps.init.outputs.arch }}" \
+            --stage "${{ steps.init.outputs.stage }}" \
+            --suite "${{ steps.init.outputs.suite }}" \
+            --component "${{ steps.init.outputs.component }}" | tee -a ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt
           if [ -f ${{ steps.init.outputs.MANIFEST_PATH }}/next-manifest.txt ]; then
             echo "Temp manifest not deleted by main.sh, build aborted/failed."
             echo "changed=0" >> $GITHUB_OUTPUT
