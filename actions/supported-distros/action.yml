@@ -8,8 +8,6 @@ runs:
   steps:
     - name: Checkout
       uses: actions/checkout@v4
-      with:
-        path: stage
 
     - name: Get Distros
       shell: bash
