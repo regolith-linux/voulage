@@ -8,22 +8,22 @@ set -e
 tag_package() {
   TAG=$1
   if [ $(git tag -l "$TAG") ]; then
-      if [ -z "$DRY_RUN" ]; then
-        git push --delete origin "$TAG" || :
-        git tag -d "$TAG"
-      else 
-        echo "# (dry-run): delete local and remote tag $TAG"
-        git tag -d "$TAG"
-      fi
+    if [ -z "$DRY_RUN" ]; then
+      git push --delete origin "$TAG" || :
+      git tag -d "$TAG"
+    else
+      echo "# (dry-run): delete local and remote tag $TAG"
+      git tag -d "$TAG"
+    fi
   fi
-  
+
   echo "# Creating new tag $TAG on $PACKAGE_SOURCE_REF for $PACKAGE_NAME"
   git tag $TAG
   # echo "# Pushing tag $TAG for $PACKAGE_NAME"
-  
+
   if [ -z "$DRY_RUN" ]; then
     git push origin $TAG
-  else 
+  else
     echo "# (dry-run): git push origin $TAG"
   fi
 
@@ -34,7 +34,7 @@ tag_package() {
 }
 
 # This script is used to create new tags from existing tags on source refs from the package model
-# Usage: 
+# Usage:
 #   tag-cp.sh <repo root> <source stage> <baseline tag> [package filter]
 # Example:
 #   .github/scripts/tag-stage.sh . unstable r3_2
@@ -44,7 +44,7 @@ handle_package() {
   PKG_WORK_DIR=$PKG_STAGE_ROOT/$PACKAGE_NAME
 
   mkdir -p $PKG_WORK_DIR
-  
+
   pushd $PKG_WORK_DIR > /dev/null
 
   if [[ $PACAKGE_SOURCE_URL == https://* ]]; then
@@ -52,7 +52,7 @@ handle_package() {
     PACAKGE_SOURCE_URL=$(echo $PACAKGE_SOURCE_URL | sed -r 's|https://([^/]*)/([^/]*)/([^/]*)(.git)?|git@\1:\2/\3|')
   fi
 
-  if [ -d "$PACKAGE_NAME" ]; then  
+  if [ -d "$PACKAGE_NAME" ]; then
     pushd "$PACKAGE_NAME" > /dev/null
     git fetch
     git checkout --quiet "$PACKAGE_SOURCE_REF" > /dev/null || { echo "# checkout of $PACAKGE_SOURCE_URL ref $PACKAGE_SOURCE_REF failed" ; popd > /dev/null ; popd > /dev/null ; return ; }
@@ -77,7 +77,7 @@ handle_package() {
     tag_package "$DEFAULT_DEST_TAG"
   elif [ "$PACKAGE_SOURCE_REF" == "master" ]; then
     tag_package "$DEFAULT_DEST_TAG"
-  
+
   # distro/codename specific branches ~ convention is <distro>-<codename>
   elif [[ "$PACKAGE_SOURCE_REF" == "ubuntu-jammy" || "$PACKAGE_SOURCE_REF" == "ubuntu/jammy" ]]; then
     tag_package "$DEFAULT_DEST_TAG-ubuntu-jammy"
@@ -128,21 +128,21 @@ handle_package() {
 
 # Traverse each package in the model and call handle_package
 process_model() {
-    jq -rc 'delpaths([path(.[][]| select(.==null))]) | .packages | keys | .[]' < "$PACKAGE_MODEL_FILE" | while IFS='' read -r package; do
-        # Set the package name and model desc
-        PACKAGE_NAME="$package"
+  jq -rc 'delpaths([path(.[][]| select(.==null))]) | .packages | keys | .[]' < "$PACKAGE_MODEL_FILE" | while IFS='' read -r package; do
+    # Set the package name and model desc
+    PACKAGE_NAME="$package"
 
-        # If a package filter was specified, match filter.
-        if [[ -n "$PACKAGE_FILTER" && "$PACKAGE_FILTER" != "$PACKAGE_NAME" ]]; then
-            continue
-        fi
+    # If a package filter was specified, match filter.
+    if [[ -n "$PACKAGE_FILTER" && "$PACKAGE_FILTER" != "$PACKAGE_NAME" ]]; then
+        continue
+    fi
 
-        PACAKGE_SOURCE_URL=$(jq -r ".packages.\"$package\".source" < "$PACKAGE_MODEL_FILE")
-        PACKAGE_SOURCE_REF=$(jq -r ".packages.\"$package\".ref" < "$PACKAGE_MODEL_FILE")
-        
-        # Apply functions to package model
-        handle_package        
-    done
+    PACAKGE_SOURCE_URL=$(jq -r ".packages.\"$package\".source" < "$PACKAGE_MODEL_FILE")
+    PACKAGE_SOURCE_REF=$(jq -r ".packages.\"$package\".ref" < "$PACKAGE_MODEL_FILE")
+
+    # Apply functions to package model
+    handle_package
+  done
 }
 
 # Generate a json file from a root and any additions in each level of the stage tree
@@ -186,7 +186,7 @@ walk_package_models() {
         cp "$WORKING_DISTRO_MODEL" "$WORKING_CODENAME_MODEL"
       fi
 
-      # ignore arch, will need to update if need to refactor 
+      # ignore arch, will need to update if need to refactor
       # if some packages only exist in a given arch
 
       PACKAGE_MODEL_FILE="$WORKING_CODENAME_MODEL"
@@ -229,8 +229,8 @@ ROOT_MODEL_PATH="$REPO_ROOT/stage/$STAGE/package-model.json"
 PKG_STAGE_ROOT="/tmp/voulage-stage-tool"
 
 if [ -d "$PKG_STAGE_ROOT" ]; then
-   rm -Rf "$PKG_STAGE_ROOT"
-   echo "Deleted pre-existing temp dir $PKG_STAGE_ROOT"
+  rm -Rf "$PKG_STAGE_ROOT"
+  echo "Deleted pre-existing temp dir $PKG_STAGE_ROOT"
 fi
 
 # Walk across stage, distro, codename, arch
