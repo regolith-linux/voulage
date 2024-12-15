@@ -12,6 +12,7 @@ runs:
     - name: Get Distros
       shell: bash
       run: |
+        ls -la
         DISTROS=()
         CODENAMES=()
         EXCLUDES=()
