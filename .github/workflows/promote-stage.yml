@@ -1,4 +1,5 @@
 name: Promote Stage
+run-name: Promote Stage ${{ inputs.stage-id }} to tag ${{ inputs.base-tag-name }} (${{ inputs.dry-run-mode }})
 
 on:
   workflow_dispatch:
@@ -16,34 +17,34 @@ on:
         type: choice
         description: 'Mode'
         options:
-        - dry-run
-        - push-tags
+          - dry-run
+          - push-tags
 
 jobs:
-  build:
+  promote:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Promote Stage
         id: build
+        env:
+          GITHUB_TOKEN: ${{ secrets. GITHUB_TOKEN }}
         run: |
           set -x
 
-          # https://stackoverflow.com/a/55656224
-          echo "[url \"git@github.com:\"]" >> ~/.gitconfig
-          echo -e "\tinsteadOf = https://github.com/" >> ~/.gitconfig
-
-          if [ "${{ github.event.inputs.dry-run-mode }}" == "push-tags" ]; then
+          if [ "${{ inputs.dry-run-mode }}" == "push-tags" ]; then
             ${{ github.workspace }}/.github/scripts/tag-stage.sh \
               ${{ github.workspace }} \
-              ${{ github.event.inputs.stage-id }} \
-              ${{ github.event.inputs.base-tag-name }} \
-              ${{ github.event.inputs.package-name }}
+              ${{ inputs.stage-id }} \
+              ${{ inputs.base-tag-name }} \
+              ${{ inputs.package-name }}
           else
             ${{ github.workspace }}/.github/scripts/tag-stage.sh \
               ${{ github.workspace }} \
-              ${{ github.event.inputs.stage-id }} \
-              ${{ github.event.inputs.base-tag-name }} \
-              ${{ github.event.inputs.package-name }} \
+              ${{ inputs.stage-id }} \
+              ${{ inputs.base-tag-name }} \
+              ${{ inputs.package-name }} \
               dry-run
           fi

@@ -40,7 +40,7 @@ tag_package() {
 #   .github/scripts/tag-stage.sh . unstable r3_2
 
 handle_package() {
-  # echo "# --- $PACKAGE_NAME $PACAKGE_SOURCE_URL $PACKAGE_SOURCE_REF $STAGE-$DISTRO-$CODENAME"
+  echo "# --- $PACKAGE_NAME $PACAKGE_SOURCE_URL $PACKAGE_SOURCE_REF $STAGE-$DISTRO-$CODENAME"
   PKG_WORK_DIR=$PKG_STAGE_ROOT/$PACKAGE_NAME
 
   mkdir -p $PKG_WORK_DIR
@@ -49,7 +49,7 @@ handle_package() {
 
   if [[ $PACAKGE_SOURCE_URL == https://* ]]; then
     # Extract domain, user, and repo name
-    PACAKGE_SOURCE_URL=$(echo $PACAKGE_SOURCE_URL | sed -r 's|https://([^/]*)/([^/]*)/([^/]*)(.git)?|git@\1:\2/\3|')
+    PACAKGE_SOURCE_URL=$(echo $PACAKGE_SOURCE_URL | sed -r 's|https://([^/]*)/([^/]*)/([^/]*)(.git)?|https://git:${GITHUB_TOKEN}@\1/\2/\3|')
   fi
 
   if [ -d "$PACKAGE_NAME" ]; then
