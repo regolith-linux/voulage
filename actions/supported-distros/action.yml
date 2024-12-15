@@ -1,0 +1,48 @@
+name: Calculate Supported Distros
+description: |
+  Calculate supported distros and their corresponding codenames from
+  all the folders and subfolders of voulge/stage/unstable.
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        path: stage
+
+    - name: Get Distros
+      shell: bash
+      run: |
+        DISTROS=()
+        CODENAMES=()
+        EXCLUDES=()
+
+        valid_distro_codenames=()
+
+        for dir in stage/unstable/*/*/; do
+          distro=$(echo $dir | cut -d/ -f3)
+          codename=$(echo $dir | cut -d/ -f4)
+
+          if [[ ! " ${DISTROS[*]} " =~ [[:space:]]${distro}[[:space:]] ]]; then
+            DISTROS+=("${distro}")
+          fi
+          if [[ ! " ${CODENAMES[*]} " =~ [[:space:]]${codename}[[:space:]] ]]; then
+            CODENAMES+=("${codename}")
+          fi
+          if [[ ! " ${valid_distro_codenames[*]} " =~ [[:space:]]${distro}-${codename}[[:space:]] ]]; then
+            valid_distro_codenames+=("${distro}-${codename}")
+          fi
+        done
+
+        for distro in "${DISTROS[@]}"; do
+          for codename in "${CODENAMES[@]}"; do
+            if [[ ! " ${valid_distro_codenames[*]} " =~ [[:space:]]${distro}-${codename}[[:space:]] ]]; then
+              EXCLUDES+=($(jq -n -c --arg distro "$distro" --arg codename "$codename" '$ARGS.named'))
+            fi
+          done
+        done
+
+        echo "${DISTROS[@]}"
+        echo "${CODENAMES[@]}"
+        echo "${EXCLUDES[@]}"
