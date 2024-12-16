@@ -15,7 +15,7 @@ runs:
     - name: Get Distros
       shell: bash
       run: |
-        tmp=$(mktemp)
+        tmp=$(mktemp -d)
 
         pushd "$tmp" >/dev/null
         git clone --recursive https://github.com/regolith-linux/voulage.git -b main voulage
