@@ -54,6 +54,10 @@ runs:
         # popd >/dev/null
         # popd >/dev/null
 
+        echo "distros=$(jq -n -c '$ARGS.positional' --args -- "${DISTROS[@]}")"
+        echo "codenames=$(jq -n -c '$ARGS.positional' --args -- "${CODENAMES[@]}")"
+        echo "excludes=$(jq -n -c "[$(printf '%s\n' "${EXCLUDES[@]}" | paste -sd,)]" '$ARGS.named')"
+
         echo "distros=$(jq -n -c '$ARGS.positional' --args -- "${DISTROS[@]}")" >> $GITHUB_OUTPUT
         echo "codenames=$(jq -n -c '$ARGS.positional' --args -- "${CODENAMES[@]}")" >> $GITHUB_OUTPUT
         echo "excludes=$(jq -n -c "[$(printf '%s\n' "${EXCLUDES[@]}" | paste -sd,)]" '$ARGS.named')" >> $GITHUB_OUTPUT
