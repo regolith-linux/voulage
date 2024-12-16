@@ -38,8 +38,8 @@ runs:
         valid_distro_codenames=()
 
         for dir in $tmp/stage/unstable/*/*/; do
-          distro=$(echo $dir | cut -d/ -f3)
-          codename=$(echo $dir | cut -d/ -f4)
+          distro=$(echo $dir | cut -d/ -f6)
+          codename=$(echo $dir | cut -d/ -f7)
 
           INCLUDES+=($(jq -n -c --arg distro "$distro" --arg codename "$codename" '$ARGS.named'))
 
