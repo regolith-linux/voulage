@@ -6,21 +6,21 @@ description: |
 runs:
   using: composite
   steps:
-    - name: Checkout Voulage
-      uses: actions/checkout@v4
-      with:
-        repository: "regolith-linux/voulage"
-        path: "stage"
+    # - name: Checkout Voulage
+    #   uses: actions/checkout@v4
+    #   with:
+    #     repository: "regolith-linux/voulage"
+    #     path: "stage"
 
     - name: Get Distros
       shell: bash
       run: |
-        # tmp=$(mktemp)
+        tmp=$(mktemp)
 
-        # pushd "$tmp" >/dev/null
-        # git clone --recursive https://github.com/regolith-linux/voulage.git -b main voulage
+        pushd "$tmp" >/dev/null
+        git clone --recursive https://github.com/regolith-linux/voulage.git -b main voulage
   
-        # pushd voulage >/dev/null
+        pushd voulage >/dev/null
 
         DISTROS=()
         CODENAMES=()
@@ -51,8 +51,8 @@ runs:
           done
         done
 
-        # popd >/dev/null
-        # popd >/dev/null
+        popd >/dev/null
+        popd >/dev/null
 
         echo "distros=$(jq -n -c '$ARGS.positional' --args -- "${DISTROS[@]}")"
         echo "codenames=$(jq -n -c '$ARGS.positional' --args -- "${CODENAMES[@]}")"
