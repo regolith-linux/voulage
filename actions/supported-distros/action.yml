@@ -13,15 +13,19 @@ runs:
   steps:
     - name: Init Voulage
       shell: bash
-      run: |
-        if [ ! -d /tmp/voulage-stage-tool ]; then
-          git clone --quiet --no-tags --branch main https://github.com/regolith-linux/voulage.git /tmp/voulage-stage-tool
-        else
-          pushd /tmp/voulage-stage-tool >/dev/null
-          git fetch
-          git checkout --quiet main
-          popd >/dev/null
-        fi
+      run: git clone --quiet --no-tags --branch main https://github.com/regolith-linux/voulage.git /tmp/voulage-stage-tool
+
+    # - name: Init Voulage
+    #   shell: bash
+    #   run: |
+    #     if [ ! -d /tmp/voulage-stage-tool ]; then
+    #       git clone --quiet --no-tags --branch main https://github.com/regolith-linux/voulage.git /tmp/voulage-stage-tool
+    #     else
+    #       pushd /tmp/voulage-stage-tool >/dev/null
+    #       git fetch
+    #       git checkout --quiet main
+    #       popd >/dev/null
+    #     fi
 
     - name: Matrix Includes Builder
       id: matrix-builder
