@@ -22,20 +22,19 @@ runs:
     #   with:
     #     repository: "regolith-linux/voulage"
     #     path: "stage"
-    # - name: Get Distros
-    #   shell: bash
-    #   run: |
+
+    - name: Get Distros
+      shell: bash
+      run: |
+        tmp=$(mktemp -d)
+        git clone --recursive --no-tags --branch main https://github.com/regolith-linux/voulage.git $tmp
 
     - name: Get Distros
       id: find-distros
       shell: bash
       run: |
-        tmp=$(mktemp -d)
-
-        pushd "$tmp" >/dev/null
-        git clone --recursive https://github.com/regolith-linux/voulage.git -b main voulage
-  
-        pushd voulage >/dev/null
+        echo "'$tmp'"
+        ls -la $$tmp
 
         DISTROS=()
         CODENAMES=()
@@ -43,7 +42,7 @@ runs:
 
         valid_distro_codenames=()
 
-        for dir in stage/unstable/*/*/; do
+        for dir in $tmp/stage/unstable/*/*/; do
           distro=$(echo $dir | cut -d/ -f3)
           codename=$(echo $dir | cut -d/ -f4)
 
@@ -65,13 +64,6 @@ runs:
             fi
           done
         done
-
-        popd >/dev/null
-        popd >/dev/null
-
-        # echo "distros=$(jq -n -c '$ARGS.positional' --args -- "${DISTROS[@]}")"
-        # echo "codenames=$(jq -n -c '$ARGS.positional' --args -- "${CODENAMES[@]}")"
-        # echo "excludes=$(jq -n -c "[$(printf '%s\n' "${EXCLUDES[@]}" | paste -sd,)]" '$ARGS.named')"
 
         echo "distros=$(jq -n -c '$ARGS.positional' --args -- "${DISTROS[@]}")" >> $GITHUB_OUTPUT
         echo "codenames=$(jq -n -c '$ARGS.positional' --args -- "${CODENAMES[@]}")" >> $GITHUB_OUTPUT
