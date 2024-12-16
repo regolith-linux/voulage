@@ -3,6 +3,17 @@ description: |
   Calculate supported distros and their corresponding codenames from
   all the folders and subfolders of voulge/stage/unstable.
 
+outputs:
+  distros:
+    description: "List of Distros"
+    value: ${{ steps.find-distros.outputs.distros }}
+  codenames:
+    description: "List of codenames"
+    value: ${{ steps.find-distros.outputs.codenames }}
+  excludes:
+    description: "List of matrix excludes"
+    value: ${{ steps.find-distros.outputs.excludes }}
+
 runs:
   using: composite
   steps:
@@ -11,8 +22,12 @@ runs:
     #   with:
     #     repository: "regolith-linux/voulage"
     #     path: "stage"
+    # - name: Get Distros
+    #   shell: bash
+    #   run: |
 
     - name: Get Distros
+      id: find-distros
       shell: bash
       run: |
         tmp=$(mktemp -d)
@@ -54,9 +69,9 @@ runs:
         popd >/dev/null
         popd >/dev/null
 
-        echo "distros=$(jq -n -c '$ARGS.positional' --args -- "${DISTROS[@]}")"
-        echo "codenames=$(jq -n -c '$ARGS.positional' --args -- "${CODENAMES[@]}")"
-        echo "excludes=$(jq -n -c "[$(printf '%s\n' "${EXCLUDES[@]}" | paste -sd,)]" '$ARGS.named')"
+        # echo "distros=$(jq -n -c '$ARGS.positional' --args -- "${DISTROS[@]}")"
+        # echo "codenames=$(jq -n -c '$ARGS.positional' --args -- "${CODENAMES[@]}")"
+        # echo "excludes=$(jq -n -c "[$(printf '%s\n' "${EXCLUDES[@]}" | paste -sd,)]" '$ARGS.named')"
 
         echo "distros=$(jq -n -c '$ARGS.positional' --args -- "${DISTROS[@]}")" >> $GITHUB_OUTPUT
         echo "codenames=$(jq -n -c '$ARGS.positional' --args -- "${CODENAMES[@]}")" >> $GITHUB_OUTPUT
