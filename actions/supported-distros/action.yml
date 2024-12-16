@@ -25,7 +25,7 @@ runs:
         git clone --recursive --no-tags --branch main https://github.com/regolith-linux/voulage.git $tmp
 
         echo "'$tmp'"
-        ls -la $$tmp
+        ls -la $tmp
 
         DISTROS=()
         CODENAMES=()
