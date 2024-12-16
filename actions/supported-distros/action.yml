@@ -4,65 +4,36 @@ description: |
   all the folders and subfolders of voulge/stage/unstable.
 
 outputs:
-  # distros:
-  #   description: "List of Distros"
-  #   value: ${{ steps.find-distros.outputs.distros }}
-  # codenames:
-  #   description: "List of codenames"
-  #   value: ${{ steps.find-distros.outputs.codenames }}
-  # excludes:
-  #   description: "List of matrix excludes"
-  #   value: ${{ steps.find-distros.outputs.excludes }}
   includes:
-    description: "List of matrix includes"
-    value: ${{ steps.find-distros.outputs.includes }}
+    description: "List of matrix include items"
+    value: ${{ steps.matrix-builder.outputs.includes }}
 
 runs:
   using: composite
   steps:
-    - name: Get Distros
-      id: find-distros
+    - name: Init Voulage
       shell: bash
       run: |
-        tmp=$(mktemp -d)
-        git clone --recursive --no-tags --branch main https://github.com/regolith-linux/voulage.git $tmp
+        if [ ! -d /tmp/voulage-stage-tool ]; then
+          git clone --quiet --no-tags --branch main https://github.com/regolith-linux/voulage.git /tmp/voulage-stage-tool
+        else
+          pushd /tmp/voulage-stage-tool >/dev/null
+          git fetch
+          git checkout --quiet main
+          popd >/dev/null
+        fi
 
-        echo "'$tmp'"
-        ls -la $tmp
-
-        DISTROS=()
-        CODENAMES=()
+    - name: Matrix Includes Builder
+      id: matrix-builder
+      shell: bash
+      run: |
         INCLUDES=()
-        EXCLUDES=()
 
-        valid_distro_codenames=()
-
-        for dir in $tmp/stage/unstable/*/*/; do
+        for dir in /tmp/voulage-stage-tool/stage/unstable/*/*/; do
           distro=$(echo $dir | cut -d/ -f6)
           codename=$(echo $dir | cut -d/ -f7)
 
           INCLUDES+=($(jq -n -c --arg distro "$distro" --arg codename "$codename" '$ARGS.named'))
-
-          # if [[ ! " ${DISTROS[*]} " =~ [[:space:]]${distro}[[:space:]] ]]; then
-          #   DISTROS+=("${distro}")
-          # fi
-          # if [[ ! " ${CODENAMES[*]} " =~ [[:space:]]${codename}[[:space:]] ]]; then
-          #   CODENAMES+=("${codename}")
-          # fi
-          # if [[ ! " ${valid_distro_codenames[*]} " =~ [[:space:]]${distro}-${codename}[[:space:]] ]]; then
-          #   valid_distro_codenames+=("${distro}-${codename}")
-          # fi
         done
 
-        # for distro in "${DISTROS[@]}"; do
-        #   for codename in "${CODENAMES[@]}"; do
-        #     if [[ ! " ${valid_distro_codenames[*]} " =~ [[:space:]]${distro}-${codename}[[:space:]] ]]; then
-        #       EXCLUDES+=($(jq -n -c --arg distro "$distro" --arg codename "$codename" '$ARGS.named'))
-        #     fi
-        #   done
-        # done
-
-        # echo "distros=$(jq -n -c '$ARGS.positional' --args -- "${DISTROS[@]}")" >> $GITHUB_OUTPUT
-        # echo "codenames=$(jq -n -c '$ARGS.positional' --args -- "${CODENAMES[@]}")" >> $GITHUB_OUTPUT
-        # echo "excludes=$(jq -n -c "[$(printf '%s\n' "${EXCLUDES[@]}" | paste -sd,)]" '$ARGS.named')" >> $GITHUB_OUTPUT
         echo "includes=$(jq -n -c "[$(printf '%s\n' "${INCLUDES[@]}" | paste -sd,)]" '$ARGS.named')" >> $GITHUB_OUTPUT
