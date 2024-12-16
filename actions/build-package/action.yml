@@ -68,11 +68,7 @@ runs:
         sudo apt update
         sudo apt install -y devscripts
 
-        # mkdir -p ~/.gnupg/
-        # printf "${{ secrets.PACKAGE_PRIVATE_KEY2 }}" | base64 --decode > ~/.gnupg/private.key
-        # gpg --batch --import ~/.gnupg/private.key
-
-    - name: Build ${{ inputs.package-name }} @ ${{ inputs.package-ref }} for ${{ inputs.distro }}-${{ inputs.codename }} (${{ inputs.stage }})
+    - name: Build ${{ inputs.name }} @ ${{ inputs.ref }} for ${{ inputs.distro }}-${{ inputs.codename }} (${{ inputs.stage }})
       shell: bash
       run: |
         set -x
@@ -83,9 +79,9 @@ runs:
         /tmp/voulage-stage-tool/.github/scripts/local-build.sh \
           --extension /tmp/voulage-stage-tool/.github/scripts/${{ inputs.extension }} \
           --git-repo-path "/tmp/voulage-stage-tool" \
-          --package-name ${{ inputs.package-name }} \
-          --package-url "${{ inputs.package-url }}" \
-          --package-ref "${{ inputs.package-ref }}" \
+          --package-name ${{ inputs.name }} \
+          --package-url "${{ inputs.repo }}" \
+          --package-ref "${{ inputs.ref }}" \
           --distro "${{ inputs.distro }}" \
           --codename "${{ inputs.codename }}" \
           --stage "unstable"
