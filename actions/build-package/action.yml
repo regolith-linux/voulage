@@ -1,0 +1,91 @@
+name: Build Package
+description: |
+  Build Package
+
+inputs:
+  extension:
+    description: 'Build Extension Script'
+    required: true
+    default: ext-debian.sh
+  name:
+    description: 'Package Name'
+    required: true
+  repo:
+    description: 'Package URL (public git)'
+    required: true
+  ref:
+    description: 'Package Ref (branch, tag, or hash)'
+    required: true
+  distro:
+    description: 'Package Distro'
+    required: true
+    # options:
+    #   - debian
+    #   - ubuntu
+  codename:
+    description: 'Package Codename (e.g. focal, bullseye)'
+    required: true
+  # stage:
+  #   description: 'Package Stage'
+  #   required: true
+  #   # options:
+  #   #   - experimental
+  #   #   - unstable
+  #   #   - testing
+  #   #   - stable
+  # build-os-image:
+  #   description: 'Build package on (ubuntu-22.04)'
+  #   required: true
+  #   default: ubuntu-20.04
+
+# outputs:
+#   includes:
+#     description: "List of matrix include items"
+#     value: ${{ steps.find-distros.outputs.includes }}
+
+runs:
+  using: composite
+  steps:
+    - name: Init Voulage
+      shell: bash
+      run: git clone --quiet --no-tags --branch main https://github.com/regolith-linux/voulage.git /tmp/voulage-stage-tool
+
+    # - name: Init Voulage
+    #   shell: bash
+    #   run: |
+    #     if [ ! -d /tmp/voulage-stage-tool ]; then
+    #       git clone --quiet --no-tags --branch main https://github.com/regolith-linux/voulage.git /tmp/voulage-stage-tool
+    #     else
+    #       pushd /tmp/voulage-stage-tool >/dev/null
+    #       git fetch
+    #       git checkout --quiet main
+    #       popd >/dev/null
+    #     fi
+
+    - name: Environment Setup
+      shell: bash
+      run: |
+        sudo apt update
+        sudo apt install -y devscripts
+
+        # mkdir -p ~/.gnupg/
+        # printf "${{ secrets.PACKAGE_PRIVATE_KEY2 }}" | base64 --decode > ~/.gnupg/private.key
+        # gpg --batch --import ~/.gnupg/private.key
+
+    - name: Build ${{ inputs.package-name }} @ ${{ inputs.package-ref }} for ${{ inputs.distro }}-${{ inputs.codename }} (${{ inputs.stage }})
+      shell: bash
+      run: |
+        set -x
+
+        export DEBEMAIL=regolith.linux@gmail.com
+        export DEBFULLNAME="Regolith Linux"
+
+        /tmp/voulage-stage-tool/.github/scripts/local-build.sh \
+          --extension /tmp/voulage-stage-tool/.github/scripts/${{ inputs.extension }} \
+          --git-repo-path "/tmp/voulage-stage-tool" \
+          --package-name ${{ inputs.package-name }} \
+          --package-url "${{ inputs.package-url }}" \
+          --package-ref "${{ inputs.package-ref }}" \
+          --distro "${{ inputs.distro }}" \
+          --codename "${{ inputs.codename }}" \
+          --stage "unstable"
