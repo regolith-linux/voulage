@@ -77,11 +77,12 @@ runs:
         export DEBFULLNAME="Regolith Linux"
 
         /tmp/voulage-stage-tool/.github/scripts/local-build.sh \
-          --extension /tmp/voulage-stage-tool/.github/scripts/${{ inputs.extension }} \
-          --git-repo-path "/tmp/voulage-stage-tool" \
-          --package-name ${{ inputs.name }} \
-          --package-url "${{ inputs.repo }}" \
-          --package-ref "${{ inputs.ref }}" \
-          --distro "${{ inputs.distro }}" \
-          --codename "${{ inputs.codename }}" \
-          --stage "unstable"
+          /tmp/voulage-stage-tool \
+          /tmp/voulage-stage-tool/.github/scripts/${{ inputs.extension }} \
+          ${{ inputs.name }} \
+          ${{ inputs.repo }} \
+          ${{ inputs.ref }} \
+          ${{ inputs.codename }}
+
+          # --distro "${{ inputs.distro }}" \
+          # --stage "unstable"
