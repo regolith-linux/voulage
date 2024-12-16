@@ -17,22 +17,13 @@ outputs:
 runs:
   using: composite
   steps:
-    # - name: Checkout Voulage
-    #   uses: actions/checkout@v4
-    #   with:
-    #     repository: "regolith-linux/voulage"
-    #     path: "stage"
-
     - name: Get Distros
+      id: find-distros
       shell: bash
       run: |
         tmp=$(mktemp -d)
         git clone --recursive --no-tags --branch main https://github.com/regolith-linux/voulage.git $tmp
 
-    - name: Get Distros
-      id: find-distros
-      shell: bash
-      run: |
         echo "'$tmp'"
         ls -la $$tmp
 
