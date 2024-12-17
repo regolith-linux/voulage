@@ -57,9 +57,12 @@ publish() {
   echo "CHLOG:Published arch package of $PACKAGE_NAME in $STAGE $DISTRO $CODENAME $ARCH (dry-run)"
 }
 
-# Create repo dist file - for new repository
-generate_reprepro_dist() {
-    echo "function called: ${FUNCNAME[0]}"
+archive_setup_scripts() {
+  echo "function called: ${FUNCNAME[0]}"
+}
+
+archive_cleanup_scripts() {
+  echo "function called: ${FUNCNAME[0]}"
 }
 
 # Setup repo layout
@@ -67,4 +70,5 @@ setup() {
   echo "function called: ${FUNCNAME[0]}"
 
   source_setup_scripts
+  archive_setup_scripts
 }
