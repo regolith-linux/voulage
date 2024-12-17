@@ -59,3 +59,4 @@ jobs:
 
           ssh-keyscan -H ${{ secrets.KAMATERA_HOSTNAME2 }} >> ~/.ssh/known_hosts
           ssh root@${{ secrets.KAMATERA_HOSTNAME2 }} "publish-repos.sh \"${{ inputs.packages-path }}\" \"${{ inputs.only-distro }}\" \"${{ inputs.only-codename }}\" \"${{ inputs.only-component }}\""
+          ssh root@${{ secrets.KAMATERA_HOSTNAME2 }} "find \"${{ inputs.packages-path }}\" "
