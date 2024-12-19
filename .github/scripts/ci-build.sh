@@ -88,6 +88,8 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
+PWD="$(dirname "$(readlink -f "$0")")"
+
 if [ -z "$PACKAGE_NAME" ]; then
   echo "Error: required value for --package-name is missing"
   exit 1
@@ -96,7 +98,7 @@ if [ -z "$EXTENSION" ]; then
   echo "Error: required value for --extension is missing"
   exit 1
 fi
-EXTENSION=".github/scripts/$EXTENSION"
+EXTENSION="$PWD/$EXTENSION"
 
 if [ -z "$PKG_BUILD_PATH" ]; then
   echo "Error: required value for --pkg-build-path is missing"
