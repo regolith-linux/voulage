@@ -181,7 +181,7 @@ archive_setup_scripts() {
   rm /tmp/Release || true
   wget -P /tmp "http://archive.regolith-desktop.com/$DISTRO/$SUITE/dists/$CODENAME/Release" || true
   
-  if [ -f /tmp/Release ]; then
+  if [ -s /tmp/Release ]; then
     rm /tmp/Release
 
     local repo_line=""
