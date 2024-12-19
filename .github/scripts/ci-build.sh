@@ -98,7 +98,6 @@ if [ -z "$EXTENSION" ]; then
   echo "Error: required value for --extension is missing"
   exit 1
 fi
-EXTENSION="$PWD/$EXTENSION"
 
 if [ -z "$PKG_BUILD_PATH" ]; then
   echo "Error: required value for --pkg-build-path is missing"
@@ -136,6 +135,14 @@ fi
 
 #### Get extensions
 
+GIT_EXT="$PWD/ext-git.sh"
+if [ ! -f "$GIT_EXT" ]; then
+  echo "Error: extension $GIT_EXT doesn't exist, aborting."
+  exit 1
+fi
+source $GIT_EXT
+
+EXTENSION="$PWD/$EXTENSION"
 if [ ! -f "$EXTENSION" ]; then
   echo "Error: extension $EXTENSION doesn't exist, aborting."
   exit 1
