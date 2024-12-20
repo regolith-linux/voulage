@@ -54,8 +54,8 @@ parse_flag() {
 EXTENSION=""         # e.g. /path/to/ext-debian.sh
 GIT_REPO_PATH=""     # e.g. /path/to/git/repo/voulage
 
-PKG_BUILD_PATH="$GIT_REPO_PATH/pkgbuild"
-PKG_PUBLISH_PATH="$GIT_REPO_PATH/pkgpublish"
+PKG_BUILD_PATH=""    # it will be: <GIT_REPO_PATH>/pkgbuild
+PKG_PUBLISH_PATH=""  # it will be: <GIT_REPO_PATH>/pkgpublish
 
 PACKAGE_NAME=""
 PACKAGE_URL=""
@@ -143,9 +143,13 @@ source $EXTENSION
 
 #### Setup files
 
+PKG_BUILD_PATH="$GIT_REPO_PATH/pkgbuild"
+
 if [ ! -d "$PKG_BUILD_PATH" ]; then
   mkdir -p "$PKG_BUILD_PATH"
 fi
+
+PKG_PUBLISH_PATH="$GIT_REPO_PATH/pkgpublish"
 
 if [ ! -d "$PKG_PUBLISH_PATH" ]; then
   mkdir -p $PKG_PUBLISH_PATH/$DISTRO/$CODENAME/$STAGE
