@@ -49,7 +49,7 @@ handle_package() {
 
   if [[ $PACAKGE_SOURCE_URL == https://* ]]; then
     # Extract domain, user, and repo name
-    PACAKGE_SOURCE_URL=$(echo $PACAKGE_SOURCE_URL | sed -r 's|https://([^/]*)/([^/]*)/([^/]*)(.git)?|https://git:${GITHUB_TOKEN}@\1/\2/\3|')
+    PACAKGE_SOURCE_URL=$(echo $PACAKGE_SOURCE_URL | sed -r 's|https://([^/]*)/([^/]*)/([^/]*)(.git)?|https://git:'${GITHUB_TOKEN}'@\1/\2/\3|')
   fi
 
   if [ -d "$PACKAGE_NAME" ]; then
