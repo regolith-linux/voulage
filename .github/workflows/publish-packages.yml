@@ -1,0 +1,62 @@
+name: Publish Packages
+run-name: Publish Packages ${{ inputs.only-distro }} ${{ inputs.only-codename }} ${{ inputs.only-component }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      packages-path:
+        description: "Packages path on disk"
+        required: true
+        default: "/opt/archives/packages/"
+      only-distro:
+        description: "Only publish this distro"
+        required: false
+        default: ""
+      only-codename:
+        description: "Only publish this codename"
+        required: false
+        default: ""
+      only-component:
+        description: "Only publish this component"
+        required: false
+        default: ""
+  workflow_call:
+    inputs:
+      packages-path:
+        description: "Packages path on disk"
+        type: string
+        required: true
+        default: "/opt/archives/packages/"
+      only-distro:
+        description: "Only publish this distro"
+        type: string
+        required: false
+        default: ""
+      only-codename:
+        description: "Only publish this codename"
+        type: string
+        required: false
+        default: ""
+      only-component:
+        description: "Only publish this component"
+        type: string
+        required: false
+        default: ""
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Setup SSH agent
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.KAMATERA_SSH_KEY }}
+
+      - name: Publish Packages
+        run: |
+          set -e
+          set -x
+
+          ssh-keyscan -H ${{ secrets.KAMATERA_HOSTNAME2 }} >> ~/.ssh/known_hosts
+          ssh root@${{ secrets.KAMATERA_HOSTNAME2 }} "publish-repos.sh \"${{ inputs.packages-path }}\" \"${{ inputs.only-distro }}\" \"${{ inputs.only-codename }}\" \"${{ inputs.only-component }}\""
+          ssh root@${{ secrets.KAMATERA_HOSTNAME2 }} "find \"${{ inputs.packages-path }}\" "

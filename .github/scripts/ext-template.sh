@@ -37,9 +37,12 @@ publish() {
   echo todo
 }
 
-# Create repo dist file - for new repository
-generate_reprepro_dist() {
-    echo todo
+archive_setup_scripts() {
+  echo todo
+}
+
+archive_cleanup_scripts() {
+  echo todo
 }
 
 # Setup repo layout
@@ -47,4 +50,5 @@ setup() {
   echo todo
 
   source_setup_scripts
+  archive_setup_scripts
 }

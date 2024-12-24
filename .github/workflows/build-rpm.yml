@@ -1,4 +1,4 @@
-name: RPM Package Builder
+name: Package Builder RPM
 
 on:
   workflow_dispatch:
@@ -21,21 +21,27 @@ jobs:
             distro: fedora
             codename: 36
             container: fedora:36
+
+          - stage: experimental
+            suite: experimental
+            component: main
     steps:
       - uses: actions/checkout@v4
       - name: Set Job Parameters
         id: init
         run: |
-          echo ::set-output name=MANIFEST_PATH::"${{ github.workspace }}/manifests"
-          echo ::set-output name=PKG_REPO_PATH::"${{ github.workspace }}/repo"
-          echo ::set-output name=PKG_BUILD_DIR::"${{ github.workspace }}/packages"
-          echo ::set-output name=GH_REPO_ROOT::"${{ github.workspace }}"
-          echo ::set-output name=stage::${{ matrix.stage }}
-          echo ::set-output name=distro::${{ matrix.distro }}
-          echo ::set-output name=codename::${{ matrix.codename }}
-          echo ::set-output name=arch::${{ matrix.arch }}
-          echo ::set-output name=target::${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}      
-          echo ::set-output name=repo_url::https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}            
+          echo "MANIFEST_PATH=${{ github.workspace }}/manifests" >> $GITHUB_OUTPUT
+          echo "PKG_REPO_PATH=${{ github.workspace }}/repo" >> $GITHUB_OUTPUT
+          echo "PKG_BUILD_DIR=${{ github.workspace }}/packages" >> $GITHUB_OUTPUT
+          echo "GH_REPO_ROOT=${{ github.workspace }}" >> $GITHUB_OUTPUT
+          echo "stage=${{ matrix.stage }}" >> $GITHUB_OUTPUT
+          echo "distro=${{ matrix.distro }}" >> $GITHUB_OUTPUT
+          echo "codename=${{ matrix.codename }}" >> $GITHUB_OUTPUT
+          echo "arch=${{ matrix.arch }}" >> $GITHUB_OUTPUT
+          echo "suite=${{ matrix.suite }}" >> $GITHUB_OUTPUT
+          echo "component=${{ matrix.component }}" >> $GITHUB_OUTPUT
+          echo "target=${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}" >> $GITHUB_OUTPUT
+          echo "repo_url=https://regolith-desktop.org/${{ matrix.stage }}-${{ matrix.distro }}-${{ matrix.codename }}-${{ matrix.arch }}" >> $GITHUB_OUTPUT
       - name: Env setup
         run: |
           set -e
@@ -54,18 +60,18 @@ jobs:
           set -e
           set -x
           CHANGE_OUTPUT=$(${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/main.sh \
-            ${{ steps.init.outputs.GH_REPO_ROOT }} \
-            ${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/ext-rpm.sh \
-            "${{ steps.init.outputs.stage }}" \
-            "${{ steps.init.outputs.distro }}" \
-            "${{ steps.init.outputs.codename }}" \
-            "${{ steps.init.outputs.arch }}" \
-            "unneeded to check change" \
-            "unneeded to check change" \
             check \
-            ${{ steps.init.outputs.MANIFEST_PATH }} \
-            ${{ steps.init.outputs.PKG_REPO_PATH }} \
-            ${{ steps.init.outputs.PKG_BUILD_DIR }} | tail -n1)
+            --extension ${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/ext-rpm.sh \
+            --git-repo-path ${{ steps.init.outputs.GH_REPO_ROOT }} \
+            --manifest-path ${{ steps.init.outputs.MANIFEST_PATH }} \
+            --pkg-build-path ${{ steps.init.outputs.PKG_BUILD_DIR }} \
+            --pkg-publish-path ${{ steps.init.outputs.PKG_REPO_PATH }} \
+            --distro "${{ steps.init.outputs.distro }}" \
+            --codename "${{ steps.init.outputs.codename }}" \
+            --arch "${{ steps.init.outputs.arch }}" \
+            --stage "${{ steps.init.outputs.stage }}" \
+            --suite "${{ steps.init.outputs.suite }}" \
+            --component "${{ steps.init.outputs.component }}" | tail -n1)
           if [ "$CHANGE_OUTPUT" == "No package changes found, exiting." ]; then
             echo ::set-output name=changed::0
             echo "No package changes to build"
@@ -98,18 +104,18 @@ jobs:
           printf "${{ secrets.PACKAGE_PRIVATE_KEY2 }}" | base64 --decode > ~/.gnupg/private.key
           gpg --batch --import ~/.gnupg/private.key
           ${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/main.sh \
-            ${{ steps.init.outputs.GH_REPO_ROOT }} \
-            ${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/ext-rpm.sh \
-            "${{ steps.init.outputs.stage }}" \
-            "${{ steps.init.outputs.distro }}" \
-            "${{ steps.init.outputs.codename }}" \
-            "${{ steps.init.outputs.arch }}" \
-            "${{ steps.init.outputs.repo_url }}" \
-            Default \
             build \
-            ${{ steps.init.outputs.MANIFEST_PATH }} \
-            ${{ steps.init.outputs.PKG_REPO_PATH }} \
-            ${{ steps.init.outputs.PKG_BUILD_DIR }} | tee -a ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt
+            --extension ${{ steps.init.outputs.GH_REPO_ROOT }}/.github/scripts/ext-rpm.sh \
+            --git-repo-path ${{ steps.init.outputs.GH_REPO_ROOT }} \
+            --manifest-path ${{ steps.init.outputs.MANIFEST_PATH }} \
+            --pkg-build-path ${{ steps.init.outputs.PKG_BUILD_DIR }} \
+            --pkg-publish-path ${{ steps.init.outputs.PKG_REPO_PATH }} \
+            --distro "${{ steps.init.outputs.distro }}" \
+            --codename "${{ steps.init.outputs.codename }}" \
+            --arch "${{ steps.init.outputs.arch }}" \
+            --stage "${{ steps.init.outputs.stage }}" \
+            --suite "${{ steps.init.outputs.suite }}" \
+            --component "${{ steps.init.outputs.component }}" | tee -a ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt
           if [ -s "${{ steps.init.outputs.PKG_REPO_PATH }}/manifest.txt" ]; then
             cat ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt | grep ^CHLOG: | cut -c 7- > ${{ steps.init.outputs.GH_REPO_ROOT }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
           else

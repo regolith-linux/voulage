@@ -46,7 +46,7 @@ merge_models() {
   cp "$ROOT_MODEL_PATH" "$WORKING_ROOT_MODEL"
 
   # Optionally merge stage package model
-  STAGE_PACKAGE_MODEL="$REPO_ROOT/stage/$STAGE/package-model.json"
+  STAGE_PACKAGE_MODEL="$GIT_REPO_PATH/stage/$STAGE/package-model.json"
   WORKING_STAGE_MODEL="$MANIFEST_PATH/$STAGE-model.json"
   if [ -f "$STAGE_PACKAGE_MODEL" ]; then
     jq -s '.[0] * .[1]' "$WORKING_ROOT_MODEL" "$STAGE_PACKAGE_MODEL" > "$WORKING_STAGE_MODEL"
@@ -55,7 +55,7 @@ merge_models() {
   fi
 
   # Optionally merge distro package model
-  DISTRO_PACKAGE_MODEL="$REPO_ROOT/stage/$STAGE/$DISTRO/package-model.json"
+  DISTRO_PACKAGE_MODEL="$GIT_REPO_PATH/stage/$STAGE/$DISTRO/package-model.json"
   WORKING_DISTRO_MODEL="$MANIFEST_PATH/$STAGE-$DISTRO-model.json"
   if [ -f "$DISTRO_PACKAGE_MODEL" ]; then
     jq -s '.[0] * .[1]' "$WORKING_STAGE_MODEL" "$DISTRO_PACKAGE_MODEL" > "$WORKING_DISTRO_MODEL"
@@ -64,7 +64,7 @@ merge_models() {
   fi
 
   # Optionally merge codename package model
-  CODENAME_PACKAGE_MODEL="$REPO_ROOT/stage/$STAGE/$DISTRO/$CODENAME/package-model.json"
+  CODENAME_PACKAGE_MODEL="$GIT_REPO_PATH/stage/$STAGE/$DISTRO/$CODENAME/package-model.json"
   WORKING_CODENAME_MODEL="$MANIFEST_PATH/$STAGE-$DISTRO-$CODENAME-model.json"
   if [ -f "$CODENAME_PACKAGE_MODEL" ]; then
     jq -s '.[0] * .[1]' "$WORKING_DISTRO_MODEL" "$CODENAME_PACKAGE_MODEL" > "$WORKING_CODENAME_MODEL"
@@ -73,7 +73,7 @@ merge_models() {
   fi
 
   # Optionally merge arch package model
-  ARCH_PACKAGE_MODEL="$REPO_ROOT/stage/$STAGE/$DISTRO/$CODENAME/$ARCH/package-model.json"
+  ARCH_PACKAGE_MODEL="$GIT_REPO_PATH/stage/$STAGE/$DISTRO/$CODENAME/$ARCH/package-model.json"
   WORKING_ARCH_MODEL="$MANIFEST_PATH/$STAGE-$DISTRO-$CODENAME-$ARCH-model.json"
   if [ -f "$ARCH_PACKAGE_MODEL" ]; then
     jq -s '.[0] * .[1]' "$WORKING_CODENAME_MODEL" "$ARCH_PACKAGE_MODEL" > "$WORKING_ARCH_MODEL"
@@ -90,11 +90,11 @@ merge_models() {
 # Traverse the stage tree and execute any found setup.sh scripts
 source_setup_scripts() {
   local setup_script_locations=(
-    "$REPO_ROOT/stage/setup.sh"
-    "$REPO_ROOT/stage/$STAGE/setup.sh"
-    "$REPO_ROOT/stage/$STAGE/$DISTRO/setup.sh"
-    "$REPO_ROOT/stage/$STAGE/$DISTRO/$CODENAME/setup.sh"
-    "$REPO_ROOT/stage/$STAGE/$DISTRO/$CODENAME/$ARCH/setup.sh"
+    "$GIT_REPO_PATH/stage/setup.sh"
+    "$GIT_REPO_PATH/stage/$STAGE/setup.sh"
+    "$GIT_REPO_PATH/stage/$STAGE/$DISTRO/setup.sh"
+    "$GIT_REPO_PATH/stage/$STAGE/$DISTRO/$CODENAME/setup.sh"
+    "$GIT_REPO_PATH/stage/$STAGE/$DISTRO/$CODENAME/$ARCH/setup.sh"
   )
 
   for setup_file in "${setup_script_locations[@]}"
@@ -135,30 +135,154 @@ build_packages() {
 
 #### Init input params
 
-REPO_ROOT=$(realpath "$1")
-EXTENSION=$2
-STAGE=$3
-DISTRO=$4
-CODENAME=$5
-ARCH=$6
-PACKAGE_REPO_URL=$7
-APT_KEY=$8
-MODE=$9
-MANIFEST_PATH=${10}
-PKG_REPO_PATH=${11}
-PKG_BUILD_DIR=${12}
+usage() {
+cat << EOF
+Build debian and source packages for given combination of: distro, codename, stage and arch
 
+Usage: $0 [options...] COMMAND
 
-GIT_EXT="$REPO_ROOT/.github/scripts/ext-git.sh"
+Commands:                                                                                                           
+  build    Build the requested debian and source packages
+  check    Check the manifests if anything needs to be built
+
+Options:
+  --extension <path>         Path to extenstion file (e.g. /path/to/ext-debian.sh)
+
+  --git-repo-path <path>     Path to repo folder (e.g. /path/to/git/repo/voulage)
+  --manifests-path <path>    Path to manifests folder (e.g. /path/to/manifests)
+  --pkg-build-path <path>    Path to folder to build packages in (e.g. /path/to/packages)
+  --pkg-publish-path <path>  Path to folder to publish packages in (e.g. /path/to/publish)
+
+  --distro <name>            The distro to check or build (e.g. ubuntu, debian)
+  --codename <name>          The codename to check or build (e.g. jammy, noble, bookworm, etc.)
+  --stage <name>             The stage to check or build (e.g. experimental, unstable, testing, release-x_Y) # different release stages from github action point-of-view
+  --suite <name>             The suite to check or build (e.g. experimental, unstable, testing, stable)      # corresponding value from published arcvhies point-of-view
+  --component <name>         The component to check or build (e.g. main, 3_2, 3_1, etc.)
+  --arch <name>              The arch to check or build (e.g. amd64, arm64)
+
+  --help                     Show this message
+
+Note: all the options are required when using $0
+EOF
+}
+
+parse_flag() {
+  declare -n argument=$3
+
+  if [ -n "$2" ] && [ ${2:0:1} != "-" ]; then
+    argument=$2
+    return
+  fi
+
+  echo "Error: argument for $1 is missing" >&2
+  exit 1
+}
+
+MODE=""              # build, check
+EXTENSION=""         # e.g. /path/to/ext-debian.sh
+
+GIT_REPO_PATH=""     # e.g. /path/to/git/repo/voulage
+MANIFEST_PATH=""     # e.g. /path/to/manifests
+PKG_BUILD_PATH=""    # e.g. /path/to/packages
+PKG_PUBLISH_PATH=""  # e.g. /path/to/publish
+
+DISTRO=""            # ubuntu, debian
+CODENAME=""          # e.g. jammy, noble, bookworm, etc
+STAGE=""             # experimental, unstable, testing, release-x_y (different release stages from github action point-of-view)
+SUITE=""             # experimental, unstable, testing, stable      (corresponding value from published arcvhies point-of-view)
+COMPONENT=""         # e.g. main, 3.2, 3.1, etc.
+ARCH=""              # amd64, arm64
+
+LOCAL_BUILD="false"
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    build|check)         MODE="$1"; shift; ;;
+    --extension)         parse_flag "$1" "$2" EXTENSION; shift 2 ;;
+
+    --git-repo-path)     parse_flag "$1" "$2" GIT_REPO_PATH; shift 2 ;;
+    --manifest-path)     parse_flag "$1" "$2" MANIFEST_PATH; shift 2 ;;
+    --pkg-build-path)    parse_flag "$1" "$2" PKG_BUILD_PATH; shift 2 ;;
+    --pkg-publish-path)  parse_flag "$1" "$2" PKG_PUBLISH_PATH; shift 2 ;;
+
+    --distro)            parse_flag "$1" "$2" DISTRO; shift 2 ;;
+    --codename)          parse_flag "$1" "$2" CODENAME; shift 2 ;;
+    --stage)             parse_flag "$1" "$2" STAGE; shift 2 ;;
+    --suite)             parse_flag "$1" "$2" SUITE; shift 2 ;;
+    --component)         parse_flag "$1" "$2" COMPONENT; shift 2 ;;
+    --arch)              parse_flag "$1" "$2" ARCH; shift 2 ;;
+
+    -h|--help)           usage; exit 0; ;;
+    -*|--*)              echo "Unknown option $1"; exit 1;  ;;
+    *)                   echo "Unknown command $1"; exit 1; ;;
+  esac
+done
+
+if [ -z "$MODE" ]; then
+  echo "Error: command is missing"
+  exit 1
+fi
+if [ -z "$EXTENSION" ]; then
+  echo "Error: required value for --extension is missing"
+  exit 1
+fi
+
+if [ -z "$GIT_REPO_PATH" ]; then
+  echo "Error: required value for --git-repo-path is missing"
+  exit 1
+else
+  GIT_REPO_PATH=$(realpath "$GIT_REPO_PATH")
+fi
+if [ -z "$MANIFEST_PATH" ]; then
+  echo "Error: required value for --manifest-path is missing"
+  exit 1
+fi
+if [ -z "$PKG_BUILD_PATH" ]; then
+  echo "Error: required value for --pkg-build-path is missing"
+  exit 1
+fi
+if [ -z "$PKG_PUBLISH_PATH" ]; then
+  echo "Error: required value for --pkg-publish-path is missing"
+  exit 1
+fi
+
+if [ -z "$DISTRO" ]; then
+  echo "Error: required value for --distro is missing"
+  exit 1
+fi
+if [ -z "$CODENAME" ]; then
+  echo "Error: required value for --codename is missing"
+  exit 1
+fi
+if [ -z "$STAGE" ]; then
+  echo "Error: required value for --stage is missing"
+  exit 1
+fi
+if [ -z "$SUITE" ]; then
+  echo "Error: required value for --suite is missing"
+  exit 1
+fi
+if [ -z "$COMPONENT" ]; then
+  echo "Error: required value for --component is missing"
+  exit 1
+fi
+if [ -z "$ARCH" ]; then
+  echo "Error: required value for --arch is missing"
+  exit 1
+fi
+
+#### Get extensions
+
+GIT_EXT="$GIT_REPO_PATH/.github/scripts/ext-git.sh"
 if [ ! -f "$GIT_EXT" ]; then
-  echo "Extension $GIT_EXT doesn't exist, aborting."
+  echo "Error: extension $GIT_EXT doesn't exist, aborting."
   exit 1
 else 
   source $GIT_EXT
 fi
 
 if [ ! -f "$EXTENSION" ]; then
-  echo "Extension $EXTENSION doesn't exist, aborting."
+  echo "Error: extension $EXTENSION doesn't exist, aborting."
   exit 1
 else 
   source $EXTENSION
@@ -166,31 +290,31 @@ fi
 
 #### Init globals
 
-ROOT_MODEL_PATH="$REPO_ROOT/stage/package-model.json"
+ROOT_MODEL_PATH="$GIT_REPO_PATH/stage/package-model.json"
 
 #### Setup files
 
-if [ -d "$MANIFEST_PATH" ]; then
-  echo "Deleting pre-existing manifest dir $MANIFEST_PATH"
-  rm -Rf "$MANIFEST_PATH"
+if [ -d "$PKG_BUILD_PATH" ]; then
+  echo "Deleting pre-existing package build dir $PKG_BUILD_PATH"
+  rm -Rf "$PKG_BUILD_PATH"
 fi
 
-if [ -d "$PKG_BUILD_DIR" ]; then
-  echo "Deleting pre-existing package build dir $PKG_BUILD_DIR"
-  rm -Rf "$PKG_BUILD_DIR"
+if [ -d "$PKG_PUBLISH_PATH" ]; then
+  echo "Deleting pre-existing package publish dir $PKG_PUBLISH_PATH"
+  rm -Rf "$PKG_PUBLISH_PATH"
 fi
 
 if [ ! -d "$MANIFEST_PATH" ]; then
   mkdir -p $MANIFEST_PATH
 fi
 
-if [ ! -d "$PKG_REPO_PATH" ]; then
-  mkdir -p $PKG_REPO_PATH
+if [ ! -d "$PKG_PUBLISH_PATH" ]; then
+  mkdir -p $PKG_PUBLISH_PATH
 fi
 
 #### Generate Manifest from package model tree and git repo state
 
-PREV_MANIFEST_FILE="$PKG_REPO_PATH/manifest.txt"
+PREV_MANIFEST_FILE="$MANIFEST_PATH/manifest.txt"
 NEXT_MANIFEST_FILE="$MANIFEST_PATH/next-manifest.txt"
 
 # Create prev manifest if doesn't exist (first run)
@@ -206,6 +330,7 @@ fi
 
 # Merge models across stage, distro, codename, arch
 merge_models
+
 # Iterate over each package in the model and call handle_package
 traverse_package_model
 
@@ -226,6 +351,8 @@ if [ "$MODE" == "build" ]; then
   build_packages
 
   #### Cleanup
+
+  archive_cleanup_scripts
 
   rm "$PREV_MANIFEST_FILE"
   mv "$NEXT_MANIFEST_FILE" "$PREV_MANIFEST_FILE"
