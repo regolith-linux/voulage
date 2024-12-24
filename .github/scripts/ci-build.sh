@@ -65,7 +65,7 @@ SUITE=""             # experimental, unstable, testing, stable      (correspondi
 COMPONENT=""         # e.g. main, 3.2, 3.1, etc.
 ARCH=""              # amd64, arm64
 
-LOCAL_BUILD="true"
+LOCAL_BUILD="false"
 
 while [[ $# -gt 0 ]]; do
   case $1 in
