@@ -210,7 +210,7 @@ jobs:
         uses: regolith-linux/actions/test-desktop/debian/bullseye@main
         with:
           apt-key-url: http://archive.regolith-desktop.com/regolith.key
-          apt-repo-line: "deb [arch=${{ matrix.arch }}] http://archive.regolith-desktop.com/${{ env.distro }}/${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['suite'] }} ${{ env.codename }} ${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['component'] }}"
+          apt-repo-line: "deb [arch=${{ matrix.arch }} signed-by=/etc/apt/keyrings/regolith.gpg] http://archive.regolith-desktop.com/${{ env.distro }}/${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['suite'] }} ${{ env.codename }} ${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['component'] }}"
           target-package: "regolith-desktop ${{ matrix.wm }}"
 
   debian-bookworm:
@@ -235,7 +235,7 @@ jobs:
         uses: regolith-linux/actions/test-desktop/debian/bookworm@main
         with:
           apt-key-url: http://archive.regolith-desktop.com/regolith.key
-          apt-repo-line: "deb [arch=${{ matrix.arch }}] http://archive.regolith-desktop.com/${{ env.distro }}/${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['suite'] }} ${{ env.codename }} ${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['component'] }}"
+          apt-repo-line: "deb [arch=${{ matrix.arch }} signed-by=/etc/apt/keyrings/regolith.gpg] http://archive.regolith-desktop.com/${{ env.distro }}/${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['suite'] }} ${{ env.codename }} ${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['component'] }}"
           target-package: "regolith-desktop ${{ matrix.wm }}"
   
   debian-testing:
@@ -260,7 +260,7 @@ jobs:
         uses: regolith-linux/actions/test-desktop/debian/testing@main
         with:
           apt-key-url: http://archive.regolith-desktop.com/regolith.key
-          apt-repo-line: "deb [arch=${{ matrix.arch }}] http://archive.regolith-desktop.com/${{ env.distro }}/${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['suite'] }} ${{ env.codename }} ${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['component'] }}"
+          apt-repo-line: "deb [arch=${{ matrix.arch }} signed-by=/etc/apt/keyrings/regolith.gpg] http://archive.regolith-desktop.com/${{ env.distro }}/${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['suite'] }} ${{ env.codename }} ${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['component'] }}"
           target-package: "regolith-desktop ${{ matrix.wm }}"
 
   ubuntu-focal:
@@ -288,7 +288,7 @@ jobs:
         uses: regolith-linux/actions/test-desktop/ubuntu/focal@main
         with:
           apt-key-url: http://archive.regolith-desktop.com/regolith.key
-          apt-repo-line: "deb [arch=${{ matrix.arch }}] http://archive.regolith-desktop.com/${{ env.distro }}/${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['suite'] }} ${{ env.codename }} ${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['component'] }}"
+          apt-repo-line: "deb [arch=${{ matrix.arch }} signed-by=/etc/apt/keyrings/regolith.gpg] http://archive.regolith-desktop.com/${{ env.distro }}/${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['suite'] }} ${{ env.codename }} ${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['component'] }}"
           target-package: "regolith-desktop ${{ matrix.wm }}"
 
   ubuntu-jammy:
@@ -316,7 +316,7 @@ jobs:
         uses: regolith-linux/actions/test-desktop/ubuntu/jammy@main
         with:
           apt-key-url: http://archive.regolith-desktop.com/regolith.key
-          apt-repo-line: "deb [arch=${{ matrix.arch }}] http://archive.regolith-desktop.com/${{ env.distro }}/${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['suite'] }} ${{ env.codename }} ${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['component'] }}"
+          apt-repo-line: "deb [arch=${{ matrix.arch }} signed-by=/etc/apt/keyrings/regolith.gpg] http://archive.regolith-desktop.com/${{ env.distro }}/${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['suite'] }} ${{ env.codename }} ${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['component'] }}"
           target-package: "regolith-desktop ${{ matrix.wm }}"
 
   ubuntu-lunar:
@@ -344,7 +344,7 @@ jobs:
         uses: regolith-linux/actions/test-desktop/ubuntu/lunar@main
         with:
           apt-key-url: http://archive.regolith-desktop.com/regolith.key
-          apt-repo-line: "deb [arch=${{ matrix.arch }}] http://archive.regolith-desktop.com/${{ env.distro }}/${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['suite'] }} ${{ env.codename }} ${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['component'] }}"
+          apt-repo-line: "deb [arch=${{ matrix.arch }} signed-by=/etc/apt/keyrings/regolith.gpg] http://archive.regolith-desktop.com/${{ env.distro }}/${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['suite'] }} ${{ env.codename }} ${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['component'] }}"
           target-package: "regolith-desktop ${{ matrix.wm }}"
 
   ubuntu-mantic:
@@ -372,7 +372,7 @@ jobs:
         uses: regolith-linux/actions/test-desktop/ubuntu/mantic@main
         with:
           apt-key-url: http://archive.regolith-desktop.com/regolith.key
-          apt-repo-line: "deb [arch=${{ matrix.arch }}] http://archive.regolith-desktop.com/${{ env.distro }}/${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['suite'] }} ${{ env.codename }} ${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['component'] }}"
+          apt-repo-line: "deb [arch=${{ matrix.arch }} signed-by=/etc/apt/keyrings/regolith.gpg] http://archive.regolith-desktop.com/${{ env.distro }}/${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['suite'] }} ${{ env.codename }} ${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['component'] }}"
           target-package: "regolith-desktop ${{ matrix.wm }}"
 
   ubuntu-noble:
@@ -397,7 +397,7 @@ jobs:
         uses: regolith-linux/actions/test-desktop/ubuntu/noble@main
         with:
           apt-key-url: http://archive.regolith-desktop.com/regolith.key
-          apt-repo-line: "deb [arch=${{ matrix.arch }}] http://archive.regolith-desktop.com/${{ env.distro }}/${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['suite'] }} ${{ env.codename }} ${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['component'] }}"
+          apt-repo-line: "deb [arch=${{ matrix.arch }} signed-by=/etc/apt/keyrings/regolith.gpg] http://archive.regolith-desktop.com/${{ env.distro }}/${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['suite'] }} ${{ env.codename }} ${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['component'] }}"
           target-package: "regolith-desktop ${{ matrix.wm }}"
 
   ubuntu-oracular:
@@ -422,5 +422,5 @@ jobs:
         uses: regolith-linux/actions/test-desktop/ubuntu/oracular@main
         with:
           apt-key-url: http://archive.regolith-desktop.com/regolith.key
-          apt-repo-line: "deb [arch=${{ matrix.arch }}] http://archive.regolith-desktop.com/${{ env.distro }}/${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['suite'] }} ${{ env.codename }} ${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['component'] }}"
+          apt-repo-line: "deb [arch=${{ matrix.arch }} signed-by=/etc/apt/keyrings/regolith.gpg] http://archive.regolith-desktop.com/${{ env.distro }}/${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['suite'] }} ${{ env.codename }} ${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['component'] }}"
           target-package: "regolith-desktop ${{ matrix.wm }}"
