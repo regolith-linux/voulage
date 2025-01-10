@@ -26,8 +26,11 @@ rebuild_packages() {
   for f in $(find . -maxdepth 1 -type f -name "*.orig.tar.gz" | sort); do
     base_name=$(basename $f)
 
+    pkg_full_name=$(echo $base_name | sed 's/.orig.tar.gz//g')
+    pkg_name=$(echo $base_name | cut -d"_" -f1)
+
     # not the provided --only-package
-    if [ -n "$ONLY_PACKAGE" ] && [ "$ONLY_PACKAGE" != "$base_name" ]; then
+    if [ -n "$ONLY_PACKAGE" ] && [ "$ONLY_PACKAGE" != "$pkg_name" ]; then
       continue
     fi
 
@@ -38,9 +41,6 @@ rebuild_packages() {
     if [ ! -d "$tmp" ]; then
       continue
     fi
-
-    pkg_full_name=$(echo $base_name | sed 's/.orig.tar.gz//g')
-    pkg_name=$(echo $base_name | cut -d"_" -f1)
 
     if [ ! -f "$pkg_full_name.orig.tar.gz" ]; then
       echo "$pkg_full_name.orig.tar.gz is missing"
