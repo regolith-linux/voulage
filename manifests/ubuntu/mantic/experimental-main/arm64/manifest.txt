@@ -1,2 +1,0 @@
-armesto https://github.com/kgilmer/armesto.git main cc8e998cdd4a05df2602881ab7fce336fb327335
-xrescat https://github.com/regolith-linux/xrescat.git experimental f49e71592b430e0705ab0ff47585cbde42f3af6c

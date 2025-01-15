@@ -1,2 +1,0 @@
-picom https://github.com/regolith-linux/picom.git packaging/v11-regolith 64b4789dffeb384a89a2372888180578e1199465
-xrescat https://github.com/regolith-linux/xrescat.git experimental f49e71592b430e0705ab0ff47585cbde42f3af6c
