@@ -8,7 +8,7 @@ set -o errexit
 
 # Update the changelog to specify the target distribution codename
 update_changelog() {
-  set -x
+  # set -x
   cd "${PKG_BUILD_PATH:?}/$PACKAGE_NAME"
   version=$(dpkg-parsechangelog --show-field Version)
   dch --force-distribution --distribution "$CODENAME" --newversion "${version}-1regolith-$CODENAME" "Automated Voulage release"
