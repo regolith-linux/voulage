@@ -351,7 +351,7 @@ jobs:
       - name: Check Manifests
         run: |
           for file in manifests/*_manifest.txt; do
-            if [ ! -f "$$file" ]; then
+            if [ ! -f "$file" ]; then
               continue
             fi
 
