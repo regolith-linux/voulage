@@ -159,13 +159,14 @@ jobs:
           echo "codenames=$(jq -n -c '$ARGS.positional' --args -- "${CODENAMES[@]}")" >> $GITHUB_OUTPUT
           echo "arches=$(jq -n -c '$ARGS.positional' --args -- "${ARCHES[@]}")" >> $GITHUB_OUTPUT
           echo "suites=$(jq -n -c "${SUITES}" '$ARGS.named')" >> $GITHUB_OUTPUT
-          echo "runners=$(jq -n -c "$(jq -n -c --arg amd64 "X64" --arg arm64 "arm64" '$ARGS.named')" '$ARGS.named')" >> $GITHUB_OUTPUT
+          echo "runners=$(jq -n -c "$(jq -n -c --arg amd64 "ubuntu-24.04" --arg arm64 "ubuntu-24.04-arm" '$ARGS.named')" '$ARGS.named')" >> $GITHUB_OUTPUT
           echo "includes=$(jq -n -c "[$(printf '%s\n' "${INCLUDES[@]}" | paste -sd,)]" '$ARGS.named')" >> $GITHUB_OUTPUT
           echo "excludes=$(jq -n -c "[$(printf '%s\n' "${EXCLUDES[@]}" | paste -sd,)]" '$ARGS.named')" >> $GITHUB_OUTPUT
 
   # build packages and sources
   build:
-    runs-on: [self-hosted, Linux, "${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}", "${{ matrix.codename }}"] 
+    runs-on: ${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}
+    container: "ghcr.io/regolith-linux/ci-${{ matrix.distro }}:${{ matrix.codename }}-${{ matrix.arch }}"
     needs: matrix-builder
     strategy:
       matrix:
@@ -184,11 +185,11 @@ jobs:
       - name: Set Job Parameters
         id: init
         run: |
-          echo "gh-repo-path=${{ github.workspace }}" >> $GITHUB_OUTPUT
-          echo "changelogs-path=${{ github.workspace }}/changelogs" >> $GITHUB_OUTPUT
-          echo "manifest-path=${{ github.workspace }}/manifests" >> $GITHUB_OUTPUT
-          echo "package-build-path=${{ github.workspace }}/packages" >> $GITHUB_OUTPUT
-          echo "package-publish-path=${{ github.workspace }}/publish" >> $GITHUB_OUTPUT
+          echo "gh-repo-path=/__w/voulage/voulage" >> $GITHUB_OUTPUT
+          echo "changelogs-path=/__w/voulage/voulage/changelogs" >> $GITHUB_OUTPUT
+          echo "manifest-path=/__w/voulage/voulage/manifests" >> $GITHUB_OUTPUT
+          echo "package-build-path=/__w/voulage/voulage/packages" >> $GITHUB_OUTPUT
+          echo "package-publish-path=/__w/voulage/voulage/publish" >> $GITHUB_OUTPUT
           echo "stage=${{ matrix.stage }}" >> $GITHUB_OUTPUT
           echo "distro=${{ matrix.distro }}" >> $GITHUB_OUTPUT
           echo "codename=${{ matrix.codename }}" >> $GITHUB_OUTPUT
@@ -333,48 +334,48 @@ jobs:
           name: CHANGELOG_${{ steps.init.outputs.target }}
           path: ${{ steps.init.outputs.changelogs-path }}/*${{ steps.init.outputs.target }}.txt
 
-  # update manifests
-  manifests:
-    runs-on: ubuntu-24.04
-    needs: build
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+  # # update manifests
+  # manifests:
+  #   runs-on: ubuntu-24.04
+  #   needs: build
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
 
-      - name: Download Artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: manifests
-          pattern: MANIFESTS_*
-          merge-multiple: true
+  #     - name: Download Artifacts
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         path: manifests
+  #         pattern: MANIFESTS_*
+  #         merge-multiple: true
 
-      - name: Check Manifests
-        run: |
-          for file in manifests/*_manifest.txt; do
-            if [ ! -f "$file" ]; then
-              continue
-            fi
+  #     - name: Check Manifests
+  #       run: |
+  #         for file in manifests/*_manifest.txt; do
+  #           if [ ! -f "$file" ]; then
+  #             continue
+  #           fi
 
-            filename="$(basename $file)"
-            distro="$(echo $filename | cut -d"_" -f1)"
-            codename="$(echo $filename | cut -d"_" -f2)"
-            suite="$(echo $filename | cut -d"_" -f3)"
-            name="$(echo $filename | cut -d"_" -f4)"
+  #           filename="$(basename $file)"
+  #           distro="$(echo $filename | cut -d"_" -f1)"
+  #           codename="$(echo $filename | cut -d"_" -f2)"
+  #           suite="$(echo $filename | cut -d"_" -f3)"
+  #           name="$(echo $filename | cut -d"_" -f4)"
 
-            mkdir -p manifests/$distro/$codename/$suite/
-            mv $file manifests/$distro/$codename/$suite/$name
-          done
+  #           mkdir -p manifests/$distro/$codename/$suite/
+  #           mv $file manifests/$distro/$codename/$suite/$name
+  #         done
 
-      - name: Push Manifest Changes
-        uses: stefanzweifel/git-auto-commit-action@v5
-        env:
-          GITHUB_TOKEN: ${{ secrets.ORG_BROADCAST_TOKEN }}
-        with:
-          file_pattern: "*"
-          commit_message: "chore: update ${{ inputs.stage }} manifest for all packages"
-          commit_user_name: regolith-bot
-          commit_user_email: bot@regolith-desktop.com
-          commit_author: "regolith-bot <bot@regolith-desktop.com>"
+  #     - name: Push Manifest Changes
+  #       uses: stefanzweifel/git-auto-commit-action@v5
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.ORG_BROADCAST_TOKEN }}
+  #       with:
+  #         file_pattern: "*"
+  #         commit_message: "chore: update ${{ inputs.stage }} manifest for all packages"
+  #         commit_user_name: regolith-bot
+  #         commit_user_email: bot@regolith-desktop.com
+  #         commit_author: "regolith-bot <bot@regolith-desktop.com>"
 
   # calculate changelogs
   changelogs:
@@ -411,7 +412,7 @@ jobs:
 
   # rebuild sources
   source:
-    needs: [manifests, changelogs]
+    needs: [changelogs]
     if: ${{ !failure() && !cancelled() && needs.changelogs.outputs.source-changed != 0 }}
     uses: ./.github/workflows/rebuild-sources.yml
     with:
@@ -421,44 +422,44 @@ jobs:
 
   # publish archives
   publish:
-    needs: [manifests, changelogs, source]
+    needs: [changelogs, source]
     if: ${{ !failure() && !cancelled() && needs.changelogs.outputs.package-changed != 0 }}
     uses: ./.github/workflows/publish-packages.yml
     with:
       packages-path: /opt/archives/packages/
     secrets: inherit
 
-  # create a release with changlogs
-  release:
-    runs-on: ubuntu-24.04
-    needs: [manifests, changelogs, publish]
-    if: ${{ !failure() && !cancelled() && needs.changelogs.outputs.package-changed != 0 }}
-    steps:
-      - name: Download Artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: changelogs
-          pattern: CHANGELOG_*
-          merge-multiple: true
+  # # create a release with changlogs
+  # release:
+  #   runs-on: ubuntu-24.04
+  #   needs: [changelogs, publish]
+  #   if: ${{ !failure() && !cancelled() && needs.changelogs.outputs.package-changed != 0 }}
+  #   steps:
+  #     - name: Download Artifacts
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         path: changelogs
+  #         pattern: CHANGELOG_*
+  #         merge-multiple: true
 
-      - name: Prepare Release
-        id: prepare
-        run: |
-          echo "TIMESTAMP=$(date +%Y%m%d_%H%M%S)" >> $GITHUB_OUTPUT
-          find changelogs/ -name CHANGELOG_\*.txt -exec sh -c 'cat "$1" >> CHANGELOG.txt' -- {} \;
-          cat CHANGELOG.txt
+  #     - name: Prepare Release
+  #       id: prepare
+  #       run: |
+  #         echo "TIMESTAMP=$(date +%Y%m%d_%H%M%S)" >> $GITHUB_OUTPUT
+  #         find changelogs/ -name CHANGELOG_\*.txt -exec sh -c 'cat "$1" >> CHANGELOG.txt' -- {} \;
+  #         cat CHANGELOG.txt
 
-      - uses: softprops/action-gh-release@v2
-        with:
-          body: See CHANGELOG.txt for updates and manifests for current state of repos.
-          name: Package Build ${{ steps.prepare.outputs.TIMESTAMP }}
-          tag_name: pkgbuild-${{ steps.prepare.outputs.TIMESTAMP }}
-          files: |
-            *.txt
+  #     - uses: softprops/action-gh-release@v2
+  #       with:
+  #         body: See CHANGELOG.txt for updates and manifests for current state of repos.
+  #         name: Package Build ${{ steps.prepare.outputs.TIMESTAMP }}
+  #         tag_name: pkgbuild-${{ steps.prepare.outputs.TIMESTAMP }}
+  #         files: |
+  #           *.txt
 
   # run the tests
   test:
-    needs: [manifests, changelogs, release]
+    needs: [changelogs]
     if: ${{ !failure() && !cancelled() }}
     uses: ./.github/workflows/test-desktop-installable2.yml
     with:
