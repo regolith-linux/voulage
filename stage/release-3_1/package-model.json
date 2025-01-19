@@ -1,212 +1,212 @@
 {
   "packages": {
-    "regolith-system-ubuntu": {
-      "source": "https://github.com/regolith-linux/regolith-system-ubuntu.git",
-      "ref": "r3_1"
-    },
-    "regolith-lightdm-config": {
-      "source": "https://github.com/regolith-linux/regolith-lightdm-config.git",
-      "ref": "r3_1"
-    },
-    "regolith-session": {
-      "source": "https://github.com/regolith-linux/regolith-session.git",
-      "ref": "r3_1"
-    },
-    "i3-snapshot": {
-      "source": "https://github.com/regolith-linux/i3-snapshot.git",
-      "ref": "r3_1"
-    },
-    "python3-i3ipc": {
-      "source": "https://github.com/regolith-linux/python3-i3ipc",
-      "ref": "r3_1"
-    },
-    "fonts-jetbrains-mono": {
-      "source": "https://github.com/regolith-linux/fonts-jetbrains-mono.git",
-      "ref": "r3_1"
-    },
-    "fonts-materialdesignicons-webfont": {
-      "source": "https://github.com/regolith-linux/fonts-materialdesignicons-webfont.git",
-      "ref": "r3_1"
-    },
-    "i3-wm": {
-      "source": "https://github.com/regolith-linux/i3-wm.git",
-      "ref": "r3_1"
+    "arc-icon-theme": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/arc-icon-theme.git"
     },
     "ayu-theme": {
-      "source": "https://github.com/regolith-linux/ayu-theme.git",
-      "ref": "r3_1"
-    },
-    "solarc-theme": {
-      "source": "https://github.com/regolith-linux/solarc-theme.git",
-      "ref": "r3_1"
-    },
-    "gruvbox-gtk": {
-      "source": "https://github.com/regolith-linux/gruvbox-gtk.git",
-      "ref": "r3_1"
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/ayu-theme.git"
     },
     "dracula-gtk": {
-      "source": "https://github.com/regolith-linux/dracula-gtk.git",
-      "ref": "r3_1"
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/dracula-gtk.git"
     },
-    "whitesur-gtk-theme": {
-      "source": "https://github.com/regolith-linux/whitesur-gtk-theme.git",
-      "ref": "r3_1"
+    "fonts-jetbrains-mono": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/fonts-jetbrains-mono.git"
     },
-    "regolith-look-default": {
-      "source": "https://github.com/regolith-linux/regolith-look-default.git",
-      "ref": "r3_1"
-    },
-    "regolith-look-extra": {
-      "source": "https://github.com/regolith-linux/regolith-look-extra.git",
-      "ref": "r3_1"
-    },
-    "i3-next-workspace": {
-      "source": "https://github.com/regolith-linux/i3-next-workspace.git",
-      "ref": "r3_1"
-    },
-    "i3-swap-focus": {
-      "source": "https://github.com/regolith-linux/i3-swap-focus.git",
-      "ref": "r3_1"
-    },
-    "i3xrocks": {
-      "source": "https://github.com/regolith-linux/i3xrocks.git",
-      "ref": "r3_1"
-    },
-    "regolith-i3xrocks-config": {
-      "source": "https://github.com/regolith-linux/regolith-i3xrocks-config.git",
-      "ref": "r3_1"
-    },
-    "regolith-desktop": {
-      "source": "https://github.com/regolith-linux/regolith-desktop.git",
-      "ref": "r3_1"
-    },
-    "regolith-ftue": {
-      "source": "https://github.com/regolith-linux/regolith-ftue.git",
-      "ref": "r3_1"
-    },
-    "regolith-compositor-none": {
-      "source": "https://github.com/regolith-linux/regolith-compositor-none.git",
-      "ref": "r3_1"
-    },
-    "regolith-compositor-xcompmgr": {
-      "source": "https://github.com/regolith-linux/regolith-compositor-xcompmgr.git",
-      "ref": "r3_1"
-    },
-    "regolith-compositor-compton-glx": {
-      "source": "https://github.com/regolith-linux/regolith-compositor-compton-glx.git",
-      "ref": "r3_1"
-    },
-    "picom": {
-      "source": "https://github.com/regolith-linux/picom.git",
-      "ref": "r3_1"
-    },
-    "regolith-compositor-picom-glx": {
-      "source": "https://github.com/regolith-linux/regolith-compositor-picom-glx.git",
-      "ref": "r3_1"
-    },
-    "remontoire": {
-      "source": "https://github.com/regolith-linux/remontoire.git",
-      "ref": "r3_1"
-    },
-    "ilia": {
-      "source": "https://github.com/regolith-linux/ilia.git",
-      "ref": "r3_1"
-    },
-    "lago": {
-      "source": "https://github.com/regolith-linux/lago.git",
-      "ref": "r3_1"
-    },
-    "regolith-rofi-config": {
-      "source": "https://github.com/regolith-linux/regolith-rofi-config.git",
-      "ref": "r3_1"
-    },
-    "regolith-rofication": {
-      "source": "https://github.com/regolith-linux/regolith-rofication.git",
-      "ref": "r3_1"
-    },
-    "regolith-control-center": {
-      "source": "https://github.com/regolith-linux/regolith-control-center.git",
-      "ref": "r3_1"
-    },
-    "regolith-default-settings": {
-      "source": "https://github.com/regolith-linux/regolith-default-settings.git",
-      "ref": "r3_1"
-    },    
-    "plymouth-theme-regolith": {
-      "source": "https://github.com/regolith-linux/plymouth-theme-regolith.git",
-      "ref": "r3_1"
-    },
-    "regolith-distro-ubuntu": {
-      "source": "https://github.com/regolith-linux/regolith-distro-ubuntu.git",
-      "ref": "r3_1"
-    },
-    "xrescat": {
-      "source": "https://github.com/regolith-linux/xrescat.git",
-      "ref": "r3_1"
-    },
-    "regolith-unclutter-xfixes": {
-      "source": "https://github.com/regolith-linux/regolith-unclutter-xfixes.git",
-      "ref": "r3_1"
-    },
-    "arc-icon-theme": {
-      "source": "https://github.com/regolith-linux/arc-icon-theme.git",
-      "ref": "r3_1"
-    },
-    "nordic": {
-      "source": "https://github.com/regolith-linux/nordic.git",
-      "ref": "r3_1"
-    },
-    "fonts-source-code-pro-ttf": {
-      "source": "https://github.com/regolith-linux/fonts-source-code-pro-ttf.git",
-      "ref": "r3_1"
+    "fonts-materialdesignicons-webfont": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/fonts-materialdesignicons-webfont.git"
     },
     "fonts-nerd-fonts": {
-      "source": "https://github.com/regolith-linux/fonts-nerd-fonts.git",
-      "ref": "r3_1"
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/fonts-nerd-fonts.git"
     },
-    "regolith-wm-config": {
-      "source": "https://github.com/regolith-linux/regolith-wm-config.git",
-      "ref": "r3_1"
+    "fonts-source-code-pro-ttf": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/fonts-source-code-pro-ttf.git"
     },
-    "i3status-rs": {
-      "source": "https://github.com/regolith-linux/i3status-rs_debian.git",
-      "ref": "r3_1"
-    },
-    "regolith-displayd": {
-      "source": "https://github.com/regolith-linux/regolith-displayd.git",
-      "ref": "r3_1"
-    },
-    "regolith-inputd": {
-      "source": "https://github.com/regolith-linux/regolith-inputd.git",
-      "ref": "r3_1"
-    },
-    "trawl": {
-      "source": "https://github.com/regolith-linux/trawl.git",
-      "ref": "r3_1"
-    },
-    "libtrawldb": {
-      "source": "https://github.com/regolith-linux/libtrawldb.git",
-      "ref": "r3_1"
-    },
-    "sway-regolith": {
-      "source": "https://github.com/regolith-linux/sway-regolith.git",
-      "ref": "r3_1"
-    },
-    "regolith-avizo": {
-      "source": "https://github.com/regolith-linux/avizo.git",
-      "ref": "r3_1"
+    "gruvbox-gtk": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/gruvbox-gtk.git"
     },
     "gtklock": {
-      "source": "https://github.com/regolith-linux/gtklock.git",
-      "ref": "r3_1"
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/gtklock.git"
+    },
+    "i3-next-workspace": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/i3-next-workspace.git"
+    },
+    "i3-snapshot": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/i3-snapshot.git"
+    },
+    "i3-swap-focus": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/i3-swap-focus.git"
+    },
+    "i3-wm": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/i3-wm.git"
+    },
+    "i3status-rs": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/i3status-rs_debian.git"
+    },
+    "i3xrocks": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/i3xrocks.git"
+    },
+    "ilia": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/ilia.git"
+    },
+    "lago": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/lago.git"
+    },
+    "libtrawldb": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/libtrawldb.git"
+    },
+    "nordic": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/nordic.git"
+    },
+    "picom": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/picom.git"
+    },
+    "plymouth-theme-regolith": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/plymouth-theme-regolith.git"
+    },
+    "python3-i3ipc": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/python3-i3ipc"
+    },
+    "regolith-avizo": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/avizo.git"
+    },
+    "regolith-compositor-compton-glx": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/regolith-compositor-compton-glx.git"
+    },
+    "regolith-compositor-none": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/regolith-compositor-none.git"
+    },
+    "regolith-compositor-picom-glx": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/regolith-compositor-picom-glx.git"
+    },
+    "regolith-compositor-xcompmgr": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/regolith-compositor-xcompmgr.git"
+    },
+    "regolith-control-center": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/regolith-control-center.git"
+    },
+    "regolith-default-settings": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/regolith-default-settings.git"
+    },
+    "regolith-desktop": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/regolith-desktop.git"
+    },
+    "regolith-displayd": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/regolith-displayd.git"
+    },
+    "regolith-distro-ubuntu": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/regolith-distro-ubuntu.git"
+    },
+    "regolith-ftue": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/regolith-ftue.git"
+    },
+    "regolith-i3xrocks-config": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/regolith-i3xrocks-config.git"
+    },
+    "regolith-inputd": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/regolith-inputd.git"
+    },
+    "regolith-lightdm-config": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/regolith-lightdm-config.git"
+    },
+    "regolith-look-default": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/regolith-look-default.git"
+    },
+    "regolith-look-extra": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/regolith-look-extra.git"
     },
     "regolith-powerd": {
-      "source": "https://github.com/regolith-linux/regolith-powerd.git",
-      "ref": "r3_1"
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/regolith-powerd.git"
+    },
+    "regolith-rofi-config": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/regolith-rofi-config.git"
+    },
+    "regolith-rofication": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/regolith-rofication.git"
+    },
+    "regolith-session": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/regolith-session.git"
+    },
+    "regolith-system-ubuntu": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/regolith-system-ubuntu.git"
+    },
+    "regolith-unclutter-xfixes": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/regolith-unclutter-xfixes.git"
+    },
+    "regolith-wm-config": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/regolith-wm-config.git"
+    },
+    "remontoire": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/remontoire.git"
+    },
+    "solarc-theme": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/solarc-theme.git"
     },
     "sway-audio-idle-inhibit": {
-      "source": "https://github.com/regolith-linux/SwayAudioIdleInhibit.git",
-      "ref": "r3_1"
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/SwayAudioIdleInhibit.git"
+    },
+    "sway-regolith": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/sway-regolith.git"
+    },
+    "trawl": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/trawl.git"
+    },
+    "whitesur-gtk-theme": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/whitesur-gtk-theme.git"
+    },
+    "xrescat": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/xrescat.git"
     }
   }
 }

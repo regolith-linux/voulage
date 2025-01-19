@@ -1,16 +1,16 @@
 {
   "packages": {
     "regolith-desktop": {
-      "source": "https://github.com/regolith-linux/regolith-desktop.git",
-      "ref": "r2_1-debian-bullseye"
-    },
-    "xcb-util": {
-      "source": "https://git.launchpad.net/ubuntu/+source/xcb-util",
-      "ref": "applied/ubuntu/groovy"
+      "ref": "r2_1-debian-bullseye",
+      "source": "https://github.com/regolith-linux/regolith-desktop.git"
     },
     "regolith-session": {
-      "source": "https://github.com/regolith-linux/regolith-session.git",
-      "ref": "r2_1-debian-bullseye"
+      "ref": "r2_1-debian-bullseye",
+      "source": "https://github.com/regolith-linux/regolith-session.git"
+    },
+    "xcb-util": {
+      "ref": "applied/ubuntu/groovy",
+      "source": "https://git.launchpad.net/ubuntu/+source/xcb-util"
     }
   }
 }

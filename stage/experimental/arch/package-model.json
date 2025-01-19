@@ -1,14 +1,14 @@
 {
   "packages": {
+    "gtklock": null,
     "i3status-rs": null,
+    "libtrawldb": null,
+    "regolith-avizo": null,
     "regolith-displayd": null,
     "regolith-inputd": null,
-    "trawl": null,
-    "libtrawldb": null,
-    "sway-regolith": null,
-    "regolith-avizo": null,
-    "gtklock": null,
     "regolith-powerd": null,
-    "sway-audio-idle-inhibit": null
+    "sway-audio-idle-inhibit": null,
+    "sway-regolith": null,
+    "trawl": null
   }
 }

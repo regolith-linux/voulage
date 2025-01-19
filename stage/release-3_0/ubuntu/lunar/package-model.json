@@ -1,24 +1,24 @@
 {
   "packages": {
-    "ilia": {
-      "source": "https://github.com/regolith-linux/ilia.git",
-      "ref": "r3_0-ubuntu-jammy"
-    },
-    "lago": {
-      "source": "https://github.com/regolith-linux/lago.git",
-      "ref": "r3_0-ubuntu-jammy"
-    },
-    "regolith-control-center": {
-      "source": "https://github.com/regolith-linux/regolith-control-center.git",
-      "ref": "r3_0-ubuntu-lunar"
-    },
     "gtklock": {
-      "source": "https://github.com/regolith-linux/gtklock.git",
-      "ref": "r3_0-ubuntu-jammy"
+      "ref": "r3_0-ubuntu-jammy",
+      "source": "https://github.com/regolith-linux/gtklock.git"
     },
     "i3status-rs": {
-      "source": "https://github.com/regolith-linux/i3status-rs_debian.git",
-      "ref": "r3_0-ubuntu-lunar"
+      "ref": "r3_0-ubuntu-lunar",
+      "source": "https://github.com/regolith-linux/i3status-rs_debian.git"
+    },
+    "ilia": {
+      "ref": "r3_0-ubuntu-jammy",
+      "source": "https://github.com/regolith-linux/ilia.git"
+    },
+    "lago": {
+      "ref": "r3_0-ubuntu-jammy",
+      "source": "https://github.com/regolith-linux/lago.git"
+    },
+    "regolith-control-center": {
+      "ref": "r3_0-ubuntu-lunar",
+      "source": "https://github.com/regolith-linux/regolith-control-center.git"
     }
   }
 }

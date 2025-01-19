@@ -1,46 +1,46 @@
 {
   "packages": {
-    "regolith-desktop": {
-      "source": "https://github.com/regolith-linux/regolith-desktop.git",
-      "ref": "r3_1-debian-bullseye"
-    },
-    "ilia": {
-      "source": "https://github.com/regolith-linux/ilia.git",
-      "ref": "r3_1-ubuntu-jammy"
-    },
-    "lago": {
-      "source": "https://github.com/regolith-linux/lago.git",
-      "ref": "r3_1-ubuntu-jammy"
-    },
-    "regolith-control-center": {
-      "source": "https://github.com/regolith-linux/regolith-control-center.git",
-      "ref": "r3_1-debian-bookworm"
-    },
-    "sway-audio-idle-inhibit": {
-      "source": "https://github.com/regolith-linux/SwayAudioIdleInhibit.git",
-      "ref": "r3_1-debian-testing"
+    "childe": {
+      "ref": "r3_1-debian-bookworm",
+      "source": "https://github.com/regolith-linux/childe.git"
     },
     "gtklock": {
-      "source": "https://github.com/regolith-linux/gtklock.git",
-      "ref": "r3_1-ubuntu-jammy"
+      "ref": "r3_1-ubuntu-jammy",
+      "source": "https://github.com/regolith-linux/gtklock.git"
     },
     "i3status-rs": {
-      "source": "https://github.com/regolith-linux/i3status-rs_debian.git",
-      "ref": "r3_1"
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/i3status-rs_debian.git"
     },
-    "sway-regolith": {
-      "source": "https://github.com/regolith-linux/sway-regolith.git",
-      "ref": "r3_1"
+    "ilia": {
+      "ref": "r3_1-ubuntu-jammy",
+      "source": "https://github.com/regolith-linux/ilia.git"
     },
-    "childe": {
-      "source": "https://github.com/regolith-linux/childe.git",
-      "ref": "r3_1-debian-bookworm"
+    "lago": {
+      "ref": "r3_1-ubuntu-jammy",
+      "source": "https://github.com/regolith-linux/lago.git"
+    },
+    "plymouth-theme-regolith": null,
+    "regolith-control-center": {
+      "ref": "r3_1-debian-bookworm",
+      "source": "https://github.com/regolith-linux/regolith-control-center.git"
+    },
+    "regolith-desktop": {
+      "ref": "r3_1-debian-bullseye",
+      "source": "https://github.com/regolith-linux/regolith-desktop.git"
     },
     "regolith-powerd": {
-      "source": "https://github.com/regolith-linux/regolith-powerd.git",
-      "ref": "r3_1-debian-bookworm"
+      "ref": "r3_1-debian-bookworm",
+      "source": "https://github.com/regolith-linux/regolith-powerd.git"
     },
-    "ubiquity-slideshow-regolith": null,
-    "plymouth-theme-regolith": null
+    "sway-audio-idle-inhibit": {
+      "ref": "r3_1-debian-testing",
+      "source": "https://github.com/regolith-linux/SwayAudioIdleInhibit.git"
+    },
+    "sway-regolith": {
+      "ref": "r3_1",
+      "source": "https://github.com/regolith-linux/sway-regolith.git"
+    },
+    "ubiquity-slideshow-regolith": null
   }
 }

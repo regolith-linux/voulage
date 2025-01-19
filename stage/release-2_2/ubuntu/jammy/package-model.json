@@ -1,21 +1,20 @@
 {
   "packages": {
     "ilia": {
-      "source": "https://github.com/regolith-linux/ilia.git",
-      "ref": "r2_2-ubuntu-jammy"
+      "ref": "r2_2-ubuntu-jammy",
+      "source": "https://github.com/regolith-linux/ilia.git"
     },
     "lago": {
-      "source": "https://github.com/regolith-linux/lago.git",
-      "ref": "r2_2-ubuntu-jammy"
+      "ref": "r2_2-ubuntu-jammy",
+      "source": "https://github.com/regolith-linux/lago.git"
     },
     "regolith-control-center": {
-      "source": "https://github.com/regolith-linux/regolith-control-center.git",
-      "ref": "r2_2-ubuntu-jammy"
-
+      "ref": "r2_2-ubuntu-jammy",
+      "source": "https://github.com/regolith-linux/regolith-control-center.git"
     },
     "ubiquity-slideshow-regolith": {
-      "source": "https://github.com/regolith-linux/ubiquity-slideshow-regolith.git",
-      "ref": "master"
+      "ref": "master",
+      "source": "https://github.com/regolith-linux/ubiquity-slideshow-regolith.git"
     }
   }
 }

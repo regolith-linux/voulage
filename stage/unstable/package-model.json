@@ -82,7 +82,7 @@
     },
     "picom": {
       "ref": "main",
-      "source": "https://github.com/regolith-linux/picom.git"      
+      "source": "https://github.com/regolith-linux/picom.git"
     },
     "plymouth-theme-regolith": {
       "ref": "master",

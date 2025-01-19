@@ -1,36 +1,36 @@
 {
   "packages": {
-    "regolith-desktop": {
-      "source": "https://github.com/regolith-linux/regolith-desktop.git",
-      "ref": "r3_1-debian-bullseye"
+    "childe": {
+      "ref": "r3_1-debian-bookworm",
+      "source": "https://github.com/regolith-linux/childe.git"
     },
+    "gtklock": null,
+    "i3status-rs": null,
     "ilia": {
-      "source": "https://github.com/regolith-linux/ilia.git",
-      "ref": "r3_1-ubuntu-jammy"
+      "ref": "r3_1-ubuntu-jammy",
+      "source": "https://github.com/regolith-linux/ilia.git"
     },
     "lago": {
-      "source": "https://github.com/regolith-linux/lago.git",
-      "ref": "r3_1-ubuntu-jammy"
+      "ref": "r3_1-ubuntu-jammy",
+      "source": "https://github.com/regolith-linux/lago.git"
     },
-    "regolith-control-center": {
-      "source": "https://github.com/regolith-linux/regolith-control-center.git",
-      "ref": "r3_1-debian-bookworm"
-    },
-    "childe": {
-      "source": "https://github.com/regolith-linux/childe.git",
-      "ref": "r3_1-debian-bookworm"
-    },
-    "ubiquity-slideshow-regolith": null,
+    "libtrawldb": null,
     "plymouth-theme-regolith": null,
-    "i3status-rs": null,
+    "regolith-avizo": null,
+    "regolith-control-center": {
+      "ref": "r3_1-debian-bookworm",
+      "source": "https://github.com/regolith-linux/regolith-control-center.git"
+    },
+    "regolith-desktop": {
+      "ref": "r3_1-debian-bullseye",
+      "source": "https://github.com/regolith-linux/regolith-desktop.git"
+    },
     "regolith-displayd": null,
     "regolith-inputd": null,
-    "trawl": null,
-    "libtrawldb": null,
-    "sway-regolith": null,
-    "regolith-avizo": null,
-    "gtklock": null,
     "regolith-powerd": null,
-    "sway-audio-idle-inhibit": null
+    "sway-audio-idle-inhibit": null,
+    "sway-regolith": null,
+    "trawl": null,
+    "ubiquity-slideshow-regolith": null
   }
 }
