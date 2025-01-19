@@ -1,26 +1,26 @@
 {
   "packages": {
-    "regolith-desktop": {
-      "source": "https://github.com/regolith-linux/regolith-desktop.git",
-      "ref": "r3_1-debian-bullseye"
-    },
-    "xcb-util": {
-      "source": "https://git.launchpad.net/ubuntu/+source/xcb-util",
-      "ref": "applied/ubuntu/groovy"
-    },
-    "regolith-control-center": {
-      "source": "https://github.com/regolith-linux/regolith-control-center.git",
-      "ref": "r3_1-debian-bullseye"
-    },
+    "gtklock": null,
     "i3status-rs": null,
+    "libtrawldb": null,
+    "regolith-avizo": null,
+    "regolith-control-center": {
+      "ref": "r3_1-debian-bullseye",
+      "source": "https://github.com/regolith-linux/regolith-control-center.git"
+    },
+    "regolith-desktop": {
+      "ref": "r3_1-debian-bullseye",
+      "source": "https://github.com/regolith-linux/regolith-desktop.git"
+    },
     "regolith-displayd": null,
     "regolith-inputd": null,
-    "trawl": null,
-    "libtrawldb": null,
-    "sway-regolith": null,
-    "regolith-avizo": null,
-    "gtklock": null,
     "regolith-powerd": null,
-    "sway-audio-idle-inhibit": null
+    "sway-audio-idle-inhibit": null,
+    "sway-regolith": null,
+    "trawl": null,
+    "xcb-util": {
+      "ref": "applied/ubuntu/groovy",
+      "source": "https://git.launchpad.net/ubuntu/+source/xcb-util"
+    }
   }
 }

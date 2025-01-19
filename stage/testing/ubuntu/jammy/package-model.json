@@ -6,8 +6,8 @@
       "source": "https://github.com/regolith-linux/gtklock.git"
     },
     "i3-wm": {
-      "source": "https://github.com/regolith-linux/i3-wm.git",
-      "ref": "r3_3-beta1"
+      "ref": "r3_3-beta1",
+      "source": "https://github.com/regolith-linux/i3-wm.git"
     },
     "regolith-control-center": {
       "ref": "r3_3-beta1-ubuntu-jammy",

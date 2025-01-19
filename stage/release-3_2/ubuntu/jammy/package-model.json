@@ -5,6 +5,10 @@
       "ref": "r3_2-ubuntu-jammy",
       "source": "https://github.com/regolith-linux/gtklock.git"
     },
+    "i3-wm": {
+      "ref": "r3_2-ubuntu-jammy",
+      "source": "https://github.com/regolith-linux/i3-wm.git"
+    },
     "regolith-control-center": {
       "ref": "r3_2-ubuntu-jammy",
       "source": "https://github.com/regolith-linux/regolith-control-center.git"
@@ -13,10 +17,6 @@
       "ref": "r3_2-ubuntu-jammy",
       "source": "https://github.com/regolith-linux/sway-regolith.git"
     },
-    "xdg-desktop-portal-regolith": null,
-    "i3-wm": {
-      "source": "https://github.com/regolith-linux/i3-wm.git",
-      "ref": "r3_2-ubuntu-jammy"
-    }
+    "xdg-desktop-portal-regolith": null
   }
 }
