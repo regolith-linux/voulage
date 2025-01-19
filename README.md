@@ -9,7 +9,7 @@ This repo is in active, prod use.
 
 ### `regolith-desktop` installable status
 
-![](https://github.com/regolith-linux/voulage/actions/workflows/test-desktop-installable.yml/badge.svg)
+[![Test Regolith Desktop](https://github.com/regolith-linux/voulage/actions/workflows/test-desktop-installable2.yml/badge.svg)](https://github.com/regolith-linux/voulage/actions/workflows/test-desktop-installable2.yml)
 
 ## How To Install Packages - Debian and Ubuntu
 
