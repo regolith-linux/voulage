@@ -169,6 +169,7 @@ jobs:
     container: "ghcr.io/regolith-linux/ci-${{ matrix.distro }}:${{ matrix.codename }}-${{ matrix.arch }}"
     needs: matrix-builder
     strategy:
+      fail-fast: false
       matrix:
         stage: ${{ fromJSON(needs.matrix-builder.outputs.stages) }}
         distro: ${{ fromJSON(needs.matrix-builder.outputs.distros) }}
