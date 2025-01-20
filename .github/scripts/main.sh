@@ -182,8 +182,10 @@ parse_flag() {
     return
   fi
 
-  echo "Error: argument for $1 is missing" >&2
-  exit 1
+  if [ "$1" != "--only-package" ]; then
+    echo "Error: argument for $1 is missing" >&2
+    exit 1
+  fi
 }
 
 MODE=""              # build, check
