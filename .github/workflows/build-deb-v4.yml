@@ -315,6 +315,9 @@ jobs:
       - name: Upload Package
         uses: regolith-linux/actions/upload-files@main
         if: steps.changes.outputs.changed == 1
+        env:
+          server-address: "${{ secrets.KAMATERA_HOSTNAME2 }}"
+          server-username: "${{ secrets.KAMATERA_USERNAME }}"
         with:
           upload-from: "${{ steps.init.outputs.package-publish-path }}"
           upload-pattern: "*"
@@ -324,6 +327,9 @@ jobs:
       - name: Upload SourceLog
         uses: regolith-linux/actions/upload-files@main
         if: steps.changes.outputs.changed == 1
+        env:
+          server-address: "${{ secrets.KAMATERA_HOSTNAME2 }}"
+          server-username: "${{ secrets.KAMATERA_USERNAME }}"
         with:
           upload-from: "${{ steps.init.outputs.changelogs-path }}"
           upload-pattern: "SOURCELOG_${{ steps.init.outputs.target }}.txt"
