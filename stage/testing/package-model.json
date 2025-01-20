@@ -4,6 +4,10 @@
       "ref": "r3_3-beta1",
       "source": "https://github.com/regolith-linux/arc-icon-theme.git"
     },
+    "armesto": {
+      "ref": "r3_3-beta1",
+      "source": "https://github.com/regolith-linux/armesto.git"
+    },
     "ayu-theme": {
       "ref": "r3_3-beta1",
       "source": "https://github.com/regolith-linux/ayu-theme.git"
@@ -167,6 +171,10 @@
     "regolith-session": {
       "ref": "r3_3-beta1",
       "source": "https://github.com/regolith-linux/regolith-session.git"
+    },
+    "regolith-sway-touchpad-gestures": {
+      "ref": "r3_3-beta1",
+      "source": "https://github.com/regolith-linux/regolith-sway-touchpad-gestures.git"
     },
     "regolith-system-ubuntu": {
       "ref": "r3_3-beta1",
