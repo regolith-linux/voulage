@@ -17,10 +17,10 @@ traverse_package_model() {
         # Set the package name and model desc
         PACKAGE_NAME="$package"
 
-        # If a package filter was specified, match filter.
-        if [[ -n "$PACKAGE_FILTER" && "$PACKAGE_FILTER" != "$PACKAGE_NAME" ]]; then
-            continue
-        fi
+        # # If a package filter was specified, match filter.
+        # if [[ -n "$PACKAGE_FILTER" && "$PACKAGE_FILTER" != "$PACKAGE_NAME" ]]; then
+        #     continue
+        # fi
 
         PACAKGE_SOURCE_URL=$(jq -r ".packages.\"$package\".source" < "$PACKAGE_MODEL_FILE")
         PACKAGE_SOURCE_REF=$(jq -r ".packages.\"$package\".ref" < "$PACKAGE_MODEL_FILE")
