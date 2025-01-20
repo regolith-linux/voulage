@@ -251,11 +251,17 @@ jobs:
             cat ${{ steps.init.outputs.manifest-path }}/next-manifest.txt
           fi
 
-      - name: Setup SSH agent
-        uses: webfactory/ssh-agent@v0.9.0
+      # - name: Setup SSH agent
+      #   uses: webfactory/ssh-agent@v0.9.0
+      #   if: steps.changes.outputs.changed == 1
+      #   with:
+      #     ssh-private-key: ${{ secrets.KAMATERA_SSH_KEY }}
+
+      - name: Import GPG Key
+        uses: regolith-linux/actions/import-gpg@main
         if: steps.changes.outputs.changed == 1
         with:
-          ssh-private-key: ${{ secrets.KAMATERA_SSH_KEY }}
+          gpg-key: "${{ secrets.PACKAGE_PRIVATE_KEY2 }}"
 
       - name: Build Packages
         if: steps.changes.outputs.changed == 1
@@ -266,9 +272,9 @@ jobs:
           export DEBFULLNAME="Regolith Linux"
           export DEBIAN_FRONTEND=noninteractive
 
-          mkdir -p ~/.gnupg/
-          printf "${{ secrets.PACKAGE_PRIVATE_KEY2 }}" | base64 --decode > ~/.gnupg/private.key
-          gpg --batch --import ~/.gnupg/private.key
+          # mkdir -p ~/.gnupg/
+          # printf "${{ secrets.PACKAGE_PRIVATE_KEY2 }}" | base64 --decode > ~/.gnupg/private.key
+          # gpg --batch --import ~/.gnupg/private.key
 
           ${{ steps.init.outputs.gh-repo-path }}/.github/scripts/main.sh \
             build \
@@ -303,23 +309,48 @@ jobs:
             rm ${{ steps.init.outputs.changelogs-path }}/SOURCELOG_${{ steps.init.outputs.target }}.txt
           fi
 
-      - name: Deploy via rsync
+      - name: Setup SSH
+        uses: regolith-linux/actions/setup-ssh@main
         if: steps.changes.outputs.changed == 1
-        run: |
-          set -e
-          set -x
+        with:
+          ssh-host: "${{ secrets.KAMATERA_HOSTNAME2 }}"
+          ssh-key: "${{ secrets.KAMATERA_SSH_KEY }}"
 
-          ssh-keyscan -H ${{ secrets.KAMATERA_HOSTNAME2 }} >> ~/.ssh/known_hosts
+      - name: Upload Package
+        uses: regolith-linux/actions/upload-files@main
+        if: steps.changes.outputs.changed == 1
+        with:
+          upload-from: "${{ steps.init.outputs.package-publish-path }}"
+          upload-pattern: "*"
+          upload-to-base: "/opt/archives/"
+          upload-to-folder: "packages/"
 
-          for i in 1 2 3 4 5; do
-            echo "Attempt $i"
-            rsync \
-              -avzhH \
-              ${{ steps.init.outputs.package-publish-path }}/* \
-              root@${{ secrets.KAMATERA_HOSTNAME2 }}:/opt/archives/packages/ && break || sleep 5
-          done
+      - name: Upload SourceLog
+        uses: regolith-linux/actions/upload-files@main
+        if: steps.changes.outputs.changed == 1
+        with:
+          upload-from: "${{ steps.init.outputs.changelogs-path }}"
+          upload-pattern: "SOURCELOG_${{ steps.init.outputs.target }}.txt"
+          upload-to-base: "/opt/archives/"
+          upload-to-folder: "workspace/"
 
-          rsync --ignore-missing-args ${{ steps.init.outputs.changelogs-path }}/SOURCELOG_${{ steps.init.outputs.target }}.txt root@${{ secrets.KAMATERA_HOSTNAME2 }}:/opt/archives/workspace/
+      # - name: Deploy via rsync
+      #   if: steps.changes.outputs.changed == 1
+      #   run: |
+      #     set -e
+      #     set -x
+
+      #     ssh-keyscan -H ${{ secrets.KAMATERA_HOSTNAME2 }} >> ~/.ssh/known_hosts
+
+      #     for i in 1 2 3 4 5; do
+      #       echo "Attempt $i"
+      #       rsync \
+      #         -avzhH \
+      #         ${{ steps.init.outputs.package-publish-path }}/* \
+      #         root@${{ secrets.KAMATERA_HOSTNAME2 }}:/opt/archives/packages/ && break || sleep 5
+      #     done
+
+      #     rsync --ignore-missing-args ${{ steps.init.outputs.changelogs-path }}/SOURCELOG_${{ steps.init.outputs.target }}.txt root@${{ secrets.KAMATERA_HOSTNAME2 }}:/opt/archives/workspace/
 
       - name: Log Build Output
         if: steps.changes.outputs.changed == 1
