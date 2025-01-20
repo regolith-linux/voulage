@@ -81,7 +81,7 @@
       "source": "https://github.com/regolith-linux/nordic.git"
     },
     "picom": {
-      "ref": "main",
+      "ref": "libpcre3-dev",
       "source": "https://github.com/regolith-linux/picom.git"      
     },
     "plymouth-theme-regolith": {
