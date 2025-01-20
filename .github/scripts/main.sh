@@ -25,6 +25,10 @@ traverse_package_model() {
         PACAKGE_SOURCE_URL=$(jq -r ".packages.\"$package\".source" < "$PACKAGE_MODEL_FILE")
         PACKAGE_SOURCE_REF=$(jq -r ".packages.\"$package\".ref" < "$PACKAGE_MODEL_FILE")
 
+        if [ -n "$ONLY_PACKAGE" ] && [ "$PACKAGE_NAME" != "$ONLY_PACKAGE" ]; then
+          continue
+        fi
+
         # Apply functions to package model
         handle_package
     done
@@ -116,6 +120,10 @@ build_packages() {
     PACKAGE_URL=$(echo "$PKG_LINE" | cut -d" " -f2)
     PACKAGE_REF=$(echo "$PKG_LINE" | cut -d" " -f3)
 
+    if [ -n "$ONLY_PACKAGE" ] && [ "$PACKAGE_NAME" != "$ONLY_PACKAGE" ]; then
+      continue
+    fi
+
     echo "Building package $PACKAGE_NAME from $PACKAGE_URL with ref $PACKAGE_REF"
 
     checkout
@@ -193,6 +201,8 @@ SUITE=""             # experimental, unstable, testing, stable      (correspondi
 COMPONENT=""         # e.g. main, 3.2, 3.1, etc.
 ARCH=""              # amd64, arm64
 
+ONLY_PACKAGE=""      # only build this package
+
 LOCAL_BUILD="false"
 
 while [[ $# -gt 0 ]]; do
@@ -211,6 +221,8 @@ while [[ $# -gt 0 ]]; do
     --suite)             parse_flag "$1" "$2" SUITE; shift 2 ;;
     --component)         parse_flag "$1" "$2" COMPONENT; shift 2 ;;
     --arch)              parse_flag "$1" "$2" ARCH; shift 2 ;;
+
+    --only-package)      parse_flag "$1" "$2" ONLY_PACKAGE; shift 2 ;;
 
     -h|--help)           usage; exit 0; ;;
     -*|--*)              echo "Unknown option $1"; exit 1;  ;;
