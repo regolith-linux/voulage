@@ -272,10 +272,6 @@ jobs:
           export DEBFULLNAME="Regolith Linux"
           export DEBIAN_FRONTEND=noninteractive
 
-          # mkdir -p ~/.gnupg/
-          # printf "${{ secrets.PACKAGE_PRIVATE_KEY2 }}" | base64 --decode > ~/.gnupg/private.key
-          # gpg --batch --import ~/.gnupg/private.key
-
           ${{ steps.init.outputs.gh-repo-path }}/.github/scripts/main.sh \
             build \
             --extension ${{ steps.init.outputs.gh-repo-path }}/.github/scripts/ext-debian.sh \
