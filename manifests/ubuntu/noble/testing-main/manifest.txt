@@ -1,4 +1,5 @@
 arc-icon-theme https://github.com/regolith-linux/arc-icon-theme.git r3_3-beta1 58b53b320b09c26c1569b667409c42749613b39e
+armesto https://github.com/regolith-linux/armesto.git r3_3-beta1 f4eb9a3e0cf17be08f87bcd142c442bb228b9790
 ayu-theme https://github.com/regolith-linux/ayu-theme.git r3_3-beta1 ac812de190d0305ecd6d8871c772631592ad3608
 childe https://github.com/regolith-linux/childe.git r3_3-beta1 684a90b498470d7e4c3016f5817c64f142c4f29d
 dracula-gtk https://github.com/regolith-linux/dracula-gtk.git r3_3-beta1 a245139bf322047fd5427ab1e4fb67497b1f6c3a
@@ -40,6 +41,7 @@ regolith-powerd https://github.com/regolith-linux/regolith-powerd.git r3_3-beta1
 regolith-rofi-config https://github.com/regolith-linux/regolith-rofi-config.git r3_3-beta1 80f26989a20e0952108c3301f7a3a7af92764208
 regolith-rofication https://github.com/regolith-linux/regolith-rofication.git r3_3-beta1 ba61e7b58f02304d6ec579d9966b656a5916d698
 regolith-session https://github.com/regolith-linux/regolith-session.git r3_3-beta1 38b14dd55acf27b8ae27dbf1f303adb36928be18
+regolith-sway-touchpad-gestures https://github.com/regolith-linux/regolith-sway-touchpad-gestures.git r3_3-beta1 01973bccd43da8092eeb8f066ee8153e46d9f07d
 regolith-system-ubuntu https://github.com/regolith-linux/regolith-system-ubuntu.git r3_3-beta1 7add3c37e39911f403e8273348d530c5afd89c6c
 regolith-unclutter-xfixes https://github.com/regolith-linux/regolith-unclutter-xfixes.git r3_3-beta1 e4bbaba2f98595370ca85283f82d7b7f6c501bba
 regolith-wm-config https://github.com/regolith-linux/regolith-wm-config.git r3_3-beta1 6d7eb7ee7042c41f7e1aadc681cf6d185144a2f8
