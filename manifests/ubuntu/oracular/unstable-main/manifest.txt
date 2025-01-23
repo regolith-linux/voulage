@@ -18,7 +18,7 @@ ilia https://github.com/regolith-linux/ilia.git main 18c84778a2f1c3fc915156a845c
 lago https://github.com/regolith-linux/lago.git main e73215d6f8e00f6d2fad92a2e70254a8f79fae06
 libtrawldb https://github.com/regolith-linux/libtrawldb.git master 3b0c79c299379cfc454b33f70df2eba53629de86
 nordic https://github.com/regolith-linux/nordic.git main 0c7b9afcf83aa0eb9a267a52da0e8301a7e6484c
-picom https://github.com/regolith-linux/picom.git main cb98d0220f7b513ed1fe3b5ebe4f3c65cc062bc2
+picom https://github.com/regolith-linux/picom.git main 6af0d8009c4dfafbb37cda8427bd505ba659c265
 plymouth-theme-regolith https://github.com/regolith-linux/plymouth-theme-regolith.git master 2befe7f3cf710eb9c54014bcddfedd680e6b93a3
 python3-i3ipc https://github.com/regolith-linux/python3-i3ipc master 4d166018e305c92220d7e4c6024bc9b0df5332ec
 regolith-avizo https://github.com/regolith-linux/avizo.git ubuntu/jammy c54a9d09de86662219ecbf86246bd7e26e7e09da
@@ -37,7 +37,7 @@ regolith-lightdm-config https://github.com/regolith-linux/regolith-lightdm-confi
 regolith-look-default https://github.com/regolith-linux/regolith-look-default.git main 3778cb312ae69611efdc68c4a09397892c2f556e
 regolith-look-extra https://github.com/regolith-linux/regolith-look-extra.git main 3968c1a3d06a8d51b4e1bf8ab992e96446aa3078
 regolith-powerd https://github.com/regolith-linux/regolith-powerd.git master 11684f8d8426ba98c80feb292ac3ade8ae974d8c
-regolith-rofi-config https://github.com/regolith-linux/regolith-rofi-config.git i3cp 80f26989a20e0952108c3301f7a3a7af92764208
+regolith-rofi-config https://github.com/regolith-linux/regolith-rofi-config.git master 13c4bafc9f8ec918f1ad5fbfb9ec8c0253f3216d
 regolith-rofication https://github.com/regolith-linux/regolith-rofication.git master ba61e7b58f02304d6ec579d9966b656a5916d698
 regolith-session https://github.com/regolith-linux/regolith-session.git main 38b14dd55acf27b8ae27dbf1f303adb36928be18
 regolith-sway-touchpad-gestures https://github.com/regolith-linux/regolith-sway-touchpad-gestures.git main 01973bccd43da8092eeb8f066ee8153e46d9f07d
