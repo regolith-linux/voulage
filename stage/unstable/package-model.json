@@ -161,7 +161,7 @@
       "source": "https://github.com/regolith-linux/regolith-powerd.git"
     },
     "regolith-rofi-config": {
-      "ref": "i3cp",
+      "ref": "master",
       "source": "https://github.com/regolith-linux/regolith-rofi-config.git"
     },
     "regolith-rofication": {
