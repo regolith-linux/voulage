@@ -107,8 +107,6 @@ handle_package() {
     tag_package "$DEFAULT_DEST_TAG"
   elif [[ "$PACKAGE_SOURCE_REF" == "ubuntu/v0.22.0" && "$PACKAGE_NAME" == "i3status-rs" ]]; then
     tag_package "$DEFAULT_DEST_TAG-ubuntu-jammy"
-  elif [[ "$PACKAGE_SOURCE_REF" == "i3cp" && "$PACKAGE_NAME" == "regolith-rofi-config" ]]; then
-    tag_package "$DEFAULT_DEST_TAG"
   elif [[ "$PACKAGE_SOURCE_REF" == "packaging/v1.7-regolith" && "$PACKAGE_NAME" == "sway-regolith" ]]; then
     tag_package "$DEFAULT_DEST_TAG-ubuntu-jammy"
   elif [[ "$PACKAGE_SOURCE_REF" == "packaging/v1.8-regolith" && "$PACKAGE_NAME" == "sway-regolith" ]]; then
