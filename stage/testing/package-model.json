@@ -217,7 +217,7 @@
       "source": "https://github.com/regolith-linux/whitesur-gtk-theme.git"
     },
     "xdg-desktop-portal-regolith": {
-      "ref": "r3_3-beta1",
+      "ref": "v0.3.5-3",
       "source": "https://github.com/regolith-linux/xdg-desktop-portal-regolith.git"
     },
     "xrescat": {
