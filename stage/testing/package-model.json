@@ -85,7 +85,7 @@
       "source": "https://github.com/regolith-linux/picom.git"
     },
     "plymouth-theme-regolith": {
-      "ref": "r3_3-beta1",
+      "ref": "v1.2.1",
       "source": "https://github.com/regolith-linux/plymouth-theme-regolith.git"
     },
     "python3-i3ipc": {
