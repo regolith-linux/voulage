@@ -193,7 +193,7 @@
       "source": "https://github.com/regolith-linux/remontoire.git"
     },
     "solarc-theme": {
-      "ref": "r3_3-beta1",
+      "ref": "v800c997-3",
       "source": "https://github.com/regolith-linux/solarc-theme.git"
     },
     "sway-audio-idle-inhibit": {
