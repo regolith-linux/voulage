@@ -15,7 +15,7 @@ lago https://github.com/regolith-linux/lago.git main 7308b90d2586861d00a67e36be2
 nordic https://github.com/regolith-linux/nordic.git main 4beaf2f1e56d24a0ab6dc1bf023d2a3539f9566b
 picom https://github.com/regolith-linux/picom.git main 6af0d8009c4dfafbb37cda8427bd505ba659c265
 python3-i3ipc https://github.com/regolith-linux/python3-i3ipc master 4d166018e305c92220d7e4c6024bc9b0df5332ec
-regolith-compositor-compton-glx https://github.com/regolith-linux/regolith-compositor-compton-glx.git master d384a6d692e097fe3a0cc0e3c9460b787092ac0f
+regolith-compositor-compton-glx https://github.com/regolith-linux/regolith-compositor-compton-glx.git master f3d0a08e13e183a9caf0f9fc07a30872ad70d969
 regolith-compositor-none https://github.com/regolith-linux/regolith-compositor-none.git master e8320462d00f2a0ce9b9e9d6d4494b9d9cd73580
 regolith-compositor-picom-glx https://github.com/regolith-linux/regolith-compositor-picom-glx.git master 665fa4f3fc5323aaa1b04fcce50e2ad96c1235b1
 regolith-compositor-xcompmgr https://github.com/regolith-linux/regolith-compositor-xcompmgr.git master 1b3d09211597a78c55b6cc49754a4f7de3b8b53f
