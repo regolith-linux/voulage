@@ -16,7 +16,7 @@ i3status-rs https://github.com/regolith-linux/i3status-rs_debian.git ubuntu/v0.3
 i3xrocks https://github.com/regolith-linux/i3xrocks.git master 5645c20f64589269f5b8639f056918bd89fff4c5
 ilia https://github.com/regolith-linux/ilia.git main 18c84778a2f1c3fc915156a845c25a9ee07dbeb7
 lago https://github.com/regolith-linux/lago.git main 7308b90d2586861d00a67e36be2b1f79f31f79ae
-libtrawldb https://github.com/regolith-linux/libtrawldb.git master 3b0c79c299379cfc454b33f70df2eba53629de86
+libtrawldb https://github.com/regolith-linux/libtrawldb.git master b251386cd5f56de731f831bbea8ad8caecf95f36
 nordic https://github.com/regolith-linux/nordic.git main 4beaf2f1e56d24a0ab6dc1bf023d2a3539f9566b
 picom https://github.com/regolith-linux/picom.git main 6af0d8009c4dfafbb37cda8427bd505ba659c265
 plymouth-theme-regolith https://github.com/regolith-linux/plymouth-theme-regolith.git master 1c02bdb132a5ec903ec548f89d6370dcdaaad9d1
