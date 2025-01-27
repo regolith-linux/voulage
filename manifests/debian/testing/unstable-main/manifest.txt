@@ -22,7 +22,7 @@ picom https://github.com/regolith-linux/picom.git main 6af0d8009c4dfafbb37cda842
 python3-i3ipc https://github.com/regolith-linux/python3-i3ipc master 4d166018e305c92220d7e4c6024bc9b0df5332ec
 regolith-avizo https://github.com/regolith-linux/avizo.git ubuntu/jammy c54a9d09de86662219ecbf86246bd7e26e7e09da
 regolith-compositor-compton-glx https://github.com/regolith-linux/regolith-compositor-compton-glx.git master d384a6d692e097fe3a0cc0e3c9460b787092ac0f
-regolith-compositor-none https://github.com/regolith-linux/regolith-compositor-none.git master 23916535a412e62610c92b69099a3eb6da64d524
+regolith-compositor-none https://github.com/regolith-linux/regolith-compositor-none.git master e8320462d00f2a0ce9b9e9d6d4494b9d9cd73580
 regolith-compositor-picom-glx https://github.com/regolith-linux/regolith-compositor-picom-glx.git master 665fa4f3fc5323aaa1b04fcce50e2ad96c1235b1
 regolith-compositor-xcompmgr https://github.com/regolith-linux/regolith-compositor-xcompmgr.git master 1b3d09211597a78c55b6cc49754a4f7de3b8b53f
 regolith-control-center https://github.com/regolith-linux/regolith-control-center.git regolith/46 10906c127e247e1d6f545a04d1609d7936fa3f74
