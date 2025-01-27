@@ -21,7 +21,7 @@
       "source": "https://github.com/regolith-linux/dracula-gtk.git"
     },
     "fonts-jetbrains-mono": {
-      "ref": "r3_3-beta1",
+      "ref": "v1.0.1-1regolith1",
       "source": "https://github.com/regolith-linux/fonts-jetbrains-mono.git"
     },
     "fonts-materialdesignicons-webfont": {
