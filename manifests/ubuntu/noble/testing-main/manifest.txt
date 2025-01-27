@@ -31,7 +31,7 @@ regolith-default-settings https://github.com/regolith-linux/regolith-default-set
 regolith-desktop https://github.com/regolith-linux/regolith-desktop.git r3_3-beta1 bd95eae6deb06b91594aa495bebed623e38b14b6
 regolith-displayd https://github.com/regolith-linux/regolith-displayd.git r3_3-beta1 96af6a84395930c03c0025891cf2c2553e963a00
 regolith-distro-ubuntu https://github.com/regolith-linux/regolith-distro-ubuntu.git r3_3-beta1 fe6cc85e2be19b83ec046975d9c6685f11d80bfb
-regolith-ftue https://github.com/regolith-linux/regolith-ftue.git r3_3-beta1 205178b3046cbc73ec42cd81b5b24bca5ff13fa4
+regolith-ftue https://github.com/regolith-linux/regolith-ftue.git v2.2.0 0fc86d75f1d63aac15ecca7ae0c211af1d19bd97
 regolith-i3xrocks-config https://github.com/regolith-linux/regolith-i3xrocks-config.git r3_3-beta1 6b70a87a9d9fc2effc9c16efc0f1eeb19d5e8d1f
 regolith-inputd https://github.com/regolith-linux/regolith-inputd.git r3_3-beta1 0d876c0c1bd14e3e878611a06986fa3ae8d798f8
 regolith-lightdm-config https://github.com/regolith-linux/regolith-lightdm-config.git r3_3-beta1 cd041d31c654942a91bf283e2324259d6ed8408c
