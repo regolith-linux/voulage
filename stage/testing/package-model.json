@@ -5,7 +5,7 @@
       "source": "https://github.com/regolith-linux/arc-icon-theme.git"
     },
     "armesto": {
-      "ref": "r3_3-beta1",
+      "ref": "v0.2.0ubuntu1",
       "source": "https://github.com/regolith-linux/armesto.git"
     },
     "ayu-theme": {
