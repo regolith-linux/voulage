@@ -9,7 +9,7 @@ fonts-nerd-fonts https://github.com/regolith-linux/fonts-nerd-fonts.git v2.1.0-2
 fonts-source-code-pro-ttf https://github.com/regolith-linux/fonts-source-code-pro-ttf.git v1.010-0ubuntu1-ppa2 5844a7526490ccb0ca90789b42d546c05a3e5439
 gruvbox-gtk https://github.com/regolith-linux/gruvbox-gtk.git v1.0.1-1 f0ff25ee0a8a5e0bea531409d09b61bd45c2a304
 gtklock https://github.com/regolith-linux/gtklock.git r3_3-beta1-ubuntu-jammy a3f80fe7e337d7ad1ca9b90d111dbbb1401ca56c
-i3-next-workspace https://github.com/regolith-linux/i3-next-workspace.git r3_3-beta1 7c56486d8dc241aeb0ce4fe30d66b775b0007c4f
+i3-next-workspace https://github.com/regolith-linux/i3-next-workspace.git v1.0.4 04e5029aff8c5308af3b634a0c814ac3b4aa1878
 i3-snapshot https://github.com/regolith-linux/i3-snapshot.git r3_3-beta1 5135c860ef4ebd02ef31e5116502ca8d69f392d3
 i3-swap-focus https://github.com/regolith-linux/i3-swap-focus.git r3_3-beta1 c04ad138b8863575830315e3f58eb3f1c9cf792c
 i3status-rs https://github.com/regolith-linux/i3status-rs_debian.git r3_3-beta1-ubuntu-jammy 30f9211a406e833630020b24287f9bea4f8f707a
