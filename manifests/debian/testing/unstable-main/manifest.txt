@@ -6,7 +6,7 @@ dracula-gtk https://github.com/regolith-linux/dracula-gtk.git master 5c1756456ec
 fonts-jetbrains-mono https://github.com/regolith-linux/fonts-jetbrains-mono.git master 16307622eb24107f97c9609149f142dfb47a62ea
 fonts-materialdesignicons-webfont https://github.com/regolith-linux/fonts-materialdesignicons-webfont.git master f33edd898ae1ca3cb297a86338b1b6f216cde097
 fonts-nerd-fonts https://github.com/regolith-linux/fonts-nerd-fonts.git debian d868e7e9afdfe8661f805a996c4f3303efad3e42
-fonts-source-code-pro-ttf https://github.com/regolith-linux/fonts-source-code-pro-ttf.git main 2fd5dfd1156202803deedc18bd1286f200514694
+fonts-source-code-pro-ttf https://github.com/regolith-linux/fonts-source-code-pro-ttf.git main 5844a7526490ccb0ca90789b42d546c05a3e5439
 gruvbox-gtk https://github.com/regolith-linux/gruvbox-gtk.git master f0ff25ee0a8a5e0bea531409d09b61bd45c2a304
 gtklock https://github.com/regolith-linux/gtklock.git master a71034c415b5041775e81dde15901345a401a981
 i3-next-workspace https://github.com/regolith-linux/i3-next-workspace.git main 7c56486d8dc241aeb0ce4fe30d66b775b0007c4f
