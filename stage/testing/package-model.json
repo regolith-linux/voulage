@@ -61,7 +61,7 @@
       "source": "https://github.com/regolith-linux/i3status-rs_debian.git"
     },
     "i3xrocks": {
-      "ref": "r3_3-beta1",
+      "ref": "v1.3.5-1",
       "source": "https://github.com/regolith-linux/i3xrocks.git"
     },
     "ilia": {
