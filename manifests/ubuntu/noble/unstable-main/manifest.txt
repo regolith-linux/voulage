@@ -51,5 +51,5 @@ sway-audio-idle-inhibit https://github.com/regolith-linux/SwayAudioIdleInhibit.g
 sway-regolith https://github.com/regolith-linux/sway-regolith.git packaging/v1.9-regolith 62607e90eb9e80db545d30ee89f5fe0e501d590a
 trawl https://github.com/regolith-linux/trawl.git master 8399b641838d08045fa839f7393890b8f1576c6c
 whitesur-gtk-theme https://github.com/regolith-linux/whitesur-gtk-theme.git debian ade54f53eac3af39a6ae98e984c766185419c9a7
-xdg-desktop-portal-regolith https://github.com/regolith-linux/xdg-desktop-portal-regolith.git main 541853296e91c6f66bd2aed82e5b3776629e5e43
+xdg-desktop-portal-regolith https://github.com/regolith-linux/xdg-desktop-portal-regolith.git main 89dc8d4c22f5e5767736ef4ea0ba6cee03001281
 xrescat https://github.com/regolith-linux/xrescat.git master e8e261441682244112b2020e2ad102768e6ba3fd
