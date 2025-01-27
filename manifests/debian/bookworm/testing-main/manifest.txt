@@ -16,7 +16,7 @@ nordic https://github.com/regolith-linux/nordic.git v2.1.0-1 4beaf2f1e56d24a0ab6
 picom https://github.com/regolith-linux/picom.git r3_3-beta1 cb98d0220f7b513ed1fe3b5ebe4f3c65cc062bc2
 python3-i3ipc https://github.com/regolith-linux/python3-i3ipc r3_3-beta1 4d166018e305c92220d7e4c6024bc9b0df5332ec
 regolith-compositor-compton-glx https://github.com/regolith-linux/regolith-compositor-compton-glx.git r3_3-beta1 d384a6d692e097fe3a0cc0e3c9460b787092ac0f
-regolith-compositor-none https://github.com/regolith-linux/regolith-compositor-none.git r3_3-beta1 23916535a412e62610c92b69099a3eb6da64d524
+regolith-compositor-none https://github.com/regolith-linux/regolith-compositor-none.git v1.0.3-1 e8320462d00f2a0ce9b9e9d6d4494b9d9cd73580
 regolith-compositor-picom-glx https://github.com/regolith-linux/regolith-compositor-picom-glx.git r3_3-beta1 665fa4f3fc5323aaa1b04fcce50e2ad96c1235b1
 regolith-compositor-xcompmgr https://github.com/regolith-linux/regolith-compositor-xcompmgr.git r3_3-beta1 1b3d09211597a78c55b6cc49754a4f7de3b8b53f
 regolith-control-center https://github.com/regolith-linux/regolith-control-center.git r3_3-beta1-gnome-43 cd5a9200de9a2736b6e13964ce2d34fcf711e6a8
