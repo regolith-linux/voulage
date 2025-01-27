@@ -23,7 +23,7 @@ regolith-control-center https://github.com/regolith-linux/regolith-control-cente
 regolith-default-settings https://github.com/regolith-linux/regolith-default-settings.git main 0de5d8fb42f5331268b3bfe126e21b443bf2a00d
 regolith-desktop https://github.com/regolith-linux/regolith-desktop.git main bd95eae6deb06b91594aa495bebed623e38b14b6
 regolith-distro-ubuntu https://github.com/regolith-linux/regolith-distro-ubuntu.git main fe6cc85e2be19b83ec046975d9c6685f11d80bfb
-regolith-ftue https://github.com/regolith-linux/regolith-ftue.git main 205178b3046cbc73ec42cd81b5b24bca5ff13fa4
+regolith-ftue https://github.com/regolith-linux/regolith-ftue.git main 0fc86d75f1d63aac15ecca7ae0c211af1d19bd97
 regolith-i3xrocks-config https://github.com/regolith-linux/regolith-i3xrocks-config.git master 6b70a87a9d9fc2effc9c16efc0f1eeb19d5e8d1f
 regolith-lightdm-config https://github.com/regolith-linux/regolith-lightdm-config.git master cd041d31c654942a91bf283e2324259d6ed8408c
 regolith-look-default https://github.com/regolith-linux/regolith-look-default.git main 3778cb312ae69611efdc68c4a09397892c2f556e
