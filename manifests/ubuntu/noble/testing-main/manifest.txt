@@ -1,4 +1,4 @@
-arc-icon-theme https://github.com/regolith-linux/arc-icon-theme.git r3_3-beta1 58b53b320b09c26c1569b667409c42749613b39e
+arc-icon-theme https://github.com/regolith-linux/arc-icon-theme.git v20161122-1 d96688799dd0a6b1382998ae46569e3e4e7c0827
 armesto https://github.com/regolith-linux/armesto.git r3_3-beta1 f4eb9a3e0cf17be08f87bcd142c442bb228b9790
 ayu-theme https://github.com/regolith-linux/ayu-theme.git r3_3-beta1 ac812de190d0305ecd6d8871c772631592ad3608
 childe https://github.com/regolith-linux/childe.git r3_3-beta1 684a90b498470d7e4c3016f5817c64f142c4f29d
