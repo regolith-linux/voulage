@@ -29,7 +29,7 @@
       "source": "https://github.com/regolith-linux/fonts-materialdesignicons-webfont.git"
     },
     "fonts-nerd-fonts": {
-      "ref": "r3_3-beta1",
+      "ref": "v2.1.0-2",
       "source": "https://github.com/regolith-linux/fonts-nerd-fonts.git"
     },
     "fonts-source-code-pro-ttf": {
