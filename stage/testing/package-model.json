@@ -77,7 +77,7 @@
       "source": "https://github.com/regolith-linux/libtrawldb.git"
     },
     "nordic": {
-      "ref": "r3_3-beta1",
+      "ref": "v2.1.0-1",
       "source": "https://github.com/regolith-linux/nordic.git"
     },
     "picom": {
