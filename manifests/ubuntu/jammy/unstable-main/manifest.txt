@@ -6,7 +6,7 @@ fonts-jetbrains-mono https://github.com/regolith-linux/fonts-jetbrains-mono.git 
 fonts-materialdesignicons-webfont https://github.com/regolith-linux/fonts-materialdesignicons-webfont.git master f33edd898ae1ca3cb297a86338b1b6f216cde097
 fonts-nerd-fonts https://github.com/regolith-linux/fonts-nerd-fonts.git debian d868e7e9afdfe8661f805a996c4f3303efad3e42
 fonts-source-code-pro-ttf https://github.com/regolith-linux/fonts-source-code-pro-ttf.git main 2fd5dfd1156202803deedc18bd1286f200514694
-gruvbox-gtk https://github.com/regolith-linux/gruvbox-gtk.git master f09fa51546f66e37dc49fc9869a30eaa50ee203e
+gruvbox-gtk https://github.com/regolith-linux/gruvbox-gtk.git master f0ff25ee0a8a5e0bea531409d09b61bd45c2a304
 gtklock https://github.com/regolith-linux/gtklock.git ubuntu/jammy a3f80fe7e337d7ad1ca9b90d111dbbb1401ca56c
 i3-next-workspace https://github.com/regolith-linux/i3-next-workspace.git main 7c56486d8dc241aeb0ce4fe30d66b775b0007c4f
 i3-snapshot https://github.com/regolith-linux/i3-snapshot.git master 5135c860ef4ebd02ef31e5116502ca8d69f392d3
