@@ -35,7 +35,7 @@ regolith-system-ubuntu https://github.com/regolith-linux/regolith-system-ubuntu.
 regolith-unclutter-xfixes https://github.com/regolith-linux/regolith-unclutter-xfixes.git r3_3-beta1 e4bbaba2f98595370ca85283f82d7b7f6c501bba
 regolith-wm-config https://github.com/regolith-linux/regolith-wm-config.git r3_3-beta1 6d7eb7ee7042c41f7e1aadc681cf6d185144a2f8
 remontoire https://github.com/regolith-linux/remontoire.git r3_3-beta1 68d562c78d6e0094ca744bd7161c308f583e93e4
-solarc-theme https://github.com/regolith-linux/solarc-theme.git r3_3-beta1 761153923b0c0bc00807caaac742c47e2e2f1c08
+solarc-theme https://github.com/regolith-linux/solarc-theme.git v800c997-3 210efc46e86b7155ece8ec500c21217e9eac793b
 whitesur-gtk-theme https://github.com/regolith-linux/whitesur-gtk-theme.git r3_3-beta1 ade54f53eac3af39a6ae98e984c766185419c9a7
 xdg-desktop-portal-regolith https://github.com/regolith-linux/xdg-desktop-portal-regolith.git r3_3-beta1-debian-bookworm d029230102499a06d2fba25adbc730e81dea5404
 xrescat https://github.com/regolith-linux/xrescat.git r3_3-beta1 e8e261441682244112b2020e2ad102768e6ba3fd
