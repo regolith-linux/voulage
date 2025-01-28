@@ -13,7 +13,7 @@ i3xrocks https://github.com/regolith-linux/i3xrocks.git v1.3.5-1 5645c20f6458926
 ilia https://github.com/regolith-linux/ilia.git r3_3-beta1 18c84778a2f1c3fc915156a845c25a9ee07dbeb7
 lago https://github.com/regolith-linux/lago.git v0.1.0-1 7308b90d2586861d00a67e36be2b1f79f31f79ae
 nordic https://github.com/regolith-linux/nordic.git v2.1.0-1 4beaf2f1e56d24a0ab6dc1bf023d2a3539f9566b
-picom https://github.com/regolith-linux/picom.git r3_3-beta1 cb98d0220f7b513ed1fe3b5ebe4f3c65cc062bc2
+picom https://github.com/regolith-linux/picom.git v11.2.2 7d158cd08a2caaa527abf31cb47fb2ba2effef9a
 python3-i3ipc https://github.com/regolith-linux/python3-i3ipc.git v2.1.1-1ubuntu1-ppa7 d5061b66fb8c6cf810c35eea70b172cb54b250d3
 regolith-compositor-compton-glx https://github.com/regolith-linux/regolith-compositor-compton-glx.git v1.2.0 f3d0a08e13e183a9caf0f9fc07a30872ad70d969
 regolith-compositor-none https://github.com/regolith-linux/regolith-compositor-none.git v1.0.3-1 e8320462d00f2a0ce9b9e9d6d4494b9d9cd73580
