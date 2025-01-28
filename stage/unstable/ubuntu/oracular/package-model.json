@@ -1,9 +1,5 @@
 {
   "packages": {
-    "gtklock": {
-      "ref": "ubuntu/jammy",
-      "source": "https://github.com/regolith-linux/gtklock.git"
-    },
     "i3status-rs": {
       "ref": "ubuntu/v0.32.1",
       "source": "https://github.com/regolith-linux/i3status-rs_debian.git"
