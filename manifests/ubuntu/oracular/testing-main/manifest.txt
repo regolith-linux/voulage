@@ -20,7 +20,7 @@ libtrawldb https://github.com/regolith-linux/libtrawldb.git v0.1-2 b251386cd5f56
 nordic https://github.com/regolith-linux/nordic.git v2.1.0-1 4beaf2f1e56d24a0ab6dc1bf023d2a3539f9566b
 picom https://github.com/regolith-linux/picom.git r3_3-beta1 cb98d0220f7b513ed1fe3b5ebe4f3c65cc062bc2
 plymouth-theme-regolith https://github.com/regolith-linux/plymouth-theme-regolith.git v1.2.1 1c02bdb132a5ec903ec548f89d6370dcdaaad9d1
-python3-i3ipc https://github.com/regolith-linux/python3-i3ipc r3_3-beta1 4d166018e305c92220d7e4c6024bc9b0df5332ec
+python3-i3ipc https://github.com/regolith-linux/python3-i3ipc.git v2.1.1-1ubuntu1-ppa7 d5061b66fb8c6cf810c35eea70b172cb54b250d3
 regolith-avizo https://github.com/regolith-linux/avizo.git r3_3-beta1-ubuntu-jammy c54a9d09de86662219ecbf86246bd7e26e7e09da
 regolith-compositor-compton-glx https://github.com/regolith-linux/regolith-compositor-compton-glx.git v1.2.0 f3d0a08e13e183a9caf0f9fc07a30872ad70d969
 regolith-compositor-none https://github.com/regolith-linux/regolith-compositor-none.git v1.0.3-1 e8320462d00f2a0ce9b9e9d6d4494b9d9cd73580
