@@ -153,7 +153,7 @@
       "source": "https://github.com/regolith-linux/regolith-look-default.git"
     },
     "regolith-look-extra": {
-      "ref": "r3_3-beta1",
+      "ref": "v0.9.1",
       "source": "https://github.com/regolith-linux/regolith-look-extra.git"
     },
     "regolith-powerd": {
