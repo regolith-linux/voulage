@@ -89,8 +89,8 @@
       "source": "https://github.com/regolith-linux/plymouth-theme-regolith.git"
     },
     "python3-i3ipc": {
-      "ref": "r3_3-beta1",
-      "source": "https://github.com/regolith-linux/python3-i3ipc"
+      "ref": "v2.1.1-1ubuntu1-ppa7",
+      "source": "https://github.com/regolith-linux/python3-i3ipc.git"
     },
     "regolith-avizo": {
       "ref": "r3_3-beta1-ubuntu-jammy",
