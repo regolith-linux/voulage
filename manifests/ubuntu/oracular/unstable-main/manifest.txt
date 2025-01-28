@@ -43,7 +43,7 @@ regolith-session https://github.com/regolith-linux/regolith-session.git main c64
 regolith-sway-touchpad-gestures https://github.com/regolith-linux/regolith-sway-touchpad-gestures.git main 1ae64f68c9532fdec0c523257a90df1166793545
 regolith-system-ubuntu https://github.com/regolith-linux/regolith-system-ubuntu.git main 7add3c37e39911f403e8273348d530c5afd89c6c
 regolith-unclutter-xfixes https://github.com/regolith-linux/regolith-unclutter-xfixes.git master e4bbaba2f98595370ca85283f82d7b7f6c501bba
-regolith-wm-config https://github.com/regolith-linux/regolith-wm-config.git main 6d7eb7ee7042c41f7e1aadc681cf6d185144a2f8
+regolith-wm-config https://github.com/regolith-linux/regolith-wm-config.git main b15b3aaded48690c0b8cdd0db55a78f95a620c5d
 remontoire https://github.com/regolith-linux/remontoire.git master 263260d6367cb540e88f701028c3fe5edcd56f24
 solarc-theme https://github.com/regolith-linux/solarc-theme.git master 210efc46e86b7155ece8ec500c21217e9eac793b
 sway-audio-idle-inhibit https://github.com/regolith-linux/SwayAudioIdleInhibit.git main 7046571f720130076714692573219b32f4f9acb6
