@@ -1,10 +1,6 @@
 {
   "packages": {
     "childe": null,
-    "gtklock": {
-      "ref": "ubuntu/jammy",
-      "source": "https://github.com/regolith-linux/gtklock.git"
-    },
     "i3-wm": {
       "ref": "main",
       "source": "https://github.com/regolith-linux/i3-wm.git"
