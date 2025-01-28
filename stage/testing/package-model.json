@@ -81,7 +81,7 @@
       "source": "https://github.com/regolith-linux/nordic.git"
     },
     "picom": {
-      "ref": "r3_3-beta1",
+      "ref": "v11.2.2",
       "source": "https://github.com/regolith-linux/picom.git"
     },
     "plymouth-theme-regolith": {
