@@ -13,6 +13,10 @@
       "ref": "r3_3-beta1-ubuntu-jammy",
       "source": "https://github.com/regolith-linux/regolith-control-center.git"
     },
+    "regolith-session": {
+      "ref": "r3_3-beta1-debian-bookworm",
+      "source": "https://github.com/regolith-linux/xdg-desktop-portal-regolith.git"
+    },
     "regolith-sway-touchpad-gestures": null,
     "sway-regolith": {
       "ref": "r3_3-beta1-ubuntu-jammy",
