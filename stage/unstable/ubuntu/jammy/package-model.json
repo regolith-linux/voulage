@@ -15,7 +15,7 @@
     },
     "regolith-session": {
       "ref": "debian-bookworm",
-      "source": "https://github.com/regolith-linux/xdg-desktop-portal-regolith.git"
+      "source": "https://github.com/regolith-linux/regolith-session.git"
     },
     "regolith-sway-touchpad-gestures": null,
     "sway-regolith": {
