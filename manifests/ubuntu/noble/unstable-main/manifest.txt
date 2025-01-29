@@ -21,7 +21,7 @@ nordic https://github.com/regolith-linux/nordic.git main 4beaf2f1e56d24a0ab6dc1b
 picom https://github.com/regolith-linux/picom.git main 7d158cd08a2caaa527abf31cb47fb2ba2effef9a
 plymouth-theme-regolith https://github.com/regolith-linux/plymouth-theme-regolith.git master 1c02bdb132a5ec903ec548f89d6370dcdaaad9d1
 python3-i3ipc https://github.com/regolith-linux/python3-i3ipc.git master d5061b66fb8c6cf810c35eea70b172cb54b250d3
-regolith-avizo https://github.com/regolith-linux/avizo.git ubuntu/jammy c54a9d09de86662219ecbf86246bd7e26e7e09da
+regolith-avizo https://github.com/regolith-linux/avizo.git master 778ea9eb269988cc309b2dd8365bdda581c37b61
 regolith-compositor-compton-glx https://github.com/regolith-linux/regolith-compositor-compton-glx.git master f3d0a08e13e183a9caf0f9fc07a30872ad70d969
 regolith-compositor-none https://github.com/regolith-linux/regolith-compositor-none.git master e8320462d00f2a0ce9b9e9d6d4494b9d9cd73580
 regolith-compositor-picom-glx https://github.com/regolith-linux/regolith-compositor-picom-glx.git master 975a641eb3f3e0081334325e887c5a18ee0d1f7b
