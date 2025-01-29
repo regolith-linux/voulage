@@ -10,7 +10,7 @@
       "source": "https://github.com/regolith-linux/regolith-control-center.git"
     },
     "regolith-session": {
-      "ref": "r3_3-beta1-debian-bookworm",
+      "ref": "v1.1.12-2-debian-bookworm",
       "source": "https://github.com/regolith-linux/regolith-session.git"
     },
     "regolith-sway-touchpad-gestures": null,
