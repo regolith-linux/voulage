@@ -57,6 +57,11 @@ on:
           - arm64
         required: false
         default: ""
+      only-package:
+        description: "Only build package"
+        type: string
+        required: false
+        default: ""        
   workflow_call:
     inputs:
       do-publish:
@@ -84,6 +89,10 @@ on:
         required: false
       arch:
         description: "Architecture to build (amd64, arm64)"
+        type: string
+        required: false
+      only-package:
+        description: "Only build package"
         type: string
         required: false
 
@@ -269,7 +278,8 @@ jobs:
               --arch "${{ steps.init.outputs.arch }}" \
               --stage "${{ steps.init.outputs.stage }}" \
               --suite "${{ steps.init.outputs.suite }}" \
-              --component "${{ steps.init.outputs.component }}" | tail -n1)
+              --component "${{ steps.init.outputs.component }}" \
+              --only-package "${{ inputs.only-package }}" | tail -n1)
 
             if [ "$CHANGE_OUTPUT" == "No package changes found, exiting." ]; then
               echo "changed=0" >> $GITHUB_OUTPUT
@@ -312,7 +322,8 @@ jobs:
             --arch "${{ steps.init.outputs.arch }}" \
             --stage "${{ steps.init.outputs.stage }}" \
             --suite "${{ steps.init.outputs.suite }}" \
-            --component "${{ steps.init.outputs.component }}" | tee -a ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt
+            --component "${{ steps.init.outputs.component }}" \
+            --only-package "${{ inputs.only-package }}" | tee -a ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt
 
           if [ -f ${{ steps.init.outputs.manifest-path }}/next-manifest.txt ]; then
             echo -e "\033[0;31mTemp manifest not deleted by main.sh, build aborted/failed.\033[0m"
