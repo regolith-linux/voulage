@@ -93,7 +93,7 @@
       "source": "https://github.com/regolith-linux/python3-i3ipc.git"
     },
     "regolith-avizo": {
-      "ref": "r3_3-beta1-ubuntu-jammy",
+      "ref": "v0.1.3",
       "source": "https://github.com/regolith-linux/avizo.git"
     },
     "regolith-compositor-compton-glx": {
