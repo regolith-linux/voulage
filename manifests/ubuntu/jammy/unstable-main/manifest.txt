@@ -23,7 +23,7 @@ plymouth-theme-regolith https://github.com/regolith-linux/plymouth-theme-regolit
 python3-i3ipc https://github.com/regolith-linux/python3-i3ipc.git master 79f60639d895cf70e915d3f96fd1bedbd54cf4c2
 regolith-avizo https://github.com/regolith-linux/avizo.git master f83522129689b6f499e98fe2994cf3230f4089d0
 regolith-compositor-compton-glx https://github.com/regolith-linux/regolith-compositor-compton-glx.git master 24dea4a616f883cd6bd4bb0fc3b18148a3c5673d
-regolith-compositor-none https://github.com/regolith-linux/regolith-compositor-none.git master e8320462d00f2a0ce9b9e9d6d4494b9d9cd73580
+regolith-compositor-none https://github.com/regolith-linux/regolith-compositor-none.git master 38ba4c53e13306c713a03ac87f70b843296a6253
 regolith-compositor-picom-glx https://github.com/regolith-linux/regolith-compositor-picom-glx.git master 975a641eb3f3e0081334325e887c5a18ee0d1f7b
 regolith-compositor-xcompmgr https://github.com/regolith-linux/regolith-compositor-xcompmgr.git master b10d1bc504e0a3ce4c5420d1def9de685b4066bf
 regolith-control-center https://github.com/regolith-linux/regolith-control-center.git ubuntu/jammy 91c8d0e721598385d2871fb70ee5738ac8543e38
