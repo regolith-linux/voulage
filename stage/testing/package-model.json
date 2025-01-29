@@ -65,7 +65,7 @@
       "source": "https://github.com/regolith-linux/i3xrocks.git"
     },
     "ilia": {
-      "ref": "r3_3-beta1",
+      "ref": "v0.15.0",
       "source": "https://github.com/regolith-linux/ilia.git"
     },
     "lago": {
