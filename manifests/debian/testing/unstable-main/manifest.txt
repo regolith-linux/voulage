@@ -20,7 +20,7 @@ libtrawldb https://github.com/regolith-linux/libtrawldb.git master b251386cd5f56
 nordic https://github.com/regolith-linux/nordic.git main 4beaf2f1e56d24a0ab6dc1bf023d2a3539f9566b
 picom https://github.com/regolith-linux/picom.git main 7d158cd08a2caaa527abf31cb47fb2ba2effef9a
 python3-i3ipc https://github.com/regolith-linux/python3-i3ipc.git master d5061b66fb8c6cf810c35eea70b172cb54b250d3
-regolith-avizo https://github.com/regolith-linux/avizo.git master f726ef31ed4af0718d2ba2af4a0f0d6ddc8ddbc9
+regolith-avizo https://github.com/regolith-linux/avizo.git master 8845b83921cc95de310e83b28320df198e33d54f
 regolith-compositor-compton-glx https://github.com/regolith-linux/regolith-compositor-compton-glx.git master f3d0a08e13e183a9caf0f9fc07a30872ad70d969
 regolith-compositor-none https://github.com/regolith-linux/regolith-compositor-none.git master e8320462d00f2a0ce9b9e9d6d4494b9d9cd73580
 regolith-compositor-picom-glx https://github.com/regolith-linux/regolith-compositor-picom-glx.git master 975a641eb3f3e0081334325e887c5a18ee0d1f7b
