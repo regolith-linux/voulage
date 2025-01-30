@@ -42,7 +42,7 @@ regolith-rofi-config https://github.com/regolith-linux/regolith-rofi-config.git 
 regolith-rofication https://github.com/regolith-linux/regolith-rofication.git master b93d18624598982e983f9e914813bc705907aa5b
 regolith-session https://github.com/regolith-linux/regolith-session.git debian-bookworm db3f4ed5004dd6e08de9dacc79f79427a17eda0d
 regolith-system-ubuntu https://github.com/regolith-linux/regolith-system-ubuntu.git main d26f32aff6b5fec7dc8ca3a7cd0dead7c111f1f9
-regolith-unclutter-xfixes https://github.com/regolith-linux/regolith-unclutter-xfixes.git master b3bf5e6f6ccf9e48a52aef13560b3b301957eca7
+regolith-unclutter-xfixes https://github.com/regolith-linux/regolith-unclutter-xfixes.git master b51c9fa9a514fcda97978114abdd684e1b4e3328
 regolith-wm-config https://github.com/regolith-linux/regolith-wm-config.git main 331b58d9bd3a0195ebb6c7d18c05a5f25dd19041
 remontoire https://github.com/regolith-linux/remontoire.git master 263260d6367cb540e88f701028c3fe5edcd56f24
 solarc-theme https://github.com/regolith-linux/solarc-theme.git master 210efc46e86b7155ece8ec500c21217e9eac793b
