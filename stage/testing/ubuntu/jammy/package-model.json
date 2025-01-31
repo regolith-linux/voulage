@@ -15,7 +15,7 @@
     },
     "regolith-sway-touchpad-gestures": null,
     "sway-regolith": {
-      "ref": "r3_3-beta1-ubuntu-jammy",
+      "ref": "v1.7-7-ubuntu-jammy",
       "source": "https://github.com/regolith-linux/sway-regolith.git"
     },
     "xdg-desktop-portal-regolith": null
