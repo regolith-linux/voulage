@@ -6,7 +6,7 @@
       "source": "https://github.com/regolith-linux/i3-wm.git"
     },
     "regolith-control-center": {
-      "ref": "r3_3-beta1-ubuntu-jammy",
+      "ref": "v1.41.18-ubuntu-jammy",
       "source": "https://github.com/regolith-linux/regolith-control-center.git"
     },
     "regolith-session": {
