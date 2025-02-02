@@ -57,7 +57,7 @@
       "source": "https://github.com/regolith-linux/i3-swap-focus.git"
     },
     "i3status-rs": {
-      "ref": "ubuntu/v0.22.0",
+      "ref": "ubuntu/v0.32.1",
       "source": "https://github.com/regolith-linux/i3status-rs_debian.git"
     },
     "i3xrocks": {

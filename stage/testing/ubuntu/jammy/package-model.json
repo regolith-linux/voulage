@@ -5,6 +5,10 @@
       "ref": "v4.22-1",
       "source": "https://github.com/regolith-linux/i3-wm.git"
     },
+    "i3status-rs": {
+      "ref": "v0.22.1-1-ubuntu-jammy",
+      "source": "https://github.com/regolith-linux/i3status-rs_debian.git"
+    },
     "regolith-control-center": {
       "ref": "v1.41.18-ubuntu-jammy",
       "source": "https://github.com/regolith-linux/regolith-control-center.git"

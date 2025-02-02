@@ -1,5 +1,9 @@
 {
   "packages": {
+    "i3status-rs": {
+      "ref": "ubuntu/v0.22.0",
+      "source": "https://github.com/regolith-linux/i3status-rs_debian.git"
+    },
     "plymouth-theme-regolith": null,
     "ubiquity-slideshow-regolith": null
   }
