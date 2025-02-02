@@ -1,10 +1,6 @@
 {
   "packages": {
     "plymouth-theme-regolith": null,
-    "regolith-control-center": {
-      "ref": "regolith/46",
-      "source": "https://github.com/regolith-linux/regolith-control-center.git"
-    },
     "ubiquity-slideshow-regolith": null
   }
 }

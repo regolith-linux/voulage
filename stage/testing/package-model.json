@@ -113,7 +113,7 @@
       "source": "https://github.com/regolith-linux/regolith-compositor-xcompmgr.git"
     },
     "regolith-control-center": {
-      "ref": "r3_3-beta1",
+      "ref": "v1.46.0-3-gnome-46",
       "source": "https://github.com/regolith-linux/regolith-control-center.git"
     },
     "regolith-default-settings": {
