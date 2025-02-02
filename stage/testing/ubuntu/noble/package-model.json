@@ -1,13 +1,5 @@
 {
   "packages": {
-    "i3status-rs": {
-      "ref": "v0.32.1",
-      "source": "https://github.com/regolith-linux/i3status-rs_debian.git"
-    },
-    "regolith-control-center": {
-      "ref": "v1.46.0-3-gnome-46",
-      "source": "https://github.com/regolith-linux/regolith-control-center.git"
-    },
     "ubiquity-slideshow-regolith": null
   }
 }
