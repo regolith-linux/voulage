@@ -1,4 +1,5 @@
 name: Rebuild Sources
+run-name: Rebuild Sources ${{ inputs.only-distro }} ${{ inputs.only-codename }} ${{ inputs.only-component }} ${{ inputs.only-package }}
 
 on:
   workflow_dispatch:
@@ -63,90 +64,29 @@ on:
 jobs:
   rebuild:
     runs-on: ubuntu-24.04
+    container: "ghcr.io/regolith-linux/ci-ubuntu:noble-amd64"
+    env:
+      server-address: "${{ secrets.KAMATERA_HOSTNAME2 }}"
+      server-username: "${{ secrets.KAMATERA_USERNAME }}"
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set Job Parameters
-        id: init
-        run: |
-          echo "package-build-path=${{ github.workspace }}/packages" >> $GITHUB_OUTPUT
-
-      - name: Environment Setup
-        run: |
-          set -e
-
-          rm -Rf "${{ steps.init.outputs.package-build-path }}"
-
-          sudo apt update
-          DEBIAN_FRONTEND=noninteractive sudo apt install -y --no-install-recommends git devscripts wget dput
-
-          export DEBEMAIL="regolith.linux@gmail.com"
-          export DEBFULLNAME="Regolith Linux"
-          export DEBIAN_FRONTEND=noninteractive
-
-          mkdir -p ~/.gnupg/
-          printf "${{ secrets.PACKAGE_PRIVATE_KEY2 }}" | base64 --decode > ~/.gnupg/private.key
-          gpg --batch --import ~/.gnupg/private.key
-
-      - name: Setup SSH agent
-        uses: webfactory/ssh-agent@v0.9.0
+      - name: Import GPG Key
+        uses: regolith-linux/actions/import-gpg@main
         with:
-          ssh-private-key: ${{ secrets.KAMATERA_SSH_KEY }}
+          gpg-key: "${{ secrets.PACKAGE_PRIVATE_KEY2 }}"
 
-      - name: Pull Packages
-        run: |
-          set -e
-          set -x
-
-          ssh-keyscan -H ${{ secrets.KAMATERA_HOSTNAME2 }} >> ~/.ssh/known_hosts
-          mkdir -p "${{ steps.init.outputs.package-build-path }}"
-
-          ssh root@${{ secrets.KAMATERA_HOSTNAME2 }} "get-published-sources.sh --workspace-path \"${{ inputs.pull-from }}\""
-
-          rsync \
-            -avzh \
-            --exclude="*.*/" \
-            --include="*/" \
-            --include="*.orig.tar.gz" \
-            --include="*.debian.tar.xz" \
-            --include="*.diff.gz" \
-            --exclude="*" \
-            root@${{ secrets.KAMATERA_HOSTNAME2 }}:${{ inputs.pull-from }} \
-            "${{ steps.init.outputs.package-build-path }}"
+      - name: Setup SSH
+        uses: regolith-linux/actions/setup-ssh@main
+        with:
+          ssh-host: "${{ env.server-address }}"
+          ssh-key: "${{ secrets.KAMATERA_SSH_KEY }}"
 
       - name: Rebuild Sources
-        run: |
-          set -e
-
-          command_arguments=(--pkg-build-path "${{ steps.init.outputs.package-build-path }}")
-
-          if [ -n "${{ inputs.only-distro }}" ]; then
-              command_arguments+=(--only-distro "${{ inputs.only-distro }}")
-          fi
-          if [ -n "${{ inputs.only-codename }}" ]; then
-              command_arguments+=(--only-codename "${{ inputs.only-codename }}")
-          fi
-          if [ -n "${{ inputs.only-component }}" ]; then
-              command_arguments+=(--only-component "${{ inputs.only-component }}")
-          fi
-          if [ -n "${{ inputs.only-package }}" ]; then
-              command_arguments+=(--only-package "${{ inputs.only-package }}")
-          fi
-
-          ./.github/scripts/rebuild-sources.sh ${command_arguments[@]}
-
-      - name: Deploy via rsync
-        run: |
-          set -e
-          set -x
-
-          for i in 1 2 3 4 5; do
-            echo "Attempt $i"
-            rsync \
-              -avzhH \
-              ${{ steps.init.outputs.package-build-path }}/* \
-              root@${{ secrets.KAMATERA_HOSTNAME2 }}:${{ inputs.push-to }} && break || sleep 5
-          done
-
-          ssh root@${{ secrets.KAMATERA_HOSTNAME2 }} "cleanup-workspace.sh --workspace-path \"${{ inputs.pull-from }}\""
+        uses: regolith-linux/actions/rebuild-sources@main
+        with:
+          pull-from-base: "${{ inputs.pull-from }}"
+          push-to-base: "${{ inputs.push-to }}"
+          workspace-subfolder: "voulage/"
+          only-distro: "${{ inputs.only-distro }}"
+          only-codename: "${{ inputs.only-codename }}"
+          only-component: "${{ inputs.only-component }}"
+          only-package: "${{ inputs.only-package }}"
