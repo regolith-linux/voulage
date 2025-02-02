@@ -121,7 +121,7 @@
       "source": "https://github.com/regolith-linux/regolith-default-settings.git"
     },
     "regolith-desktop": {
-      "ref": "r3_3-beta1",
+      "ref": "v4.9.0",
       "source": "https://github.com/regolith-linux/regolith-desktop.git"
     },
     "regolith-displayd": {
