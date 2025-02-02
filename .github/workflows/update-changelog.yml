@@ -1,0 +1,80 @@
+name: Update Package Changelog
+run-name: Update ${{ inputs.repo }} changelog version to ${{ inputs.version }} for ${{ inputs.distro }} on ${{ inputs.ref }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      repo:
+        description: "Package Repo (e.g. regolith-session)"
+        type: string
+        required: true
+        default: ""
+      ref:
+        description: "Package Ref (e.g. main, debian-bookworm)"
+        type: string
+        required: true
+        default: ""
+      version:
+        description: "Version to use"
+        type: string
+        required: true
+        default: ""
+      is-unreleased:
+        description: "Mark as 'UNRELEASED'?"
+        type: choice
+        options:
+          - "No"
+          - "Yes"
+        required: true
+        default: "No"
+      distro:
+        description: "Changelog distro"
+        type: string
+        required: false
+        default: ""
+
+jobs:
+  update:
+    runs-on: ubuntu-24.04
+    container: "ghcr.io/regolith-linux/ci-ubuntu:noble-amd64"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          repository: "regolith-linux/${{ inputs.repo }}"
+          ref: ${{ inputs.ref }}
+          token: ${{ secrets.ORG_BROADCAST_TOKEN2 }}
+          fetch-depth: 0
+
+      - name: Update Changelog
+        env:
+          DEBEMAIL: "regolith.linux@gmail.com"
+          DEBFULLNAME: "Regolith Linux"
+        run: |
+          DISTRO="${{ inputs.distro }}"
+          if [ "${{ inputs.is-unreleased }}" == "Yes" ]; then
+            DISTRO="UNRELEASED"
+          fi
+
+          if [ -z "$DISTRO" ]; then
+            echo "Error: input 'distro' is missing."
+            exit 1
+          fi
+
+          gbp dch \
+            --force-distribution \
+            --distribution "${DISTRO}" \
+            --new-version "${{ inputs.version }}" \
+            --debian-branch ${{ inputs.ref }}
+
+      - name: Push Changes to Package Repo
+        uses: stefanzweifel/git-auto-commit-action@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.ORG_BROADCAST_TOKEN2 }}
+        with:
+          branch: "${{ inputs.ref }}"
+          file_pattern: "debian/changelog"
+          commit_message: "chore: bump changelog version to ${{ inputs.version }}"
+          commit_user_name: regolith-ci-bot
+          commit_user_email: bot@regolith-desktop.com
+          commit_author: "regolith-ci-bot <bot@regolith-desktop.com>"
