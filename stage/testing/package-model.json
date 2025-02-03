@@ -221,7 +221,7 @@
       "source": "https://github.com/regolith-linux/xdg-desktop-portal-regolith.git"
     },
     "xrescat": {
-      "ref": "v1.2.1-2",
+      "ref": "v1.2.1-3",
       "source": "https://github.com/regolith-linux/xrescat.git"
     }
   }
