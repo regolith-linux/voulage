@@ -15,7 +15,7 @@ lago https://github.com/regolith-linux/lago.git v0.1.0-1 7308b90d2586861d00a67e3
 nordic https://github.com/regolith-linux/nordic.git v2.1.0-1 4beaf2f1e56d24a0ab6dc1bf023d2a3539f9566b
 picom https://github.com/regolith-linux/picom.git v11.2.2 7d158cd08a2caaa527abf31cb47fb2ba2effef9a
 python3-i3ipc https://github.com/regolith-linux/python3-i3ipc.git v2.1.1-1ubuntu1-ppa7 d5061b66fb8c6cf810c35eea70b172cb54b250d3
-regolith-compositor-compton-glx https://github.com/regolith-linux/regolith-compositor-compton-glx.git v1.2.0 f3d0a08e13e183a9caf0f9fc07a30872ad70d969
+regolith-compositor-compton-glx https://github.com/regolith-linux/regolith-compositor-compton-glx.git v1.2.1 b26694c20af1c952f85482fd6519f8fb40cdb187
 regolith-compositor-none https://github.com/regolith-linux/regolith-compositor-none.git v1.0.3-1 e8320462d00f2a0ce9b9e9d6d4494b9d9cd73580
 regolith-compositor-picom-glx https://github.com/regolith-linux/regolith-compositor-picom-glx.git v1.3.0 975a641eb3f3e0081334325e887c5a18ee0d1f7b
 regolith-compositor-xcompmgr https://github.com/regolith-linux/regolith-compositor-xcompmgr.git v1.3.0-1 b10d1bc504e0a3ce4c5420d1def9de685b4066bf
