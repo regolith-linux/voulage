@@ -37,7 +37,7 @@
       "source": "https://github.com/regolith-linux/fonts-source-code-pro-ttf.git"
     },
     "gruvbox-gtk": {
-      "ref": "v1.0.1-1",
+      "ref": "v1.0.2-1",
       "source": "https://github.com/regolith-linux/gruvbox-gtk.git"
     },
     "gtklock": {
