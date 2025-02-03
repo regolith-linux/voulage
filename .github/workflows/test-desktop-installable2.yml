@@ -183,10 +183,10 @@ jobs:
           echo "stages=$(jq -n -c "${STAGES}" '$ARGS.named')" >> $GITHUB_OUTPUT
           echo "arches=$(jq -n -c '$ARGS.positional' --args -- "${ARCHES[@]}")" >> $GITHUB_OUTPUT
           echo "suites=$(jq -n -c "${SUITES}" '$ARGS.named')" >> $GITHUB_OUTPUT
-          echo "runners=$(jq -n -c "$(jq -n -c --arg amd64 "X64" --arg arm64 "arm64" '$ARGS.named')" '$ARGS.named')" >> $GITHUB_OUTPUT
+          echo "runners=$(jq -n -c "$(jq -n -c --arg amd64 "ubuntu-24.04" --arg arm64 "ubuntu-24.04-arm" '$ARGS.named')" '$ARGS.named')" >> $GITHUB_OUTPUT
 
   debian-bullseye:
-    runs-on: [self-hosted, Linux, "${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}", bullseye] 
+    runs-on: ${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}
     needs: matrix-builder
     if: |
       (inputs.legacy == 'yes') &&
@@ -214,7 +214,7 @@ jobs:
           target-package: "regolith-desktop ${{ matrix.wm }}"
 
   debian-bookworm:
-    runs-on: [self-hosted, Linux, "${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}", bookworm] 
+    runs-on: ${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}
     needs: matrix-builder
     if: |
       (inputs.distro == '' && inputs.codename == '') ||
@@ -239,7 +239,7 @@ jobs:
           target-package: "regolith-desktop ${{ matrix.wm }}"
   
   debian-testing:
-    runs-on: [self-hosted, Linux, "${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}", testing] 
+    runs-on: ${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}
     needs: matrix-builder
     if: |
       (inputs.distro == '' && inputs.codename == '') ||
@@ -264,7 +264,7 @@ jobs:
           target-package: "regolith-desktop ${{ matrix.wm }}"
 
   ubuntu-focal:
-    runs-on: [self-hosted, Linux, "${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}", focal] 
+    runs-on: ${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}
     needs: matrix-builder
     if: |
       (inputs.legacy == 'yes') &&
@@ -292,7 +292,7 @@ jobs:
           target-package: "regolith-desktop ${{ matrix.wm }}"
 
   ubuntu-jammy:
-    runs-on: [self-hosted, Linux, "${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}", jammy] 
+    runs-on: ${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}
     needs: matrix-builder
     if: |
       (inputs.distro == '' && inputs.codename == '') ||
@@ -320,7 +320,7 @@ jobs:
           target-package: "regolith-desktop ${{ matrix.wm }}"
 
   ubuntu-lunar:
-    runs-on: [self-hosted, Linux, "${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}", lunar] 
+    runs-on: ${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}
     needs: matrix-builder
     if: |
       (inputs.legacy == 'yes') &&
@@ -348,7 +348,7 @@ jobs:
           target-package: "regolith-desktop ${{ matrix.wm }}"
 
   ubuntu-mantic:
-    runs-on: [self-hosted, Linux, "${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}", mantic] 
+    runs-on: ${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}
     needs: matrix-builder
     if: |
       (inputs.legacy == 'yes') &&
@@ -376,7 +376,7 @@ jobs:
           target-package: "regolith-desktop ${{ matrix.wm }}"
 
   ubuntu-noble:
-    runs-on: [self-hosted, Linux, "${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}", noble] 
+    runs-on: ${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}
     needs: matrix-builder
     if: |
       (inputs.distro == '' && inputs.codename == '') ||
@@ -401,7 +401,7 @@ jobs:
           target-package: "regolith-desktop ${{ matrix.wm }}"
 
   ubuntu-oracular:
-    runs-on: [self-hosted, Linux, "${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}", oracular] 
+    runs-on: ${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}
     needs: matrix-builder
     if: |
       (inputs.distro == '' && inputs.codename == '') ||

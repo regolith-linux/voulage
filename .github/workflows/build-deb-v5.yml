@@ -1,4 +1,4 @@
-name: Package Builder Debian v4
+name: Package Builder Debian v5
 run-name: Build ${{ inputs.stage }} Packages ${{ inputs.distro }} ${{ inputs.codename }} ${{ inputs.arch }}
 
 on:
@@ -61,7 +61,7 @@ on:
         required: false
 
 concurrency:
-  group: debian_builder_v4
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -159,15 +159,17 @@ jobs:
           echo "codenames=$(jq -n -c '$ARGS.positional' --args -- "${CODENAMES[@]}")" >> $GITHUB_OUTPUT
           echo "arches=$(jq -n -c '$ARGS.positional' --args -- "${ARCHES[@]}")" >> $GITHUB_OUTPUT
           echo "suites=$(jq -n -c "${SUITES}" '$ARGS.named')" >> $GITHUB_OUTPUT
-          echo "runners=$(jq -n -c "$(jq -n -c --arg amd64 "X64" --arg arm64 "arm64" '$ARGS.named')" '$ARGS.named')" >> $GITHUB_OUTPUT
+          echo "runners=$(jq -n -c "$(jq -n -c --arg amd64 "ubuntu-24.04" --arg arm64 "ubuntu-24.04-arm" '$ARGS.named')" '$ARGS.named')" >> $GITHUB_OUTPUT
           echo "includes=$(jq -n -c "[$(printf '%s\n' "${INCLUDES[@]}" | paste -sd,)]" '$ARGS.named')" >> $GITHUB_OUTPUT
           echo "excludes=$(jq -n -c "[$(printf '%s\n' "${EXCLUDES[@]}" | paste -sd,)]" '$ARGS.named')" >> $GITHUB_OUTPUT
 
   # build packages and sources
   build:
-    runs-on: [self-hosted, Linux, "${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}", "${{ matrix.codename }}"] 
+    runs-on: ${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}
     needs: matrix-builder
+    container: "ghcr.io/regolith-linux/ci-${{ matrix.distro }}:${{ matrix.codename }}-${{ matrix.arch }}"
     strategy:
+      fail-fast: false
       matrix:
         stage: ${{ fromJSON(needs.matrix-builder.outputs.stages) }}
         distro: ${{ fromJSON(needs.matrix-builder.outputs.distros) }}
@@ -184,11 +186,13 @@ jobs:
       - name: Set Job Parameters
         id: init
         run: |
-          echo "gh-repo-path=${{ github.workspace }}" >> $GITHUB_OUTPUT
-          echo "changelogs-path=${{ github.workspace }}/changelogs" >> $GITHUB_OUTPUT
-          echo "manifest-path=${{ github.workspace }}/manifests" >> $GITHUB_OUTPUT
-          echo "package-build-path=${{ github.workspace }}/packages" >> $GITHUB_OUTPUT
-          echo "package-publish-path=${{ github.workspace }}/publish" >> $GITHUB_OUTPUT
+          export GH_WORKSPACE="/__w/voulage/voulage"
+
+          echo "gh-repo-path=${GH_WORKSPACE}" >> $GITHUB_OUTPUT
+          echo "changelogs-path=${GH_WORKSPACE}/changelogs" >> $GITHUB_OUTPUT
+          echo "manifest-path=${GH_WORKSPACE}/manifests" >> $GITHUB_OUTPUT
+          echo "package-build-path=${GH_WORKSPACE}/packages" >> $GITHUB_OUTPUT
+          echo "package-publish-path=${GH_WORKSPACE}/publish" >> $GITHUB_OUTPUT
           echo "stage=${{ matrix.stage }}" >> $GITHUB_OUTPUT
           echo "distro=${{ matrix.distro }}" >> $GITHUB_OUTPUT
           echo "codename=${{ matrix.codename }}" >> $GITHUB_OUTPUT
@@ -204,12 +208,9 @@ jobs:
           mkdir -p ${{ steps.init.outputs.manifest-path }} || true
 
           sudo rm -rf /etc/apt/sources.list.d/regolith.list
-          sudo apt update
-          DEBIAN_FRONTEND=noninteractive sudo apt install -y --no-install-recommends jq git devscripts wget dput diffutils
 
       - name: Pull Manifest
         run: |
-          set -e
           cp "${{ steps.init.outputs.manifest-path }}/${{ steps.init.outputs.distro }}/${{ steps.init.outputs.codename }}/${{ steps.init.outputs.suite }}-${{ steps.init.outputs.component }}/manifest.txt" ${{ steps.init.outputs.manifest-path }} || true
           echo "Current manifest:"
           cat ${{ steps.init.outputs.manifest-path }}/manifest.txt || true
@@ -243,24 +244,20 @@ jobs:
             cat ${{ steps.init.outputs.manifest-path }}/next-manifest.txt
           fi
 
-      - name: Setup SSH agent
-        uses: webfactory/ssh-agent@v0.9.0
+      - name: Import GPG Key
+        uses: regolith-linux/actions/import-gpg@main
         if: steps.changes.outputs.changed == 1
         with:
-          ssh-private-key: ${{ secrets.KAMATERA_SSH_KEY }}
+          gpg-key: "${{ secrets.PACKAGE_PRIVATE_KEY2 }}"
 
       - name: Build Packages
         if: steps.changes.outputs.changed == 1
+        env:
+          DEBEMAIL: "regolith.linux@gmail.com"
+          DEBFULLNAME: "Regolith Linux"
+          DEBIAN_FRONTEND: noninteractive
         run: |
           set -e
-
-          export DEBEMAIL="regolith.linux@gmail.com"
-          export DEBFULLNAME="Regolith Linux"
-          export DEBIAN_FRONTEND=noninteractive
-
-          mkdir -p ~/.gnupg/
-          printf "${{ secrets.PACKAGE_PRIVATE_KEY2 }}" | base64 --decode > ~/.gnupg/private.key
-          gpg --batch --import ~/.gnupg/private.key
 
           ${{ steps.init.outputs.gh-repo-path }}/.github/scripts/main.sh \
             build \
@@ -283,8 +280,8 @@ jobs:
 
           mv ${{ steps.init.outputs.manifest-path }}/manifest.txt ${{ steps.init.outputs.manifest-path }}/${{ steps.init.outputs.distro }}_${{ steps.init.outputs.codename }}_${{ steps.init.outputs.suite }}-${{ steps.init.outputs.component }}_manifest.txt
 
-          cat ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt | grep ^CHLOG: | cut -c 7- > ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
-          cat ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt | grep ^SRCLOG: | cut -c 8- > ${{ steps.init.outputs.changelogs-path }}/SOURCELOG_${{ steps.init.outputs.target }}.txt
+          grep "^CHLOG:" ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt | cut -c 7- > ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
+          grep "^SRCLOG:" ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt | cut -c 8- > ${{ steps.init.outputs.changelogs-path }}/SOURCELOG_${{ steps.init.outputs.target }}.txt
 
           if [ ! -s ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.txt ] ; then
             rm ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
@@ -294,23 +291,36 @@ jobs:
             rm ${{ steps.init.outputs.changelogs-path }}/SOURCELOG_${{ steps.init.outputs.target }}.txt
           fi
 
-      - name: Deploy via rsync
+      - name: Setup SSH
+        uses: regolith-linux/actions/setup-ssh@main
         if: steps.changes.outputs.changed == 1
-        run: |
-          set -e
-          set -x
+        with:
+          ssh-host: "${{ secrets.KAMATERA_HOSTNAME2 }}"
+          ssh-key: "${{ secrets.KAMATERA_SSH_KEY }}"
 
-          ssh-keyscan -H ${{ secrets.KAMATERA_HOSTNAME2 }} >> ~/.ssh/known_hosts
+      - name: Upload Package
+        uses: regolith-linux/actions/upload-files@main
+        if: steps.changes.outputs.changed == 1
+        env:
+          server-address: "${{ secrets.KAMATERA_HOSTNAME2 }}"
+          server-username: "${{ secrets.KAMATERA_USERNAME }}"
+        with:
+          upload-from: "${{ steps.init.outputs.package-publish-path }}"
+          upload-pattern: "*"
+          upload-to-base: "/opt/archives/packages/"
+          upload-to-folder: "voulage/"
 
-          for i in 1 2 3 4 5; do
-            echo "Attempt $i"
-            rsync \
-              -avzhH \
-              ${{ steps.init.outputs.package-publish-path }}/* \
-              root@${{ secrets.KAMATERA_HOSTNAME2 }}:/opt/archives/packages/ && break || sleep 5
-          done
-
-          rsync --ignore-missing-args ${{ steps.init.outputs.changelogs-path }}/SOURCELOG_${{ steps.init.outputs.target }}.txt root@${{ secrets.KAMATERA_HOSTNAME2 }}:/opt/archives/workspace/
+      - name: Upload SourceLog
+        uses: regolith-linux/actions/upload-files@main
+        if: steps.changes.outputs.changed == 1
+        env:
+          server-address: "${{ secrets.KAMATERA_HOSTNAME2 }}"
+          server-username: "${{ secrets.KAMATERA_USERNAME }}"
+        with:
+          upload-from: "${{ steps.init.outputs.changelogs-path }}"
+          upload-pattern: "SOURCELOG_${{ steps.init.outputs.target }}.txt"
+          upload-to-base: "/opt/archives/workspace/"
+          upload-to-folder: "voulage/"
 
       - name: Log Build Output
         if: steps.changes.outputs.changed == 1
@@ -372,9 +382,9 @@ jobs:
         with:
           file_pattern: "*"
           commit_message: "chore: update ${{ inputs.stage }} manifest for all packages"
-          commit_user_name: regolith-bot
+          commit_user_name: regolith-ci-bot
           commit_user_email: bot@regolith-desktop.com
-          commit_author: "regolith-bot <bot@regolith-desktop.com>"
+          commit_author: "regolith-ci-bot <bot@regolith-desktop.com>"
 
   # calculate changelogs
   changelogs:
@@ -428,37 +438,9 @@ jobs:
       packages-path: /opt/archives/packages/
     secrets: inherit
 
-  # create a release with changlogs
-  release:
-    runs-on: ubuntu-24.04
-    needs: [manifests, changelogs, publish]
-    if: ${{ !failure() && !cancelled() && needs.changelogs.outputs.package-changed != 0 }}
-    steps:
-      - name: Download Artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: changelogs
-          pattern: CHANGELOG_*
-          merge-multiple: true
-
-      - name: Prepare Release
-        id: prepare
-        run: |
-          echo "TIMESTAMP=$(date +%Y%m%d_%H%M%S)" >> $GITHUB_OUTPUT
-          find changelogs/ -name CHANGELOG_\*.txt -exec sh -c 'cat "$1" >> CHANGELOG.txt' -- {} \;
-          cat CHANGELOG.txt
-
-      - uses: softprops/action-gh-release@v2
-        with:
-          body: See CHANGELOG.txt for updates and manifests for current state of repos.
-          name: Package Build ${{ steps.prepare.outputs.TIMESTAMP }}
-          tag_name: pkgbuild-${{ steps.prepare.outputs.TIMESTAMP }}
-          files: |
-            *.txt
-
   # run the tests
   test:
-    needs: [manifests, changelogs, release]
+    needs: [manifests, changelogs, publish]
     if: ${{ !failure() && !cancelled() }}
     uses: ./.github/workflows/test-desktop-installable2.yml
     with:

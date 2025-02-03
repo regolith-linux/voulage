@@ -46,17 +46,22 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-24.04
+    container: "ghcr.io/regolith-linux/ci-ubuntu:noble-amd64"
+    env:
+      server-address: "${{ secrets.KAMATERA_HOSTNAME2 }}"
+      server-username: "${{ secrets.KAMATERA_USERNAME }}"
     steps:
-      - name: Setup SSH agent
-        uses: webfactory/ssh-agent@v0.9.0
+      - name: Setup SSH
+        uses: regolith-linux/actions/setup-ssh@main
         with:
-          ssh-private-key: ${{ secrets.KAMATERA_SSH_KEY }}
+          ssh-host: "${{ env.server-address }}"
+          ssh-key: "${{ secrets.KAMATERA_SSH_KEY }}"
 
-      - name: Publish Packages
-        run: |
-          set -e
-          set -x
-
-          ssh-keyscan -H ${{ secrets.KAMATERA_HOSTNAME2 }} >> ~/.ssh/known_hosts
-          ssh root@${{ secrets.KAMATERA_HOSTNAME2 }} "publish-repos.sh \"${{ inputs.packages-path }}\" \"${{ inputs.only-distro }}\" \"${{ inputs.only-codename }}\" \"${{ inputs.only-component }}\""
-          ssh root@${{ secrets.KAMATERA_HOSTNAME2 }} "find \"${{ inputs.packages-path }}\" "
+      - name: Publish Repo
+        uses: regolith-linux/actions/publish-repo@main
+        with:
+          packages-path-base: "${{ inputs.packages-path }}"
+          packages-path-subfolder: "voulage/"
+          only-distro: "${{ inputs.only-distro }}"
+          only-codename: "${{ inputs.only-codename }}"
+          only-component: "${{ inputs.only-component }}"
