@@ -117,7 +117,7 @@
       "source": "https://github.com/regolith-linux/regolith-control-center.git"
     },
     "regolith-default-settings": {
-      "ref": "r3_3-beta1",
+      "ref": "v2.0.5",
       "source": "https://github.com/regolith-linux/regolith-default-settings.git"
     },
     "regolith-desktop": {
