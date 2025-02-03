@@ -46,7 +46,7 @@ regolith-system-ubuntu https://github.com/regolith-linux/regolith-system-ubuntu.
 regolith-unclutter-xfixes https://github.com/regolith-linux/regolith-unclutter-xfixes.git master 56a47c44214e90f42922ee572f257f4bea6cfec5
 regolith-wm-config https://github.com/regolith-linux/regolith-wm-config.git main 3f3be6300df44384385063f3e424b5ca42df0d03
 remontoire https://github.com/regolith-linux/remontoire.git master 1d0deca77bb09a7412c374ee4932d142b28355a0
-solarc-theme https://github.com/regolith-linux/solarc-theme.git master ea583c191a5926dc812c4f81ccacdab1f1848b84
+solarc-theme https://github.com/regolith-linux/solarc-theme.git master c104444b416724160df01a707b95b69df9fcf182
 sway-audio-idle-inhibit https://github.com/regolith-linux/SwayAudioIdleInhibit.git main 32586ed96204872719e50a98a811ec4b1320ca7f
 sway-regolith https://github.com/regolith-linux/sway-regolith.git packaging/v1.9-regolith 0f8c382d00dba9aeeb90a2fcb99de26debff0db7
 trawl https://github.com/regolith-linux/trawl.git master 8815f343ce9f5ec82f75460e3eda256e8760efdc
