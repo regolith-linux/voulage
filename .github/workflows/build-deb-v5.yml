@@ -286,14 +286,14 @@ jobs:
 
           mv ${{ steps.init.outputs.manifest-path }}/manifest.txt ${{ steps.init.outputs.manifest-path }}/${{ steps.init.outputs.distro }}_${{ steps.init.outputs.codename }}_${{ steps.init.outputs.suite }}-${{ steps.init.outputs.component }}_manifest.txt
 
-          grep "^CHLOG:" ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt | cut -c 7- > ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
-          grep "^SRCLOG:" ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt | cut -c 8- > ${{ steps.init.outputs.changelogs-path }}/SOURCELOG_${{ steps.init.outputs.target }}.txt
+          grep "^CHLOG:" ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt | cut -c 7- > ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.txt || true
+          grep "^SRCLOG:" ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt | cut -c 8- > ${{ steps.init.outputs.changelogs-path }}/SOURCELOG_${{ steps.init.outputs.target }}.txt || true
 
-          if [ ! -s ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.txt ] ; then
+          if [ ! -s ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.txt ]; then
             rm ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
           fi
 
-          if [ ! -s ${{ steps.init.outputs.changelogs-path }}/SOURCELOG_${{ steps.init.outputs.target }}.txt ] ; then
+          if [ ! -s ${{ steps.init.outputs.changelogs-path }}/SOURCELOG_${{ steps.init.outputs.target }}.txt ]; then
             rm ${{ steps.init.outputs.changelogs-path }}/SOURCELOG_${{ steps.init.outputs.target }}.txt
           fi
 
