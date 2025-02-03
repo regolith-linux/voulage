@@ -181,7 +181,7 @@
       "source": "https://github.com/regolith-linux/regolith-system-ubuntu.git"
     },
     "regolith-unclutter-xfixes": {
-      "ref": "v1.5-2",
+      "ref": "v1.5-3",
       "source": "https://github.com/regolith-linux/regolith-unclutter-xfixes.git"
     },
     "regolith-wm-config": {
