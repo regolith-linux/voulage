@@ -125,7 +125,7 @@
       "source": "https://github.com/regolith-linux/regolith-desktop.git"
     },
     "regolith-displayd": {
-      "ref": "v0.3.1",
+      "ref": "v0.3.2",
       "source": "https://github.com/regolith-linux/regolith-displayd.git"
     },
     "regolith-distro-ubuntu": {
