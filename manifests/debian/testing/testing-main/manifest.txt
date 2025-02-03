@@ -15,7 +15,7 @@ i3-swap-focus https://github.com/regolith-linux/i3-swap-focus.git v0.4.3 7abfc89
 i3status-rs https://github.com/regolith-linux/i3status-rs_debian.git v0.22.1-1-ubuntu-jammy 086e5c6853e2badab41f516368ff61ff96329e51
 i3xrocks https://github.com/regolith-linux/i3xrocks.git v1.3.5-1 5645c20f64589269f5b8639f056918bd89fff4c5
 ilia https://github.com/regolith-linux/ilia.git v0.15.1 818b08d4ee412a1d45bad47441a63b14bf8153ea
-lago https://github.com/regolith-linux/lago.git v0.1.0-1 7308b90d2586861d00a67e36be2b1f79f31f79ae
+lago https://github.com/regolith-linux/lago.git v0.2.0-1 f1c9eecef9c92f03b0174f18d1457a70b0f3f092
 libtrawldb https://github.com/regolith-linux/libtrawldb.git v0.1-2 b251386cd5f56de731f831bbea8ad8caecf95f36
 nordic https://github.com/regolith-linux/nordic.git v2.1.0-1 4beaf2f1e56d24a0ab6dc1bf023d2a3539f9566b
 picom https://github.com/regolith-linux/picom.git v11.2.2 7d158cd08a2caaa527abf31cb47fb2ba2effef9a
