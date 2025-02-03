@@ -210,7 +210,7 @@ archive_cleanup_scripts() {
   # Remove regolith repo from build system apt config
   if [ -f "/etc/apt/sources.list.d/regolith.list" ]; then
     echo "Deleting /etc/apt/sources.list.d/regolith.list file"
-    sudo rm -f /etc/apt/sources.list.d/regolith.list
+    sudo rm -f /etc/apt/sources.list.d/regolith.list || true
   fi
 }
 
