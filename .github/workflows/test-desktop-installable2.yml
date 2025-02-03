@@ -79,6 +79,11 @@ on:
         required: false
         default: ""
 
+# Need to explicitly set shell according to: https://github.com/actions/runner/issues/353#issuecomment-1067227665
+defaults:
+  run:
+    shell: bash
+
 jobs:
   matrix-builder:
     runs-on: ubuntu-24.04
