@@ -64,9 +64,15 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+# Need to explicitly set shell according to: https://github.com/actions/runner/issues/353#issuecomment-1067227665
+defaults:
+  run:
+    shell: bash
+
 jobs:
   matrix-builder:
     runs-on: ubuntu-24.04
+    container: "ghcr.io/regolith-linux/ci-ubuntu:noble-amd64"
     outputs:
       stages: ${{ steps.calc-matrix.outputs.stages }}
       distros: ${{ steps.calc-matrix.outputs.distros }}
@@ -346,6 +352,7 @@ jobs:
   # update manifests
   manifests:
     runs-on: ubuntu-24.04
+    container: "ghcr.io/regolith-linux/ci-ubuntu:noble-amd64"
     needs: build
     steps:
       - name: Checkout
@@ -389,6 +396,7 @@ jobs:
   # calculate changelogs
   changelogs:
     runs-on: ubuntu-24.04
+    container: "ghcr.io/regolith-linux/ci-ubuntu:noble-amd64"
     needs: build
     outputs:
       package-changed: ${{ steps.check.outputs.package-changed }}
