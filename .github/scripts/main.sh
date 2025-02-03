@@ -3,8 +3,15 @@ set -e
 
 # Emit manifest entry line for package
 handle_package() {
+  local lookup_ref=""
+  if [ "$STAGE" == "experimental" ] || [ "$STAGE" == "unstable" ]; then
+    lookup_ref="--branches"
+  else
+    lookup_ref="--tags"
+  fi
+
   # Get git hash
-  local COMMIT_HASH=$(git ls-remote $PACAKGE_SOURCE_URL $PACKAGE_SOURCE_REF | awk '{ print $1}')
+  local COMMIT_HASH=$(git ls-remote $lookup_ref $PACAKGE_SOURCE_URL $PACKAGE_SOURCE_REF | awk '{ print $1}')
 
   echo "$PACKAGE_NAME $PACAKGE_SOURCE_URL $PACKAGE_SOURCE_REF $COMMIT_HASH" >> "$NEXT_MANIFEST_FILE"
 
