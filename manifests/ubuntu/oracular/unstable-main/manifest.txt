@@ -23,7 +23,7 @@ plymouth-theme-regolith https://github.com/regolith-linux/plymouth-theme-regolit
 python3-i3ipc https://github.com/regolith-linux/python3-i3ipc.git master 79f60639d895cf70e915d3f96fd1bedbd54cf4c2
 regolith-avizo https://github.com/regolith-linux/avizo.git master f83522129689b6f499e98fe2994cf3230f4089d0
 regolith-compositor-compton-glx https://github.com/regolith-linux/regolith-compositor-compton-glx.git master b26694c20af1c952f85482fd6519f8fb40cdb187
-regolith-compositor-none https://github.com/regolith-linux/regolith-compositor-none.git master 38ba4c53e13306c713a03ac87f70b843296a6253
+regolith-compositor-none https://github.com/regolith-linux/regolith-compositor-none.git master 88edb3da376314a01f2f4caab97f2010f2ab7aa1
 regolith-compositor-picom-glx https://github.com/regolith-linux/regolith-compositor-picom-glx.git master 089beee6d4f8703a6b9224d92b6ba7f92d999b1f
 regolith-compositor-xcompmgr https://github.com/regolith-linux/regolith-compositor-xcompmgr.git master bd0adb8cd6eb6d05ac6638d4e091993b817d2410
 regolith-default-settings https://github.com/regolith-linux/regolith-default-settings.git main dfb9ba0217561a524174feb90abef66a2b618442
