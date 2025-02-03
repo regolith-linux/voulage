@@ -9,7 +9,7 @@
       "source": "https://github.com/regolith-linux/armesto.git"
     },
     "ayu-theme": {
-      "ref": "v0.2.2-1",
+      "ref": "v0.2.3-1",
       "source": "https://github.com/regolith-linux/ayu-theme.git"
     },
     "childe": {
