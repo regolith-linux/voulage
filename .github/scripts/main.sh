@@ -3,31 +3,38 @@ set -e
 
 # Emit manifest entry line for package
 handle_package() {
-    # Get git hash
-    local COMMIT_HASH=$(git ls-remote $PACAKGE_SOURCE_URL $PACKAGE_SOURCE_REF | awk '{ print $1}')
+  local lookup_ref=""
+  if [ "$STAGE" == "experimental" ] || [ "$STAGE" == "unstable" ]; then
+    lookup_ref="--branches"
+  else
+    lookup_ref="--tags"
+  fi
 
-    echo "$PACKAGE_NAME $PACAKGE_SOURCE_URL $PACKAGE_SOURCE_REF $COMMIT_HASH" >> "$NEXT_MANIFEST_FILE"
+  # Get git hash
+  local COMMIT_HASH=$(git ls-remote $lookup_ref $PACAKGE_SOURCE_URL $PACKAGE_SOURCE_REF | awk '{ print $1}')
 
-    echo "Updated manifest $NEXT_MANIFEST_FILE for package $PACKAGE_NAME"
+  echo "$PACKAGE_NAME $PACAKGE_SOURCE_URL $PACKAGE_SOURCE_REF $COMMIT_HASH" >> "$NEXT_MANIFEST_FILE"
+
+  echo "Updated manifest $NEXT_MANIFEST_FILE for package $PACKAGE_NAME"
 }
 
 # Traverse each package in the model and call handle_package
 traverse_package_model() {
-    jq -rc 'delpaths([path(.[][]| select(.==null))]) | .packages | keys | .[]' < "$PACKAGE_MODEL_FILE" | while IFS='' read -r package; do
-        # Set the package name and model desc
-        PACKAGE_NAME="$package"
+  jq -rc 'delpaths([path(.[][]| select(.==null))]) | .packages | keys | .[]' < "$PACKAGE_MODEL_FILE" | while IFS='' read -r package; do
+    # Set the package name and model desc
+    PACKAGE_NAME="$package"
 
-        # If a package filter was specified, match filter.
-        if [[ -n "$PACKAGE_FILTER" && "$PACKAGE_FILTER" != "$PACKAGE_NAME" ]]; then
-            continue
-        fi
+    # If a package filter was specified, match filter.
+    if [[ -n "$PACKAGE_FILTER" && "$PACKAGE_FILTER" != "$PACKAGE_NAME" ]]; then
+        continue
+    fi
 
-        PACAKGE_SOURCE_URL=$(jq -r ".packages.\"$package\".source" < "$PACKAGE_MODEL_FILE")
-        PACKAGE_SOURCE_REF=$(jq -r ".packages.\"$package\".ref" < "$PACKAGE_MODEL_FILE")
+    PACAKGE_SOURCE_URL=$(jq -r ".packages.\"$package\".source" < "$PACKAGE_MODEL_FILE")
+    PACKAGE_SOURCE_REF=$(jq -r ".packages.\"$package\".ref" < "$PACKAGE_MODEL_FILE")
 
-        # Apply functions to package model
-        handle_package
-    done
+    # Apply functions to package model
+    handle_package
+  done
 }
 
 # Generate a json file from a root and any additions in each level of the stage tree
