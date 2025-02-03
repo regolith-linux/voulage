@@ -90,7 +90,7 @@
     },
     "python3-i3ipc": {
       "ref": "master",
-      "source": "https://github.com/regolith-linux/python3-i3ipc"
+      "source": "https://github.com/regolith-linux/python3-i3ipc.git"
     },
     "regolith-avizo": {
       "ref": "master",
@@ -214,7 +214,7 @@
     },
     "whitesur-gtk-theme": {
       "ref": "debian",
-      "source": "https://github.com/regolith-linux/whitesur-gtk-theme.git"
+      "source": "https://github.com/regolith-linux/WhiteSur-gtk-theme.git"
     },
     "xdg-desktop-portal-regolith": {
       "ref": "main",
