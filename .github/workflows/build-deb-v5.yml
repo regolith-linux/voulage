@@ -380,8 +380,8 @@ jobs:
       - name: Log Build Output
         if: steps.changes.outputs.changed == 1
         run: |
-          cat ${{ steps.init.outputs.manifest-path }}/manifest.txt || true
-          echo "package-publish-path:"
+          cat ${{ steps.init.outputs.manifest-path }}/${{ steps.init.outputs.distro }}_${{ steps.init.outputs.codename }}_${{ steps.init.outputs.suite }}-${{ steps.init.outputs.component }}_manifest.txt || true
+          echo -e "\033[0;34mContent of package publish path:\033[0m"
           find ${{ steps.init.outputs.package-publish-path }}
 
       - name: Upload Manifests
