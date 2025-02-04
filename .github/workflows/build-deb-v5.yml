@@ -4,6 +4,22 @@ run-name: Build ${{ inputs.stage }} Packages ${{ inputs.distro }} ${{ inputs.cod
 on:
   workflow_dispatch:
     inputs:
+      do-publish:
+        description: "Publish after build"
+        type: choice
+        options:
+          - "yes"
+          - "no"
+        required: true
+        default: "yes"
+      force-build:
+        description: "Force build without check for changes"
+        type: choice
+        options:
+          - "yes"
+          - "no"
+        required: true
+        default: "no"
       stage:
         description: "Stage to build"
         type: choice
@@ -42,6 +58,16 @@ on:
         default: ""
   workflow_call:
     inputs:
+      do-publish:
+        description: "Publish after build"
+        type: string
+        required: true
+        default: "yes"
+      force-build:
+        description: "Force build without check for changes"
+        type: string
+        required: true
+        default: "no"
       stage:
         description: "Stage to build"
         type: string
@@ -216,6 +242,7 @@ jobs:
           sudo rm -rf /etc/apt/sources.list.d/regolith.list
 
       - name: Pull Manifest
+        if: inputs.force-build == 'no'
         run: |
           cp "${{ steps.init.outputs.manifest-path }}/${{ steps.init.outputs.distro }}/${{ steps.init.outputs.codename }}/${{ steps.init.outputs.suite }}-${{ steps.init.outputs.component }}/manifest.txt" ${{ steps.init.outputs.manifest-path }} || true
           echo -e "\033[0;34mCurrent manifest:\033[0m"
@@ -225,28 +252,34 @@ jobs:
         id: changes
         run: |
           set -e
+          set -o pipefail
 
-          CHANGE_OUTPUT=$(${{ steps.init.outputs.gh-repo-path }}/.github/scripts/main.sh \
-            check \
-            --extension ${{ steps.init.outputs.gh-repo-path }}/.github/scripts/ext-debian.sh \
-            --git-repo-path ${{ steps.init.outputs.gh-repo-path }} \
-            --manifest-path ${{ steps.init.outputs.manifest-path }} \
-            --pkg-build-path ${{ steps.init.outputs.package-build-path }} \
-            --pkg-publish-path ${{ steps.init.outputs.package-publish-path }} \
-            --distro "${{ steps.init.outputs.distro }}" \
-            --codename "${{ steps.init.outputs.codename }}" \
-            --arch "${{ steps.init.outputs.arch }}" \
-            --stage "${{ steps.init.outputs.stage }}" \
-            --suite "${{ steps.init.outputs.suite }}" \
-            --component "${{ steps.init.outputs.component }}" | tail -n1)
+          if [ "${{ inputs.force-build }}" == "no" ]; then
+            CHANGE_OUTPUT=$(${{ steps.init.outputs.gh-repo-path }}/.github/scripts/main.sh \
+              check \
+              --extension ${{ steps.init.outputs.gh-repo-path }}/.github/scripts/ext-debian.sh \
+              --git-repo-path ${{ steps.init.outputs.gh-repo-path }} \
+              --manifest-path ${{ steps.init.outputs.manifest-path }} \
+              --pkg-build-path ${{ steps.init.outputs.package-build-path }} \
+              --pkg-publish-path ${{ steps.init.outputs.package-publish-path }} \
+              --distro "${{ steps.init.outputs.distro }}" \
+              --codename "${{ steps.init.outputs.codename }}" \
+              --arch "${{ steps.init.outputs.arch }}" \
+              --stage "${{ steps.init.outputs.stage }}" \
+              --suite "${{ steps.init.outputs.suite }}" \
+              --component "${{ steps.init.outputs.component }}" | tail -n1)
 
-          if [ "$CHANGE_OUTPUT" == "No package changes found, exiting." ]; then
-            echo "changed=0" >> $GITHUB_OUTPUT
-            echo -e "\033[0;31mNo package changes to build.\033[0m"
+            if [ "$CHANGE_OUTPUT" == "No package changes found, exiting." ]; then
+              echo "changed=0" >> $GITHUB_OUTPUT
+              echo -e "\033[0;31mNo package changes to build.\033[0m"
+            else
+              echo "changed=1" >> $GITHUB_OUTPUT
+              echo -e "\033[0;34mNew Manifest:\033[0m"
+              cat ${{ steps.init.outputs.manifest-path }}/next-manifest.txt
+            fi
           else
             echo "changed=1" >> $GITHUB_OUTPUT
-            echo -e "\033[0;34mNew Manifest:\033[0m"
-            cat ${{ steps.init.outputs.manifest-path }}/next-manifest.txt
+            echo -e "\033[0;34m'force-build' selected, proceeding with building package.\033[0m"
           fi
 
       - name: Import GPG Key
@@ -315,14 +348,14 @@ jobs:
 
       - name: Setup SSH
         uses: regolith-linux/actions/setup-ssh@main
-        if: steps.changes.outputs.changed == 1
+        if: inputs.do-publish == 'yes' && steps.changes.outputs.changed == 1
         with:
           ssh-host: "${{ secrets.KAMATERA_HOSTNAME2 }}"
           ssh-key: "${{ secrets.KAMATERA_SSH_KEY }}"
 
       - name: Upload Package
         uses: regolith-linux/actions/upload-files@main
-        if: steps.changes.outputs.changed == 1
+        if: inputs.do-publish == 'yes' && steps.changes.outputs.changed == 1
         env:
           server-address: "${{ secrets.KAMATERA_HOSTNAME2 }}"
           server-username: "${{ secrets.KAMATERA_USERNAME }}"
@@ -334,7 +367,7 @@ jobs:
 
       - name: Upload SourceLog
         uses: regolith-linux/actions/upload-files@main
-        if: steps.changes.outputs.changed == 1
+        if: inputs.do-publish == 'yes' && steps.changes.outputs.changed == 1
         env:
           server-address: "${{ secrets.KAMATERA_HOSTNAME2 }}"
           server-username: "${{ secrets.KAMATERA_USERNAME }}"
@@ -347,8 +380,8 @@ jobs:
       - name: Log Build Output
         if: steps.changes.outputs.changed == 1
         run: |
-          cat ${{ steps.init.outputs.manifest-path }}/manifest.txt || true
-          echo "package-publish-path:"
+          cat ${{ steps.init.outputs.manifest-path }}/${{ steps.init.outputs.distro }}_${{ steps.init.outputs.codename }}_${{ steps.init.outputs.suite }}-${{ steps.init.outputs.component }}_manifest.txt || true
+          echo -e "\033[0;34mContent of package publish path:\033[0m"
           find ${{ steps.init.outputs.package-publish-path }}
 
       - name: Upload Manifests
@@ -370,6 +403,7 @@ jobs:
     runs-on: ubuntu-24.04
     container: "ghcr.io/regolith-linux/ci-ubuntu:noble-amd64"
     needs: build
+    if: ${{ !failure() && !cancelled() && inputs.do-publish == 'yes' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -414,6 +448,7 @@ jobs:
     runs-on: ubuntu-24.04
     container: "ghcr.io/regolith-linux/ci-ubuntu:noble-amd64"
     needs: build
+    if: ${{ !failure() && !cancelled() && inputs.do-publish == 'yes' }}
     outputs:
       package-changed: ${{ steps.check.outputs.package-changed }}
       source-changed: ${{ steps.check.outputs.source-changed }}
@@ -446,7 +481,7 @@ jobs:
   # rebuild sources
   source:
     needs: [manifests, changelogs]
-    if: ${{ !failure() && !cancelled() && needs.changelogs.outputs.source-changed != 0 }}
+    if: ${{ !failure() && !cancelled() && inputs.do-publish == 'yes' && needs.changelogs.outputs.source-changed != 0 }}
     uses: ./.github/workflows/rebuild-sources.yml
     with:
       pull-from: /opt/archives/workspace/
@@ -456,7 +491,7 @@ jobs:
   # publish archives
   publish:
     needs: [manifests, changelogs, source]
-    if: ${{ !failure() && !cancelled() && needs.changelogs.outputs.package-changed != 0 }}
+    if: ${{ !failure() && !cancelled() && inputs.do-publish == 'yes' && needs.changelogs.outputs.package-changed != 0 }}
     uses: ./.github/workflows/publish-packages.yml
     with:
       packages-path: /opt/archives/packages/
@@ -465,7 +500,7 @@ jobs:
   # run the tests
   test:
     needs: [manifests, changelogs, publish]
-    if: ${{ !failure() && !cancelled() }}
+    if: ${{ !failure() && !cancelled() && inputs.do-publish == 'yes' }}
     uses: ./.github/workflows/test-desktop-installable2.yml
     with:
       stage: ${{ inputs.stage }}
