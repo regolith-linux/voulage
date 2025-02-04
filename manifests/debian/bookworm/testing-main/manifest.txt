@@ -12,7 +12,7 @@ i3-swap-focus https://github.com/regolith-linux/i3-swap-focus.git v0.4.4 4f7fa06
 i3xrocks https://github.com/regolith-linux/i3xrocks.git v1.3.6-1 4fea410fb189d5abec0515038180d69af225e014
 ilia https://github.com/regolith-linux/ilia.git v0.15.1 818b08d4ee412a1d45bad47441a63b14bf8153ea
 lago https://github.com/regolith-linux/lago.git v0.2.0-1 f1c9eecef9c92f03b0174f18d1457a70b0f3f092
-nordic https://github.com/regolith-linux/nordic.git v2.1.0-1 4beaf2f1e56d24a0ab6dc1bf023d2a3539f9566b
+nordic https://github.com/regolith-linux/nordic.git v2.1.0-2 2df83088a3e7aa51a1087643b3bb35d77b5983d0
 picom https://github.com/regolith-linux/picom.git v11.2.3 ad38c0f9b8f7bf44d95cccd20fe6d385a71ecb35
 python3-i3ipc https://github.com/regolith-linux/python3-i3ipc.git v2.1.1-1ubuntu1-ppa8 783ba24e090d06e6aae0fcd80c6703e3ad4f9ab2
 regolith-compositor-compton-glx https://github.com/regolith-linux/regolith-compositor-compton-glx.git v1.2.1 b26694c20af1c952f85482fd6519f8fb40cdb187
