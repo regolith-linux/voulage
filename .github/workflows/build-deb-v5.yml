@@ -263,6 +263,7 @@ jobs:
           DEBIAN_FRONTEND: noninteractive
         run: |
           set -e
+          set -o pipefail
 
           ${{ steps.init.outputs.gh-repo-path }}/.github/scripts/main.sh \
             build \
@@ -289,8 +290,15 @@ jobs:
           echo "::endgroup::"
 
           echo "::group::Preparing changelog and sourcelog for upload"
-          grep "^CHLOG:" ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt | cut -c 7- > ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.txt || true
-          grep "^SRCLOG:" ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt | cut -c 8- > ${{ steps.init.outputs.changelogs-path }}/SOURCELOG_${{ steps.init.outputs.target }}.txt || true
+          touch ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
+          if grep "^CHLOG:" ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt >/dev/null; then
+            grep "^CHLOG:" ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt | cut -c 7- > ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
+          fi
+
+          touch ${{ steps.init.outputs.changelogs-path }}/SOURCELOG_${{ steps.init.outputs.target }}.txt
+          if grep "^SRCLOG:" ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt >/dev/null; then
+            grep "^SRCLOG:" ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt | cut -c 8- > ${{ steps.init.outputs.changelogs-path }}/SOURCELOG_${{ steps.init.outputs.target }}.txt
+          fi
 
           if [ ! -s ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.txt ]; then
             rm ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
