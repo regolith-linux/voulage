@@ -205,7 +205,7 @@
       "source": "https://github.com/regolith-linux/sway-regolith.git"
     },
     "trawl": {
-      "ref": "v0.2.4",
+      "ref": "v0.2.5",
       "source": "https://github.com/regolith-linux/trawl.git"
     },
     "ubiquity-slideshow-regolith": {
