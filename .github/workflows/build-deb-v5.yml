@@ -4,6 +4,14 @@ run-name: Build ${{ inputs.stage }} Packages ${{ inputs.distro }} ${{ inputs.cod
 on:
   workflow_dispatch:
     inputs:
+      do-publish:
+        description: "Publish after build"
+        type: choice
+        options:
+          - "yes"
+          - "no"
+        required: true
+        default: "yes"
       stage:
         description: "Stage to build"
         type: choice
@@ -42,6 +50,11 @@ on:
         default: ""
   workflow_call:
     inputs:
+      do-publish:
+        description: "Publish after build"
+        type: string
+        required: true
+        default: "yes"
       stage:
         description: "Stage to build"
         type: string
@@ -315,14 +328,14 @@ jobs:
 
       - name: Setup SSH
         uses: regolith-linux/actions/setup-ssh@main
-        if: steps.changes.outputs.changed == 1
+        if: inputs.do-publish == 'yes' && steps.changes.outputs.changed == 1
         with:
           ssh-host: "${{ secrets.KAMATERA_HOSTNAME2 }}"
           ssh-key: "${{ secrets.KAMATERA_SSH_KEY }}"
 
       - name: Upload Package
         uses: regolith-linux/actions/upload-files@main
-        if: steps.changes.outputs.changed == 1
+        if: inputs.do-publish == 'yes' && steps.changes.outputs.changed == 1
         env:
           server-address: "${{ secrets.KAMATERA_HOSTNAME2 }}"
           server-username: "${{ secrets.KAMATERA_USERNAME }}"
@@ -334,7 +347,7 @@ jobs:
 
       - name: Upload SourceLog
         uses: regolith-linux/actions/upload-files@main
-        if: steps.changes.outputs.changed == 1
+        if: inputs.do-publish == 'yes' && steps.changes.outputs.changed == 1
         env:
           server-address: "${{ secrets.KAMATERA_HOSTNAME2 }}"
           server-username: "${{ secrets.KAMATERA_USERNAME }}"
@@ -370,6 +383,7 @@ jobs:
     runs-on: ubuntu-24.04
     container: "ghcr.io/regolith-linux/ci-ubuntu:noble-amd64"
     needs: build
+    if: ${{ !failure() && !cancelled() && inputs.do-publish == 'yes' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -414,6 +428,7 @@ jobs:
     runs-on: ubuntu-24.04
     container: "ghcr.io/regolith-linux/ci-ubuntu:noble-amd64"
     needs: build
+    if: ${{ !failure() && !cancelled() && inputs.do-publish == 'yes' }}
     outputs:
       package-changed: ${{ steps.check.outputs.package-changed }}
       source-changed: ${{ steps.check.outputs.source-changed }}
@@ -446,7 +461,7 @@ jobs:
   # rebuild sources
   source:
     needs: [manifests, changelogs]
-    if: ${{ !failure() && !cancelled() && needs.changelogs.outputs.source-changed != 0 }}
+    if: ${{ !failure() && !cancelled() && inputs.do-publish == 'yes' && needs.changelogs.outputs.source-changed != 0 }}
     uses: ./.github/workflows/rebuild-sources.yml
     with:
       pull-from: /opt/archives/workspace/
@@ -456,7 +471,7 @@ jobs:
   # publish archives
   publish:
     needs: [manifests, changelogs, source]
-    if: ${{ !failure() && !cancelled() && needs.changelogs.outputs.package-changed != 0 }}
+    if: ${{ !failure() && !cancelled() && inputs.do-publish == 'yes' && needs.changelogs.outputs.package-changed != 0 }}
     uses: ./.github/workflows/publish-packages.yml
     with:
       packages-path: /opt/archives/packages/
@@ -465,7 +480,7 @@ jobs:
   # run the tests
   test:
     needs: [manifests, changelogs, publish]
-    if: ${{ !failure() && !cancelled() }}
+    if: ${{ !failure() && !cancelled() && inputs.do-publish == 'yes' }}
     uses: ./.github/workflows/test-desktop-installable2.yml
     with:
       stage: ${{ inputs.stage }}
