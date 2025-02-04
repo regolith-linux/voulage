@@ -177,7 +177,7 @@
       "source": "https://github.com/regolith-linux/regolith-sway-touchpad-gestures.git"
     },
     "regolith-system-ubuntu": {
-      "ref": "v1.0",
+      "ref": "v1.0.1",
       "source": "https://github.com/regolith-linux/regolith-system-ubuntu.git"
     },
     "regolith-unclutter-xfixes": {
