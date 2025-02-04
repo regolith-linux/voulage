@@ -149,7 +149,7 @@
       "source": "https://github.com/regolith-linux/regolith-lightdm-config.git"
     },
     "regolith-look-default": {
-      "ref": "v0.8.2",
+      "ref": "v0.8.3",
       "source": "https://github.com/regolith-linux/regolith-look-default.git"
     },
     "regolith-look-extra": {
