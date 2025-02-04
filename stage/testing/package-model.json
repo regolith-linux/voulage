@@ -129,7 +129,7 @@
       "source": "https://github.com/regolith-linux/regolith-displayd.git"
     },
     "regolith-distro-ubuntu": {
-      "ref": "v2.0.0-1",
+      "ref": "v2.0.0-2",
       "source": "https://github.com/regolith-linux/regolith-distro-ubuntu.git"
     },
     "regolith-ftue": {
