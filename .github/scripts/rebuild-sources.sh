@@ -16,10 +16,11 @@ rebuild_packages() {
   local codename=$2
   local component=$3
 
+  echo -e "\033[0;34mProcessing source packages in:\033[0m"
+
   echo "Distro   : $distro"
   echo "Codename : $codename"
   echo "Component: $component"
-  echo "=============================="
 
   pushd "$PKG_BUILD_PATH/$distro/$codename/$component" >/dev/null
 
@@ -33,6 +34,8 @@ rebuild_packages() {
     if [ -n "$ONLY_PACKAGE" ] && [ "$ONLY_PACKAGE" != "$pkg_name" ]; then
       continue
     fi
+
+    echo "::group::Rebuilding $pkg_full_name.orig.tar.gz"
 
     tmp=$(mktemp -d)
     if [ -z "$tmp" ]; then
@@ -79,7 +82,7 @@ rebuild_packages() {
     cp $tmp/$pkg_full_name-$codename.debian.tar.xz .
 
     rm -rf $tmp >/dev/null
-    echo "=============================="
+    echo "::endgroup::"
   done
 
   popd >/dev/null

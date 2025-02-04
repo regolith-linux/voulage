@@ -186,6 +186,6 @@ if dist_valid; then
   build_bin_package
   publish
 else
-  echo "dist codename does not match in package changelog, ignoring $PACKAGE_NAME."
+  echo -e "\033[0;31mdist codename does not match in package changelog, ignoring $PACKAGE_NAME.\033[0m"
   exit 1
 fi
