@@ -49,7 +49,7 @@
       "source": "https://github.com/regolith-linux/i3-next-workspace.git"
     },
     "i3-snapshot": {
-      "ref": "v1.0-1ubuntu1-ppa1",
+      "ref": "v1.1-1ubuntu1-ppa1",
       "source": "https://github.com/regolith-linux/i3-snapshot.git"
     },
     "i3-swap-focus": {
