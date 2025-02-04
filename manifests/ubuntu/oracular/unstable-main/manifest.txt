@@ -34,7 +34,7 @@ regolith-ftue https://github.com/regolith-linux/regolith-ftue.git main fbdcdcb65
 regolith-i3xrocks-config https://github.com/regolith-linux/regolith-i3xrocks-config.git master 070c4fa8148b183d1eb2d24dc622efae81c7641a
 regolith-inputd https://github.com/regolith-linux/regolith-inputd.git master 1dcd7428e4399969b7483100937e4bd7d34e3ae1
 regolith-lightdm-config https://github.com/regolith-linux/regolith-lightdm-config.git master d76fa6021c9df4872ead99c2aaa491600fd34224
-regolith-look-default https://github.com/regolith-linux/regolith-look-default.git main afb16a4ac778544498c138028ba102ee740f875a
+regolith-look-default https://github.com/regolith-linux/regolith-look-default.git main 9d8707410120c53ec29a2b2f2cdc31bf1a2530a3
 regolith-look-extra https://github.com/regolith-linux/regolith-look-extra.git main cd8a6d84b796a8a0954b309d7114b6e63d82a94b
 regolith-powerd https://github.com/regolith-linux/regolith-powerd.git master 3ab12db60a0ef044fca7734a87d212704550bae5
 regolith-rofi-config https://github.com/regolith-linux/regolith-rofi-config.git master 7a1b4e06a0c0a8c078da707698321151e3785b4e
