@@ -7,6 +7,7 @@
 #
 # - .dsc
 # - .debian.tar.xz
+# - .tar.xz
 #
 # This will ensure one single .orig.tar.gz file can be used for all the
 # packages of the same version and same component of different codenames.
@@ -35,8 +36,6 @@ rebuild_packages() {
       continue
     fi
 
-    echo "::group::Rebuilding $pkg_full_name.orig.tar.gz"
-
     tmp=$(mktemp -d)
     if [ -z "$tmp" ]; then
       continue
@@ -45,24 +44,49 @@ rebuild_packages() {
       continue
     fi
 
-    if [ ! -f "$pkg_full_name.orig.tar.gz" ]; then
-      echo "$pkg_full_name.orig.tar.gz is missing"
-      continue
+    if [ -f "$pkg_full_name.orig.tar.gz" ]; then
+      cp "$pkg_full_name.orig.tar.gz" "$tmp"
     fi
-    if [ ! -f "$pkg_full_name-$codename.debian.tar.xz" ]; then
-      echo "$pkg_full_name-$codename.debian.tar.xz is missing"
+
+    if [ -f "$pkg_full_name-$codename.tar.xz" ]; then
+      cp "$pkg_full_name-$codename.tar.xz" "$tmp"
+    fi
+    if [ -f "$pkg_full_name-$codename.debian.tar.xz" ]; then
+      cp "$pkg_full_name-$codename.debian.tar.xz" "$tmp"
+    fi
+
+    if [ -z "$(ls -A "$tmp")" ]; then
       continue
     fi
 
-    cp "$pkg_full_name.orig.tar.gz" "$tmp"
-    cp "$pkg_full_name-$codename.debian.tar.xz" "$tmp"
+    echo "::group::Rebuilding $pkg_full_name.orig.tar.gz"
 
     # entering /tmp/tmp.XXXXXXXXXX
     pushd $tmp >/dev/null
 
     tar -xzf "$pkg_full_name.orig.tar.gz"
-    tar -xf "$pkg_full_name-$codename.debian.tar.xz"
-    mv "debian/" "$pkg_name"
+
+    if [ -f "$pkg_full_name-$codename.tar.xz" ]; then
+      mkdir temp
+      tar -xf "$pkg_full_name-$codename.tar.xz" -C temp
+
+      if [ -d "temp/$pkg_full_name/debian" ]; then
+        mv "temp/$pkg_full_name/debian" .
+      fi
+
+      rm -rf temp
+    fi
+    if [ -f "$pkg_full_name-$codename.debian.tar.xz" ]; then
+      tar -xf "$pkg_full_name-$codename.debian.tar.xz"
+    fi
+
+    if [ -d "debian/" ]; then
+      mv "debian/" "$pkg_name"
+    else
+      echo "debian/ folder not found. cannot conitnue."
+      echo "::endgroup::"
+      continue
+    fi
 
     if [ -d "$pkg_name" ]; then
       pushd $pkg_name >/dev/null
@@ -77,9 +101,15 @@ rebuild_packages() {
     # existing /tmp/tmp.XXXXXXXXXX
     popd >/dev/null
 
-    # copy newly generated .dsc and .debian.tar.xz file back to the repo
+    # copy newly generated .dsc and, .debian.tar.xz or .tar.xz file back to the repo
     cp $tmp/$pkg_full_name-$codename.dsc .
-    cp $tmp/$pkg_full_name-$codename.debian.tar.xz .
+
+    if [ -f "$tmp/$pkg_full_name-$codename.tar.xz" ]; then
+      cp $tmp/$pkg_full_name-$codename.tar.xz .
+    fi
+    if [ -f "$tmp/$pkg_full_name-$codename.debian.tar.xz" ]; then
+      cp $tmp/$pkg_full_name-$codename.debian.tar.xz .
+    fi
 
     rm -rf $tmp >/dev/null
     echo "::endgroup::"
