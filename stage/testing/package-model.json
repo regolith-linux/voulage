@@ -201,7 +201,7 @@
       "source": "https://github.com/regolith-linux/SwayAudioIdleInhibit.git"
     },
     "sway-regolith": {
-      "ref": "v1.9-16",
+      "ref": "v1.9-17",
       "source": "https://github.com/regolith-linux/sway-regolith.git"
     },
     "trawl": {
