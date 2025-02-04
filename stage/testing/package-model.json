@@ -189,7 +189,7 @@
       "source": "https://github.com/regolith-linux/regolith-wm-config.git"
     },
     "remontoire": {
-      "ref": "v1.4.2",
+      "ref": "v1.4.3",
       "source": "https://github.com/regolith-linux/remontoire.git"
     },
     "solarc-theme": {
