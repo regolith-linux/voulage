@@ -218,14 +218,13 @@ jobs:
       - name: Pull Manifest
         run: |
           cp "${{ steps.init.outputs.manifest-path }}/${{ steps.init.outputs.distro }}/${{ steps.init.outputs.codename }}/${{ steps.init.outputs.suite }}-${{ steps.init.outputs.component }}/manifest.txt" ${{ steps.init.outputs.manifest-path }} || true
-          echo "Current manifest:"
+          echo -e "\033[0;34mCurrent manifest:\033[0m"
           cat ${{ steps.init.outputs.manifest-path }}/manifest.txt || true
 
       - name: Check for changes
         id: changes
         run: |
           set -e
-          set -x
 
           CHANGE_OUTPUT=$(${{ steps.init.outputs.gh-repo-path }}/.github/scripts/main.sh \
             check \
@@ -243,10 +242,10 @@ jobs:
 
           if [ "$CHANGE_OUTPUT" == "No package changes found, exiting." ]; then
             echo "changed=0" >> $GITHUB_OUTPUT
-            echo "No package changes to build"
+            echo -e "\033[0;31mNo package changes to build.\033[0m"
           else
             echo "changed=1" >> $GITHUB_OUTPUT
-            echo "New Manifest: "
+            echo -e "\033[0;34mNew Manifest:\033[0m"
             cat ${{ steps.init.outputs.manifest-path }}/next-manifest.txt
           fi
 
@@ -280,22 +279,31 @@ jobs:
             --component "${{ steps.init.outputs.component }}" | tee -a ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt
 
           if [ -f ${{ steps.init.outputs.manifest-path }}/next-manifest.txt ]; then
-            echo "Temp manifest not deleted by main.sh, build aborted/failed."
+            echo -e "\033[0;31mTemp manifest not deleted by main.sh, build aborted/failed.\033[0m"
             exit 1
           fi
 
+          echo "::group::Preparing manifest for upload"
           mv ${{ steps.init.outputs.manifest-path }}/manifest.txt ${{ steps.init.outputs.manifest-path }}/${{ steps.init.outputs.distro }}_${{ steps.init.outputs.codename }}_${{ steps.init.outputs.suite }}-${{ steps.init.outputs.component }}_manifest.txt
+          echo "${{ steps.init.outputs.distro }}_${{ steps.init.outputs.codename }}_${{ steps.init.outputs.suite }}-${{ steps.init.outputs.component }}_manifest.txt prepared successfully."
+          echo "::endgroup::"
 
+          echo "::group::Preparing changelog and sourcelog for upload"
           grep "^CHLOG:" ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt | cut -c 7- > ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.txt || true
           grep "^SRCLOG:" ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.raw.txt | cut -c 8- > ${{ steps.init.outputs.changelogs-path }}/SOURCELOG_${{ steps.init.outputs.target }}.txt || true
 
           if [ ! -s ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.txt ]; then
             rm ${{ steps.init.outputs.changelogs-path }}/CHANGELOG_${{ steps.init.outputs.target }}.txt
+          else
+            echo "CHANGELOG_${{ steps.init.outputs.target }}.txt prepared successfully."
           fi
 
           if [ ! -s ${{ steps.init.outputs.changelogs-path }}/SOURCELOG_${{ steps.init.outputs.target }}.txt ]; then
             rm ${{ steps.init.outputs.changelogs-path }}/SOURCELOG_${{ steps.init.outputs.target }}.txt
+          else
+            echo "SOURCELOG_${{ steps.init.outputs.target }}.txt prepared successfully."
           fi
+          echo "::endgroup::"
 
       - name: Setup SSH
         uses: regolith-linux/actions/setup-ssh@main

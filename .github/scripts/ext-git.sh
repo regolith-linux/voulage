@@ -2,7 +2,9 @@
 
 checkout() {
   set -e
-  
+
+  echo "::group::Cloning $PACKAGE_NAME on ref: $PACKAGE_REF"
+
   if [ -z "$PACKAGE_URL" ]; then
     echo "Error: package model is invalid. Model field 'source' undefined, aborting."
     exit 1
@@ -26,6 +28,7 @@ checkout() {
   git clone --recursive "$PACKAGE_URL" -b "$PACKAGE_REF" "$PACKAGE_NAME"
 
   cd - >/dev/null 2>&1 || exit
+  echo "::endgroup::"
 }
 
 sanitize_git() {

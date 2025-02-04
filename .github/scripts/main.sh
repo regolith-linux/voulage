@@ -20,6 +20,7 @@ handle_package() {
 
 # Traverse each package in the model and call handle_package
 traverse_package_model() {
+  echo "::group::Updating next manifest file"
   jq -rc 'delpaths([path(.[][]| select(.==null))]) | .packages | keys | .[]' < "$PACKAGE_MODEL_FILE" | while IFS='' read -r package; do
     # Set the package name and model desc
     PACKAGE_NAME="$package"
@@ -35,12 +36,14 @@ traverse_package_model() {
     # Apply functions to package model
     handle_package
   done
+  echo "::endgroup::"
 }
 
 # Generate a json file from a root and any additions in each level of the stage tree
 merge_models() {
+  echo "::group::Merging model files"
   if [ ! -f "$ROOT_MODEL_PATH" ]; then
-    echo "Invalid root model path: $ROOT_MODEL_PATH"
+    echo -e "\033[0;31mInvalid root model path: $ROOT_MODEL_PATH\033[0m"
     exit 1
   fi
 
@@ -90,8 +93,9 @@ merge_models() {
 
   PACKAGE_MODEL_FILE="$WORKING_ARCH_MODEL"
 
-  echo "Merged package model: "
+  echo -e "\033[0;34mMerged package model:\033[0m"
   cat "$PACKAGE_MODEL_FILE"
+  echo "::endgroup::"
 }
 
 # Traverse the stage tree and execute any found setup.sh scripts
@@ -114,16 +118,18 @@ source_setup_scripts() {
 }
 
 build_packages() {
-  echo -e "Package set to build: $PACKAGE_CHANGES"  
+  echo "::group::Package set to build"
+  echo -e "$PACKAGE_CHANGES"  
+  echo "::endgroup::"
 
   while IFS= read -r PKG_LINE; do
-    echo "Debug line is $PKG_LINE"
-    
+    # echo "Debug line is $PKG_LINE"
+
     PACKAGE_NAME=$(echo "$PKG_LINE" | cut -d" " -f1)
     PACKAGE_URL=$(echo "$PKG_LINE" | cut -d" " -f2)
     PACKAGE_REF=$(echo "$PKG_LINE" | cut -d" " -f3)
 
-    echo "Building package $PACKAGE_NAME from $PACKAGE_URL with ref $PACKAGE_REF"
+    echo -e "\033[0;34mBuilding package $PACKAGE_NAME from $PACKAGE_URL with ref $PACKAGE_REF\033[0m"
 
     checkout
     update_changelog
@@ -302,12 +308,12 @@ ROOT_MODEL_PATH="$GIT_REPO_PATH/stage/package-model.json"
 #### Setup files
 
 if [ -d "$PKG_BUILD_PATH" ]; then
-  echo "Deleting pre-existing package build dir $PKG_BUILD_PATH"
+  echo -e "\033[0;34mDeleting pre-existing package build dir $PKG_BUILD_PATH\033[0m"
   rm -Rf "$PKG_BUILD_PATH"
 fi
 
 if [ -d "$PKG_PUBLISH_PATH" ]; then
-  echo "Deleting pre-existing package publish dir $PKG_PUBLISH_PATH"
+  echo -e "\033[0;34mDeleting pre-existing package publish dir $PKG_PUBLISH_PATH\033[0m"
   rm -Rf "$PKG_PUBLISH_PATH"
 fi
 
@@ -332,7 +338,7 @@ fi
 # Delete pre-existing manifest before generating new
 if [ -f "$NEXT_MANIFEST_FILE" ]; then
   mv "$NEXT_MANIFEST_FILE" "$MANIFEST_PATH/prev-manifest.txt"
-  echo "Moved pre-existing manifest file $NEXT_MANIFEST_FILE to $MANIFEST_PATH/prev-manifest.txt"
+  echo -e "\033[0;34mMoved pre-existing manifest file $NEXT_MANIFEST_FILE to $MANIFEST_PATH/prev-manifest.txt\033[0m"
 fi
 
 # Merge models across stage, distro, codename, arch
@@ -342,9 +348,11 @@ merge_models
 traverse_package_model
 
 #### Find packages that need to be built
-echo Diffing "$PREV_MANIFEST_FILE" "$NEXT_MANIFEST_FILE"
+echo "::group::Looking for changed package"
+echo -e "\033[0;34mDiffing $PREV_MANIFEST_FILE $NEXT_MANIFEST_FILE\033[0m"
 PACKAGE_CHANGES=$(diff "$PREV_MANIFEST_FILE" "$NEXT_MANIFEST_FILE" | grep '^[>][^>]' | cut -c3- | uniq | sort)
-echo "Package diff: $PACKAGE_CHANGES"
+echo "$PACKAGE_CHANGES"
+echo "::endgroup::"
 
 if [ -z "$PACKAGE_CHANGES" ]; then
   echo "No package changes found, exiting."
