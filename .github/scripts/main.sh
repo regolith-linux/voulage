@@ -5,7 +5,11 @@ set -e
 handle_package() {
   local lookup_ref=""
   if [ "$STAGE" == "experimental" ] || [ "$STAGE" == "unstable" ]; then
-    lookup_ref="--branches"
+    if git ls-remote --help | grep "\-\-branches" >/dev/null; then
+      lookup_ref="--branches"
+    else
+      lookup_ref="--heads"
+    fi
   else
     lookup_ref="--tags"
   fi
