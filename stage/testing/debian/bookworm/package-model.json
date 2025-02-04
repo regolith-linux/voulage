@@ -8,7 +8,7 @@
     "plymouth-theme-regolith": null,
     "regolith-avizo": null,
     "regolith-control-center": {
-      "ref": "v1.43.1-7-gnome-43",
+      "ref": "v1.43.1-8-gnome-43",
       "source": "https://github.com/regolith-linux/regolith-control-center.git"
     },
     "regolith-displayd": null,
