@@ -21,7 +21,7 @@ nordic https://github.com/regolith-linux/nordic.git v2.1.0-2 2df83088a3e7aa51a10
 picom https://github.com/regolith-linux/picom.git v11.2.3 ad38c0f9b8f7bf44d95cccd20fe6d385a71ecb35
 plymouth-theme-regolith https://github.com/regolith-linux/plymouth-theme-regolith.git v1.2.2 3cce0f4cc25460821f16f60bf96c3cc0e3bc71df
 python3-i3ipc https://github.com/regolith-linux/python3-i3ipc.git v2.1.1-1ubuntu1-ppa8 783ba24e090d06e6aae0fcd80c6703e3ad4f9ab2
-regolith-avizo https://github.com/regolith-linux/avizo.git v0.1.3 d9859e5ec4d9f7163d004cc633ba0f2166fdcab7
+regolith-avizo https://github.com/regolith-linux/avizo.git v0.1.4 2335f44cb8ad1106316ac3b5baa218cbfd3db088
 regolith-compositor-compton-glx https://github.com/regolith-linux/regolith-compositor-compton-glx.git v1.2.1 b26694c20af1c952f85482fd6519f8fb40cdb187
 regolith-compositor-none https://github.com/regolith-linux/regolith-compositor-none.git v1.0.4-1 88edb3da376314a01f2f4caab97f2010f2ab7aa1
 regolith-compositor-picom-glx https://github.com/regolith-linux/regolith-compositor-picom-glx.git v1.4.0 d19d483064f24954dd6906703af84d48a18e9f3a
