@@ -398,11 +398,65 @@ jobs:
           name: CHANGELOG_${{ steps.init.outputs.target }}
           path: ${{ steps.init.outputs.changelogs-path }}/*${{ steps.init.outputs.target }}.txt
 
+  # calculate changelogs
+  changelogs:
+    runs-on: ubuntu-24.04
+    container: "ghcr.io/regolith-linux/ci-ubuntu:noble-amd64"
+    needs: build
+    if: ${{ !failure() && !cancelled() && inputs.do-publish == 'yes' }}
+    outputs:
+      package-changed: ${{ steps.check.outputs.package-changed }}
+      source-changed: ${{ steps.check.outputs.source-changed }}
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: changelogs
+          pattern: CHANGELOG_*
+          merge-multiple: true
+
+      - name: Check Changelogs
+        id: check
+        run: |
+          set -e
+
+          if [ ! -d changelogs ]; then
+            echo "No package file found to publish!"
+            echo "No source file found to rebuild!"
+
+            echo "package-changed=0" >> $GITHUB_OUTPUT
+            echo "source-changed=0" >> $GITHUB_OUTPUT
+          else
+            ls -R changelogs/
+
+            echo "package-changed=$(find changelogs -name CHANGELOG_\*.txt | wc -l)" >> $GITHUB_OUTPUT
+            echo "source-changed=$(find changelogs -name SOURCELOG_\*.txt | wc -l)" >> $GITHUB_OUTPUT
+          fi
+
+  # rebuild sources
+  source:
+    needs: [changelogs]
+    if: ${{ !failure() && !cancelled() && inputs.do-publish == 'yes' && needs.changelogs.outputs.source-changed != 0 }}
+    uses: ./.github/workflows/rebuild-sources.yml
+    with:
+      pull-from: /opt/archives/workspace/
+      push-to: /opt/archives/packages/
+    secrets: inherit
+
+  # publish archives
+  publish:
+    needs: [changelogs, source]
+    if: ${{ !failure() && !cancelled() && inputs.do-publish == 'yes' && needs.changelogs.outputs.package-changed != 0 }}
+    uses: ./.github/workflows/publish-packages.yml
+    with:
+      packages-path: /opt/archives/packages/
+    secrets: inherit
+
   # update manifests
   manifests:
     runs-on: ubuntu-24.04
     container: "ghcr.io/regolith-linux/ci-ubuntu:noble-amd64"
-    needs: build
+    needs: [changelogs, publish]
     if: ${{ !failure() && !cancelled() && inputs.do-publish == 'yes' }}
     steps:
       - name: Checkout
@@ -443,63 +497,9 @@ jobs:
           commit_user_email: bot@regolith-desktop.com
           commit_author: "regolith-ci-bot <bot@regolith-desktop.com>"
 
-  # calculate changelogs
-  changelogs:
-    runs-on: ubuntu-24.04
-    container: "ghcr.io/regolith-linux/ci-ubuntu:noble-amd64"
-    needs: build
-    if: ${{ !failure() && !cancelled() && inputs.do-publish == 'yes' }}
-    outputs:
-      package-changed: ${{ steps.check.outputs.package-changed }}
-      source-changed: ${{ steps.check.outputs.source-changed }}
-    steps:
-      - name: Download Artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: changelogs
-          pattern: CHANGELOG_*
-          merge-multiple: true
-
-      - name: Check Changelogs
-        id: check
-        run: |
-          set -e
-
-          if [ ! -d changelogs ]; then
-            echo "No package file found to publish!"
-            echo "No source file found to rebuild!"
-
-            echo "package-changed=0" >> $GITHUB_OUTPUT
-            echo "source-changed=0" >> $GITHUB_OUTPUT
-          else
-            ls -R changelogs/
-
-            echo "package-changed=$(find changelogs -name CHANGELOG_\*.txt | wc -l)" >> $GITHUB_OUTPUT
-            echo "source-changed=$(find changelogs -name SOURCELOG_\*.txt | wc -l)" >> $GITHUB_OUTPUT
-          fi
-
-  # rebuild sources
-  source:
-    needs: [manifests, changelogs]
-    if: ${{ !failure() && !cancelled() && inputs.do-publish == 'yes' && needs.changelogs.outputs.source-changed != 0 }}
-    uses: ./.github/workflows/rebuild-sources.yml
-    with:
-      pull-from: /opt/archives/workspace/
-      push-to: /opt/archives/packages/
-    secrets: inherit
-
-  # publish archives
-  publish:
-    needs: [manifests, changelogs, source]
-    if: ${{ !failure() && !cancelled() && inputs.do-publish == 'yes' && needs.changelogs.outputs.package-changed != 0 }}
-    uses: ./.github/workflows/publish-packages.yml
-    with:
-      packages-path: /opt/archives/packages/
-    secrets: inherit
-
   # run the tests
   test:
-    needs: [manifests, changelogs, publish]
+    needs: [manifests]
     if: ${{ !failure() && !cancelled() && inputs.do-publish == 'yes' }}
     uses: ./.github/workflows/test-desktop-installable2.yml
     with:
