@@ -10,7 +10,7 @@ fonts-source-code-pro-ttf https://github.com/regolith-linux/fonts-source-code-pr
 gruvbox-gtk https://github.com/regolith-linux/gruvbox-gtk.git v1.0.2-1 c185c6caf293af3abdcd5f971a7be470825737d0
 gtklock https://github.com/regolith-linux/gtklock.git v2.2.1 fb74b54513b0ee990bf707ffd31fa033165a52d9
 i3-next-workspace https://github.com/regolith-linux/i3-next-workspace.git v1.0.5 4a826549b2c25bfc7a95811d15956f4c0cca174a
-i3-snapshot https://github.com/regolith-linux/i3-snapshot.git v1.0-1ubuntu1-ppa1 7a0f0798887fffe8eb2e601296665eaa36a04003
+i3-snapshot https://github.com/regolith-linux/i3-snapshot.git v1.1-1ubuntu1-ppa1 97d77af943929729b1198e9b5416baddaf2a2ec6
 i3-swap-focus https://github.com/regolith-linux/i3-swap-focus.git v0.4.4 4f7fa066e12033e9b9dab0bd69bfea76c391f2d9
 i3status-rs https://github.com/regolith-linux/i3status-rs_debian.git v0.22.2-1-ubuntu-jammy 4a520851e3141a1b1873d31e3ec43945db5f7059
 i3xrocks https://github.com/regolith-linux/i3xrocks.git v1.3.6-1 4fea410fb189d5abec0515038180d69af225e014
@@ -47,7 +47,6 @@ regolith-wm-config https://github.com/regolith-linux/regolith-wm-config.git v4.1
 remontoire https://github.com/regolith-linux/remontoire.git v1.4.3 8af1b75c4df03e3b786e564e8605f51ab6f55f70
 solarc-theme https://github.com/regolith-linux/solarc-theme.git v800c997-4 c104444b416724160df01a707b95b69df9fcf182
 sway-audio-idle-inhibit https://github.com/regolith-linux/SwayAudioIdleInhibit.git v0.1.4 4911d85f28ac52ef2a00834374186bed6ea51287
-sway-regolith https://github.com/regolith-linux/sway-regolith.git v1.9-17 ffafac9ac1c95509f67cd67921fd057dce444ef4
 trawl https://github.com/regolith-linux/trawl.git v0.2.5 f8bf1d431d2aa05097876f8550e9a8c9355b820b
 whitesur-gtk-theme https://github.com/regolith-linux/WhiteSur-gtk-theme.git v1.1-2025.02.03 a7ae5ab3ec9432f321fe054fd4d0df7efcafbd49
 xdg-desktop-portal-regolith https://github.com/regolith-linux/xdg-desktop-portal-regolith.git v0.3.5-4 3d9dcf5cb0237a6b923e0cd2c06462205a31b179
