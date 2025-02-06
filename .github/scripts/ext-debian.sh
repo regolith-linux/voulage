@@ -80,6 +80,7 @@ stage_source() {
       # there's no existing .orig.tar.gz file! Clean up the empty downloaded file.
       echo "Existing .orig.tar.gz file not found in the archives. Using the one just built."
       rm -f "${debian_package_name}_${debian_version}-existing.orig.tar.gz" || true
+      echo "SRCLOG:$DISTRO=$CODENAME=$SUITE=${debian_package_name_indicator}=${debian_package_name}=${debian_package_name}_${debian_version}=${debian_package_name}_${debian_version}.orig.tar.gz"
     fi
   fi
 
