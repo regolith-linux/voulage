@@ -17,11 +17,7 @@ rebuild_packages() {
   local codename=$2
   local component=$3
 
-  echo -e "\033[0;34mProcessing source packages in:\033[0m"
-
-  echo "Distro   : $distro"
-  echo "Codename : $codename"
-  echo "Component: $component"
+  echo -e "\033[0;34mProcessing source packages for $component $distro/$codename:\033[0m"
 
   pushd "$PKG_BUILD_PATH/$distro/$codename/$component" >/dev/null
 
