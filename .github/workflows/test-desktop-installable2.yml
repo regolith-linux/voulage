@@ -223,10 +223,13 @@ jobs:
     runs-on: ${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}
     needs: matrix-builder
     if: |
-      (inputs.distro == '' && inputs.codename == '') ||
-      (inputs.distro == 'debian' && inputs.codename == '') ||
-      (inputs.distro == '' && inputs.codename == 'bookworm') ||
-      (inputs.distro == 'debian' && inputs.codename == 'bookworm')
+      (inputs.legacy == 'no') &&
+      (
+        (inputs.distro == '' && inputs.codename == '') ||
+        (inputs.distro == 'debian' && inputs.codename == '') ||
+        (inputs.distro == '' && inputs.codename == 'bookworm') ||
+        (inputs.distro == 'debian' && inputs.codename == 'bookworm')
+      )
     strategy:
       fail-fast: false
       matrix:
@@ -248,10 +251,13 @@ jobs:
     runs-on: ${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}
     needs: matrix-builder
     if: |
-      (inputs.distro == '' && inputs.codename == '') ||
-      (inputs.distro == 'debian' && inputs.codename == '') ||
-      (inputs.distro == '' && inputs.codename == 'testing') ||
-      (inputs.distro == 'debian' && inputs.codename == 'testing')
+      (inputs.legacy == 'no') &&
+      (
+        (inputs.distro == '' && inputs.codename == '') ||
+        (inputs.distro == 'debian' && inputs.codename == '') ||
+        (inputs.distro == '' && inputs.codename == 'testing') ||
+        (inputs.distro == 'debian' && inputs.codename == 'testing')
+      )
     strategy:
       fail-fast: false
       matrix:
@@ -301,10 +307,13 @@ jobs:
     runs-on: ${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}
     needs: matrix-builder
     if: |
-      (inputs.distro == '' && inputs.codename == '') ||
-      (inputs.distro == 'ubuntu' && inputs.codename == '') ||
-      (inputs.distro == '' && inputs.codename == 'jammy') ||
-      (inputs.distro == 'ubuntu' && inputs.codename == 'jammy')
+      (inputs.legacy == 'no') &&
+      (
+        (inputs.distro == '' && inputs.codename == '') ||
+        (inputs.distro == 'ubuntu' && inputs.codename == '') ||
+        (inputs.distro == '' && inputs.codename == 'jammy') ||
+        (inputs.distro == 'ubuntu' && inputs.codename == 'jammy')
+      )
     strategy:
       fail-fast: false
       matrix:
@@ -385,10 +394,13 @@ jobs:
     runs-on: ${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}
     needs: matrix-builder
     if: |
-      (inputs.distro == '' && inputs.codename == '') ||
-      (inputs.distro == 'ubuntu' && inputs.codename == '') ||
-      (inputs.distro == '' && inputs.codename == 'noble') ||
-      (inputs.distro == 'ubuntu' && inputs.codename == 'noble')
+      (inputs.legacy == 'no') &&
+      (
+        (inputs.distro == '' && inputs.codename == '') ||
+        (inputs.distro == 'ubuntu' && inputs.codename == '') ||
+        (inputs.distro == '' && inputs.codename == 'noble') ||
+        (inputs.distro == 'ubuntu' && inputs.codename == 'noble')
+      )
     strategy:
       fail-fast: false
       matrix:
@@ -410,10 +422,13 @@ jobs:
     runs-on: ${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}
     needs: matrix-builder
     if: |
-      (inputs.distro == '' && inputs.codename == '') ||
-      (inputs.distro == 'ubuntu' && inputs.codename == '') ||
-      (inputs.distro == '' && inputs.codename == 'oracular') ||
-      (inputs.distro == 'ubuntu' && inputs.codename == 'oracular')
+      (inputs.legacy == 'no') &&
+      (
+        (inputs.distro == '' && inputs.codename == '') ||
+        (inputs.distro == 'ubuntu' && inputs.codename == '') ||
+        (inputs.distro == '' && inputs.codename == 'oracular') ||
+        (inputs.distro == 'ubuntu' && inputs.codename == 'oracular')
+      )
     strategy:
       fail-fast: false
       matrix:
