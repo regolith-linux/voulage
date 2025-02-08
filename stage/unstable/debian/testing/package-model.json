@@ -8,7 +8,10 @@
       "ref": "fix/trixie-session-init-1094494",
       "source": "https://github.com/regolith-linux/regolith-session.git"
     },
-    "sway-regolith": null,
+    "sway-regolith": {
+      "ref": "packaging/v1.10-regolith",
+      "source": "https://github.com/regolith-linux/sway-regolith.git"
+    },
     "ubiquity-slideshow-regolith": null
   }
 }
