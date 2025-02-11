@@ -15,7 +15,7 @@
     "regolith-inputd": null,
     "regolith-powerd": null,
     "regolith-session": {
-      "ref": "v1.1.12-4-debian-bookworm",
+      "ref": "v1.1.13-3-debian-bookworm",
       "source": "https://github.com/regolith-linux/regolith-session.git"
     },
     "regolith-sway-touchpad-gestures": null,
