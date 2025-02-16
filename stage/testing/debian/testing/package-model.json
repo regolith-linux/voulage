@@ -5,7 +5,6 @@
       "source": "https://github.com/regolith-linux/i3status-rs_debian.git"
     },
     "plymouth-theme-regolith": null,
-    "sway-regolith": null,
-    "ubiquity-slideshow-regolith": null
+    "sway-regolith": null
   }
 }
