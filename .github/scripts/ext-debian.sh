@@ -84,6 +84,16 @@ stage_source() {
     fi
   fi
 
+  # Special case for creating source tarball of a Rust package vendored dependencies to allow packages with unpackage deps in debian
+  # See https://blog.shadura.me/2020/12/22/vendoring-rust-in-debian-derivative/
+  cd "$PACKAGE_NAME"
+  if grep -q "cargo_registry"; then # Assume that any reference to 'cargo_registry' in rules implies needing to generate vendored deps
+        [ -d vendor ] && rm -rf vendor
+        rm -rf Cargo.lock
+        cargo vendor
+        tar Jcf ../${debian_package_name}_${debian_version}.orig-vendor.tar.xz vendor/
+  fi
+
   popd
   echo "::endgroup::"
 }
