@@ -90,7 +90,7 @@ stage_source() {
   if grep -q "cargo_registry" debian/rules ; then # Assume that any reference to 'cargo_registry' in rules implies needing to generate vendored deps
     echo -e "\033[0;34mGenerating vendor source tarball from cargo\033[0m"
     [ -d vendor ] && rm -rf vendor
-    rm -rf Cargo.lock || true
+    # rm -rf Cargo.lock || true  # breaks: dpkg-source: info: local changes detected, the modified files are: / elbey/Cargo.loc
     cargo vendor
     tar Jcf ../${debian_package_name}_${debian_version}.orig-vendor.tar.xz vendor/
   fi
