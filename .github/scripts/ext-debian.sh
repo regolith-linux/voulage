@@ -44,10 +44,24 @@ stage_source() {
   debian_package_name=$(dpkg-parsechangelog --show-field Source)
   full_version=$(dpkg-parsechangelog --show-field Version)
   debian_version="${full_version%-*}"
+
+  # Special case for creating source tarball of a Rust package vendored dependencies to allow packages with unpackage deps in debian
+  # See https://blog.shadura.me/2020/12/22/vendoring-rust-in-debian-derivative/
+  if grep -q "cargo_registry" debian/rules ; then # Assume that any reference to 'cargo_registry' in rules implies needing to generate vendored deps
+    RUST_SPECIAL_SRC_PACKAGE=true
+  else
+    RUST_SPECIAL_SRC_PACKAGE=false
+  fi
+
   cd "$PKG_BUILD_PATH" || exit
 
   echo -e "\033[0;34mGenerating source tarball from git repo\033[0m"
-  tar --force-local -c -z -v -f  "${debian_package_name}_${debian_version}.orig.tar.gz" --exclude .git\* --exclude debian "$PACKAGE_NAME"
+
+  if $RUST_SPECIAL_SRC_PACKAGE ; then
+    tar --force-local -c -z -v -f  "${debian_package_name}_${debian_version}.orig.tar.gz" --exclude .git\* --exclude debian --exclude Cargo.lock "$PACKAGE_NAME"
+  else
+    tar --force-local -c -z -v -f  "${debian_package_name}_${debian_version}.orig.tar.gz" --exclude .git\* --exclude debian "$PACKAGE_NAME"
+  fi
 
   if [ "$LOCAL_BUILD" == "false" ]; then
     debian_package_name_indicator="${debian_package_name:0:1}"
@@ -84,13 +98,11 @@ stage_source() {
     fi
   fi
 
-  # Special case for creating source tarball of a Rust package vendored dependencies to allow packages with unpackage deps in debian
-  # See https://blog.shadura.me/2020/12/22/vendoring-rust-in-debian-derivative/
   cd "$PACKAGE_NAME"
-  if grep -q "cargo_registry" debian/rules ; then # Assume that any reference to 'cargo_registry' in rules implies needing to generate vendored deps
+  if $RUST_SPECIAL_SRC_PACKAGE ; then 
     echo -e "\033[0;34mGenerating vendor source tarball from cargo\033[0m"
     [ -d vendor ] && rm -rf vendor
-    # rm -rf Cargo.lock || true  # breaks: dpkg-source: info: local changes detected, the modified files are: / elbey/Cargo.loc
+    rm -rf Cargo.lock || true
     cargo vendor
     tar Jcf ../${debian_package_name}_${debian_version}.orig-vendor.tar.xz vendor/
   fi
