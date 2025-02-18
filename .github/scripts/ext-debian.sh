@@ -53,7 +53,6 @@ stage_source() {
     rm -rf Cargo.lock || true
     cargo vendor
     tar Jcf ../${debian_package_name}_${debian_version}.orig-vendor.tar.xz vendor/
-    rm -Rf vendor
   fi
 
   cd "$PKG_BUILD_PATH" || exit
