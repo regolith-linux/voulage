@@ -9,7 +9,7 @@ gruvbox-gtk https://github.com/regolith-linux/gruvbox-gtk.git master 922da4d277a
 i3-next-workspace https://github.com/regolith-linux/i3-next-workspace.git main f93eeda8dd410c5857afd7510081c5f33c0b4701
 i3-snapshot https://github.com/regolith-linux/i3-snapshot.git master 97d77af943929729b1198e9b5416baddaf2a2ec6
 i3-swap-focus https://github.com/regolith-linux/i3-swap-focus.git master f2eda67855bbcfd428acab579e7747541264fc83
-i3xrocks https://github.com/regolith-linux/i3xrocks.git master 4fea410fb189d5abec0515038180d69af225e014
+i3xrocks https://github.com/regolith-linux/i3xrocks.git master 87ddee259bc934c7706f17796b8056863e127e70
 ilia https://github.com/regolith-linux/ilia.git main 2c9080b21f7f4d21ebc9fe56f8e9599920d74e17
 lago https://github.com/regolith-linux/lago.git main 7bce74039218ee5457215fe9660231e10ea68cba
 nordic https://github.com/regolith-linux/nordic.git main 2df83088a3e7aa51a1087643b3bb35d77b5983d0
