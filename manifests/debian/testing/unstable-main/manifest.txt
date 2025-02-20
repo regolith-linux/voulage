@@ -42,7 +42,7 @@ regolith-rofication https://github.com/regolith-linux/regolith-rofication.git ma
 regolith-session https://github.com/regolith-linux/regolith-session.git fix/trixie-session-init-1094494 21be803b482eab541dbe33deaa8b78a18f72c8c8
 regolith-sway-touchpad-gestures https://github.com/regolith-linux/regolith-sway-touchpad-gestures.git main d4fc6b19a7692647b4affb8804ffa317b228f1cf
 regolith-system-ubuntu https://github.com/regolith-linux/regolith-system-ubuntu.git main 43ec972ad1fe986040896b78314622b434f796df
-regolith-unclutter-xfixes https://github.com/regolith-linux/regolith-unclutter-xfixes.git master 56a47c44214e90f42922ee572f257f4bea6cfec5
+regolith-unclutter-xfixes https://github.com/regolith-linux/regolith-unclutter-xfixes.git master c106f476d719270b3e5d4c750c8f2324792b1bff
 regolith-wm-config https://github.com/regolith-linux/regolith-wm-config.git main fee520c473cf75e2888c452b004d04e6702638b4
 remontoire https://github.com/regolith-linux/remontoire.git master 5456deba44df0ea7697461211d8a3a52e1789491
 solarc-theme https://github.com/regolith-linux/solarc-theme.git master 12df40195807571e7726bb6bb94851e1b2171802
