@@ -80,10 +80,12 @@ SUITE=""             # experimental, unstable, testing, stable      (correspondi
 COMPONENT=""         # e.g. main, 3.2, 3.1, etc.
 ARCH=""              # amd64, arm64
 
-LOCAL_BUILD="false"
+LOCAL_BUILD=""       # true: only build, false: download source, build and sign, publish
 
 while [[ $# -gt 0 ]]; do
   case $1 in
+    --build-only)        parse_flag "$1" "$2" LOCAL_BUILD; shift 2 ;;
+
     --package-name)      parse_flag "$1" "$2" PACKAGE_NAME; shift 2 ;;
     --extension)         parse_flag "$1" "$2" EXTENSION; shift 2 ;;
 
@@ -184,7 +186,10 @@ if dist_valid; then
   stage_source
   build_src_package
   build_bin_package
-  publish
+
+  if [ "$LOCAL_BUILD" == "false" ]; then
+    publish
+  fi
 else
   echo -e "\033[0;31mdist codename does not match in package changelog, ignoring $PACKAGE_NAME.\033[0m"
   exit 1
