@@ -53,4 +53,4 @@ trawl https://github.com/regolith-linux/trawl.git master f8bf1d431d2aa05097876f8
 whitesur-gtk-theme https://github.com/regolith-linux/WhiteSur-gtk-theme.git debian a7ae5ab3ec9432f321fe054fd4d0df7efcafbd49
 xdg-desktop-portal-regolith https://github.com/regolith-linux/xdg-desktop-portal-regolith.git main 5d0350b61480262af48da1b5204eb006d8545f29
 xrescat https://github.com/regolith-linux/xrescat.git master 4f6e47411759fa351154cb86f36bd12c8e878328
-ubiquity-slideshow-regolith https://github.com/regolith-linux/ubiquity-slideshow-regolith.git master ae5bc643277f0b6723ab4efe1224e3febec20814
+ubiquity-slideshow-regolith https://github.com/regolith-linux/ubiquity-slideshow-regolith.git master 1ea06081ffe5e4870731bff51bb7a6d374369715
