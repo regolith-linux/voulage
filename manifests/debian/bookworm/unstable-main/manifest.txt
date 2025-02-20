@@ -1,6 +1,6 @@
 arc-icon-theme https://github.com/regolith-linux/arc-icon-theme.git main c5e412fce21268179ff16fd213d353a337fdc1cd
 ayu-theme https://github.com/regolith-linux/ayu-theme.git master 02cba91a18d6c62b99250d646a6005ae747330ea
-dracula-gtk https://github.com/regolith-linux/dracula-gtk.git master ca8c3ccce396576fbb3e9295a4f1c1c1073e171c
+dracula-gtk https://github.com/regolith-linux/dracula-gtk.git master d29905726f4106f1b100d287a169dcf890a2a0f6
 fonts-jetbrains-mono https://github.com/regolith-linux/fonts-jetbrains-mono.git master b0e47801378c6b83d90964961b03efea056a46a9
 fonts-materialdesignicons-webfont https://github.com/regolith-linux/fonts-materialdesignicons-webfont.git master 5b3d7c5c0b14e0f7e6022b7714abfad08bc9b15b
 fonts-nerd-fonts https://github.com/regolith-linux/fonts-nerd-fonts.git debian b355cf27558f76b3c92c30577c059c53cce663ec
