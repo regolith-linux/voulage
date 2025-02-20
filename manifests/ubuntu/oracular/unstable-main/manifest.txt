@@ -48,7 +48,7 @@ remontoire https://github.com/regolith-linux/remontoire.git master 5456deba44df0
 solarc-theme https://github.com/regolith-linux/solarc-theme.git master 12df40195807571e7726bb6bb94851e1b2171802
 sway-audio-idle-inhibit https://github.com/regolith-linux/SwayAudioIdleInhibit.git main 4911d85f28ac52ef2a00834374186bed6ea51287
 sway-regolith https://github.com/regolith-linux/sway-regolith.git packaging/v1.9-regolith ffafac9ac1c95509f67cd67921fd057dce444ef4
-trawl https://github.com/regolith-linux/trawl.git master f8bf1d431d2aa05097876f8550e9a8c9355b820b
+trawl https://github.com/regolith-linux/trawl.git master 81dd74409ca9a6ee8264c75d88727ce76692509c
 whitesur-gtk-theme https://github.com/regolith-linux/WhiteSur-gtk-theme.git debian 32db2a29e3cfaf18d33967247978072697b96fd7
 xdg-desktop-portal-regolith https://github.com/regolith-linux/xdg-desktop-portal-regolith.git main 5d0350b61480262af48da1b5204eb006d8545f29
 xrescat https://github.com/regolith-linux/xrescat.git master 4f6e47411759fa351154cb86f36bd12c8e878328
