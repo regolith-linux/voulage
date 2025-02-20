@@ -11,7 +11,7 @@ i3-snapshot https://github.com/regolith-linux/i3-snapshot.git master 97d77af9439
 i3-swap-focus https://github.com/regolith-linux/i3-swap-focus.git master f2eda67855bbcfd428acab579e7747541264fc83
 i3xrocks https://github.com/regolith-linux/i3xrocks.git master 4fea410fb189d5abec0515038180d69af225e014
 ilia https://github.com/regolith-linux/ilia.git main 2c9080b21f7f4d21ebc9fe56f8e9599920d74e17
-lago https://github.com/regolith-linux/lago.git main f1c9eecef9c92f03b0174f18d1457a70b0f3f092
+lago https://github.com/regolith-linux/lago.git main 7bce74039218ee5457215fe9660231e10ea68cba
 nordic https://github.com/regolith-linux/nordic.git main 2df83088a3e7aa51a1087643b3bb35d77b5983d0
 picom https://github.com/regolith-linux/picom.git main 72a509c0f0193a823fec084813313e2048d4361f
 python3-i3ipc https://github.com/regolith-linux/python3-i3ipc.git master 783ba24e090d06e6aae0fcd80c6703e3ad4f9ab2
