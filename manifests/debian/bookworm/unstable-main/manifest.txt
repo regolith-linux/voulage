@@ -38,4 +38,4 @@ remontoire https://github.com/regolith-linux/remontoire.git master 8af1b75c4df03
 solarc-theme https://github.com/regolith-linux/solarc-theme.git master c104444b416724160df01a707b95b69df9fcf182
 whitesur-gtk-theme https://github.com/regolith-linux/WhiteSur-gtk-theme.git debian a7ae5ab3ec9432f321fe054fd4d0df7efcafbd49
 xdg-desktop-portal-regolith https://github.com/regolith-linux/xdg-desktop-portal-regolith.git debian-bookworm 5e5b6ce2782f0802478c7a5e3a72b495f080440c
-xrescat https://github.com/regolith-linux/xrescat.git master 2655bbdc87b147f35877ac85ff1aadadf36ac62b
+xrescat https://github.com/regolith-linux/xrescat.git master 4f6e47411759fa351154cb86f36bd12c8e878328
