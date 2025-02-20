@@ -101,7 +101,13 @@ build_src_package() {
   echo -e "\033[0;34mBuilding source package.\033[0m"
   sudo apt update
   sudo apt build-dep -y .
-  debuild -S -sa
+
+  local deb_build_sign=""
+  if [ "$LOCAL_BUILD" == "true" ]; then
+    deb_build_sign="-us -uc"
+  fi
+
+  debuild -S -sa $deb_build_sign
 
   popd
   echo "::endgroup::"
@@ -109,13 +115,20 @@ build_src_package() {
 
 build_bin_package() {
   set -e
-  
+
   echo "::group::Building binary package $PACKAGE_NAME"
   pushd .
   cd "$PKG_BUILD_PATH/$PACKAGE_NAME" || exit
 
   echo -e "\033[0;34mBuilding binary package.\033[0m"
-  debuild -sa -b
+
+  local deb_build_sign=""
+  if [ "$LOCAL_BUILD" == "true" ]; then
+    deb_build_sign="-us -uc"
+  fi
+
+  debuild -b -sa $deb_build_sign
+
   popd
   echo "::endgroup::"
 }
