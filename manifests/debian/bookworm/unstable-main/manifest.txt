@@ -8,7 +8,7 @@ fonts-source-code-pro-ttf https://github.com/regolith-linux/fonts-source-code-pr
 gruvbox-gtk https://github.com/regolith-linux/gruvbox-gtk.git master 922da4d277a50d6dd99a9a159b5911a624d4ba06
 i3-next-workspace https://github.com/regolith-linux/i3-next-workspace.git main 4a826549b2c25bfc7a95811d15956f4c0cca174a
 i3-snapshot https://github.com/regolith-linux/i3-snapshot.git master 97d77af943929729b1198e9b5416baddaf2a2ec6
-i3-swap-focus https://github.com/regolith-linux/i3-swap-focus.git master 4f7fa066e12033e9b9dab0bd69bfea76c391f2d9
+i3-swap-focus https://github.com/regolith-linux/i3-swap-focus.git master f2eda67855bbcfd428acab579e7747541264fc83
 i3xrocks https://github.com/regolith-linux/i3xrocks.git master 4fea410fb189d5abec0515038180d69af225e014
 ilia https://github.com/regolith-linux/ilia.git main 2c9080b21f7f4d21ebc9fe56f8e9599920d74e17
 lago https://github.com/regolith-linux/lago.git main f1c9eecef9c92f03b0174f18d1457a70b0f3f092

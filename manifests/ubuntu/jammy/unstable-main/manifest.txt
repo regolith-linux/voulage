@@ -10,7 +10,7 @@ gruvbox-gtk https://github.com/regolith-linux/gruvbox-gtk.git master 922da4d277a
 gtklock https://github.com/regolith-linux/gtklock.git master e4441e3826ff090cb26c88a994f3d440c7f3993b
 i3-next-workspace https://github.com/regolith-linux/i3-next-workspace.git main 4a826549b2c25bfc7a95811d15956f4c0cca174a
 i3-snapshot https://github.com/regolith-linux/i3-snapshot.git master 97d77af943929729b1198e9b5416baddaf2a2ec6
-i3-swap-focus https://github.com/regolith-linux/i3-swap-focus.git master 4f7fa066e12033e9b9dab0bd69bfea76c391f2d9
+i3-swap-focus https://github.com/regolith-linux/i3-swap-focus.git master f2eda67855bbcfd428acab579e7747541264fc83
 i3-wm https://github.com/regolith-linux/i3-wm.git main edc02d348c6d3a6f883734868f8436a115fa681d
 i3status-rs https://github.com/regolith-linux/i3status-rs_debian.git ubuntu/v0.22.0 4a520851e3141a1b1873d31e3ec43945db5f7059
 i3xrocks https://github.com/regolith-linux/i3xrocks.git master 4fea410fb189d5abec0515038180d69af225e014
