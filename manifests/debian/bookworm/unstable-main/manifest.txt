@@ -34,7 +34,7 @@ regolith-session https://github.com/regolith-linux/regolith-session.git debian-b
 regolith-system-ubuntu https://github.com/regolith-linux/regolith-system-ubuntu.git main 43ec972ad1fe986040896b78314622b434f796df
 regolith-unclutter-xfixes https://github.com/regolith-linux/regolith-unclutter-xfixes.git master 56a47c44214e90f42922ee572f257f4bea6cfec5
 regolith-wm-config https://github.com/regolith-linux/regolith-wm-config.git main 3f3be6300df44384385063f3e424b5ca42df0d03
-remontoire https://github.com/regolith-linux/remontoire.git master 8af1b75c4df03e3b786e564e8605f51ab6f55f70
+remontoire https://github.com/regolith-linux/remontoire.git master 5456deba44df0ea7697461211d8a3a52e1789491
 solarc-theme https://github.com/regolith-linux/solarc-theme.git master 12df40195807571e7726bb6bb94851e1b2171802
 whitesur-gtk-theme https://github.com/regolith-linux/WhiteSur-gtk-theme.git debian 32db2a29e3cfaf18d33967247978072697b96fd7
 xdg-desktop-portal-regolith https://github.com/regolith-linux/xdg-desktop-portal-regolith.git debian-bookworm 5e5b6ce2782f0802478c7a5e3a72b495f080440c
