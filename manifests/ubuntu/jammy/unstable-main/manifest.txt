@@ -9,7 +9,7 @@ fonts-source-code-pro-ttf https://github.com/regolith-linux/fonts-source-code-pr
 gruvbox-gtk https://github.com/regolith-linux/gruvbox-gtk.git master 922da4d277a50d6dd99a9a159b5911a624d4ba06
 gtklock https://github.com/regolith-linux/gtklock.git master e4441e3826ff090cb26c88a994f3d440c7f3993b
 i3-next-workspace https://github.com/regolith-linux/i3-next-workspace.git main f93eeda8dd410c5857afd7510081c5f33c0b4701
-i3-snapshot https://github.com/regolith-linux/i3-snapshot.git master 97d77af943929729b1198e9b5416baddaf2a2ec6
+i3-snapshot https://github.com/regolith-linux/i3-snapshot.git master 511518d53726af365da9d2fb4e60cb9360f498fe
 i3-swap-focus https://github.com/regolith-linux/i3-swap-focus.git master f2eda67855bbcfd428acab579e7747541264fc83
 i3-wm https://github.com/regolith-linux/i3-wm.git main edc02d348c6d3a6f883734868f8436a115fa681d
 i3status-rs https://github.com/regolith-linux/i3status-rs_debian.git ubuntu/v0.22.0 732bd109f0d4c89a24c3f433131266da029ee583
