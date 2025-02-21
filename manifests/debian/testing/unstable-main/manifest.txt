@@ -17,7 +17,7 @@ i3xrocks https://github.com/regolith-linux/i3xrocks.git master 87ddee259bc934c77
 ilia https://github.com/regolith-linux/ilia.git main 2c9080b21f7f4d21ebc9fe56f8e9599920d74e17
 lago https://github.com/regolith-linux/lago.git main 7bce74039218ee5457215fe9660231e10ea68cba
 libtrawldb https://github.com/regolith-linux/libtrawldb.git master b01590b060c20d6e812256ce64a78c4d395d3eb0
-nordic https://github.com/regolith-linux/nordic.git main 2df83088a3e7aa51a1087643b3bb35d77b5983d0
+nordic https://github.com/regolith-linux/nordic.git main 6ad83dd4107971e6a029957d7e881f24b8a9421c
 picom https://github.com/regolith-linux/picom.git main 72a509c0f0193a823fec084813313e2048d4361f
 python3-i3ipc https://github.com/regolith-linux/python3-i3ipc.git master 783ba24e090d06e6aae0fcd80c6703e3ad4f9ab2
 regolith-avizo https://github.com/regolith-linux/avizo.git master 4a28ba7ae2fc1f19e0e0c3619f973f3b57428e9c
