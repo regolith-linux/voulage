@@ -24,7 +24,7 @@ python3-i3ipc https://github.com/regolith-linux/python3-i3ipc.git master 17447cc
 regolith-avizo https://github.com/regolith-linux/avizo.git master 4a28ba7ae2fc1f19e0e0c3619f973f3b57428e9c
 regolith-compositor-compton-glx https://github.com/regolith-linux/regolith-compositor-compton-glx.git master 6aa6347adbc5f629d93fdb5bd436fb6297ee8ccb
 regolith-compositor-none https://github.com/regolith-linux/regolith-compositor-none.git master 695fe688337c6266b342e726e412093f07be9b35
-regolith-compositor-picom-glx https://github.com/regolith-linux/regolith-compositor-picom-glx.git master d19d483064f24954dd6906703af84d48a18e9f3a
+regolith-compositor-picom-glx https://github.com/regolith-linux/regolith-compositor-picom-glx.git master cdef16a211e4968c0e16de557901e1124a953c27
 regolith-compositor-xcompmgr https://github.com/regolith-linux/regolith-compositor-xcompmgr.git master 686b36b838d4c21a18de74c2730c2adf64fa5b53
 regolith-control-center https://github.com/regolith-linux/regolith-control-center.git ubuntu/jammy 6fc6a67f22262b1796f302f614b2fc51d942cb44
 regolith-default-settings https://github.com/regolith-linux/regolith-default-settings.git main 47de1514de218306b2cc11fca9c1ca8f4ee45363
