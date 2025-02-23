@@ -76,6 +76,10 @@
       "ref": "master",
       "source": "https://github.com/regolith-linux/libtrawldb.git"
     },
+    "meta-packages": {
+      "ref": "main",
+      "source": "https://github.com/regolith-linux/meta-packages.git"
+    },
     "nordic": {
       "ref": "main",
       "source": "https://github.com/regolith-linux/nordic.git"
