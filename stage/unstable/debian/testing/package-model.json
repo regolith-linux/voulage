@@ -4,7 +4,6 @@
       "ref": "ubuntu/v0.22.0",
       "source": "https://github.com/regolith-linux/i3status-rs_debian.git"
     },
-    "plymouth-theme-regolith": null,
     "regolith-session": {
       "ref": "fix/trixie-session-init-1094494",
       "source": "https://github.com/regolith-linux/regolith-session.git"
