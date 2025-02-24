@@ -5,7 +5,6 @@
     "gtklock": null,
     "i3status-rs": null,
     "libtrawldb": null,
-    "plymouth-theme-regolith": null,
     "regolith-avizo": null,
     "regolith-control-center": {
       "ref": "v1.43.1-8-gnome-43",
