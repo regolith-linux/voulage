@@ -8,11 +8,11 @@ jobs:
     runs-on: ${{ matrix.host-os }}
     strategy:
       matrix:
-        host-os: [ubuntu-20.04, [self-hosted, Linux, ARM64]]
+        host-os: [ubuntu-22.04, [self-hosted, Linux, ARM64]]
         stage: [unstable, testing, release]
         distro-codename: [ubuntu-focal, ubuntu-impish, ubuntu-jammy, debian-bullseye]
         include:
-          - host-os: ubuntu-20.04
+          - host-os: ubuntu-22.04
             arch: amd64
           - host-os: [self-hosted, Linux, ARM64]
             arch: arm64
