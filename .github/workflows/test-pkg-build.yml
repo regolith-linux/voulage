@@ -36,7 +36,7 @@ on:
       build-os-image:
         description: 'Build package on (ubuntu-22.04)'
         required: true
-        default: ubuntu-20.04
+        default: ubuntu-22.04
 
 jobs:
   build:
