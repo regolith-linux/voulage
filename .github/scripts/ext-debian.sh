@@ -228,7 +228,7 @@ archive_setup_scripts() {
   echo "::group::Setting up archive apt list"
   rm /tmp/Release || true
   wget -P /tmp "http://archive.regolith-desktop.com/$DISTRO/$SUITE/dists/$CODENAME/Release" || true
-  
+
   if [ -s /tmp/Release ]; then
     rm /tmp/Release
 
@@ -242,12 +242,13 @@ archive_setup_scripts() {
     fi
 
     echo -e "\033[0;34mAdding repo to apt: $repo_line\033[0m"
+    mkdir -p /etc/apt/keyrings/
     wget -qO - http://archive.regolith-desktop.com/regolith.key | gpg --dearmor | sudo tee /etc/apt/keyrings/regolith.gpg >/dev/null
     echo "deb [arch=$ARCH signed-by=/etc/apt/keyrings/regolith.gpg] $repo_line" | sudo tee /etc/apt/sources.list.d/regolith.list
 
     sudo apt update
   fi
-  
+
   if [ -f "/etc/apt/sources.list.d/regolith-local.list" ]; then
     sudo rm /etc/apt/sources.list.d/regolith-local.list
     echo "Cleaned up temp apt repo"
