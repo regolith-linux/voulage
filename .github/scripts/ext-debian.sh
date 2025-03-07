@@ -242,7 +242,7 @@ archive_setup_scripts() {
     fi
 
     echo -e "\033[0;34mAdding repo to apt: $repo_line\033[0m"
-    mkdir -p /etc/apt/keyrings/
+    sudo mkdir -p /etc/apt/keyrings/
     wget -qO - http://archive.regolith-desktop.com/regolith.key | gpg --dearmor | sudo tee /etc/apt/keyrings/regolith.gpg >/dev/null
     echo "deb [arch=$ARCH signed-by=/etc/apt/keyrings/regolith.gpg] $repo_line" | sudo tee /etc/apt/sources.list.d/regolith.list
 
