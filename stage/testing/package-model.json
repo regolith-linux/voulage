@@ -209,7 +209,7 @@
       "source": "https://github.com/regolith-linux/trawl.git"
     },
     "ubiquity-slideshow-regolith": {
-      "ref": "v183",
+      "ref": "v202",
       "source": "https://github.com/regolith-linux/ubiquity-slideshow-regolith.git"
     },
     "whitesur-gtk-theme": {
