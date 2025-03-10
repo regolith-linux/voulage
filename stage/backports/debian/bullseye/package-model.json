@@ -1,4 +1,8 @@
 {
   "packages": {
+    "plymouth-theme-regolith": {
+      "ref": "v1.2.2",
+      "source": "https://github.com/regolith-linux/plymouth-theme-regolith.git"
+    }
   }
 }
