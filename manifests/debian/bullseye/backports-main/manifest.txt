@@ -1,0 +1,1 @@
+plymouth-theme-regolith https://github.com/regolith-linux/plymouth-theme-regolith.git v1.2.2 3cce0f4cc25460821f16f60bf96c3cc0e3bc71df
