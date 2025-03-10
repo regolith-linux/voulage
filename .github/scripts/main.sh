@@ -172,8 +172,8 @@ Options:
 
   --distro <name>            The distro to check or build (e.g. ubuntu, debian)
   --codename <name>          The codename to check or build (e.g. jammy, noble, bookworm, etc.)
-  --stage <name>             The stage to check or build (e.g. experimental, unstable, testing, release-x_Y) # different release stages from github action point-of-view
-  --suite <name>             The suite to check or build (e.g. experimental, unstable, testing, stable)      # corresponding value from published arcvhies point-of-view
+  --stage <name>             The stage to check or build (e.g. experimental, unstable, testing, backports, release-x_Y) # different release stages from github action point-of-view
+  --suite <name>             The suite to check or build (e.g. experimental, unstable, testing, backports, stable)      # corresponding value from published arcvhies point-of-view
   --component <name>         The component to check or build (e.g. main, 3_2, 3_1, etc.)
   --arch <name>              The arch to check or build (e.g. amd64, arm64)
 
@@ -205,8 +205,8 @@ PKG_PUBLISH_PATH=""  # e.g. /path/to/publish
 
 DISTRO=""            # ubuntu, debian
 CODENAME=""          # e.g. jammy, noble, bookworm, etc
-STAGE=""             # experimental, unstable, testing, release-x_y (different release stages from github action point-of-view)
-SUITE=""             # experimental, unstable, testing, stable      (corresponding value from published arcvhies point-of-view)
+STAGE=""             # experimental, unstable, testing, backports, release-x_y (different release stages from github action point-of-view)
+SUITE=""             # experimental, unstable, testing, backports, stable      (corresponding value from published arcvhies point-of-view)
 COMPONENT=""         # e.g. main, 3.2, 3.1, etc.
 ARCH=""              # amd64, arm64
 

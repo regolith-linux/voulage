@@ -28,6 +28,7 @@ on:
           - experimental
           - unstable
           - testing
+          - backports
           - release-3_0
           - release-3_1
           - release-3_2
@@ -118,7 +119,7 @@ jobs:
           if [ -n "${{ inputs.stage }}" ] && [ "${{ inputs.stage }}" != "all" ]; then
             STAGES=(${{ inputs.stage }})
           else
-            STAGES=(experimental testing unstable)
+            STAGES=(experimental unstable testing backports)
           fi
           DISTROS=()
           CODENAMES=()
@@ -179,6 +180,7 @@ jobs:
             --argjson experimental "$(jq -n -c --arg suite "experimental" --arg component "main" '$ARGS.named')" \
             --argjson unstable "$(jq -n -c --arg suite "unstable" --arg component "main" '$ARGS.named')" \
             --argjson testing "$(jq -n -c --arg suite "testing" --arg component "main" '$ARGS.named')" \
+            --argjson backports "$(jq -n -c --arg suite "backports" --arg component "main" '$ARGS.named')" \
             --argjson stable "$(jq -n -c --arg suite "stable" --arg component "main" '$ARGS.named')" \
             --argjson release-3_0 "$(jq -n -c --arg suite "stable" --arg component "v3.0" '$ARGS.named')" \
             --argjson release-3_1 "$(jq -n -c --arg suite "stable" --arg component "v3.1" '$ARGS.named')" \
