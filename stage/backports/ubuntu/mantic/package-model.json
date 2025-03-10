@@ -1,4 +1,8 @@
 {
   "packages": {
+    "ubiquity-slideshow-regolith": {
+      "ref": "v202",
+      "source": "https://github.com/regolith-linux/ubiquity-slideshow-regolith.git"
+    }
   }
 }
