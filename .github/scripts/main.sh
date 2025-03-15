@@ -133,6 +133,10 @@ build_packages() {
     PACKAGE_URL=$(echo "$PKG_LINE" | cut -d" " -f2)
     PACKAGE_REF=$(echo "$PKG_LINE" | cut -d" " -f3)
 
+    if [ -n "$ONLY_PACKAGE" ] && [ "$PACKAGE_NAME" != "$ONLY_PACKAGE" ]; then
+      continue
+    fi
+
     echo -e "\033[0;34mBuilding package $PACKAGE_NAME from $PACKAGE_URL with ref $PACKAGE_REF\033[0m"
 
     checkout
@@ -191,8 +195,10 @@ parse_flag() {
     return
   fi
 
-  echo "Error: argument for $1 is missing" >&2
-  exit 1
+  if [ "$1" != "--only-package" ]; then
+    echo "Error: argument for $1 is missing" >&2
+    exit 1
+  fi
 }
 
 MODE=""              # build, check
@@ -209,6 +215,8 @@ STAGE=""             # experimental, unstable, testing, backports, release-x_y (
 SUITE=""             # experimental, unstable, testing, backports, stable      (corresponding value from published arcvhies point-of-view)
 COMPONENT=""         # e.g. main, 3.2, 3.1, etc.
 ARCH=""              # amd64, arm64
+
+ONLY_PACKAGE=""      # only build this package
 
 LOCAL_BUILD="false"
 
@@ -228,6 +236,8 @@ while [[ $# -gt 0 ]]; do
     --suite)             parse_flag "$1" "$2" SUITE; shift 2 ;;
     --component)         parse_flag "$1" "$2" COMPONENT; shift 2 ;;
     --arch)              parse_flag "$1" "$2" ARCH; shift 2 ;;
+
+    --only-package)      parse_flag "$1" "$2" ONLY_PACKAGE; if [ -n "$ONLY_PACKAGE" ] ; then shift 2; else shift 1; fi ;;
 
     -h|--help)           usage; exit 0; ;;
     -*|--*)              echo "Unknown option $1"; exit 1;  ;;
