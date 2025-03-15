@@ -34,6 +34,10 @@ traverse_package_model() {
         continue
     fi
 
+    if [ -n "$ONLY_PACKAGE" ] && [ "$PACKAGE_NAME" != "$ONLY_PACKAGE" ]; then
+      continue
+    fi
+
     PACAKGE_SOURCE_URL=$(jq -r ".packages.\"$package\".source" < "$PACKAGE_MODEL_FILE")
     PACKAGE_SOURCE_REF=$(jq -r ".packages.\"$package\".ref" < "$PACKAGE_MODEL_FILE")
 
