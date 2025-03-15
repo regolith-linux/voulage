@@ -199,10 +199,12 @@ parse_flag() {
     return
   fi
 
-  if [ "$1" != "--only-package" ]; then
-    echo "Error: argument for $1 is missing" >&2
-    exit 1
+  if [ "$1" == "--only-package" ]; then
+    return
   fi
+
+  echo "Error: argument for $1 is missing" >&2
+  exit 1
 }
 
 MODE=""              # build, check
@@ -241,7 +243,18 @@ while [[ $# -gt 0 ]]; do
     --component)         parse_flag "$1" "$2" COMPONENT; shift 2 ;;
     --arch)              parse_flag "$1" "$2" ARCH; shift 2 ;;
 
-    --only-package)      parse_flag "$1" "$2" ONLY_PACKAGE; if [ -n "$ONLY_PACKAGE" ] ; then shift 2; else shift 1; fi ;;
+    --only-package)
+      parse_flag "$1" "$2" ONLY_PACKAGE
+      if [ -z "$2" ]; then
+        shift 2
+      else
+        if [ ${2:0:1} != "-" ]; then
+          shift 2
+        else
+          shift 1
+        fi
+      fi
+      ;;
 
     -h|--help)           usage; exit 0; ;;
     -*|--*)              echo "Unknown option $1"; exit 1;  ;;
