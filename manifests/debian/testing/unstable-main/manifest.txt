@@ -14,11 +14,12 @@ i3-snapshot https://github.com/regolith-linux/i3-snapshot.git master 511518d5372
 i3-swap-focus https://github.com/regolith-linux/i3-swap-focus.git master f2eda67855bbcfd428acab579e7747541264fc83
 i3status-rs https://github.com/regolith-linux/i3status-rs_debian.git ubuntu/v0.22.0 732bd109f0d4c89a24c3f433131266da029ee583
 i3xrocks https://github.com/regolith-linux/i3xrocks.git master 87ddee259bc934c7706f17796b8056863e127e70
-ilia https://github.com/regolith-linux/ilia.git main fee6f922cdd6df24ff2e3afa079955190cfa0082
+ilia https://github.com/regolith-linux/ilia.git main 73463dd4f73da0dfbb6b587ab0b5ad11f37725fe
 lago https://github.com/regolith-linux/lago.git main 7bce74039218ee5457215fe9660231e10ea68cba
 libtrawldb https://github.com/regolith-linux/libtrawldb.git master b01590b060c20d6e812256ce64a78c4d395d3eb0
 nordic https://github.com/regolith-linux/nordic.git main 6ad83dd4107971e6a029957d7e881f24b8a9421c
 picom https://github.com/regolith-linux/picom.git main 72a509c0f0193a823fec084813313e2048d4361f
+plymouth-theme-regolith https://github.com/regolith-linux/plymouth-theme-regolith.git master 74b0fda265c1133af1b9170f47a3ae7f7c96bc9e
 python3-i3ipc https://github.com/regolith-linux/python3-i3ipc.git master 17447cceac3203958d3ea5a2ce834f68049b99e2
 regolith-avizo https://github.com/regolith-linux/avizo.git master 4a28ba7ae2fc1f19e0e0c3619f973f3b57428e9c
 regolith-compositor-compton-glx https://github.com/regolith-linux/regolith-compositor-compton-glx.git master 6aa6347adbc5f629d93fdb5bd436fb6297ee8ccb
@@ -49,6 +50,5 @@ solarc-theme https://github.com/regolith-linux/solarc-theme.git master 12df40195
 sway-audio-idle-inhibit https://github.com/regolith-linux/SwayAudioIdleInhibit.git main c49f2415be6d1b4145914bceb9d31eb1096ea7bc
 trawl https://github.com/regolith-linux/trawl.git master a4b1915cd9091eef4999abb1af8ccf44b69a302d
 whitesur-gtk-theme https://github.com/regolith-linux/WhiteSur-gtk-theme.git debian 32db2a29e3cfaf18d33967247978072697b96fd7
-xdg-desktop-portal-regolith https://github.com/regolith-linux/xdg-desktop-portal-regolith.git main 7bf848e5625ed4e2b1b7c4422bffefbff2c44a94
+xdg-desktop-portal-regolith https://github.com/regolith-linux/xdg-desktop-portal-regolith.git main cd012f83f9d110e2f3f5d6310590aa6920c0cc79
 xrescat https://github.com/regolith-linux/xrescat.git master 4f6e47411759fa351154cb86f36bd12c8e878328
-plymouth-theme-regolith https://github.com/regolith-linux/plymouth-theme-regolith.git master 74b0fda265c1133af1b9170f47a3ae7f7c96bc9e

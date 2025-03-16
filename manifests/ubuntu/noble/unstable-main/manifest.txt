@@ -14,7 +14,7 @@ i3-snapshot https://github.com/regolith-linux/i3-snapshot.git master 511518d5372
 i3-swap-focus https://github.com/regolith-linux/i3-swap-focus.git master f2eda67855bbcfd428acab579e7747541264fc83
 i3status-rs https://github.com/regolith-linux/i3status-rs_debian.git ubuntu/v0.32.1 bb9020f82472de8cbb74d0145ac7671aa970bffb
 i3xrocks https://github.com/regolith-linux/i3xrocks.git master 87ddee259bc934c7706f17796b8056863e127e70
-ilia https://github.com/regolith-linux/ilia.git main fee6f922cdd6df24ff2e3afa079955190cfa0082
+ilia https://github.com/regolith-linux/ilia.git main 73463dd4f73da0dfbb6b587ab0b5ad11f37725fe
 lago https://github.com/regolith-linux/lago.git main 7bce74039218ee5457215fe9660231e10ea68cba
 libtrawldb https://github.com/regolith-linux/libtrawldb.git master b01590b060c20d6e812256ce64a78c4d395d3eb0
 nordic https://github.com/regolith-linux/nordic.git main 6ad83dd4107971e6a029957d7e881f24b8a9421c
@@ -50,7 +50,7 @@ solarc-theme https://github.com/regolith-linux/solarc-theme.git master 12df40195
 sway-audio-idle-inhibit https://github.com/regolith-linux/SwayAudioIdleInhibit.git main c49f2415be6d1b4145914bceb9d31eb1096ea7bc
 sway-regolith https://github.com/regolith-linux/sway-regolith.git packaging/v1.9-regolith 396ff441bfab9b619c6a16806bf36de86c244c52
 trawl https://github.com/regolith-linux/trawl.git master a4b1915cd9091eef4999abb1af8ccf44b69a302d
-whitesur-gtk-theme https://github.com/regolith-linux/WhiteSur-gtk-theme.git debian 32db2a29e3cfaf18d33967247978072697b96fd7
-xdg-desktop-portal-regolith https://github.com/regolith-linux/xdg-desktop-portal-regolith.git main 7bf848e5625ed4e2b1b7c4422bffefbff2c44a94
-xrescat https://github.com/regolith-linux/xrescat.git master 4f6e47411759fa351154cb86f36bd12c8e878328
 ubiquity-slideshow-regolith https://github.com/regolith-linux/ubiquity-slideshow-regolith.git master 1a5577a1a69e48908190f370c786628704f7902d
+whitesur-gtk-theme https://github.com/regolith-linux/WhiteSur-gtk-theme.git debian 32db2a29e3cfaf18d33967247978072697b96fd7
+xdg-desktop-portal-regolith https://github.com/regolith-linux/xdg-desktop-portal-regolith.git main cd012f83f9d110e2f3f5d6310590aa6920c0cc79
+xrescat https://github.com/regolith-linux/xrescat.git master 4f6e47411759fa351154cb86f36bd12c8e878328
