@@ -1,5 +1,6 @@
 {
   "packages": {
-    "regolith-control-center": null
+    "regolith-control-center": null,
+    "sway-regolith": null
   }
 }
