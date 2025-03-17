@@ -92,6 +92,10 @@
       "ref": "master",
       "source": "https://github.com/regolith-linux/python3-i3ipc.git"
     },
+    "regolith-archive-keyring": {
+      "ref": "main",
+      "source": "https://github.com/regolith-linux/regolith-archive-keyring.git"
+    },
     "regolith-avizo": {
       "ref": "master",
       "source": "https://github.com/regolith-linux/avizo.git"
