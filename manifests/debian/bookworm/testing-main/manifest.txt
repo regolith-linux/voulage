@@ -40,3 +40,4 @@ whitesur-gtk-theme https://github.com/regolith-linux/WhiteSur-gtk-theme.git v1.1
 xdg-desktop-portal-regolith https://github.com/regolith-linux/xdg-desktop-portal-regolith.git v0.3.6-2-debian-bookworm 5e5b6ce2782f0802478c7a5e3a72b495f080440c
 xrescat https://github.com/regolith-linux/xrescat.git v1.2.1-3 2655bbdc87b147f35877ac85ff1aadadf36ac62b
 plymouth-theme-regolith https://github.com/regolith-linux/plymouth-theme-regolith.git v1.2.3 860a62bb530577ada9c0f43a6a2310cd8ac44c9b
+regolith-archive-keyring https://github.com/regolith-linux/regolith-archive-keyring.git v0.1.0 4416a8d0aac2da17730155547760d189b3bf6dd5
