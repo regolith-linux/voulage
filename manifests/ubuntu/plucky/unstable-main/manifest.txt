@@ -53,3 +53,4 @@ whitesur-gtk-theme https://github.com/regolith-linux/WhiteSur-gtk-theme.git debi
 xdg-desktop-portal-regolith https://github.com/regolith-linux/xdg-desktop-portal-regolith.git main cd012f83f9d110e2f3f5d6310590aa6920c0cc79
 xrescat https://github.com/regolith-linux/xrescat.git master 4f6e47411759fa351154cb86f36bd12c8e878328
 sway-regolith https://github.com/regolith-linux/sway-regolith.git packaging/v1.10-regolith 72db41daf0def8c3d07382a91107f6a09a407f23
+regolith-archive-keyring https://github.com/regolith-linux/regolith-archive-keyring.git main 4416a8d0aac2da17730155547760d189b3bf6dd5
