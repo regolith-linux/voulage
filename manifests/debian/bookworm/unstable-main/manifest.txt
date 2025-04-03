@@ -16,6 +16,7 @@ nordic https://github.com/regolith-linux/nordic.git main 6ad83dd4107971e6a029957
 picom https://github.com/regolith-linux/picom.git main 72a509c0f0193a823fec084813313e2048d4361f
 plymouth-theme-regolith https://github.com/regolith-linux/plymouth-theme-regolith.git master 860a62bb530577ada9c0f43a6a2310cd8ac44c9b
 python3-i3ipc https://github.com/regolith-linux/python3-i3ipc.git master 17447cceac3203958d3ea5a2ce834f68049b99e2
+regolith-archive-keyring https://github.com/regolith-linux/regolith-archive-keyring.git main 4416a8d0aac2da17730155547760d189b3bf6dd5
 regolith-compositor-compton-glx https://github.com/regolith-linux/regolith-compositor-compton-glx.git master 6aa6347adbc5f629d93fdb5bd436fb6297ee8ccb
 regolith-compositor-none https://github.com/regolith-linux/regolith-compositor-none.git master 695fe688337c6266b342e726e412093f07be9b35
 regolith-compositor-picom-glx https://github.com/regolith-linux/regolith-compositor-picom-glx.git master cdef16a211e4968c0e16de557901e1124a953c27
@@ -40,4 +41,3 @@ solarc-theme https://github.com/regolith-linux/solarc-theme.git master 12df40195
 whitesur-gtk-theme https://github.com/regolith-linux/WhiteSur-gtk-theme.git debian 32db2a29e3cfaf18d33967247978072697b96fd7
 xdg-desktop-portal-regolith https://github.com/regolith-linux/xdg-desktop-portal-regolith.git debian-bookworm a5efbf29ee108b8c161540c3f917697b8626e265
 xrescat https://github.com/regolith-linux/xrescat.git master 4f6e47411759fa351154cb86f36bd12c8e878328
-regolith-archive-keyring https://github.com/regolith-linux/regolith-archive-keyring.git main 4416a8d0aac2da17730155547760d189b3bf6dd5
