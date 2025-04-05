@@ -1,5 +1,5 @@
 name: Package Builder Debian v5
-run-name: Build ${{ inputs.stage }} Packages ${{ inputs.distro }} ${{ inputs.codename }} ${{ inputs.arch }}
+run-name: Build ${{ inputs.stage }} ${{ inputs.only-package }} Packages ${{ inputs.distro }} ${{ inputs.codename }} ${{ inputs.arch }}
 
 on:
   workflow_dispatch:
