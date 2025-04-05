@@ -1,1 +1,2 @@
 libtrawldb https://github.com/regolith-linux/libtrawldb.git v0.1-3 ee483fbe17f9bdaf9fae5c34e28aacf3e53d8eed
+sway-regolith https://github.com/regolith-linux/sway-regolith.git v1.10-2 78324052051637ffc1e5eb0eefe06bc1af900c8c
