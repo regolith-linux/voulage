@@ -97,7 +97,7 @@ on:
         required: false
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}-${{ inputs.stage }}
   cancel-in-progress: true
 
 # Need to explicitly set shell according to: https://github.com/actions/runner/issues/353#issuecomment-1067227665
