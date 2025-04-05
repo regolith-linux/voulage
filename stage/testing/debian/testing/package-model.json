@@ -4,7 +4,10 @@
       "ref": "v0.22.2-1-ubuntu-jammy",
       "source": "https://github.com/regolith-linux/i3status-rs_debian.git"
     },
-    "sway-regolith": null,
+    "sway-regolith": {
+      "ref": "v1.10-2",
+      "source": "https://github.com/regolith-linux/sway-regolith.git"
+    },
     "ubiquity-slideshow-regolith": null
   }
 }

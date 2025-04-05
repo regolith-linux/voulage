@@ -2,7 +2,7 @@
   "packages": {
     "regolith-control-center": null,
     "sway-regolith": {
-      "ref": "packaging/v1.10-regolith",
+      "ref": "v1.10-2",
       "source": "https://github.com/regolith-linux/sway-regolith.git"
     }
   }
