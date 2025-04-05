@@ -21,10 +21,6 @@
     "sway-regolith": {
       "ref": "packaging/v1.7-regolith",
       "source": "https://github.com/regolith-linux/sway-regolith.git"
-    },
-    "xdg-desktop-portal-regolith": {
-      "ref": "ubuntu/jammy",
-      "source": "https://github.com/regolith-linux/xdg-desktop-portal-regolith.git"
     }
   }
 }
