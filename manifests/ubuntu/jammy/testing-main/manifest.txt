@@ -51,6 +51,6 @@ sway-regolith https://github.com/regolith-linux/sway-regolith.git v1.7-8-ubuntu-
 trawl https://github.com/regolith-linux/trawl.git v0.2.5 f8bf1d431d2aa05097876f8550e9a8c9355b820b
 ubiquity-slideshow-regolith https://github.com/regolith-linux/ubiquity-slideshow-regolith.git v202 1a5577a1a69e48908190f370c786628704f7902d
 whitesur-gtk-theme https://github.com/regolith-linux/WhiteSur-gtk-theme.git v1.1-2025.02.03 a7ae5ab3ec9432f321fe054fd4d0df7efcafbd49
-xdg-desktop-portal-regolith https://github.com/regolith-linux/xdg-desktop-portal-regolith.git v0.3.6-1 5d0350b61480262af48da1b5204eb006d8545f29
+xdg-desktop-portal-regolith https://github.com/regolith-linux/xdg-desktop-portal-regolith.git v0.3.7-3-ubuntu-jammy 7ec8618072323448f0179d7d4c0fb537fd971bbd
 xrescat https://github.com/regolith-linux/xrescat.git v1.2.1-3 2655bbdc87b147f35877ac85ff1aadadf36ac62b
 regolith-archive-keyring https://github.com/regolith-linux/regolith-archive-keyring.git v0.1.0 4416a8d0aac2da17730155547760d189b3bf6dd5
