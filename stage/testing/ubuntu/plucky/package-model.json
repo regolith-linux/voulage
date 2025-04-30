@@ -1,7 +1,7 @@
 {
   "packages": {
     "regolith-control-center": {
-      "ref": "TBA",
+      "ref": "v1.48.1-8-gnome-48",
       "source": "https://github.com/regolith-linux/regolith-control-center.git"
     },
     "sway-regolith": {
