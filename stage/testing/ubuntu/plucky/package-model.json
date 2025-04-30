@@ -1,6 +1,9 @@
 {
   "packages": {
-    "regolith-control-center": null,
+    "regolith-control-center": {
+      "ref": "TBA",
+      "source": "https://github.com/regolith-linux/regolith-control-center.git"
+    },
     "sway-regolith": {
       "ref": "v1.10-2",
       "source": "https://github.com/regolith-linux/sway-regolith.git"
