@@ -25,6 +25,8 @@
     "xdg-desktop-portal-regolith": {
       "ref": "v0.3.7-2-debian-bookworm",
       "source": "https://github.com/regolith-linux/xdg-desktop-portal-regolith.git"
-    }
+    },
+    "plymouth-theme-regolith": null,
+    "regolith-archive-keyring": null
   }
 }
