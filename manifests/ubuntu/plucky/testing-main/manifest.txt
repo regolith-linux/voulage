@@ -4,3 +4,4 @@ xdg-desktop-portal-regolith https://github.com/regolith-linux/xdg-desktop-portal
 regolith-control-center https://github.com/regolith-linux/regolith-control-center.git v1.48.1-9-gnome-48 98ea242f7bf7e93c6fd55b1c3be2be937ee0ed1a
 regolith-wm-config https://github.com/regolith-linux/regolith-wm-config.git v4.11.9 a15d2ffa1328d73e5f2f97ed8a83b6a8c6924b2b
 ilia https://github.com/regolith-linux/ilia.git v0.16.0 a44aea320fcce9ec786f2bc7d9b84f4713c19df3
+remontoire https://github.com/regolith-linux/remontoire.git v1.4.4 edfddca1fda4d834dade26e792d356c498b5f0eb
