@@ -10,7 +10,7 @@ i3-next-workspace https://github.com/regolith-linux/i3-next-workspace.git v1.0.5
 i3-snapshot https://github.com/regolith-linux/i3-snapshot.git v1.1-1ubuntu1-ppa1 97d77af943929729b1198e9b5416baddaf2a2ec6
 i3-swap-focus https://github.com/regolith-linux/i3-swap-focus.git v0.4.4 4f7fa066e12033e9b9dab0bd69bfea76c391f2d9
 i3xrocks https://github.com/regolith-linux/i3xrocks.git v1.3.6-1 4fea410fb189d5abec0515038180d69af225e014
-ilia https://github.com/regolith-linux/ilia.git v0.15.1 818b08d4ee412a1d45bad47441a63b14bf8153ea
+ilia https://github.com/regolith-linux/ilia.git v0.16.0 a44aea320fcce9ec786f2bc7d9b84f4713c19df3
 lago https://github.com/regolith-linux/lago.git v0.2.0-1 f1c9eecef9c92f03b0174f18d1457a70b0f3f092
 nordic https://github.com/regolith-linux/nordic.git v2.1.0-2 2df83088a3e7aa51a1087643b3bb35d77b5983d0
 picom https://github.com/regolith-linux/picom.git v11.2.3 ad38c0f9b8f7bf44d95cccd20fe6d385a71ecb35

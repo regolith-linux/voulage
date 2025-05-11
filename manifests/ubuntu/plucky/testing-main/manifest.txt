@@ -3,3 +3,4 @@ sway-regolith https://github.com/regolith-linux/sway-regolith.git v1.10-2 783240
 xdg-desktop-portal-regolith https://github.com/regolith-linux/xdg-desktop-portal-regolith.git v0.3.7-1 bafbf6edddbfac78c815e711ddbc10f4c0155775
 regolith-control-center https://github.com/regolith-linux/regolith-control-center.git v1.48.1-9-gnome-48 98ea242f7bf7e93c6fd55b1c3be2be937ee0ed1a
 regolith-wm-config https://github.com/regolith-linux/regolith-wm-config.git v4.11.9 a15d2ffa1328d73e5f2f97ed8a83b6a8c6924b2b
+ilia https://github.com/regolith-linux/ilia.git v0.16.0 a44aea320fcce9ec786f2bc7d9b84f4713c19df3
