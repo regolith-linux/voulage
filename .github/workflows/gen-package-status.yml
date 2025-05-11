@@ -1,0 +1,52 @@
+name: Generate Packages Status
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  package-status:
+    runs-on: ubuntu-24.04
+    if: "!contains(github.event.head_commit.message, '[ci skip]')"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Regenrate Packages Status
+        run: ./.github/scripts/gen-status-table.sh
+
+      - name: Push Changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.ORG_BROADCAST_TOKEN2 }}
+        with:
+          file_pattern: "README.md"
+          commit_message: "chore: auto generate Packages Status"
+          commit_user_name: regolith-ci-bot
+          commit_user_email: bot@regolith-desktop.com
+          commit_author: "regolith-ci-bot <bot@regolith-desktop.com>"
+
+  release-tracker:
+    runs-on: ubuntu-24.04
+    if: "!contains(github.event.head_commit.message, '[ci skip]')"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+
+      - name: Regenrate Release Tracker Packages
+        run: ./.github/scripts/gen-release-tracker.sh
+
+      - name: Push Changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        env:
+          GITHUB_TOKEN: ${{ secrets.ORG_BROADCAST_TOKEN2 }}
+        with:
+          file_pattern: "RELEASE_TRACKER.md"
+          commit_message: "chore: auto generate release trakcer packages"
+          commit_user_name: regolith-ci-bot
+          commit_user_email: bot@regolith-desktop.com
+          commit_author: "regolith-ci-bot <bot@regolith-desktop.com>"
