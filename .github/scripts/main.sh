@@ -380,6 +380,10 @@ traverse_package_model
 
 #### Find packages that need to be built
 echo "::group::Looking for changed package"
+# make sure these two files are always sorted
+sort -o "$PREV_MANIFEST_FILE" "$PREV_MANIFEST_FILE"
+sort -o "$NEXT_MANIFEST_FILE" "$NEXT_MANIFEST_FILE"
+
 echo -e "\033[0;34mDiffing $PREV_MANIFEST_FILE $NEXT_MANIFEST_FILE\033[0m"
 PACKAGE_CHANGES=$(diff "$PREV_MANIFEST_FILE" "$NEXT_MANIFEST_FILE" | grep '^[>][^>]' | cut -c3- | uniq | sort)
 echo "$PACKAGE_CHANGES"

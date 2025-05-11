@@ -30,8 +30,8 @@ regolith-i3xrocks-config https://github.com/regolith-linux/regolith-i3xrocks-con
 regolith-lightdm-config https://github.com/regolith-linux/regolith-lightdm-config.git r3_2-beta1 4d59d1f83d9371836eb76b88a7f3f6fb0fde7d27
 regolith-look-default https://github.com/regolith-linux/regolith-look-default.git r3_2-beta1 3778cb312ae69611efdc68c4a09397892c2f556e
 regolith-look-extra https://github.com/regolith-linux/regolith-look-extra.git r3_2-beta1 259d82c08fcc302c8ed1571f4fb0a0e39a294c97
-regolith-rofi-config https://github.com/regolith-linux/regolith-rofi-config.git r3_2-beta1 80f26989a20e0952108c3301f7a3a7af92764208
 regolith-rofication https://github.com/regolith-linux/regolith-rofication.git r3_2-beta1 ba61e7b58f02304d6ec579d9966b656a5916d698
+regolith-rofi-config https://github.com/regolith-linux/regolith-rofi-config.git r3_2-beta1 80f26989a20e0952108c3301f7a3a7af92764208
 regolith-session https://github.com/regolith-linux/regolith-session.git r3_2-beta1 f02bf3675a08084c2221cad7b1d4cf4038b5af84
 regolith-system-ubuntu https://github.com/regolith-linux/regolith-system-ubuntu.git r3_2-beta1 7add3c37e39911f403e8273348d530c5afd89c6c
 regolith-unclutter-xfixes https://github.com/regolith-linux/regolith-unclutter-xfixes.git r3_2-beta1 e4bbaba2f98595370ca85283f82d7b7f6c501bba
