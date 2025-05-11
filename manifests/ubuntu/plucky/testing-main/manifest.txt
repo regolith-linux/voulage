@@ -5,3 +5,4 @@ regolith-control-center https://github.com/regolith-linux/regolith-control-cente
 regolith-wm-config https://github.com/regolith-linux/regolith-wm-config.git v4.11.9 a15d2ffa1328d73e5f2f97ed8a83b6a8c6924b2b
 ilia https://github.com/regolith-linux/ilia.git v0.16.0 a44aea320fcce9ec786f2bc7d9b84f4713c19df3
 remontoire https://github.com/regolith-linux/remontoire.git v1.4.4 edfddca1fda4d834dade26e792d356c498b5f0eb
+fonts-nerd-fonts https://github.com/regolith-linux/fonts-nerd-fonts.git v2.1.0-3 b355cf27558f76b3c92c30577c059c53cce663ec

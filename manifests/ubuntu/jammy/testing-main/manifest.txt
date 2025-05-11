@@ -4,7 +4,7 @@ ayu-theme https://github.com/regolith-linux/ayu-theme.git v0.2.3-1 02cba91a18d6c
 dracula-gtk https://github.com/regolith-linux/dracula-gtk.git v1.1.2 ca8c3ccce396576fbb3e9295a4f1c1c1073e171c
 fonts-jetbrains-mono https://github.com/regolith-linux/fonts-jetbrains-mono.git v1.0.2-1regolith1 a0afa38bab34b9950a6b6aba0ccd11342c3eb5da
 fonts-materialdesignicons-webfont https://github.com/regolith-linux/fonts-materialdesignicons-webfont.git v1.6.50-4regolith1 314c70e9ac5138e36b21a971408b4c3f2cf96786
-fonts-nerd-fonts https://github.com/regolith-linux/fonts-nerd-fonts.git v2.1.0-2 d868e7e9afdfe8661f805a996c4f3303efad3e42
+fonts-nerd-fonts https://github.com/regolith-linux/fonts-nerd-fonts.git v2.1.0-3 b355cf27558f76b3c92c30577c059c53cce663ec
 fonts-source-code-pro-ttf https://github.com/regolith-linux/fonts-source-code-pro-ttf.git v1.011-0ubuntu1-ppa2 df9c8bad0837bd533cba8729e7c4d57797f378b2
 gruvbox-gtk https://github.com/regolith-linux/gruvbox-gtk.git v1.0.2-1 c185c6caf293af3abdcd5f971a7be470825737d0
 gtklock https://github.com/regolith-linux/gtklock.git v2.2.1 fb74b54513b0ee990bf707ffd31fa033165a52d9
