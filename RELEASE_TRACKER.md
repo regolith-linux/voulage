@@ -35,7 +35,7 @@ the latest commit in the git ref defined in `unstable/` package model file.
 | [dracula-gtk](https://github.com/regolith-linux/dracula-gtk) | `master` | `v1.1.2` | [Yes](https://github.com/regolith-linux/dracula-gtk/compare/v1.1.2...master) |
 | [fonts-jetbrains-mono](https://github.com/regolith-linux/fonts-jetbrains-mono) | `master` | `v1.0.2-1regolith1` | [Yes](https://github.com/regolith-linux/fonts-jetbrains-mono/compare/v1.0.2-1regolith1...master) |
 | [fonts-materialdesignicons-webfont](https://github.com/regolith-linux/fonts-materialdesignicons-webfont) | `master` | `v1.6.50-4regolith1` | [Yes](https://github.com/regolith-linux/fonts-materialdesignicons-webfont/compare/v1.6.50-4regolith1...master) |
-| [fonts-nerd-fonts](https://github.com/regolith-linux/fonts-nerd-fonts) | `debian` | `v2.1.0-2` | [Yes](https://github.com/regolith-linux/fonts-nerd-fonts/compare/v2.1.0-2...debian) |
+| [fonts-nerd-fonts](https://github.com/regolith-linux/fonts-nerd-fonts) | `debian` | `v2.1.0-3` | No |
 | [fonts-source-code-pro-ttf](https://github.com/regolith-linux/fonts-source-code-pro-ttf) | `main` | `v1.011-0ubuntu1-ppa2` | [Yes](https://github.com/regolith-linux/fonts-source-code-pro-ttf/compare/v1.011-0ubuntu1-ppa2...main) |
 | [gruvbox-gtk](https://github.com/regolith-linux/gruvbox-gtk) | `master` | `v1.0.2-1` | [Yes](https://github.com/regolith-linux/gruvbox-gtk/compare/v1.0.2-1...master) |
 | [gtklock](https://github.com/regolith-linux/gtklock) | `master` | `v2.2.1` | [Yes](https://github.com/regolith-linux/gtklock/compare/v2.2.1...master) |
@@ -46,7 +46,7 @@ the latest commit in the git ref defined in `unstable/` package model file.
 | [i3-snapshot](https://github.com/regolith-linux/i3-snapshot) | `master` | `v1.1-1ubuntu1-ppa1` | [Yes](https://github.com/regolith-linux/i3-snapshot/compare/v1.1-1ubuntu1-ppa1...master) |
 | [i3-swap-focus](https://github.com/regolith-linux/i3-swap-focus) | `master` | `v0.4.4` | [Yes](https://github.com/regolith-linux/i3-swap-focus/compare/v0.4.4...master) |
 | [i3-wm](https://github.com/regolith-linux/i3-wm) | `main` | `v4.22-2` | [Yes](https://github.com/regolith-linux/i3-wm/compare/v4.22-2...main) |
-| [ilia](https://github.com/regolith-linux/ilia) | `main` | `v0.15.1` | [Yes](https://github.com/regolith-linux/ilia/compare/v0.15.1...main) |
+| [ilia](https://github.com/regolith-linux/ilia) | `main` | `v0.16.0` | No |
 | [lago](https://github.com/regolith-linux/lago) | `main` | `v0.2.0-1` | [Yes](https://github.com/regolith-linux/lago/compare/v0.2.0-1...main) |
 | [libtrawldb](https://github.com/regolith-linux/libtrawldb) | `master` | `v0.1-3` | [Yes](https://github.com/regolith-linux/libtrawldb/compare/v0.1-3...master) |
 | [nordic](https://github.com/regolith-linux/nordic) | `main` | `v2.1.0-2` | [Yes](https://github.com/regolith-linux/nordic/compare/v2.1.0-2...main) |
@@ -83,7 +83,7 @@ the latest commit in the git ref defined in `unstable/` package model file.
 | [regolith-system-ubuntu](https://github.com/regolith-linux/regolith-system-ubuntu) | `main` | `v1.0.1` | [Yes](https://github.com/regolith-linux/regolith-system-ubuntu/compare/v1.0.1...main) |
 | [regolith-unclutter-xfixes](https://github.com/regolith-linux/regolith-unclutter-xfixes) | `master` | `v1.5-3` | [Yes](https://github.com/regolith-linux/regolith-unclutter-xfixes/compare/v1.5-3...master) |
 | [regolith-wm-config](https://github.com/regolith-linux/regolith-wm-config) | `main` | `v4.11.9` | No |
-| [remontoire](https://github.com/regolith-linux/remontoire) | `master` | `v1.4.3` | [Yes](https://github.com/regolith-linux/remontoire/compare/v1.4.3...master) |
+| [remontoire](https://github.com/regolith-linux/remontoire) | `master` | `v1.4.4` | No |
 | [solarc-theme](https://github.com/regolith-linux/solarc-theme) | `master` | `v800c997-4` | [Yes](https://github.com/regolith-linux/solarc-theme/compare/v800c997-4...master) |
 | [sway-audio-idle-inhibit](https://github.com/regolith-linux/SwayAudioIdleInhibit) | `main` | `v0.1.4` | [Yes](https://github.com/regolith-linux/SwayAudioIdleInhibit/compare/v0.1.4...main) |
 | [sway-regolith](https://github.com/regolith-linux/sway-regolith) | `packaging/v1.7-regolith` | `v1.7-8-ubuntu-jammy` | [Yes](https://github.com/regolith-linux/sway-regolith/compare/v1.7-8-ubuntu-jammy...packaging/v1.7-regolith) |
