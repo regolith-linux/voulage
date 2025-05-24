@@ -1,0 +1,30 @@
+{
+  "packages": {
+    "childe": null,
+    "i3-wm": {
+      "ref": "v4.22-2",
+      "source": "https://github.com/regolith-linux/i3-wm.git"
+    },
+    "i3status-rs": {
+      "ref": "v0.22.2-1-ubuntu-jammy",
+      "source": "https://github.com/regolith-linux/i3status-rs_debian.git"
+    },
+    "regolith-control-center": {
+      "ref": "v1.41.19-ubuntu-jammy",
+      "source": "https://github.com/regolith-linux/regolith-control-center.git"
+    },
+    "regolith-session": {
+      "ref": "v1.1.13-3-debian-bookworm",
+      "source": "https://github.com/regolith-linux/regolith-session.git"
+    },
+    "regolith-sway-touchpad-gestures": null,
+    "sway-regolith": {
+      "ref": "v1.7-8-ubuntu-jammy",
+      "source": "https://github.com/regolith-linux/sway-regolith.git"
+    },
+    "xdg-desktop-portal-regolith": {
+      "ref": "v0.3.7-3-ubuntu-jammy",
+      "source": "https://github.com/regolith-linux/xdg-desktop-portal-regolith.git"
+    }
+  }
+}
