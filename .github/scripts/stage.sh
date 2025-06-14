@@ -6,7 +6,7 @@ set -e
 #         stage.sh <repo root path> <package model stage id> <source ref id> <target tag id>
 
 handle_package() {
-  # echo $PACKAGE_NAME $PACAKGE_SOURCE_URL $PACKAGE_SOURCE_REF $SRC_REF $DST_TAG
+  # echo $PACKAGE_NAME $PACKAGE_SOURCE_URL $PACKAGE_SOURCE_REF $SRC_REF $DST_TAG
   PKG_WORK_DIR=$PKG_STAGE_ROOT/$PACKAGE_NAME
   if [ -d $PKG_WORK_DIR ]; then
     echo "Already processed $PKG_WORK_DIR, ignoring"
@@ -16,7 +16,7 @@ handle_package() {
   mkdir -p $PKG_WORK_DIR
 
   pushd $PKG_WORK_DIR
-  git clone "$PACAKGE_SOURCE_URL" -b "$PACKAGE_SOURCE_REF" "$PACKAGE_NAME"
+  git clone "$PACKAGE_SOURCE_URL" -b "$PACKAGE_SOURCE_REF" "$PACKAGE_NAME"
   pushd "$PACKAGE_NAME"
   if [ $(git tag -l "$SRC_REF") ]; then
     if [ $(git tag -l "$DST_TAG") ]; then
@@ -45,7 +45,7 @@ process_model() {
             continue
         fi
 
-        PACAKGE_SOURCE_URL=$(jq -r ".packages.\"$package\".source" < "$PACKAGE_MODEL_FILE")
+        PACKAGE_SOURCE_URL=$(jq -r ".packages.\"$package\".source" < "$PACKAGE_MODEL_FILE")
         PACKAGE_SOURCE_REF=$(jq -r ".packages.\"$package\".ref" < "$PACKAGE_MODEL_FILE")
 
         # Apply functions to package model

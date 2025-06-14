@@ -76,7 +76,7 @@ generate_table() {
     popd >/dev/null
     rm -rf "$tmp"
 
-    # append table row to repostiroy temp file
+    # append table row to repository temp file
     echo "| [${package_name}](${package_repo}) | \`$unstable_ref\` | $testing_ref | $release_needed |" >> "$TMP_RESULT_FILE"
   done < <(cat "$TMP_SORTED_FILE")
 }

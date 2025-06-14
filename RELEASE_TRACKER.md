@@ -2,7 +2,7 @@
 
 The following packages are being maintained by Regolith core developers. All of
 these packages are needed for a successful release of Regolith Desktop. But not
-all of them are actively under developement.
+all of them are actively under development.
 
 Some are quite stable, code-complete, or not recently updated from its upstream
 project. For example `arc-icon-theme`, `dracula-gtk`, `fonts-nerd-fonts`, etc.

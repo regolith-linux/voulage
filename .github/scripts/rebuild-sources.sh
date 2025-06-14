@@ -2,7 +2,7 @@
 #
 # Rebuild the source files.
 #
-# The following files will be rebuilt out of exisiting .orig.tar.gz file which
+# The following files will be rebuilt out of existing .orig.tar.gz file which
 # is previously repacked without /debian folder in it.
 #
 # - .dsc
@@ -79,7 +79,7 @@ rebuild_packages() {
     if [ -d "debian/" ]; then
       mv "debian/" "$pkg_name"
     else
-      echo "debian/ folder not found. cannot conitnue."
+      echo "debian/ folder not found. cannot continue."
       echo "::endgroup::"
       continue
     fi

@@ -15,9 +15,9 @@ handle_package() {
   fi
 
   # Get git hash
-  local COMMIT_HASH=$(git ls-remote $lookup_ref $PACAKGE_SOURCE_URL $PACKAGE_SOURCE_REF | awk '{ print $1}')
+  local COMMIT_HASH=$(git ls-remote $lookup_ref $PACKAGE_SOURCE_URL $PACKAGE_SOURCE_REF | awk '{ print $1}')
 
-  echo "$PACKAGE_NAME $PACAKGE_SOURCE_URL $PACKAGE_SOURCE_REF $COMMIT_HASH" >> "$NEXT_MANIFEST_FILE"
+  echo "$PACKAGE_NAME $PACKAGE_SOURCE_URL $PACKAGE_SOURCE_REF $COMMIT_HASH" >> "$NEXT_MANIFEST_FILE"
 
   echo "Updated manifest $NEXT_MANIFEST_FILE for package $PACKAGE_NAME"
 }
@@ -38,7 +38,7 @@ traverse_package_model() {
       continue
     fi
 
-    PACAKGE_SOURCE_URL=$(jq -r ".packages.\"$package\".source" < "$PACKAGE_MODEL_FILE")
+    PACKAGE_SOURCE_URL=$(jq -r ".packages.\"$package\".source" < "$PACKAGE_MODEL_FILE")
     PACKAGE_SOURCE_REF=$(jq -r ".packages.\"$package\".ref" < "$PACKAGE_MODEL_FILE")
 
     # Apply functions to package model
@@ -171,7 +171,7 @@ Commands:
   check    Check the manifests if anything needs to be built
 
 Options:
-  --extension <path>         Path to extenstion file (e.g. /path/to/ext-debian.sh)
+  --extension <path>         Path to extension file (e.g. /path/to/ext-debian.sh)
 
   --git-repo-path <path>     Path to repo folder (e.g. /path/to/git/repo/voulage)
   --manifests-path <path>    Path to manifests folder (e.g. /path/to/manifests)
@@ -181,7 +181,7 @@ Options:
   --distro <name>            The distro to check or build (e.g. ubuntu, debian)
   --codename <name>          The codename to check or build (e.g. jammy, noble, bookworm, etc.)
   --stage <name>             The stage to check or build (e.g. experimental, unstable, testing, backports, release-x_Y) # different release stages from github action point-of-view
-  --suite <name>             The suite to check or build (e.g. experimental, unstable, testing, backports, stable)      # corresponding value from published arcvhies point-of-view
+  --suite <name>             The suite to check or build (e.g. experimental, unstable, testing, backports, stable)      # corresponding value from published archives point-of-view
   --component <name>         The component to check or build (e.g. main, 3_2, 3_1, etc.)
   --arch <name>              The arch to check or build (e.g. amd64, arm64)
 
@@ -218,7 +218,7 @@ PKG_PUBLISH_PATH=""  # e.g. /path/to/publish
 DISTRO=""            # ubuntu, debian
 CODENAME=""          # e.g. jammy, noble, bookworm, etc
 STAGE=""             # experimental, unstable, testing, backports, release-x_y (different release stages from github action point-of-view)
-SUITE=""             # experimental, unstable, testing, backports, stable      (corresponding value from published arcvhies point-of-view)
+SUITE=""             # experimental, unstable, testing, backports, stable      (corresponding value from published archives point-of-view)
 COMPONENT=""         # e.g. main, 3.2, 3.1, etc.
 ARCH=""              # amd64, arm64
 
