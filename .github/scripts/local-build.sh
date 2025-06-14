@@ -21,7 +21,7 @@ Build single deb and source package
 Usage: $0 [options...]
 
 Options:
-  --extension <path>         Path to extenstion file
+  --extension <path>         Path to extension file
   --git-repo-path <path>     Path to repo folder
 
   --package-name <name>      Package name to build

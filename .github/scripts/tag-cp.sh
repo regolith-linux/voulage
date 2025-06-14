@@ -7,7 +7,7 @@ set -e
 
 handle_package() {
   echo
-  echo "# --- $PACKAGE_NAME $PACAKGE_SOURCE_URL $PACKAGE_SOURCE_REF $DST_TAG"
+  echo "# --- $PACKAGE_NAME $PACKAGE_SOURCE_URL $PACKAGE_SOURCE_REF $DST_TAG"
   PKG_WORK_DIR=$PKG_STAGE_ROOT/$PACKAGE_NAME
 
   mkdir -p $PKG_WORK_DIR
@@ -16,10 +16,10 @@ handle_package() {
 
   if [ -d "$PACKAGE_NAME" ]; then  
     pushd "$PACKAGE_NAME" > /dev/null
-    git checkout --quiet "$PACKAGE_SOURCE_REF" > /dev/null || { echo "# checkout of $PACAKGE_SOURCE_URL ref $PACKAGE_SOURCE_REF failed" ; popd > /dev/null ; popd > /dev/null ; return ; }
+    git checkout --quiet "$PACKAGE_SOURCE_REF" > /dev/null || { echo "# checkout of $PACKAGE_SOURCE_URL ref $PACKAGE_SOURCE_REF failed" ; popd > /dev/null ; popd > /dev/null ; return ; }
     echo "# checked out $PACKAGE_SOURCE_REF ref $PACKAGE_SOURCE_REF"
   else
-    git clone --quiet --no-checkout "$PACAKGE_SOURCE_URL" -b "$PACKAGE_SOURCE_REF" "$PACKAGE_NAME" > /dev/null
+    git clone --quiet --no-checkout "$PACKAGE_SOURCE_URL" -b "$PACKAGE_SOURCE_REF" "$PACKAGE_NAME" > /dev/null
     pushd "$PACKAGE_NAME" > /dev/null
     echo "# cloned $PACKAGE_SOURCE_REF ref $PACKAGE_SOURCE_REF"
   fi
@@ -54,14 +54,14 @@ process_model() {
             continue
         fi
 
-        PACAKGE_SOURCE_URL=$(jq -r ".packages.\"$package\".source" < "$PACKAGE_MODEL_FILE")
+        PACKAGE_SOURCE_URL=$(jq -r ".packages.\"$package\".source" < "$PACKAGE_MODEL_FILE")
         PACKAGE_SOURCE_REF=$(jq -r ".packages.\"$package\".ref" < "$PACKAGE_MODEL_FILE")
         
         if [ "$PACKAGE_SOURCE_REF" == "$SRC_TAG" ]; then
           # Apply functions to package model
           handle_package
         else
-          echo "# --- $PACKAGE_NAME $PACAKGE_SOURCE_URL $PACKAGE_SOURCE_REF $DST_TAG"
+          echo "# --- $PACKAGE_NAME $PACKAGE_SOURCE_URL $PACKAGE_SOURCE_REF $DST_TAG"
           echo "# ignoring $PACKAGE_NAME, does not match $SRC_TAG"
         fi
     done

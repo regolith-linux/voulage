@@ -2,7 +2,7 @@
 
 set -e
 set -o errexit
-# Extension for Debian repo and pacakge support
+# Extension for Debian repo and package support
 
 #### Debian specific functions
 
@@ -71,7 +71,7 @@ stage_source() {
         echo "SRCLOG:$DISTRO=$CODENAME=$SUITE=${debian_package_name_indicator}=${debian_package_name}=${debian_package_name}_${debian_version}=${debian_package_name}_${debian_version}.orig.tar.gz"
       else
         # both .orig.tar.gz files are identical!
-        # remove the one we just built and reuse the existign one.
+        # remove the one we just built and reuse the existing one.
         echo "  They are the same."
         rm -f "${debian_package_name}_${debian_version}.orig.tar.gz" || true
         mv "${debian_package_name}_${debian_version}-existing.orig.tar.gz" "${debian_package_name}_${debian_version}.orig.tar.gz"

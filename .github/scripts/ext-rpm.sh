@@ -2,7 +2,7 @@
 
 set -e
 set -o errexit
-# Extension for Debian repo and pacakge support
+# Extension for Debian repo and package support
 
 #### RPM specific functions
 
@@ -37,7 +37,7 @@ build_bin_package() {
 }
 
 publish() {
-  # Here we need something equivelent to reprepro...whatever is on the RPM side for generating package repositories
+  # Here we need something equivalent to reprepro...whatever is on the RPM side for generating package repositories
   : 
 }
 

@@ -14,7 +14,7 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
 
-      - name: Regenrate Packages Status
+      - name: Regenerate Packages Status
         run: ./.github/scripts/gen-status-table.sh
 
       - name: Push Changes
@@ -37,7 +37,7 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
 
-      - name: Regenrate Release Tracker Packages
+      - name: Regenerate Release Tracker Packages
         run: ./.github/scripts/gen-release-tracker.sh
 
       - name: Push Changes
@@ -46,7 +46,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.ORG_BROADCAST_TOKEN2 }}
         with:
           file_pattern: "RELEASE_TRACKER.md"
-          commit_message: "chore: auto generate release trakcer packages"
+          commit_message: "chore: auto generate release tracker packages"
           commit_user_name: regolith-ci-bot
           commit_user_email: bot@regolith-desktop.com
           commit_author: "regolith-ci-bot <bot@regolith-desktop.com>"
