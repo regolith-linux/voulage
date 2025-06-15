@@ -27,6 +27,7 @@ on:
           - release-3_0
           - release-3_1
           - release-3_2
+          - release-3_3
         required: true
         default: "unstable"
       distro:
@@ -99,14 +100,15 @@ jobs:
         id: calc-matrix
         run: |
           debian_bullseye=(unstable testing stable release-3_0 release-3_1)
-          debian_bookworm=(unstable testing stable release-3_2)
+          debian_bookworm=(unstable testing stable release-3_2 release-3_3)
           debian_testing=(unstable testing) # testing is never released
           ubuntu_focal=(unstable testing stable release-3_0 release-3_1)
-          ubuntu_jammy=(unstable testing stable release-3_0 release-3_1 release-3_2)
+          ubuntu_jammy=(unstable testing stable release-3_0 release-3_1 release-3_2 release-3_3)
           ubuntu_lunar=(unstable testing stable release-3_0)
           ubuntu_mantic=(unstable testing stable release-3_1)
-          ubuntu_noble=(unstable testing stable release-3_2)
-          ubuntu_oracular=(unstable testing)
+          ubuntu_noble=(unstable testing stable release-3_2 release-3_3)
+          ubuntu_oracular=(unstable testing stable release-3_3)
+          ubuntu_plucky=(unstable testing stable release-3_3)
 
           debian_bullseye_list=()
           debian_bookworm_list=()
@@ -117,6 +119,7 @@ jobs:
           ubuntu_mantic_list=()
           ubuntu_noble_list=()
           ubuntu_oracular_list=()
+          ubuntu_plucky_list=()
 
           if [ -n "${{ inputs.stage }}" ] && [ "${{ inputs.stage }}" != "all" ]; then
             if [[ " ${debian_bullseye[*]} " =~ [[:space:]]${{ inputs.stage }}[[:space:]] ]]; then
@@ -146,6 +149,9 @@ jobs:
             if [[ " ${ubuntu_oracular[*]} " =~ [[:space:]]${{ inputs.stage }}[[:space:]] ]]; then
               ubuntu_oracular_list=(${{ inputs.stage }})
             fi
+            if [[ " ${ubuntu_plucky[*]} " =~ [[:space:]]${{ inputs.stage }}[[:space:]] ]]; then
+              ubuntu_plucky_list=(${{ inputs.stage }})
+            fi
           else
             debian_bullseye_list=(${debian_bullseye[@]})
             debian_bookworm_list=(${debian_bookworm[@]})
@@ -156,6 +162,7 @@ jobs:
             ubuntu_mantic_list=(${ubuntu_mantic[@]})
             ubuntu_noble_list=(${ubuntu_noble[@]})
             ubuntu_oracular_list=(${ubuntu_oracular[@]})
+            ubuntu_plucky_list=(${ubuntu_plucky[@]})
           fi
 
           STAGES=$(jq -n -c \
@@ -168,6 +175,7 @@ jobs:
             --argjson ubuntu-mantic "$(jq -n -c '$ARGS.positional' --args -- "${ubuntu_mantic_list[@]}")" \
             --argjson ubuntu-noble "$(jq -n -c '$ARGS.positional' --args -- "${ubuntu_noble_list[@]}")" \
             --argjson ubuntu-oracular "$(jq -n -c '$ARGS.positional' --args -- "${ubuntu_oracular_list[@]}")" \
+            --argjson ubuntu-plucky "$(jq -n -c '$ARGS.positional' --args -- "${ubuntu_plucky_list[@]}")" \
             '$ARGS.named'
           )
 
@@ -184,6 +192,7 @@ jobs:
             --argjson release-3_0 "$(jq -n -c --arg suite "stable" --arg component "v3.0" '$ARGS.named')" \
             --argjson release-3_1 "$(jq -n -c --arg suite "stable" --arg component "v3.1" '$ARGS.named')" \
             --argjson release-3_2 "$(jq -n -c --arg suite "stable" --arg component "v3.2" '$ARGS.named')" \
+            --argjson release-3_3 "$(jq -n -c --arg suite "stable" --arg component "v3.3" '$ARGS.named')" \
             '$ARGS.named'\
           )" '$ARGS.named')
 
@@ -442,6 +451,34 @@ jobs:
     steps:
       - name: Install ${{ matrix.wm }} ${{ matrix.stage }} on ${{ env.distro }} ${{ env.codename }}
         uses: regolith-linux/actions/test-desktop/ubuntu/oracular@main
+        with:
+          apt-key-url: http://archive.regolith-desktop.com/regolith.key
+          apt-repo-line: "deb [arch=${{ matrix.arch }} signed-by=/etc/apt/keyrings/regolith.gpg] http://archive.regolith-desktop.com/${{ env.distro }}/${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['suite'] }} ${{ env.codename }} ${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['component'] }}"
+          target-package: "regolith-desktop ${{ matrix.wm }}"
+
+  ubuntu-plucky:
+    runs-on: ${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}
+    needs: matrix-builder
+    if: |
+      (inputs.legacy == 'no') &&
+      (
+        (inputs.distro == '' && inputs.codename == '') ||
+        (inputs.distro == 'ubuntu' && inputs.codename == '') ||
+        (inputs.distro == '' && inputs.codename == 'plucky') ||
+        (inputs.distro == 'ubuntu' && inputs.codename == 'plucky')
+      )
+    strategy:
+      fail-fast: false
+      matrix:
+        stage: ${{ fromJSON(needs.matrix-builder.outputs.stages)['ubuntu-plucky'] }}
+        arch: ${{ fromJson(needs.matrix-builder.outputs.arches) }}
+        wm: [regolith-session-flashback, regolith-session-sway]
+    env:
+      distro: ubuntu
+      codename: plucky
+    steps:
+      - name: Install ${{ matrix.wm }} ${{ matrix.stage }} on ${{ env.distro }} ${{ env.codename }}
+        uses: regolith-linux/actions/test-desktop/ubuntu/plucky@main
         with:
           apt-key-url: http://archive.regolith-desktop.com/regolith.key
           apt-repo-line: "deb [arch=${{ matrix.arch }} signed-by=/etc/apt/keyrings/regolith.gpg] http://archive.regolith-desktop.com/${{ env.distro }}/${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['suite'] }} ${{ env.codename }} ${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['component'] }}"
