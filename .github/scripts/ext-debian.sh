@@ -69,6 +69,9 @@ stage_source() {
 
         echo "  They are different! Need to rebuild the source."
         echo "SRCLOG:$DISTRO=$CODENAME=$SUITE=${debian_package_name_indicator}=${debian_package_name}=${debian_package_name}_${debian_version}=${debian_package_name}_${debian_version}.orig.tar.gz"
+        if [ "$SUITE" == "stable" ]; then
+          echo "SRCLOG:$DISTRO=$CODENAME=$COMPONENT=${debian_package_name_indicator}=${debian_package_name}=${debian_package_name}_${debian_version}=${debian_package_name}_${debian_version}.orig.tar.gz"
+        fi
       else
         # both .orig.tar.gz files are identical!
         # remove the one we just built and reuse the existing one.
@@ -81,6 +84,9 @@ stage_source() {
       echo "Existing .orig.tar.gz file not found in the archives. Using the one just built."
       rm -f "${debian_package_name}_${debian_version}-existing.orig.tar.gz" || true
       echo "SRCLOG:$DISTRO=$CODENAME=$SUITE=${debian_package_name_indicator}=${debian_package_name}=${debian_package_name}_${debian_version}=${debian_package_name}_${debian_version}.orig.tar.gz"
+      if [ "$SUITE" == "stable" ]; then
+        echo "SRCLOG:$DISTRO=$CODENAME=$COMPONENT=${debian_package_name_indicator}=${debian_package_name}=${debian_package_name}_${debian_version}=${debian_package_name}_${debian_version}.orig.tar.gz"
+      fi
     fi
   fi
 

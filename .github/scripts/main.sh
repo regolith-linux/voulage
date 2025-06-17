@@ -182,7 +182,7 @@ Options:
   --codename <name>          The codename to check or build (e.g. jammy, noble, bookworm, etc.)
   --stage <name>             The stage to check or build (e.g. experimental, unstable, testing, backports, release-x_Y) # different release stages from github action point-of-view
   --suite <name>             The suite to check or build (e.g. experimental, unstable, testing, backports, stable)      # corresponding value from published archives point-of-view
-  --component <name>         The component to check or build (e.g. main, 3_2, 3_1, etc.)
+  --component <name>         The component to check or build (e.g. main, 3.2, 3.1, etc.)
   --arch <name>              The arch to check or build (e.g. amd64, arm64)
 
   --help                     Show this message
@@ -309,6 +309,9 @@ fi
 if [ -z "$COMPONENT" ]; then
   echo "Error: required value for --component is missing"
   exit 1
+fi
+if [[ "${COMPONENT:0:1}" == "v" ]]; then
+  COMPONENT="${COMPONENT:1}"
 fi
 if [ -z "$ARCH" ]; then
   echo "Error: required value for --arch is missing"
