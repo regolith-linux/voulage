@@ -131,11 +131,6 @@ find_packages() {
       continue
     fi
 
-    # skip named version folder (e.g. 3.x), the contents are symlinks
-    if [[ $component == *"."* ]]; then
-      continue
-    fi
-
     rebuild_packages "$distro" "$codename" "$component"
   done
 
