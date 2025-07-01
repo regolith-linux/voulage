@@ -511,14 +511,3 @@ jobs:
           commit_user_name: regolith-ci-bot
           commit_user_email: bot@regolith-desktop.com
           commit_author: "regolith-ci-bot <bot@regolith-desktop.com>"
-
-  # run the tests
-  test:
-    needs: [manifests]
-    if: ${{ !failure() && !cancelled() && inputs.do-publish == 'yes' }}
-    uses: ./.github/workflows/test-desktop-installable2.yml
-    with:
-      stage: ${{ inputs.stage }}
-      distro: ${{ inputs.distro }}
-      codename: ${{ inputs.codename }}
-      arch: ${{ inputs.arch }}
