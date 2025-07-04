@@ -10,11 +10,11 @@ gruvbox-gtk https://github.com/regolith-linux/gruvbox-gtk.git master 922da4d277a
 gtklock https://github.com/regolith-linux/gtklock.git master e4441e3826ff090cb26c88a994f3d440c7f3993b
 i3-next-workspace https://github.com/regolith-linux/i3-next-workspace.git main f93eeda8dd410c5857afd7510081c5f33c0b4701
 i3-snapshot https://github.com/regolith-linux/i3-snapshot.git master 511518d53726af365da9d2fb4e60cb9360f498fe
-i3status-rs https://github.com/regolith-linux/i3status-rs_debian.git ubuntu/v0.22.0 732bd109f0d4c89a24c3f433131266da029ee583
 i3-swap-focus https://github.com/regolith-linux/i3-swap-focus.git master f2eda67855bbcfd428acab579e7747541264fc83
 i3-wm https://github.com/regolith-linux/i3-wm.git main edc02d348c6d3a6f883734868f8436a115fa681d
+i3status-rs https://github.com/regolith-linux/i3status-rs_debian.git ubuntu/v0.22.0 732bd109f0d4c89a24c3f433131266da029ee583
 i3xrocks https://github.com/regolith-linux/i3xrocks.git master 87ddee259bc934c7706f17796b8056863e127e70
-ilia https://github.com/regolith-linux/ilia.git main a44aea320fcce9ec786f2bc7d9b84f4713c19df3
+ilia https://github.com/regolith-linux/ilia.git main 7934f09a1b2346406b604bea4420d388bdd08175
 lago https://github.com/regolith-linux/lago.git main 7bce74039218ee5457215fe9660231e10ea68cba
 libtrawldb https://github.com/regolith-linux/libtrawldb.git master b01590b060c20d6e812256ce64a78c4d395d3eb0
 nordic https://github.com/regolith-linux/nordic.git main 6ad83dd4107971e6a029957d7e881f24b8a9421c
@@ -39,8 +39,8 @@ regolith-lightdm-config https://github.com/regolith-linux/regolith-lightdm-confi
 regolith-look-default https://github.com/regolith-linux/regolith-look-default.git main 166e936bb7a10ad355ed050e444db4e36ff76ab2
 regolith-look-extra https://github.com/regolith-linux/regolith-look-extra.git main 9ec87bf2ab438f52a967058237b138aa4ad91e55
 regolith-powerd https://github.com/regolith-linux/regolith-powerd.git master 63a89b5976d3318e3d5c067cf01929f2a264a8f9
-regolith-rofication https://github.com/regolith-linux/regolith-rofication.git master b888cbd060ed4bd9abe433c1e5b04f55bf671c01
 regolith-rofi-config https://github.com/regolith-linux/regolith-rofi-config.git master 02e2c23844e9c64269f49c19d033d78cf4056010
+regolith-rofication https://github.com/regolith-linux/regolith-rofication.git master b888cbd060ed4bd9abe433c1e5b04f55bf671c01
 regolith-session https://github.com/regolith-linux/regolith-session.git debian-bookworm 2f24c20b8051cd3b336de28af9c9098654451c0e
 regolith-system-ubuntu https://github.com/regolith-linux/regolith-system-ubuntu.git main f74c44eba6616e630961c8839d4e3644bafb6285
 regolith-unclutter-xfixes https://github.com/regolith-linux/regolith-unclutter-xfixes.git master c106f476d719270b3e5d4c750c8f2324792b1bff
