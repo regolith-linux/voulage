@@ -11,10 +11,10 @@ gruvbox-gtk https://github.com/regolith-linux/gruvbox-gtk.git v1.0.2-1 c185c6caf
 gtklock https://github.com/regolith-linux/gtklock.git v2.2.1 fb74b54513b0ee990bf707ffd31fa033165a52d9
 i3-next-workspace https://github.com/regolith-linux/i3-next-workspace.git v1.0.5 4a826549b2c25bfc7a95811d15956f4c0cca174a
 i3-snapshot https://github.com/regolith-linux/i3-snapshot.git v1.1-1ubuntu1-ppa1 97d77af943929729b1198e9b5416baddaf2a2ec6
-i3status-rs https://github.com/regolith-linux/i3status-rs_debian.git v0.32.1-1 4c812105f9980280e08d6e50345b624bd2b901e5
 i3-swap-focus https://github.com/regolith-linux/i3-swap-focus.git v0.4.4 4f7fa066e12033e9b9dab0bd69bfea76c391f2d9
+i3status-rs https://github.com/regolith-linux/i3status-rs_debian.git v0.32.1-1 4c812105f9980280e08d6e50345b624bd2b901e5
 i3xrocks https://github.com/regolith-linux/i3xrocks.git v1.3.6-1 4fea410fb189d5abec0515038180d69af225e014
-ilia https://github.com/regolith-linux/ilia.git v0.16.0 a44aea320fcce9ec786f2bc7d9b84f4713c19df3
+ilia https://github.com/regolith-linux/ilia.git v0.17.0 b69237879102e2d11ca20155f5949b6cc5b16f37
 lago https://github.com/regolith-linux/lago.git v0.2.0-1 f1c9eecef9c92f03b0174f18d1457a70b0f3f092
 libtrawldb https://github.com/regolith-linux/libtrawldb.git v0.1-3 ee483fbe17f9bdaf9fae5c34e28aacf3e53d8eed
 nordic https://github.com/regolith-linux/nordic.git v2.1.0-2 2df83088a3e7aa51a1087643b3bb35d77b5983d0
@@ -38,8 +38,8 @@ regolith-lightdm-config https://github.com/regolith-linux/regolith-lightdm-confi
 regolith-look-default https://github.com/regolith-linux/regolith-look-default.git v0.8.3 9d8707410120c53ec29a2b2f2cdc31bf1a2530a3
 regolith-look-extra https://github.com/regolith-linux/regolith-look-extra.git v0.9.2 cd8a6d84b796a8a0954b309d7114b6e63d82a94b
 regolith-powerd https://github.com/regolith-linux/regolith-powerd.git v0.5.0 3ab12db60a0ef044fca7734a87d212704550bae5
-regolith-rofication https://github.com/regolith-linux/regolith-rofication.git v1.5.1 97bccc7199a404aa51952a71a8e60c7676188308
 regolith-rofi-config https://github.com/regolith-linux/regolith-rofi-config.git v1.4.2-1 d320a1e5e0d390dc60b96c8bfa5400c4508e6691
+regolith-rofication https://github.com/regolith-linux/regolith-rofication.git v1.5.1 97bccc7199a404aa51952a71a8e60c7676188308
 regolith-session https://github.com/regolith-linux/regolith-session.git v1.1.13-1 d9d04b3f044c176ebf75c7dbd0beb3c6c951cf97
 regolith-sway-touchpad-gestures https://github.com/regolith-linux/regolith-sway-touchpad-gestures.git v0.1.0-3 d4fc6b19a7692647b4affb8804ffa317b228f1cf
 regolith-system-ubuntu https://github.com/regolith-linux/regolith-system-ubuntu.git v1.0.1 43ec972ad1fe986040896b78314622b434f796df
