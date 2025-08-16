@@ -264,6 +264,34 @@ jobs:
           apt-repo-line: "deb [arch=${{ matrix.arch }} signed-by=/etc/apt/keyrings/regolith.gpg] http://archive.regolith-desktop.com/${{ env.distro }}/${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['suite'] }} ${{ env.codename }} ${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['component'] }}"
           target-package: "regolith-desktop ${{ matrix.wm }}"
   
+  debian-trixie:
+    runs-on: ${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}
+    needs: matrix-builder
+    if: |
+      (inputs.legacy == 'no') &&
+      (
+        (inputs.distro == '' && inputs.codename == '') ||
+        (inputs.distro == 'debian' && inputs.codename == '') ||
+        (inputs.distro == '' && inputs.codename == 'trixie') ||
+        (inputs.distro == 'debian' && inputs.codename == 'trixie')
+      )
+    strategy:
+      fail-fast: false
+      matrix:
+        stage: ${{ fromJSON(needs.matrix-builder.outputs.stages)['debian-trixie'] }}
+        arch: ${{ fromJson(needs.matrix-builder.outputs.arches) }}
+        wm: [regolith-session-flashback, regolith-session-sway]
+    env:
+      distro: debian
+      codename: trixie
+    steps:
+      - name: Install ${{ matrix.wm }} ${{ matrix.stage }} on ${{ env.distro }} ${{ env.codename }}
+        uses: regolith-linux/actions/test-desktop/debian/trixie@main
+        with:
+          apt-key-url: http://archive.regolith-desktop.com/regolith.key
+          apt-repo-line: "deb [arch=${{ matrix.arch }} signed-by=/etc/apt/keyrings/regolith.gpg] http://archive.regolith-desktop.com/${{ env.distro }}/${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['suite'] }} ${{ env.codename }} ${{ fromJSON(needs.matrix-builder.outputs.suites)[matrix.stage]['component'] }}"
+          target-package: "regolith-desktop ${{ matrix.wm }}"
+  
   debian-testing:
     runs-on: ${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}
     needs: matrix-builder
