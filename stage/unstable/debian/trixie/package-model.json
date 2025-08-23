@@ -4,6 +4,10 @@
       "ref": "ubuntu/v0.22.0",
       "source": "https://github.com/regolith-linux/i3status-rs_debian.git"
     },
+    "regolith-control-center": {
+      "ref": "regolith/48",
+      "source": "https://github.com/regolith-linux/regolith-control-center.git"
+    },
     "regolith-session": {
       "ref": "fix/trixie-session-init-1094494",
       "source": "https://github.com/regolith-linux/regolith-session.git"
