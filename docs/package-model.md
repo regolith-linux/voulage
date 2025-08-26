@@ -1,9 +1,8 @@
 # Voulage Package Model
 
-
 ## Schema
 
-```
+```json
 {
   "description": {
     "title": "<Summarizes the package model, only needed at root>"
@@ -27,7 +26,7 @@ found in the subtrees that correspond to dimensions of the `target`.
 
 Given the following file tree and the target of `unstable/debian/bullseye/arm64`:
 
-```
+```text
 stage
 ├── release
 ├── testing
