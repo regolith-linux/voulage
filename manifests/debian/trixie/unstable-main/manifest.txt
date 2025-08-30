@@ -1,1 +1,1 @@
-regolith-control-center https://github.com/regolith-linux/regolith-control-center.git regolith/48 98ea242f7bf7e93c6fd55b1c3be2be937ee0ed1a
+trawl https://github.com/regolith-linux/trawl.git master a4b1915cd9091eef4999abb1af8ccf44b69a302d
