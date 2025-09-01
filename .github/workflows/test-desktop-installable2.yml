@@ -101,6 +101,7 @@ jobs:
         run: |
           debian_bullseye=(unstable testing stable release-3_0 release-3_1)
           debian_bookworm=(unstable testing stable release-3_2 release-3_3)
+          debian_trixie=(unstable testing stable release-3_3)
           debian_testing=(unstable testing) # testing is never released
           ubuntu_focal=(unstable testing stable release-3_0 release-3_1)
           ubuntu_jammy=(unstable testing stable release-3_0 release-3_1 release-3_2 release-3_3)
@@ -113,6 +114,7 @@ jobs:
 
           debian_bullseye_list=()
           debian_bookworm_list=()
+          debian_trixie_list=()
           debian_testing_list=()
           ubuntu_focal_list=()
           ubuntu_jammy_list=()
@@ -129,6 +131,9 @@ jobs:
             fi
             if [[ " ${debian_bookworm[*]} " =~ [[:space:]]${{ inputs.stage }}[[:space:]] ]]; then
               debian_bookworm_list=(${{ inputs.stage }})
+            fi
+            if [[ " ${debian_trixie[*]} " =~ [[:space:]]${{ inputs.stage }}[[:space:]] ]]; then
+              debian_trixie_list=(${{ inputs.stage }})
             fi
             if [[ " ${debian_testing[*]} " =~ [[:space:]]${{ inputs.stage }}[[:space:]] ]]; then
               debian_testing_list=(${{ inputs.stage }})
@@ -160,6 +165,7 @@ jobs:
           else
             debian_bullseye_list=(${debian_bullseye[@]})
             debian_bookworm_list=(${debian_bookworm[@]})
+            debian_trixie_list=(${debian_trixie[@]})
             debian_testing_list=(${debian_testing[@]})
             ubuntu_focal_list=(${ubuntu_focal[@]})
             ubuntu_jammy_list=(${ubuntu_jammy[@]})
@@ -174,6 +180,7 @@ jobs:
           STAGES=$(jq -n -c \
             --argjson debian-bullseye "$(jq -n -c '$ARGS.positional' --args -- "${debian_bullseye_list[@]}")" \
             --argjson debian-bookworm "$(jq -n -c '$ARGS.positional' --args -- "${debian_bookworm_list[@]}")" \
+            --argjson debian-trixie "$(jq -n -c '$ARGS.positional' --args -- "${debian_trixie_list[@]}")" \
             --argjson debian-testing "$(jq -n -c '$ARGS.positional' --args -- "${debian_testing_list[@]}")" \
             --argjson ubuntu-focal "$(jq -n -c '$ARGS.positional' --args -- "${ubuntu_focal_list[@]}")" \
             --argjson ubuntu-jammy "$(jq -n -c '$ARGS.positional' --args -- "${ubuntu_jammy_list[@]}")" \
