@@ -39,6 +39,7 @@ the latest commit in the git ref defined in `unstable/` package model file.
 | [fonts-source-code-pro-ttf](https://github.com/regolith-linux/fonts-source-code-pro-ttf) | `main` | `v1.011-0ubuntu1-ppa2` | [Yes](https://github.com/regolith-linux/fonts-source-code-pro-ttf/compare/v1.011-0ubuntu1-ppa2...main) |
 | [gruvbox-gtk](https://github.com/regolith-linux/gruvbox-gtk) | `master` | `v1.0.2-1` | [Yes](https://github.com/regolith-linux/gruvbox-gtk/compare/v1.0.2-1...master) |
 | [gtklock](https://github.com/regolith-linux/gtklock) | `master` | `v2.2.1` | [Yes](https://github.com/regolith-linux/gtklock/compare/v2.2.1...master) |
+| [i3status-rs](https://github.com/regolith-linux/i3status-rs_debian) | `ubuntu/v0.22.0` | `ubuntu/v0.22.0` | [Yes](https://github.com/regolith-linux/i3status-rs_debian/compare/ubuntu/v0.22.0...ubuntu/v0.22.0) |
 | [i3status-rs](https://github.com/regolith-linux/i3status-rs_debian) | `ubuntu/v0.22.0` | `v0.22.2-1-ubuntu-jammy` | [Yes](https://github.com/regolith-linux/i3status-rs_debian/compare/v0.22.2-1-ubuntu-jammy...ubuntu/v0.22.0) |
 | [i3status-rs](https://github.com/regolith-linux/i3status-rs_debian) | `ubuntu/v0.32.1` | `v0.32.1-1` | [Yes](https://github.com/regolith-linux/i3status-rs_debian/compare/v0.32.1-1...ubuntu/v0.32.1) |
 | [i3xrocks](https://github.com/regolith-linux/i3xrocks) | `master` | `v1.3.6-1` | [Yes](https://github.com/regolith-linux/i3xrocks/compare/v1.3.6-1...master) |
@@ -46,7 +47,7 @@ the latest commit in the git ref defined in `unstable/` package model file.
 | [i3-snapshot](https://github.com/regolith-linux/i3-snapshot) | `master` | `v1.1-1ubuntu1-ppa1` | [Yes](https://github.com/regolith-linux/i3-snapshot/compare/v1.1-1ubuntu1-ppa1...master) |
 | [i3-swap-focus](https://github.com/regolith-linux/i3-swap-focus) | `master` | `v0.4.4` | [Yes](https://github.com/regolith-linux/i3-swap-focus/compare/v0.4.4...master) |
 | [i3-wm](https://github.com/regolith-linux/i3-wm) | `main` | `v4.22-2` | [Yes](https://github.com/regolith-linux/i3-wm/compare/v4.22-2...main) |
-| [ilia](https://github.com/regolith-linux/ilia) | `main` | `v0.16.0` | No |
+| [ilia](https://github.com/regolith-linux/ilia) | `main` | `v0.17.0` | [Yes](https://github.com/regolith-linux/ilia/compare/v0.17.0...main) |
 | [lago](https://github.com/regolith-linux/lago) | `main` | `v0.2.0-1` | [Yes](https://github.com/regolith-linux/lago/compare/v0.2.0-1...main) |
 | [libtrawldb](https://github.com/regolith-linux/libtrawldb) | `master` | `v0.1-3` | [Yes](https://github.com/regolith-linux/libtrawldb/compare/v0.1-3...master) |
 | [nordic](https://github.com/regolith-linux/nordic) | `main` | `v2.1.0-2` | [Yes](https://github.com/regolith-linux/nordic/compare/v2.1.0-2...main) |
@@ -61,6 +62,9 @@ the latest commit in the git ref defined in `unstable/` package model file.
 | [regolith-compositor-xcompmgr](https://github.com/regolith-linux/regolith-compositor-xcompmgr) | `master` | `v1.4.0-1` | [Yes](https://github.com/regolith-linux/regolith-compositor-xcompmgr/compare/v1.4.0-1...master) |
 | [regolith-control-center](https://github.com/regolith-linux/regolith-control-center) | `regolith/1%43.0-1` | `v1.43.1-8-gnome-43` | [Yes](https://github.com/regolith-linux/regolith-control-center/compare/v1.43.1-8-gnome-43...regolith/1%43.0-1) |
 | [regolith-control-center](https://github.com/regolith-linux/regolith-control-center) | `regolith/46` | `v1.46.0-4-gnome-46` | [Yes](https://github.com/regolith-linux/regolith-control-center/compare/v1.46.0-4-gnome-46...regolith/46) |
+| [regolith-control-center](https://github.com/regolith-linux/regolith-control-center) | `regolith/48` | `` | No |
+| [regolith-control-center](https://github.com/regolith-linux/regolith-control-center) | `regolith/48` | n/a | No |
+| [regolith-control-center](https://github.com/regolith-linux/regolith-control-center) | `regolith/48` | `regolith/48` | No |
 | [regolith-control-center](https://github.com/regolith-linux/regolith-control-center) | `regolith/48` | `v1.48.1-9-gnome-48` | No |
 | [regolith-control-center](https://github.com/regolith-linux/regolith-control-center) | `ubuntu/jammy` | `v1.41.19-ubuntu-jammy` | [Yes](https://github.com/regolith-linux/regolith-control-center/compare/v1.41.19-ubuntu-jammy...ubuntu/jammy) |
 | [regolith-default-settings](https://github.com/regolith-linux/regolith-default-settings) | `main` | `v2.0.5` | [Yes](https://github.com/regolith-linux/regolith-default-settings/compare/v2.0.5...main) |
@@ -77,23 +81,26 @@ the latest commit in the git ref defined in `unstable/` package model file.
 | [regolith-rofication](https://github.com/regolith-linux/regolith-rofication) | `master` | `v1.5.1` | [Yes](https://github.com/regolith-linux/regolith-rofication/compare/v1.5.1...master) |
 | [regolith-rofi-config](https://github.com/regolith-linux/regolith-rofi-config) | `master` | `v1.4.2-1` | [Yes](https://github.com/regolith-linux/regolith-rofi-config/compare/v1.4.2-1...master) |
 | [regolith-session](https://github.com/regolith-linux/regolith-session) | `debian-bookworm` | `v1.1.13-3-debian-bookworm` | [Yes](https://github.com/regolith-linux/regolith-session/compare/v1.1.13-3-debian-bookworm...debian-bookworm) |
+| [regolith-session](https://github.com/regolith-linux/regolith-session) | `fix/trixie-session-init-1094494` | `fix/trixie-session-init-1094494` | [Yes](https://github.com/regolith-linux/regolith-session/compare/fix/trixie-session-init-1094494...fix/trixie-session-init-1094494) |
 | [regolith-session](https://github.com/regolith-linux/regolith-session) | `fix/trixie-session-init-1094494` | n/a | No |
 | [regolith-session](https://github.com/regolith-linux/regolith-session) | `main` | `v1.1.13-1` | [Yes](https://github.com/regolith-linux/regolith-session/compare/v1.1.13-1...main) |
 | [regolith-sway-touchpad-gestures](https://github.com/regolith-linux/regolith-sway-touchpad-gestures) | `main` | `v0.1.0-3` | [Yes](https://github.com/regolith-linux/regolith-sway-touchpad-gestures/compare/v0.1.0-3...main) |
 | [regolith-system-ubuntu](https://github.com/regolith-linux/regolith-system-ubuntu) | `main` | `v1.0.1` | [Yes](https://github.com/regolith-linux/regolith-system-ubuntu/compare/v1.0.1...main) |
 | [regolith-unclutter-xfixes](https://github.com/regolith-linux/regolith-unclutter-xfixes) | `master` | `v1.5-3` | [Yes](https://github.com/regolith-linux/regolith-unclutter-xfixes/compare/v1.5-3...master) |
-| [regolith-wm-config](https://github.com/regolith-linux/regolith-wm-config) | `main` | `v4.11.9` | No |
+| [regolith-wm-config](https://github.com/regolith-linux/regolith-wm-config) | `main` | `v4.11.9` | [Yes](https://github.com/regolith-linux/regolith-wm-config/compare/v4.11.9...main) |
 | [remontoire](https://github.com/regolith-linux/remontoire) | `master` | `v1.4.4` | No |
 | [solarc-theme](https://github.com/regolith-linux/solarc-theme) | `master` | `v800c997-4` | [Yes](https://github.com/regolith-linux/solarc-theme/compare/v800c997-4...master) |
 | [sway-audio-idle-inhibit](https://github.com/regolith-linux/SwayAudioIdleInhibit) | `main` | `v0.1.4` | [Yes](https://github.com/regolith-linux/SwayAudioIdleInhibit/compare/v0.1.4...main) |
 | [sway-regolith](https://github.com/regolith-linux/sway-regolith) | `packaging/v1.7-regolith` | `v1.7-8-ubuntu-jammy` | [Yes](https://github.com/regolith-linux/sway-regolith/compare/v1.7-8-ubuntu-jammy...packaging/v1.7-regolith) |
 | [sway-regolith](https://github.com/regolith-linux/sway-regolith) | `packaging/v1.9-regolith` | `v1.9-17` | [Yes](https://github.com/regolith-linux/sway-regolith/compare/v1.9-17...packaging/v1.9-regolith) |
+| [sway-regolith](https://github.com/regolith-linux/sway-regolith) | `packaging/v1.10-regolith` | `` | No |
+| [sway-regolith](https://github.com/regolith-linux/sway-regolith) | `packaging/v1.10-regolith` | `packaging/v1.10-regolith` | No |
 | [sway-regolith](https://github.com/regolith-linux/sway-regolith) | `packaging/v1.10-regolith` | `v1.10-2` | No |
 | [trawl](https://github.com/regolith-linux/trawl) | `master` | `v0.2.5` | [Yes](https://github.com/regolith-linux/trawl/compare/v0.2.5...master) |
 | [ubiquity-slideshow-regolith](https://github.com/regolith-linux/ubiquity-slideshow-regolith) | `master` | `v202` | No |
 | [whitesur-gtk-theme](https://github.com/regolith-linux/WhiteSur-gtk-theme) | `debian` | `v1.1-2025.02.03` | [Yes](https://github.com/regolith-linux/WhiteSur-gtk-theme/compare/v1.1-2025.02.03...debian) |
 | [xdg-desktop-portal-regolith](https://github.com/regolith-linux/xdg-desktop-portal-regolith) | `debian-bookworm` | `v0.3.7-2-debian-bookworm` | No |
-| [xdg-desktop-portal-regolith](https://github.com/regolith-linux/xdg-desktop-portal-regolith) | `main` | `v0.3.7-1` | No |
+| [xdg-desktop-portal-regolith](https://github.com/regolith-linux/xdg-desktop-portal-regolith) | `main` | `v0.3.7-1` | [Yes](https://github.com/regolith-linux/xdg-desktop-portal-regolith/compare/v0.3.7-1...main) |
 | [xdg-desktop-portal-regolith](https://github.com/regolith-linux/xdg-desktop-portal-regolith) | `ubuntu/jammy` | `v0.3.7-3-ubuntu-jammy` | No |
 | [xrescat](https://github.com/regolith-linux/xrescat) | `master` | `v1.2.1-3` | [Yes](https://github.com/regolith-linux/xrescat/compare/v1.2.1-3...master) |
 <!-- AUTO_GENERATE_END -->
