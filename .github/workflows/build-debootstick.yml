@@ -1,0 +1,43 @@
+name: ISO Builder Regolith Image
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y debootstrap debootstick zip
+
+      - name: Build image
+        id: build_image
+        working-directory: .github/scripts
+        run: |
+          sudo ./gen-debootstick.sh
+
+      - name: Prepare asset
+        id: prep_asset
+        run: |
+          IMAGE_FILE=$(find . -maxdepth 1 -name "*.img")
+          IMAGE_PATH=".github/scripts/$IMAGE_FILE"
+          ZIP_FILE_NAME="${IMAGE_FILE%.img}.zip"
+          zip -j "$ZIP_FILE_NAME" "$IMAGE_PATH"
+          echo "ZIP_FILE=$ZIP_FILE_NAME" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: debootstick-${{ github.run_id }}-${{ github.run_attempt }}
+          name: "Debootstick Image Build ${{ github.run_id }}"
+          body: "Regolith debootstick image generated from manual workflow run."
+          files: "${{ steps.prep_asset.outputs.ZIP_FILE }}"
+
+defaults:
+  run:
+    shell: bash
