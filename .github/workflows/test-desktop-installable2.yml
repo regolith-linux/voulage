@@ -474,7 +474,7 @@ jobs:
     runs-on: ${{ fromJSON(needs.matrix-builder.outputs.runners)[matrix.arch] }}
     needs: matrix-builder
     if: |
-      (inputs.legacy == 'no') &&
+      (inputs.legacy == 'yes') &&
       (
         (inputs.distro == '' && inputs.codename == '') ||
         (inputs.distro == 'ubuntu' && inputs.codename == '') ||
