@@ -8,6 +8,10 @@
       "ref": "regolith/48",
       "source": "https://github.com/regolith-linux/regolith-control-center.git"
     },
+    "regolith-debootstick-setup": {
+      "ref": "main",
+      "source": "https://github.com/regolith-linux/regolith-debootstick-setup.git"
+    },
     "regolith-session": {
       "ref": "fix/trixie-session-init-1094494",
       "source": "https://github.com/regolith-linux/regolith-session.git"
