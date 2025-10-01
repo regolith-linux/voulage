@@ -1,0 +1,8 @@
+{
+  "packages": {
+    "regolith-debootstick-setup": {
+      "ref": "main",
+      "source": "https://github.com/regolith-linux/regolith-debootstick-setup.git"
+    }
+  }
+}
