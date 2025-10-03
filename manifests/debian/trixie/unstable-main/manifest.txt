@@ -1,1 +1,2 @@
+ilia https://github.com/regolith-linux/ilia.git main 093dba048c040e4086c7cf40328a41453c050478
 regolith-debootstick-setup https://github.com/regolith-linux/regolith-debootstick-setup.git main d4119787ce85e237e6fb20eabbce3f98eab39be0
