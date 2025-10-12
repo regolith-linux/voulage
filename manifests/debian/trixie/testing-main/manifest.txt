@@ -1,1 +1,2 @@
+arc-icon-theme https://github.com/regolith-linux/arc-icon-theme.git v20251012-1 5a2d718bbfbfc8cb18d7fe087a5e926e908b267d
 trawl https://github.com/regolith-linux/trawl.git v0.2.5 f8bf1d431d2aa05097876f8550e9a8c9355b820b
