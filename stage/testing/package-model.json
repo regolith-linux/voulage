@@ -17,7 +17,7 @@
       "source": "https://github.com/regolith-linux/childe.git"
     },
     "dracula-gtk": {
-      "ref": "v1.1.2",
+      "ref": "v1.1.3",
       "source": "https://github.com/regolith-linux/dracula-gtk.git"
     },
     "fonts-jetbrains-mono": {
