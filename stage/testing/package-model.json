@@ -25,7 +25,7 @@
       "source": "https://github.com/regolith-linux/fonts-jetbrains-mono.git"
     },
     "fonts-materialdesignicons-webfont": {
-      "ref": "v1.6.50-4regolith1",
+      "ref": "v1.6.50-5regolith1",
       "source": "https://github.com/regolith-linux/fonts-materialdesignicons-webfont.git"
     },
     "fonts-nerd-fonts": {
