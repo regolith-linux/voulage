@@ -33,7 +33,7 @@
       "source": "https://github.com/regolith-linux/fonts-nerd-fonts.git"
     },
     "fonts-source-code-pro-ttf": {
-      "ref": "v1.011-0ubuntu1-ppa2",
+      "ref": "v1.011-0ubuntu1-ppa3",
       "source": "https://github.com/regolith-linux/fonts-source-code-pro-ttf.git"
     },
     "gruvbox-gtk": {
