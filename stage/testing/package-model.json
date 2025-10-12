@@ -1,7 +1,7 @@
 {
   "packages": {
     "arc-icon-theme": {
-      "ref": "v20250203-1",
+      "ref": "v20251012-1",
       "source": "https://github.com/regolith-linux/arc-icon-theme.git"
     },
     "armesto": {
