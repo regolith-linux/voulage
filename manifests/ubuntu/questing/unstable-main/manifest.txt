@@ -1,1 +1,2 @@
+gtklock https://github.com/regolith-linux/gtklock.git master 8a041e084bd2f681eb62b8b4542609bb12930ee7
 regolith-control-center https://github.com/regolith-linux/regolith-control-center.git regolith/49 f6ffbd13f0e71d6f17e3d87666723c4017d21f01
