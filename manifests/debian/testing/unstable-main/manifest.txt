@@ -22,7 +22,7 @@ picom https://github.com/regolith-linux/picom.git main 921769852b6a73618fcf6ac98
 plymouth-theme-regolith https://github.com/regolith-linux/plymouth-theme-regolith.git master 860a62bb530577ada9c0f43a6a2310cd8ac44c9b
 python3-i3ipc https://github.com/regolith-linux/python3-i3ipc.git master 17447cceac3203958d3ea5a2ce834f68049b99e2
 regolith-archive-keyring https://github.com/regolith-linux/regolith-archive-keyring.git main 4416a8d0aac2da17730155547760d189b3bf6dd5
-regolith-avizo https://github.com/regolith-linux/avizo.git master 4a28ba7ae2fc1f19e0e0c3619f973f3b57428e9c
+regolith-avizo https://github.com/regolith-linux/avizo.git master 0403cc276d1f2514985846c5fdf2d7c0174a9ddf
 regolith-compositor-compton-glx https://github.com/regolith-linux/regolith-compositor-compton-glx.git master 6aa6347adbc5f629d93fdb5bd436fb6297ee8ccb
 regolith-compositor-none https://github.com/regolith-linux/regolith-compositor-none.git master 695fe688337c6266b342e726e412093f07be9b35
 regolith-compositor-picom-glx https://github.com/regolith-linux/regolith-compositor-picom-glx.git master cdef16a211e4968c0e16de557901e1124a953c27
