@@ -1,2 +1,3 @@
 gtklock https://github.com/regolith-linux/gtklock.git master 8a041e084bd2f681eb62b8b4542609bb12930ee7
+i3xrocks https://github.com/regolith-linux/i3xrocks.git master 1091603233e27931c1211ff3a23a645826274896
 regolith-control-center https://github.com/regolith-linux/regolith-control-center.git regolith/49 f6ffbd13f0e71d6f17e3d87666723c4017d21f01
