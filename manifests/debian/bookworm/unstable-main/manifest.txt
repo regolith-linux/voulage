@@ -13,7 +13,7 @@ i3xrocks https://github.com/regolith-linux/i3xrocks.git master 1091603233e27931c
 ilia https://github.com/regolith-linux/ilia.git main 093dba048c040e4086c7cf40328a41453c050478
 lago https://github.com/regolith-linux/lago.git main 8c1aa67287597c2b7c6e71be5c42b841ba0ef519
 nordic https://github.com/regolith-linux/nordic.git main 9815bf9db05bb3a1d60f7e75a889b9d60b3e7a8d
-picom https://github.com/regolith-linux/picom.git main 72a509c0f0193a823fec084813313e2048d4361f
+picom https://github.com/regolith-linux/picom.git main 921769852b6a73618fcf6ac98d86a066c6901933
 plymouth-theme-regolith https://github.com/regolith-linux/plymouth-theme-regolith.git master 860a62bb530577ada9c0f43a6a2310cd8ac44c9b
 python3-i3ipc https://github.com/regolith-linux/python3-i3ipc.git master 17447cceac3203958d3ea5a2ce834f68049b99e2
 regolith-archive-keyring https://github.com/regolith-linux/regolith-archive-keyring.git main 4416a8d0aac2da17730155547760d189b3bf6dd5
