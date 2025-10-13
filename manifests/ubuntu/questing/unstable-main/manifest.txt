@@ -1,1 +1,1 @@
-regolith-control-center https://github.com/regolith-linux/regolith-control-center.git regolith/49 92d4e5fc991d0ec7eb9d59350aea1cd83eaa5aad
+regolith-control-center https://github.com/regolith-linux/regolith-control-center.git regolith/49 f6ffbd13f0e71d6f17e3d87666723c4017d21f01
