@@ -13,4 +13,5 @@ i3-swap-focus https://github.com/regolith-linux/i3-swap-focus.git v0.4.5 e2b17f5
 i3xrocks https://github.com/regolith-linux/i3xrocks.git v1.3.6-2 1091603233e27931c1211ff3a23a645826274896
 lago https://github.com/regolith-linux/lago.git v0.2.0-2 8c1aa67287597c2b7c6e71be5c42b841ba0ef519
 nordic https://github.com/regolith-linux/nordic.git v2.1.0-3 9815bf9db05bb3a1d60f7e75a889b9d60b3e7a8d
+picom https://github.com/regolith-linux/picom.git v11.2.4 921769852b6a73618fcf6ac98d86a066c6901933
 trawl https://github.com/regolith-linux/trawl.git v0.2.5 f8bf1d431d2aa05097876f8550e9a8c9355b820b
