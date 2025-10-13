@@ -19,4 +19,5 @@ picom https://github.com/regolith-linux/picom.git main 921769852b6a73618fcf6ac98
 regolith-avizo https://github.com/regolith-linux/avizo.git master 0403cc276d1f2514985846c5fdf2d7c0174a9ddf
 regolith-compositor-none https://github.com/regolith-linux/regolith-compositor-none.git master 92ad520ff076ceb8b9d905956921b5bed2a5667d
 regolith-compositor-picom-glx https://github.com/regolith-linux/regolith-compositor-picom-glx.git master 5714ba4cd560f90a4ad3c7df540b37b8edc628c0
+regolith-compositor-xcompmgr https://github.com/regolith-linux/regolith-compositor-xcompmgr.git master 7f58479108c3cab02b12c87ebb068cf6dffdc5a6
 regolith-debootstick-setup https://github.com/regolith-linux/regolith-debootstick-setup.git main d4119787ce85e237e6fb20eabbce3f98eab39be0
