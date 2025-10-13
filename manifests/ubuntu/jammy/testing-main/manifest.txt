@@ -15,7 +15,7 @@ i3-wm https://github.com/regolith-linux/i3-wm.git v4.22-2 5224dd53cea1e314b4326e
 i3status-rs https://github.com/regolith-linux/i3status-rs_debian.git v0.22.2-1-ubuntu-jammy 4a520851e3141a1b1873d31e3ec43945db5f7059
 i3xrocks https://github.com/regolith-linux/i3xrocks.git v1.3.6-2 1091603233e27931c1211ff3a23a645826274896
 ilia https://github.com/regolith-linux/ilia.git v0.17.0 b69237879102e2d11ca20155f5949b6cc5b16f37
-lago https://github.com/regolith-linux/lago.git v0.2.0-1 f1c9eecef9c92f03b0174f18d1457a70b0f3f092
+lago https://github.com/regolith-linux/lago.git v0.2.0-2 8c1aa67287597c2b7c6e71be5c42b841ba0ef519
 libtrawldb https://github.com/regolith-linux/libtrawldb.git v0.1-3 ee483fbe17f9bdaf9fae5c34e28aacf3e53d8eed
 nordic https://github.com/regolith-linux/nordic.git v2.1.0-3 9815bf9db05bb3a1d60f7e75a889b9d60b3e7a8d
 picom https://github.com/regolith-linux/picom.git v11.2.3 ad38c0f9b8f7bf44d95cccd20fe6d385a71ecb35
