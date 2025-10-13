@@ -53,7 +53,7 @@
       "source": "https://github.com/regolith-linux/i3-snapshot.git"
     },
     "i3-swap-focus": {
-      "ref": "v0.4.4",
+      "ref": "v0.4.5",
       "source": "https://github.com/regolith-linux/i3-swap-focus.git"
     },
     "i3status-rs": {
