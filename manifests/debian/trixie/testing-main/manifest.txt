@@ -8,4 +8,5 @@ fonts-source-code-pro-ttf https://github.com/regolith-linux/fonts-source-code-pr
 gruvbox-gtk https://github.com/regolith-linux/gruvbox-gtk.git v1.0.2-2 4a9245ccf8fb13b1976ec20926b0a7f775f1396e
 gtklock https://github.com/regolith-linux/gtklock.git v2.2.2 8a041e084bd2f681eb62b8b4542609bb12930ee7
 i3-next-workspace https://github.com/regolith-linux/i3-next-workspace.git v1.0.6 2ae062eb1473cae2ca71db2d0f9e7bdb9dda9c75
+i3-snapshot https://github.com/regolith-linux/i3-snapshot.git v1.1-2ubuntu1-ppa1 a4fa1dacb1ced0f5bb2ab8bdd0fc774215a662c4
 trawl https://github.com/regolith-linux/trawl.git v0.2.5 f8bf1d431d2aa05097876f8550e9a8c9355b820b
