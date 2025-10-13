@@ -12,4 +12,5 @@ i3-next-workspace https://github.com/regolith-linux/i3-next-workspace.git main 2
 i3-snapshot https://github.com/regolith-linux/i3-snapshot.git master a4fa1dacb1ced0f5bb2ab8bdd0fc774215a662c4
 i3xrocks https://github.com/regolith-linux/i3xrocks.git master 1091603233e27931c1211ff3a23a645826274896
 ilia https://github.com/regolith-linux/ilia.git main 093dba048c040e4086c7cf40328a41453c050478
+lago https://github.com/regolith-linux/lago.git main 8c1aa67287597c2b7c6e71be5c42b841ba0ef519
 regolith-debootstick-setup https://github.com/regolith-linux/regolith-debootstick-setup.git main d4119787ce85e237e6fb20eabbce3f98eab39be0
