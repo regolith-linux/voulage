@@ -109,7 +109,7 @@
       "source": "https://github.com/regolith-linux/regolith-compositor-none.git"
     },
     "regolith-compositor-picom-glx": {
-      "ref": "v1.4.0",
+      "ref": "v1.4.0-1",
       "source": "https://github.com/regolith-linux/regolith-compositor-picom-glx.git"
     },
     "regolith-compositor-xcompmgr": {
