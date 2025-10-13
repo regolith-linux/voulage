@@ -105,7 +105,7 @@
       "source": "https://github.com/regolith-linux/regolith-compositor-compton-glx.git"
     },
     "regolith-compositor-none": {
-      "ref": "v1.0.4-1",
+      "ref": "v1.0.4-2",
       "source": "https://github.com/regolith-linux/regolith-compositor-none.git"
     },
     "regolith-compositor-picom-glx": {
