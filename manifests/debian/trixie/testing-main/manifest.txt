@@ -16,4 +16,5 @@ nordic https://github.com/regolith-linux/nordic.git v2.1.0-3 9815bf9db05bb3a1d60
 picom https://github.com/regolith-linux/picom.git v11.2.4 921769852b6a73618fcf6ac98d86a066c6901933
 regolith-avizo https://github.com/regolith-linux/avizo.git v0.1.5 0403cc276d1f2514985846c5fdf2d7c0174a9ddf
 regolith-compositor-compton-glx https://github.com/regolith-linux/regolith-compositor-compton-glx.git v1.2.2 f62392396b3b6796734824ea06099ad56c4ab123
+regolith-compositor-none https://github.com/regolith-linux/regolith-compositor-none.git v1.0.4-2 92ad520ff076ceb8b9d905956921b5bed2a5667d
 trawl https://github.com/regolith-linux/trawl.git v0.2.5 f8bf1d431d2aa05097876f8550e9a8c9355b820b
