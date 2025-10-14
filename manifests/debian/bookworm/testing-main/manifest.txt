@@ -22,7 +22,7 @@ regolith-compositor-none https://github.com/regolith-linux/regolith-compositor-n
 regolith-compositor-picom-glx https://github.com/regolith-linux/regolith-compositor-picom-glx.git v1.4.0-1 5714ba4cd560f90a4ad3c7df540b37b8edc628c0
 regolith-compositor-xcompmgr https://github.com/regolith-linux/regolith-compositor-xcompmgr.git v1.4.0-2 7f58479108c3cab02b12c87ebb068cf6dffdc5a6
 regolith-control-center https://github.com/regolith-linux/regolith-control-center.git v1.43.1-8-gnome-43 851e4b925814b609e630a20ab485292fd7dd9083
-regolith-default-settings https://github.com/regolith-linux/regolith-default-settings.git v2.0.5 dfb9ba0217561a524174feb90abef66a2b618442
+regolith-default-settings https://github.com/regolith-linux/regolith-default-settings.git v2.0.6 30561565b12a4595f7238bc73ca72706138e8101
 regolith-desktop https://github.com/regolith-linux/regolith-desktop.git v4.9.0 200b6fca3e7d20b58d2de85175561447875de4b0
 regolith-distro-ubuntu https://github.com/regolith-linux/regolith-distro-ubuntu.git v2.0.0-2 3479c9fb9d044f1946b9229db7ae247c999d876b
 regolith-ftue https://github.com/regolith-linux/regolith-ftue.git v2.2.1 fdfd5152046378e0068dd60dc5acd9df22a7e977
