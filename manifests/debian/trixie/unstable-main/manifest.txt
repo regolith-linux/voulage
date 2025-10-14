@@ -23,3 +23,4 @@ regolith-compositor-picom-glx https://github.com/regolith-linux/regolith-composi
 regolith-compositor-xcompmgr https://github.com/regolith-linux/regolith-compositor-xcompmgr.git master 7f58479108c3cab02b12c87ebb068cf6dffdc5a6
 regolith-debootstick-setup https://github.com/regolith-linux/regolith-debootstick-setup.git main d4119787ce85e237e6fb20eabbce3f98eab39be0
 regolith-default-settings https://github.com/regolith-linux/regolith-default-settings.git main 30561565b12a4595f7238bc73ca72706138e8101
+regolith-distro-ubuntu https://github.com/regolith-linux/regolith-distro-ubuntu.git main fd21aac0f1e0396001cf60ddb638a6ec79d037b4
