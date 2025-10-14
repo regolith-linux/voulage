@@ -26,4 +26,5 @@ regolith-inputd https://github.com/regolith-linux/regolith-inputd.git v0.4.1 baf
 regolith-lightdm-config https://github.com/regolith-linux/regolith-lightdm-config.git v1.3.8 3f75b68697d295a3948b5bb4c49991f760d247f4
 regolith-look-extra https://github.com/regolith-linux/regolith-look-extra.git v0.9.3 80fa02d4af791668f3cf070e3b74fce6d27030f5
 regolith-rofi-config https://github.com/regolith-linux/regolith-rofi-config.git v1.4.2-2 e475e3f757c1750a20ea76b85ca773f267e1a7c7
+regolith-sway-touchpad-gestures https://github.com/regolith-linux/regolith-sway-touchpad-gestures.git v0.1.0-4 39fe9aae8a75b4a5a8a63d61c2b827075931fe56
 trawl https://github.com/regolith-linux/trawl.git v0.2.5 f8bf1d431d2aa05097876f8550e9a8c9355b820b
