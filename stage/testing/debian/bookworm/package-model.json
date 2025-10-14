@@ -5,6 +5,8 @@
     "gtklock": null,
     "i3status-rs": null,
     "libtrawldb": null,
+    "plymouth-theme-regolith": null,
+    "regolith-archive-keyring": null,
     "regolith-avizo": null,
     "regolith-control-center": {
       "ref": "v1.43.1-8-gnome-43",
@@ -14,7 +16,7 @@
     "regolith-inputd": null,
     "regolith-powerd": null,
     "regolith-session": {
-      "ref": "v1.1.13-3-debian-bookworm",
+      "ref": "v1.1.14-3-debian-bookworm-debian-bookworm",
       "source": "https://github.com/regolith-linux/regolith-session.git"
     },
     "regolith-sway-touchpad-gestures": null,
@@ -25,8 +27,6 @@
     "xdg-desktop-portal-regolith": {
       "ref": "v0.3.7-2-debian-bookworm",
       "source": "https://github.com/regolith-linux/xdg-desktop-portal-regolith.git"
-    },
-    "plymouth-theme-regolith": null,
-    "regolith-archive-keyring": null
+    }
   }
 }
