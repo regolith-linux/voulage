@@ -34,3 +34,4 @@ regolith-sway-touchpad-gestures https://github.com/regolith-linux/regolith-sway-
 regolith-system-ubuntu https://github.com/regolith-linux/regolith-system-ubuntu.git main 73f5e13dee9eb9c8296564271e8b77c3e00c0e45
 regolith-unclutter-xfixes https://github.com/regolith-linux/regolith-unclutter-xfixes.git master 1d076599c84cabc6eec315bc303634d75b041399
 sway-audio-idle-inhibit https://github.com/regolith-linux/SwayAudioIdleInhibit.git main c7b5b4fd02847c2864cfd22cac6a0c630604daa9
+whitesur-gtk-theme https://github.com/regolith-linux/WhiteSur-gtk-theme.git debian df5c5b2de2d6209d32fd8fb6812a55618ab2191f
