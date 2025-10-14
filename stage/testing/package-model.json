@@ -177,7 +177,7 @@
       "source": "https://github.com/regolith-linux/regolith-session.git"
     },
     "regolith-sway-touchpad-gestures": {
-      "ref": "v0.1.0-3",
+      "ref": "v0.1.0-4",
       "source": "https://github.com/regolith-linux/regolith-sway-touchpad-gestures.git"
     },
     "regolith-system-ubuntu": {
