@@ -24,4 +24,5 @@ regolith-distro-ubuntu https://github.com/regolith-linux/regolith-distro-ubuntu.
 regolith-ftue https://github.com/regolith-linux/regolith-ftue.git v2.2.2 ccf08c4792a178ccf2d85bcf42297db24074b0b1
 regolith-inputd https://github.com/regolith-linux/regolith-inputd.git v0.4.1 baf031169c03dd545e8ad68f49374a4d9f9d7d08
 regolith-lightdm-config https://github.com/regolith-linux/regolith-lightdm-config.git v1.3.8 3f75b68697d295a3948b5bb4c49991f760d247f4
+regolith-look-extra https://github.com/regolith-linux/regolith-look-extra.git v0.9.3 80fa02d4af791668f3cf070e3b74fce6d27030f5
 trawl https://github.com/regolith-linux/trawl.git v0.2.5 f8bf1d431d2aa05097876f8550e9a8c9355b820b
