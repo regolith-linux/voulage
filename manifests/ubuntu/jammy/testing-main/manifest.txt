@@ -31,7 +31,7 @@ regolith-control-center https://github.com/regolith-linux/regolith-control-cente
 regolith-default-settings https://github.com/regolith-linux/regolith-default-settings.git v2.0.6 30561565b12a4595f7238bc73ca72706138e8101
 regolith-desktop https://github.com/regolith-linux/regolith-desktop.git v4.9.0 200b6fca3e7d20b58d2de85175561447875de4b0
 regolith-displayd https://github.com/regolith-linux/regolith-displayd.git v0.3.2 1f620febceb77203296116f43d5b7dadb6802f10
-regolith-distro-ubuntu https://github.com/regolith-linux/regolith-distro-ubuntu.git v2.0.0-2 3479c9fb9d044f1946b9229db7ae247c999d876b
+regolith-distro-ubuntu https://github.com/regolith-linux/regolith-distro-ubuntu.git v2.0.0-3 fd21aac0f1e0396001cf60ddb638a6ec79d037b4
 regolith-ftue https://github.com/regolith-linux/regolith-ftue.git v2.2.1 fdfd5152046378e0068dd60dc5acd9df22a7e977
 regolith-i3xrocks-config https://github.com/regolith-linux/regolith-i3xrocks-config.git v5.5.2 b1b5947ea877043a57bb8bf45dd05a3c8aaca414
 regolith-inputd https://github.com/regolith-linux/regolith-inputd.git v0.4.0 1dcd7428e4399969b7483100937e4bd7d34e3ae1
