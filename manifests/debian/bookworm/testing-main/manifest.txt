@@ -19,7 +19,7 @@ python3-i3ipc https://github.com/regolith-linux/python3-i3ipc.git v2.1.1-1ubuntu
 regolith-archive-keyring https://github.com/regolith-linux/regolith-archive-keyring.git v0.1.0 4416a8d0aac2da17730155547760d189b3bf6dd5
 regolith-compositor-compton-glx https://github.com/regolith-linux/regolith-compositor-compton-glx.git v1.2.2 f62392396b3b6796734824ea06099ad56c4ab123
 regolith-compositor-none https://github.com/regolith-linux/regolith-compositor-none.git v1.0.4-2 92ad520ff076ceb8b9d905956921b5bed2a5667d
-regolith-compositor-picom-glx https://github.com/regolith-linux/regolith-compositor-picom-glx.git v1.4.0 d19d483064f24954dd6906703af84d48a18e9f3a
+regolith-compositor-picom-glx https://github.com/regolith-linux/regolith-compositor-picom-glx.git v1.4.0-1 5714ba4cd560f90a4ad3c7df540b37b8edc628c0
 regolith-compositor-xcompmgr https://github.com/regolith-linux/regolith-compositor-xcompmgr.git v1.4.0-1 aa05a63b275bf59361cfe042a3ad1902f1bbc808
 regolith-control-center https://github.com/regolith-linux/regolith-control-center.git v1.43.1-8-gnome-43 851e4b925814b609e630a20ab485292fd7dd9083
 regolith-default-settings https://github.com/regolith-linux/regolith-default-settings.git v2.0.5 dfb9ba0217561a524174feb90abef66a2b618442
