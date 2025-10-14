@@ -217,7 +217,7 @@
       "source": "https://github.com/regolith-linux/ubiquity-slideshow-regolith.git"
     },
     "whitesur-gtk-theme": {
-      "ref": "v1.1-2025.02.03",
+      "ref": "v1.1-2025.10.13",
       "source": "https://github.com/regolith-linux/WhiteSur-gtk-theme.git"
     },
     "xdg-desktop-portal-regolith": {
