@@ -32,3 +32,4 @@ regolith-unclutter-xfixes https://github.com/regolith-linux/regolith-unclutter-x
 sway-audio-idle-inhibit https://github.com/regolith-linux/SwayAudioIdleInhibit.git v0.1.4-1 c7b5b4fd02847c2864cfd22cac6a0c630604daa9
 trawl https://github.com/regolith-linux/trawl.git v0.2.5 f8bf1d431d2aa05097876f8550e9a8c9355b820b
 whitesur-gtk-theme https://github.com/regolith-linux/WhiteSur-gtk-theme.git v1.1-2025.10.13 df5c5b2de2d6209d32fd8fb6812a55618ab2191f
+xrescat https://github.com/regolith-linux/xrescat.git v1.2.1-4 3e6823bbc6b642ac28865ffbd6b2049c4ac8d336
