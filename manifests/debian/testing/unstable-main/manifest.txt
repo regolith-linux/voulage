@@ -12,7 +12,7 @@ gtklock https://github.com/regolith-linux/gtklock.git master 8a041e084bd2f681eb6
 i3-next-workspace https://github.com/regolith-linux/i3-next-workspace.git main 2ae062eb1473cae2ca71db2d0f9e7bdb9dda9c75
 i3-snapshot https://github.com/regolith-linux/i3-snapshot.git master a4fa1dacb1ced0f5bb2ab8bdd0fc774215a662c4
 i3-swap-focus https://github.com/regolith-linux/i3-swap-focus.git master e2b17f518e34d63ca1bb5e64f964b6b0687152ec
-i3status-rs https://github.com/regolith-linux/i3status-rs_debian.git ubuntu/v0.22.0 732bd109f0d4c89a24c3f433131266da029ee583
+i3status-rs https://github.com/regolith-linux/i3status-rs_debian.git ubuntu/v0.22.0 415eb6357066a501e117712ff20b964f94ac44c3
 i3xrocks https://github.com/regolith-linux/i3xrocks.git master 1091603233e27931c1211ff3a23a645826274896
 ilia https://github.com/regolith-linux/ilia.git main 093dba048c040e4086c7cf40328a41453c050478
 lago https://github.com/regolith-linux/lago.git main 8c1aa67287597c2b7c6e71be5c42b841ba0ef519
