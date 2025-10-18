@@ -1,7 +1,7 @@
 {
   "packages": {
     "i3status-rs": {
-      "ref": "ubuntu/v0.22.0",
+      "ref": "v0.22.2-2-ubuntu-jammy",
       "source": "https://github.com/regolith-linux/i3status-rs_debian.git"
     },
     "regolith-control-center": {
