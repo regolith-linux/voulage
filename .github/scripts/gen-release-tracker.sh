@@ -35,8 +35,8 @@ get_model() {
 }
 
 generate_table() {
-  echo "| Package⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀| Unstable | Testing | Need Release |" >> "$TMP_RESULT_FILE"
-  echo "|:------------------------------|:---------|:--------|:-------------|" >> "$TMP_RESULT_FILE"
+  echo "| Package⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀| Unstable | Testing | Changelog | Need Release |" >> "$TMP_RESULT_FILE"
+  echo "|:------------------------------|:---------|:--------|:----------|:-------------|" >> "$TMP_RESULT_FILE"
 
   while IFS='' read -r line; do
     package_name=$(echo "$line" | cut -d! -f1)
@@ -72,12 +72,16 @@ generate_table() {
       testing_ref="\`${testing_ref}\`"
     fi
 
+    if [ -f "debian/changelog" ]; then
+      changelog_distro=$(head -n 1 debian/changelog | cut -d' ' -f3 | sed 's/;//g')
+    fi
+
     # existing /tmp/tmp.XXXXXXXXXX
     popd >/dev/null
     rm -rf "$tmp"
 
     # append table row to repository temp file
-    echo "| [${package_name}](${package_repo}) | \`$unstable_ref\` | $testing_ref | $release_needed |" >> "$TMP_RESULT_FILE"
+    echo "| [${package_name}](${package_repo}) | \`$unstable_ref\` | $testing_ref | \`$changelog_distro\` | $release_needed |" >> "$TMP_RESULT_FILE"
   done < <(cat "$TMP_SORTED_FILE")
 }
 
