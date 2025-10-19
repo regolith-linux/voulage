@@ -30,6 +30,7 @@ regolith-i3xrocks-config https://github.com/regolith-linux/regolith-i3xrocks-con
 regolith-inputd https://github.com/regolith-linux/regolith-inputd.git v0.4.1 baf031169c03dd545e8ad68f49374a4d9f9d7d08
 regolith-lightdm-config https://github.com/regolith-linux/regolith-lightdm-config.git v1.3.8 3f75b68697d295a3948b5bb4c49991f760d247f4
 regolith-look-extra https://github.com/regolith-linux/regolith-look-extra.git v0.9.3 80fa02d4af791668f3cf070e3b74fce6d27030f5
+regolith-powerd https://github.com/regolith-linux/regolith-powerd.git v0.6.0 f5ff39e330d998bb6d777749faa86df6e6691bc1
 regolith-rofi-config https://github.com/regolith-linux/regolith-rofi-config.git v1.4.2-2 e475e3f757c1750a20ea76b85ca773f267e1a7c7
 regolith-sway-touchpad-gestures https://github.com/regolith-linux/regolith-sway-touchpad-gestures.git v0.1.0-4 39fe9aae8a75b4a5a8a63d61c2b827075931fe56
 regolith-system-ubuntu https://github.com/regolith-linux/regolith-system-ubuntu.git v1.0.1-1 73f5e13dee9eb9c8296564271e8b77c3e00c0e45
