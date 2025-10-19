@@ -4,6 +4,14 @@
       "ref": "v0.22.2-2-ubuntu-jammy",
       "source": "https://github.com/regolith-linux/i3status-rs_debian.git"
     },
+    "regolith-control-center": {
+      "ref": "regolith/48",
+      "source": "https://github.com/regolith-linux/regolith-control-center.git"
+    },
+    "regolith-session": {
+      "ref": "fix/trixie-session-init-1094494",
+      "source": "https://github.com/regolith-linux/regolith-session.git"
+    },
     "sway-regolith": {
       "ref": "v1.10-2",
       "source": "https://github.com/regolith-linux/sway-regolith.git"

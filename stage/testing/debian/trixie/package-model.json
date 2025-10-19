@@ -13,7 +13,7 @@
       "source": "https://github.com/regolith-linux/regolith-session.git"
     },
     "sway-regolith": {
-      "ref": "packaging/v1.10-regolith",
+      "ref": "v1.10-2",
       "source": "https://github.com/regolith-linux/sway-regolith.git"
     },
     "ubiquity-slideshow-regolith": null
