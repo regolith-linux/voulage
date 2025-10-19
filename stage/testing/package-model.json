@@ -141,7 +141,7 @@
       "source": "https://github.com/regolith-linux/regolith-ftue.git"
     },
     "regolith-i3xrocks-config": {
-      "ref": "v5.5.2",
+      "ref": "v5.5.3",
       "source": "https://github.com/regolith-linux/regolith-i3xrocks-config.git"
     },
     "regolith-inputd": {
