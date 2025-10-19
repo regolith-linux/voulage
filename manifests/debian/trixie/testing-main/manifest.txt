@@ -23,6 +23,7 @@ regolith-compositor-none https://github.com/regolith-linux/regolith-compositor-n
 regolith-compositor-picom-glx https://github.com/regolith-linux/regolith-compositor-picom-glx.git v1.4.0-1 5714ba4cd560f90a4ad3c7df540b37b8edc628c0
 regolith-compositor-xcompmgr https://github.com/regolith-linux/regolith-compositor-xcompmgr.git v1.4.0-2 7f58479108c3cab02b12c87ebb068cf6dffdc5a6
 regolith-default-settings https://github.com/regolith-linux/regolith-default-settings.git v2.0.6 30561565b12a4595f7238bc73ca72706138e8101
+regolith-displayd https://github.com/regolith-linux/regolith-displayd.git v0.3.3 d98390898649a3902abf8d3c3baca723a35a564d
 regolith-distro-ubuntu https://github.com/regolith-linux/regolith-distro-ubuntu.git v2.0.0-3 fd21aac0f1e0396001cf60ddb638a6ec79d037b4
 regolith-ftue https://github.com/regolith-linux/regolith-ftue.git v2.2.2 ccf08c4792a178ccf2d85bcf42297db24074b0b1
 regolith-inputd https://github.com/regolith-linux/regolith-inputd.git v0.4.1 baf031169c03dd545e8ad68f49374a4d9f9d7d08
