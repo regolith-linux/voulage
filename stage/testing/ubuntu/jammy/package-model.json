@@ -2,7 +2,7 @@
   "packages": {
     "childe": null,
     "i3-wm": {
-      "ref": "v4.22-2",
+      "ref": "v4.22-3",
       "source": "https://github.com/regolith-linux/i3-wm.git"
     },
     "i3status-rs": {
