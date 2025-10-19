@@ -5,7 +5,7 @@ childe https://github.com/regolith-linux/childe.git v0.1.4 d4334423d7aa8818d51ad
 dracula-gtk https://github.com/regolith-linux/dracula-gtk.git v1.1.3 2d156ce4de70619c29e9a4dac2e929e9e90cd189
 fonts-jetbrains-mono https://github.com/regolith-linux/fonts-jetbrains-mono.git v1.0.3-1regolith1 4058c7287ade5c90f46f211234c03fc18d30c1d9
 fonts-materialdesignicons-webfont https://github.com/regolith-linux/fonts-materialdesignicons-webfont.git v1.6.50-5regolith1 d922e342547459236363e59bcb36a4e4a74a6e16
-fonts-nerd-fonts https://github.com/regolith-linux/fonts-nerd-fonts.git v2.1.0-3 b355cf27558f76b3c92c30577c059c53cce663ec
+fonts-nerd-fonts https://github.com/regolith-linux/fonts-nerd-fonts.git v2.1.0-4 b167a0ffdc54b0496eb558a61eea25347fc6297b
 fonts-source-code-pro-ttf https://github.com/regolith-linux/fonts-source-code-pro-ttf.git v1.011-0ubuntu1-ppa3 fac2ee22cfc1a683fc0138c0d0c0c2e7e53ca8d7
 gruvbox-gtk https://github.com/regolith-linux/gruvbox-gtk.git v1.0.2-2 4a9245ccf8fb13b1976ec20926b0a7f775f1396e
 gtklock https://github.com/regolith-linux/gtklock.git v2.2.2 8a041e084bd2f681eb62b8b4542609bb12930ee7
