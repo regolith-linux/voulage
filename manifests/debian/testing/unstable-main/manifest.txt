@@ -38,7 +38,7 @@ regolith-inputd https://github.com/regolith-linux/regolith-inputd.git master baf
 regolith-lightdm-config https://github.com/regolith-linux/regolith-lightdm-config.git master 3f75b68697d295a3948b5bb4c49991f760d247f4
 regolith-look-default https://github.com/regolith-linux/regolith-look-default.git main b147e52ecbf34ac647849a37c9cadb46c79edf5a
 regolith-look-extra https://github.com/regolith-linux/regolith-look-extra.git main 80fa02d4af791668f3cf070e3b74fce6d27030f5
-regolith-powerd https://github.com/regolith-linux/regolith-powerd.git master 63a89b5976d3318e3d5c067cf01929f2a264a8f9
+regolith-powerd https://github.com/regolith-linux/regolith-powerd.git master f5ff39e330d998bb6d777749faa86df6e6691bc1
 regolith-rofi-config https://github.com/regolith-linux/regolith-rofi-config.git master e475e3f757c1750a20ea76b85ca773f267e1a7c7
 regolith-rofication https://github.com/regolith-linux/regolith-rofication.git master b888cbd060ed4bd9abe433c1e5b04f55bf671c01
 regolith-session https://github.com/regolith-linux/regolith-session.git fix/trixie-session-init-1094494 21be803b482eab541dbe33deaa8b78a18f72c8c8
