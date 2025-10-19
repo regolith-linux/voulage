@@ -89,7 +89,7 @@
       "source": "https://github.com/regolith-linux/plymouth-theme-regolith.git"
     },
     "python3-i3ipc": {
-      "ref": "v2.1.1-1ubuntu1-ppa8",
+      "ref": "v2.1.1-1ubuntu1-ppa9",
       "source": "https://github.com/regolith-linux/python3-i3ipc.git"
     },
     "regolith-archive-keyring": {
