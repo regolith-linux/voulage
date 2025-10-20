@@ -10,7 +10,7 @@
       "source": "https://github.com/regolith-linux/i3status-rs_debian.git"
     },
     "regolith-control-center": {
-      "ref": "v1.41.19-ubuntu-jammy",
+      "ref": "v1.41.20-ubuntu-jammy",
       "source": "https://github.com/regolith-linux/regolith-control-center.git"
     },
     "regolith-session": {
