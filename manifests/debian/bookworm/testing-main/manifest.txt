@@ -21,7 +21,7 @@ regolith-compositor-compton-glx https://github.com/regolith-linux/regolith-compo
 regolith-compositor-none https://github.com/regolith-linux/regolith-compositor-none.git v1.0.4-2 92ad520ff076ceb8b9d905956921b5bed2a5667d
 regolith-compositor-picom-glx https://github.com/regolith-linux/regolith-compositor-picom-glx.git v1.4.0-1 5714ba4cd560f90a4ad3c7df540b37b8edc628c0
 regolith-compositor-xcompmgr https://github.com/regolith-linux/regolith-compositor-xcompmgr.git v1.4.0-2 7f58479108c3cab02b12c87ebb068cf6dffdc5a6
-regolith-control-center https://github.com/regolith-linux/regolith-control-center.git v1.43.1-8-gnome-43 851e4b925814b609e630a20ab485292fd7dd9083
+regolith-control-center https://github.com/regolith-linux/regolith-control-center.git v1.43.1-9-gnome-43 fe30b0dae2ed23d6634502f17a40d24c070dfcc6
 regolith-default-settings https://github.com/regolith-linux/regolith-default-settings.git v2.0.6 30561565b12a4595f7238bc73ca72706138e8101
 regolith-desktop https://github.com/regolith-linux/regolith-desktop.git v4.9.0 200b6fca3e7d20b58d2de85175561447875de4b0
 regolith-distro-ubuntu https://github.com/regolith-linux/regolith-distro-ubuntu.git v2.0.0-3 fd21aac0f1e0396001cf60ddb638a6ec79d037b4
