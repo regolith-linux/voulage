@@ -27,6 +27,7 @@ regolith-compositor-xcompmgr https://github.com/regolith-linux/regolith-composit
 regolith-control-center https://github.com/regolith-linux/regolith-control-center.git regolith/48 43ccddc60e44ef57d1b1e677ec3672e62f59f169
 regolith-debootstick-setup https://github.com/regolith-linux/regolith-debootstick-setup.git main d4119787ce85e237e6fb20eabbce3f98eab39be0
 regolith-default-settings https://github.com/regolith-linux/regolith-default-settings.git main 30561565b12a4595f7238bc73ca72706138e8101
+regolith-desktop https://github.com/regolith-linux/regolith-desktop.git main b066f06dbd92f18db7ff67a21b4b01034a4449ac
 regolith-displayd https://github.com/regolith-linux/regolith-displayd.git master d98390898649a3902abf8d3c3baca723a35a564d
 regolith-distro-ubuntu https://github.com/regolith-linux/regolith-distro-ubuntu.git main fd21aac0f1e0396001cf60ddb638a6ec79d037b4
 regolith-ftue https://github.com/regolith-linux/regolith-ftue.git main ccf08c4792a178ccf2d85bcf42297db24074b0b1
