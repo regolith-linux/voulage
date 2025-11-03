@@ -66,7 +66,7 @@ the latest commit in the git ref defined in `unstable/` package model file.
 | [regolith-control-center](https://github.com/regolith-linux/regolith-control-center) | `ubuntu/jammy` | `v1.41.20-ubuntu-jammy` | `jammy` | No |
 | [regolith-debootstick-setup](https://github.com/regolith-linux/regolith-debootstick-setup) | `main` | n/a | `trixie` | No |
 | [regolith-default-settings](https://github.com/regolith-linux/regolith-default-settings) | `main` | `v2.0.6` | `focal` | No |
-| [regolith-desktop](https://github.com/regolith-linux/regolith-desktop) | `main` | `v4.9.0` | `jammy` | [Yes](https://github.com/regolith-linux/regolith-desktop/compare/v4.9.0...main) |
+| [regolith-desktop](https://github.com/regolith-linux/regolith-desktop) | `main` | `v4.10.0` | `jammy` | No |
 | [regolith-displayd](https://github.com/regolith-linux/regolith-displayd) | `master` | `v0.3.3` | `jammy` | No |
 | [regolith-distro-ubuntu](https://github.com/regolith-linux/regolith-distro-ubuntu) | `main` | `v2.0.0-3` | `focal` | No |
 | [regolith-ftue](https://github.com/regolith-linux/regolith-ftue) | `main` | `v2.2.2` | `focal` | No |
@@ -95,8 +95,8 @@ the latest commit in the git ref defined in `unstable/` package model file.
 | [trawl](https://github.com/regolith-linux/trawl) | `master` | `v0.2.5-1` | `focal` | No |
 | [ubiquity-slideshow-regolith](https://github.com/regolith-linux/ubiquity-slideshow-regolith) | `master` | `v202` | `jammy` | No |
 | [whitesur-gtk-theme](https://github.com/regolith-linux/WhiteSur-gtk-theme) | `debian` | `v1.1-2025.10.13` | `focal` | No |
-| [xdg-desktop-portal-regolith](https://github.com/regolith-linux/xdg-desktop-portal-regolith) | `debian-bookworm` | `v0.3.7-2-debian-bookworm` | `jammy` | No |
-| [xdg-desktop-portal-regolith](https://github.com/regolith-linux/xdg-desktop-portal-regolith) | `main` | `v0.3.7-1` | `jammy` | [Yes](https://github.com/regolith-linux/xdg-desktop-portal-regolith/compare/v0.3.7-1...main) |
-| [xdg-desktop-portal-regolith](https://github.com/regolith-linux/xdg-desktop-portal-regolith) | `ubuntu/jammy` | `v0.3.7-3-ubuntu-jammy` | `jammy` | No |
+| [xdg-desktop-portal-regolith](https://github.com/regolith-linux/xdg-desktop-portal-regolith) | `debian-bookworm` | `v0.3.8-2-debian-bookworm` | `jammy` | No |
+| [xdg-desktop-portal-regolith](https://github.com/regolith-linux/xdg-desktop-portal-regolith) | `main` | `v0.3.8-1` | `jammy` | No |
+| [xdg-desktop-portal-regolith](https://github.com/regolith-linux/xdg-desktop-portal-regolith) | `ubuntu/jammy` | `v0.3.8-3-ubuntu-jammy` | `jammy` | No |
 | [xrescat](https://github.com/regolith-linux/xrescat) | `master` | `v1.2.1-4` | `focal` | No |
 <!-- AUTO_GENERATE_END -->
