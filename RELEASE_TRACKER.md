@@ -29,7 +29,7 @@ the latest commit in the git ref defined in `unstable/` package model file.
 | Package⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀| Unstable | Testing | Changelog | Need Release |
 |:------------------------------|:---------|:--------|:----------|:-------------|
 | [arc-icon-theme](https://github.com/regolith-linux/arc-icon-theme) | `main` | `v20251012-1` | `bionic` | No |
-| [armesto](https://github.com/regolith-linux/armesto) | `main` | `v0.2.2ubuntu1` | `jammy` | No |
+| [armesto](https://github.com/regolith-linux/armesto) | `main` | `v0.2.3ubuntu1` | `jammy` | No |
 | [ayu-theme](https://github.com/regolith-linux/ayu-theme) | `master` | `v0.2.4-1` | `bionic` | No |
 | [childe](https://github.com/regolith-linux/childe) | `main` | `v0.1.4` | `focal` | No |
 | [dracula-gtk](https://github.com/regolith-linux/dracula-gtk) | `master` | `v1.1.3` | `focal` | No |
