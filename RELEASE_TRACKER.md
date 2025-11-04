@@ -76,7 +76,7 @@ the latest commit in the git ref defined in `unstable/` package model file.
 | [regolith-look-default](https://github.com/regolith-linux/regolith-look-default) | `main` | `v0.8.4` | `focal` | No |
 | [regolith-look-extra](https://github.com/regolith-linux/regolith-look-extra) | `main` | `v0.9.3` | `jammy` | No |
 | [regolith-powerd](https://github.com/regolith-linux/regolith-powerd) | `master` | `v0.6.0` | `jammy` | No |
-| [regolith-rofication](https://github.com/regolith-linux/regolith-rofication) | `master` | `v1.5.2` | `focal` | No |
+| [regolith-rofication](https://github.com/regolith-linux/regolith-rofication) | `master` | `v1.5.3` | `focal` | No |
 | [regolith-rofi-config](https://github.com/regolith-linux/regolith-rofi-config) | `master` | `v1.4.2-2` | `focal` | No |
 | [regolith-session](https://github.com/regolith-linux/regolith-session) | `debian-bookworm` | `v1.1.14-3-debian-bookworm-debian-bookworm` | `jammy` | No |
 | [regolith-session](https://github.com/regolith-linux/regolith-session) | `fix/trixie-session-init-1094494` | `fix/trixie-session-init-1094494` | `trixie` | [Yes](https://github.com/regolith-linux/regolith-session/compare/fix/trixie-session-init-1094494...fix/trixie-session-init-1094494) |
