@@ -169,7 +169,7 @@
       "source": "https://github.com/regolith-linux/regolith-rofi-config.git"
     },
     "regolith-rofication": {
-      "ref": "v1.5.2",
+      "ref": "v1.5.3",
       "source": "https://github.com/regolith-linux/regolith-rofication.git"
     },
     "regolith-session": {
