@@ -1,4 +1,5 @@
 arc-icon-theme https://github.com/regolith-linux/arc-icon-theme.git v20251012-1 5a2d718bbfbfc8cb18d7fe087a5e926e908b267d
+armesto https://github.com/regolith-linux/armesto.git v0.2.3ubuntu1 365803e6b1dbe4d6cb531b7afe019aa4a2353e52
 ayu-theme https://github.com/regolith-linux/ayu-theme.git v0.2.4-1 7bbd9808f62e5b063616241d8627ff3b3c8f0237
 childe https://github.com/regolith-linux/childe.git v0.1.4 d4334423d7aa8818d51ad78a67c36a613960817d
 dracula-gtk https://github.com/regolith-linux/dracula-gtk.git v1.1.3 2d156ce4de70619c29e9a4dac2e929e9e90cd189
