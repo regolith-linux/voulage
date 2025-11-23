@@ -161,7 +161,7 @@
       "source": "https://github.com/regolith-linux/regolith-look-extra.git"
     },
     "regolith-powerd": {
-      "ref": "v0.6.0",
+      "ref": "v0.7.0",
       "source": "https://github.com/regolith-linux/regolith-powerd.git"
     },
     "regolith-rofi-config": {
