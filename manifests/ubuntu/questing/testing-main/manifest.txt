@@ -1,1 +1,2 @@
+regolith-control-center https://github.com/regolith-linux/regolith-control-center.git v1.49.0-3-gnome-49 86a57afeed6f924dfae9eab5e84c0349370133bb
 regolith-session https://github.com/regolith-linux/regolith-session.git v1.1.15-1 6bc5c64899643ca222bf7623a9b5e7dc947fb118
