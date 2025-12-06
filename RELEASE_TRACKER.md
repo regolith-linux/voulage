@@ -62,7 +62,7 @@ the latest commit in the git ref defined in `unstable/` package model file.
 | [regolith-control-center](https://github.com/regolith-linux/regolith-control-center) | `regolith/1%43.0-1` | `v1.43.1-9-gnome-43` | `lunar` | No |
 | [regolith-control-center](https://github.com/regolith-linux/regolith-control-center) | `regolith/46` | `v1.46.0-5-gnome-46` | `noble` | No |
 | [regolith-control-center](https://github.com/regolith-linux/regolith-control-center) | `regolith/48` | `v1.48.1-10-gnome-48` | `plucky` | No |
-| [regolith-control-center](https://github.com/regolith-linux/regolith-control-center) | `regolith/49` | `regolith/49` | `questing` | [Yes](https://github.com/regolith-linux/regolith-control-center/compare/regolith/49...regolith/49) |
+| [regolith-control-center](https://github.com/regolith-linux/regolith-control-center) | `regolith/49` | `v1.49.0-3-gnome-49` | `questing` | No |
 | [regolith-control-center](https://github.com/regolith-linux/regolith-control-center) | `ubuntu/jammy` | `v1.41.20-ubuntu-jammy` | `jammy` | No |
 | [regolith-debootstick-setup](https://github.com/regolith-linux/regolith-debootstick-setup) | `main` | n/a | `trixie` | No |
 | [regolith-default-settings](https://github.com/regolith-linux/regolith-default-settings) | `main` | `v2.0.6` | `focal` | No |
@@ -80,7 +80,7 @@ the latest commit in the git ref defined in `unstable/` package model file.
 | [regolith-rofi-config](https://github.com/regolith-linux/regolith-rofi-config) | `master` | `v1.4.2-2` | `focal` | No |
 | [regolith-session](https://github.com/regolith-linux/regolith-session) | `debian-bookworm` | `v1.1.14-3-debian-bookworm-debian-bookworm` | `jammy` | No |
 | [regolith-session](https://github.com/regolith-linux/regolith-session) | `fix/trixie-session-init-1094494` | `fix/trixie-session-init-1094494` | `trixie` | [Yes](https://github.com/regolith-linux/regolith-session/compare/fix/trixie-session-init-1094494...fix/trixie-session-init-1094494) |
-| [regolith-session](https://github.com/regolith-linux/regolith-session) | `main` | `v1.1.14-1` | `jammy` | [Yes](https://github.com/regolith-linux/regolith-session/compare/v1.1.14-1...main) |
+| [regolith-session](https://github.com/regolith-linux/regolith-session) | `main` | `v1.1.15-1` | `jammy` | No |
 | [regolith-sway-touchpad-gestures](https://github.com/regolith-linux/regolith-sway-touchpad-gestures) | `main` | `v0.1.0-4` | `noble` | No |
 | [regolith-system-ubuntu](https://github.com/regolith-linux/regolith-system-ubuntu) | `main` | `v1.0.1-1` | `focal` | No |
 | [regolith-unclutter-xfixes](https://github.com/regolith-linux/regolith-unclutter-xfixes) | `master` | `v1.5-4` | `bionic` | No |
