@@ -1,7 +1,7 @@
 {
   "packages": {
     "regolith-control-center": {
-      "ref": "regolith/49",
+      "ref": "v1.49.0-3-gnome-49",
       "source": "https://github.com/regolith-linux/regolith-control-center.git"
     },
     "sway-regolith": {
