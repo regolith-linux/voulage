@@ -9,7 +9,7 @@
       "source": "https://github.com/regolith-linux/regolith-control-center.git"
     },
     "regolith-session": {
-      "ref": "fix/trixie-session-init-1094494",
+      "ref": "debian/trixie",
       "source": "https://github.com/regolith-linux/regolith-session.git"
     },
     "sway-regolith": {
