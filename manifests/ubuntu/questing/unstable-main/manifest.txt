@@ -27,7 +27,7 @@ regolith-compositor-compton-glx https://github.com/regolith-linux/regolith-compo
 regolith-compositor-none https://github.com/regolith-linux/regolith-compositor-none.git master 92ad520ff076ceb8b9d905956921b5bed2a5667d
 regolith-compositor-picom-glx https://github.com/regolith-linux/regolith-compositor-picom-glx.git master 5714ba4cd560f90a4ad3c7df540b37b8edc628c0
 regolith-compositor-xcompmgr https://github.com/regolith-linux/regolith-compositor-xcompmgr.git master 7f58479108c3cab02b12c87ebb068cf6dffdc5a6
-regolith-control-center https://github.com/regolith-linux/regolith-control-center.git regolith/49 f98d30dfd2c1bf1f647bd7db3f1e16586264f577
+regolith-control-center https://github.com/regolith-linux/regolith-control-center.git regolith/49 84883155cd122eb2f4099d3de1b41d3f6e1a27a1
 regolith-default-settings https://github.com/regolith-linux/regolith-default-settings.git main 30561565b12a4595f7238bc73ca72706138e8101
 regolith-desktop https://github.com/regolith-linux/regolith-desktop.git main b066f06dbd92f18db7ff67a21b4b01034a4449ac
 regolith-displayd https://github.com/regolith-linux/regolith-displayd.git master d98390898649a3902abf8d3c3baca723a35a564d
