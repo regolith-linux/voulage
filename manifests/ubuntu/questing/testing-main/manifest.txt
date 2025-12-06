@@ -1,0 +1,1 @@
+regolith-session https://github.com/regolith-linux/regolith-session.git v1.1.15-1 6bc5c64899643ca222bf7623a9b5e7dc947fb118
