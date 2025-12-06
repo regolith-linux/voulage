@@ -46,7 +46,7 @@ the latest commit in the git ref defined in `unstable/` package model file.
 | [i3-snapshot](https://github.com/regolith-linux/i3-snapshot) | `master` | `v1.1-2ubuntu1-ppa1` | `bionic` | No |
 | [i3-swap-focus](https://github.com/regolith-linux/i3-swap-focus) | `master` | `v0.4.5` | `focal` | No |
 | [i3-wm](https://github.com/regolith-linux/i3-wm) | `main` | `v4.22-3` | `unstable` | No |
-| [ilia](https://github.com/regolith-linux/ilia) | `main` | `v0.17.0` | `jammy` | [Yes](https://github.com/regolith-linux/ilia/compare/v0.17.0...main) |
+| [ilia](https://github.com/regolith-linux/ilia) | `main` | `v0.18.0` | `jammy` | No |
 | [lago](https://github.com/regolith-linux/lago) | `main` | `v0.2.0-2` | `focal` | No |
 | [libtrawldb](https://github.com/regolith-linux/libtrawldb) | `master` | `v0.1-4` | `focal` | No |
 | [nordic](https://github.com/regolith-linux/nordic) | `main` | `v2.1.0-3` | `focal` | No |
@@ -75,7 +75,7 @@ the latest commit in the git ref defined in `unstable/` package model file.
 | [regolith-lightdm-config](https://github.com/regolith-linux/regolith-lightdm-config) | `master` | `v1.3.8` | `jammy` | No |
 | [regolith-look-default](https://github.com/regolith-linux/regolith-look-default) | `main` | `v0.8.4` | `focal` | No |
 | [regolith-look-extra](https://github.com/regolith-linux/regolith-look-extra) | `main` | `v0.9.3` | `jammy` | No |
-| [regolith-powerd](https://github.com/regolith-linux/regolith-powerd) | `master` | `v0.6.0` | `jammy` | [Yes](https://github.com/regolith-linux/regolith-powerd/compare/v0.6.0...master) |
+| [regolith-powerd](https://github.com/regolith-linux/regolith-powerd) | `master` | `v0.7.0` | `jammy` | No |
 | [regolith-rofication](https://github.com/regolith-linux/regolith-rofication) | `master` | `v1.5.3` | `focal` | No |
 | [regolith-rofi-config](https://github.com/regolith-linux/regolith-rofi-config) | `master` | `v1.4.2-2` | `focal` | No |
 | [regolith-session](https://github.com/regolith-linux/regolith-session) | `debian-bookworm` | `v1.1.14-3-debian-bookworm-debian-bookworm` | `jammy` | No |
@@ -84,7 +84,7 @@ the latest commit in the git ref defined in `unstable/` package model file.
 | [regolith-sway-touchpad-gestures](https://github.com/regolith-linux/regolith-sway-touchpad-gestures) | `main` | `v0.1.0-4` | `noble` | No |
 | [regolith-system-ubuntu](https://github.com/regolith-linux/regolith-system-ubuntu) | `main` | `v1.0.1-1` | `focal` | No |
 | [regolith-unclutter-xfixes](https://github.com/regolith-linux/regolith-unclutter-xfixes) | `master` | `v1.5-4` | `bionic` | No |
-| [regolith-wm-config](https://github.com/regolith-linux/regolith-wm-config) | `main` | `v4.11.10` | `jammy` | [Yes](https://github.com/regolith-linux/regolith-wm-config/compare/v4.11.10...main) |
+| [regolith-wm-config](https://github.com/regolith-linux/regolith-wm-config) | `main` | `v4.11.11` | `jammy` | No |
 | [remontoire](https://github.com/regolith-linux/remontoire) | `master` | `v1.4.4` | `focal` | No |
 | [solarc-theme](https://github.com/regolith-linux/solarc-theme) | `master` | `v800c997-5` | `focal` | No |
 | [sway-audio-idle-inhibit](https://github.com/regolith-linux/SwayAudioIdleInhibit) | `main` | `v2.0.0` | `jammy` | No |
