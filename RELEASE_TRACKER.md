@@ -79,7 +79,7 @@ the latest commit in the git ref defined in `unstable/` package model file.
 | [regolith-rofication](https://github.com/regolith-linux/regolith-rofication) | `master` | `v1.5.3` | `focal` | No |
 | [regolith-rofi-config](https://github.com/regolith-linux/regolith-rofi-config) | `master` | `v1.4.2-2` | `focal` | No |
 | [regolith-session](https://github.com/regolith-linux/regolith-session) | `debian-bookworm` | `v1.1.14-3-debian-bookworm-debian-bookworm` | `jammy` | No |
-| [regolith-session](https://github.com/regolith-linux/regolith-session) | `fix/trixie-session-init-1094494` | `fix/trixie-session-init-1094494` | `trixie` | [Yes](https://github.com/regolith-linux/regolith-session/compare/fix/trixie-session-init-1094494...fix/trixie-session-init-1094494) |
+| [regolith-session](https://github.com/regolith-linux/regolith-session) | `debian/trixie` | `debian/trixie` | `trixie` | [Yes](https://github.com/regolith-linux/regolith-session/compare/debian/trixie...debian/trixie) |
 | [regolith-session](https://github.com/regolith-linux/regolith-session) | `main` | `v1.1.15-1` | `jammy` | No |
 | [regolith-sway-touchpad-gestures](https://github.com/regolith-linux/regolith-sway-touchpad-gestures) | `main` | `v0.1.0-4` | `noble` | No |
 | [regolith-system-ubuntu](https://github.com/regolith-linux/regolith-system-ubuntu) | `main` | `v1.0.1-1` | `focal` | No |
