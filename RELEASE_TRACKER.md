@@ -62,7 +62,7 @@ the latest commit in the git ref defined in `unstable/` package model file.
 | [regolith-control-center](https://github.com/regolith-linux/regolith-control-center) | `regolith/1%43.0-1` | `v1.43.1-9-gnome-43` | `lunar` | No |
 | [regolith-control-center](https://github.com/regolith-linux/regolith-control-center) | `regolith/46` | `v1.46.0-5-gnome-46` | `noble` | No |
 | [regolith-control-center](https://github.com/regolith-linux/regolith-control-center) | `regolith/48` | `v1.48.1-10-gnome-48` | `plucky` | No |
-| [regolith-control-center](https://github.com/regolith-linux/regolith-control-center) | `regolith/49` | `` | `questing` | [Yes](https://github.com/regolith-linux/regolith-control-center/compare/...regolith/49) |
+| [regolith-control-center](https://github.com/regolith-linux/regolith-control-center) | `regolith/49` | `regolith/49` | `questing` | [Yes](https://github.com/regolith-linux/regolith-control-center/compare/regolith/49...regolith/49) |
 | [regolith-control-center](https://github.com/regolith-linux/regolith-control-center) | `ubuntu/jammy` | `v1.41.20-ubuntu-jammy` | `jammy` | No |
 | [regolith-debootstick-setup](https://github.com/regolith-linux/regolith-debootstick-setup) | `main` | n/a | `trixie` | No |
 | [regolith-default-settings](https://github.com/regolith-linux/regolith-default-settings) | `main` | `v2.0.6` | `focal` | No |
@@ -90,7 +90,6 @@ the latest commit in the git ref defined in `unstable/` package model file.
 | [sway-audio-idle-inhibit](https://github.com/regolith-linux/SwayAudioIdleInhibit) | `main` | `v2.0.0` | `jammy` | No |
 | [sway-regolith](https://github.com/regolith-linux/sway-regolith) | `packaging/v1.7-regolith` | `v1.7-9-ubuntu-jammy` | `jammy` | No |
 | [sway-regolith](https://github.com/regolith-linux/sway-regolith) | `packaging/v1.9-regolith` | `v1.9-18` | `noble` | No |
-| [sway-regolith](https://github.com/regolith-linux/sway-regolith) | `packaging/v1.10-regolith` | `` | `trixie` | No |
 | [sway-regolith](https://github.com/regolith-linux/sway-regolith) | `packaging/v1.10-regolith` | `v1.10-2` | `trixie` | No |
 | [trawl](https://github.com/regolith-linux/trawl) | `master` | `v0.2.5-1` | `focal` | No |
 | [ubiquity-slideshow-regolith](https://github.com/regolith-linux/ubiquity-slideshow-regolith) | `master` | `v202` | `jammy` | No |
