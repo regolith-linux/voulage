@@ -1,3 +1,4 @@
 libtrawldb https://github.com/regolith-linux/libtrawldb.git v0.1-4 30fbc55cf6e6f90f35c9fe0b4067d2ece3e513c4
 regolith-control-center https://github.com/regolith-linux/regolith-control-center.git v1.49.0-3-gnome-49 86a57afeed6f924dfae9eab5e84c0349370133bb
 regolith-session https://github.com/regolith-linux/regolith-session.git v1.1.15-1 6bc5c64899643ca222bf7623a9b5e7dc947fb118
+trawl https://github.com/regolith-linux/trawl.git v0.2.5-1 50436431fd6bc3b98e32ab328034387c1b0566ee
