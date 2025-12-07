@@ -158,6 +158,26 @@ build_packages() {
   echo "Completed building packages: $PACKAGE_CHANGES"
 }
 
+update_manifest_file() {
+  while IFS= read -r line; do
+    pkg_name=$(echo "$line" | cut -d" " -f1)
+    pkg_repo=$(echo "$line" | cut -d" " -f2)
+    pkg_ref=$(echo "$line" | cut -d" " -f3)
+    pkg_sha=$(echo "$line" | cut -d" " -f4)
+
+    if ! grep "^${pkg_name} " "$PREV_MANIFEST_FILE" >/dev/null; then
+      echo "${pkg_name} ${pkg_repo} ${pkg_ref} ${pkg_sha}" >> "$PREV_MANIFEST_FILE"
+    fi
+    sed -i -E "s|^${pkg_name}[[:space:]](.*)$|${pkg_name} ${pkg_repo} ${pkg_ref} ${pkg_sha}|g" "$PREV_MANIFEST_FILE"
+  done < "$NEXT_MANIFEST_FILE"
+
+  # always sort the file
+  sort -o "$PREV_MANIFEST_FILE" "$PREV_MANIFEST_FILE"
+
+  # cleanup temporary manifest tile
+  rm "$NEXT_MANIFEST_FILE"
+}
+
 #### Init input params
 
 usage() {
@@ -407,8 +427,9 @@ if [ "$MODE" == "build" ]; then
 
   archive_cleanup_scripts
 
-  rm "$PREV_MANIFEST_FILE"
-  mv "$NEXT_MANIFEST_FILE" "$PREV_MANIFEST_FILE"
+  #### Update Manifests
+
+  update_manifest_file
 else
   echo "$PACKAGE_CHANGES"
 fi
