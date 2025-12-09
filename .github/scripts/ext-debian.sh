@@ -62,9 +62,15 @@ stage_source() {
 
     if [ -s "${debian_package_name}_${debian_version}-existing.orig.tar.gz" ]; then
       echo -e "\033[0;34mChecking if existing is the same as the one just built...\033[0m"
-      existing_md5sum="$(md5sum "${debian_package_name}_${debian_version}-existing.orig.tar.gz" | awk '{print $1}')"
-      current_md5sum="$(md5sum "${debian_package_name}_${debian_version}.orig.tar.gz" | awk '{print $1}')"
-      if [ "$existing_md5sum" != "$current_md5sum" ]; then
+
+      tmp=$(mktemp -d)
+      mkdir -p "${tmp}/current"
+      mkdir -p "${tmp}/existing"
+
+      tar -xzf "${debian_package_name}_${debian_version}.orig.tar.gz" -C "${tmp}/current"
+      tar -xzf "${debian_package_name}_${debian_version}-existing.orig.tar.gz" -C "${tmp}/existing"
+
+      if ! diff "${tmp}/current" "${tmp}/existing"; then
         # existing .orig.tar.gz file is different that the one we just built
         # keep the one we just built and override push it to the repository.
         rm -f "${debian_package_name}_${debian_version}-existing.orig.tar.gz" || true
@@ -80,6 +86,9 @@ stage_source() {
         echo "  They are the same."
         rm -f "${debian_package_name}_${debian_version}.orig.tar.gz" || true
         mv "${debian_package_name}_${debian_version}-existing.orig.tar.gz" "${debian_package_name}_${debian_version}.orig.tar.gz"
+      fi
+      if [ -n "$tmp" ]; then
+        rm -rf "$tmp" || true
       fi
     else
       # there's no existing .orig.tar.gz file! Clean up the empty downloaded file.
