@@ -70,7 +70,7 @@ stage_source() {
       tar -xzf "${debian_package_name}_${debian_version}.orig.tar.gz" -C "${tmp}/current"
       tar -xzf "${debian_package_name}_${debian_version}-existing.orig.tar.gz" -C "${tmp}/existing"
 
-      if ! diff "${tmp}/current/*/" "${tmp}/existing/*/"; then
+      if ! diff ${tmp}/current/*/ ${tmp}/existing/*/; then
         # existing .orig.tar.gz file is different that the one we just built
         # keep the one we just built and override push it to the repository.
         rm -f "${debian_package_name}_${debian_version}-existing.orig.tar.gz" || true
