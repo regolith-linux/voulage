@@ -1,0 +1,21 @@
+{
+  "packages": {
+    "i3status-rs": {
+      "ref": "v0.22.2-2-ubuntu-jammy",
+      "source": "https://github.com/regolith-linux/i3status-rs_debian.git"
+    },
+    "regolith-control-center": {
+      "ref": "v1.48.1-10-gnome-48",
+      "source": "https://github.com/regolith-linux/regolith-control-center.git"
+    },
+    "regolith-session": {
+      "ref": "v1.1.15-4-debian-trixie",
+      "source": "https://github.com/regolith-linux/regolith-session.git"
+    },
+    "sway-regolith": {
+      "ref": "v1.10-2",
+      "source": "https://github.com/regolith-linux/sway-regolith.git"
+    },
+    "ubiquity-slideshow-regolith": null
+  }
+}
