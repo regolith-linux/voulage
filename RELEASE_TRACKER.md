@@ -40,7 +40,7 @@ the latest commit in the git ref defined in `unstable/` package model file.
 | [gruvbox-gtk](https://github.com/regolith-linux/gruvbox-gtk) | `master` | `v1.0.2-2` | `bionic` | No |
 | [gtklock](https://github.com/regolith-linux/gtklock) | `master` | `v2.2.2` | `focal` | No |
 | [i3status-rs](https://github.com/regolith-linux/i3status-rs_debian) | `ubuntu/v0.22.0` | `v0.22.2-2-ubuntu-jammy` | `focal` | No |
-| [i3status-rs](https://github.com/regolith-linux/i3status-rs_debian) | `ubuntu/v0.32.1` | `v0.32.1-2` | `mantic` | No |
+| [i3status-rs](https://github.com/regolith-linux/i3status-rs_debian) | `ubuntu/v0.34.0` | `v0.32.1-2` | `mantic` | No |
 | [i3xrocks](https://github.com/regolith-linux/i3xrocks) | `master` | `v1.3.6-2` | `bionic` | No |
 | [i3-next-workspace](https://github.com/regolith-linux/i3-next-workspace) | `main` | `v1.0.6` | `jammy` | No |
 | [i3-snapshot](https://github.com/regolith-linux/i3-snapshot) | `master` | `v1.1-2ubuntu1-ppa1` | `bionic` | No |
@@ -80,7 +80,7 @@ the latest commit in the git ref defined in `unstable/` package model file.
 | [regolith-rofi-config](https://github.com/regolith-linux/regolith-rofi-config) | `master` | `v1.4.2-2` | `focal` | No |
 | [regolith-session](https://github.com/regolith-linux/regolith-session) | `debian-bookworm` | `v1.1.14-3-debian-bookworm-debian-bookworm` | `jammy` | No |
 | [regolith-session](https://github.com/regolith-linux/regolith-session) | `debian/trixie` | `v1.1.15-4-debian-trixie` | `trixie` | No |
-| [regolith-session](https://github.com/regolith-linux/regolith-session) | `main` | `v1.1.15-1` | `jammy` | No |
+| [regolith-session](https://github.com/regolith-linux/regolith-session) | `main` | `v1.2.0-1ubuntu1` | `noble` | No |
 | [regolith-sway-touchpad-gestures](https://github.com/regolith-linux/regolith-sway-touchpad-gestures) | `main` | `v0.1.0-4` | `noble` | No |
 | [regolith-system-ubuntu](https://github.com/regolith-linux/regolith-system-ubuntu) | `main` | `v1.0.1-1` | `focal` | No |
 | [regolith-unclutter-xfixes](https://github.com/regolith-linux/regolith-unclutter-xfixes) | `master` | `v1.5-4` | `bionic` | No |
