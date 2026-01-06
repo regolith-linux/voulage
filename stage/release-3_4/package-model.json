@@ -173,7 +173,7 @@
       "source": "https://github.com/regolith-linux/regolith-rofication.git"
     },
     "regolith-session": {
-      "ref": "v1.1.15-1",
+      "ref": "v1.2.0-1ubuntu1",
       "source": "https://github.com/regolith-linux/regolith-session.git"
     },
     "regolith-sway-touchpad-gestures": {
