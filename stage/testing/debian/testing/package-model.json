@@ -5,7 +5,7 @@
       "source": "https://github.com/regolith-linux/i3status-rs_debian.git"
     },
     "regolith-control-center": {
-      "ref": "v1.48.1-10-gnome-48",
+      "ref": "v1.49.0-3-gnome-49",
       "source": "https://github.com/regolith-linux/regolith-control-center.git"
     },
     "sway-regolith": {
