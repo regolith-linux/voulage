@@ -5,7 +5,7 @@
       "source": "https://github.com/regolith-linux/i3status-rs_debian.git"
     },
     "regolith-control-center": {
-      "ref": "regolith/48",
+      "ref": "regolith/49",
       "source": "https://github.com/regolith-linux/regolith-control-center.git"
     },
     "sway-regolith": {
