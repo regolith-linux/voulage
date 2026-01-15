@@ -12,6 +12,7 @@ verbose=false
 
 usage() {
     echo "Usage: $0 [--include-chore] [--include-merge] [--verbose] <from-stage> <to-stage>"
+    echo "  Stage format: stage/distro/codename (e.g. testing/debian/bookworm)"
     exit 1
 }
 
@@ -66,29 +67,31 @@ shift || true
 
 [ $# -eq 0 ] || usage
 
-if [ "$TO_STAGE" = "unstable" ]; then
+FROM_STAGE="${FROM_STAGE%/}"
+TO_STAGE="${TO_STAGE%/}"
+
+if [[ "$FROM_STAGE" == /* || "$FROM_STAGE" == *".."* || "$FROM_STAGE" == *"//"* ]]; then
+    echo "error: invalid from-stage path \"$FROM_STAGE\""
+    exit 1
+fi
+if [[ "$TO_STAGE" == /* || "$TO_STAGE" == *".."* || "$TO_STAGE" == *"//"* ]]; then
+    echo "error: invalid to-stage path \"$TO_STAGE\""
+    exit 1
+fi
+
+to_stage_name="${TO_STAGE%%/*}"
+
+if [ "$to_stage_name" = "unstable" ]; then
     echo "error: cannot generate changelog for unstable stage"
     exit 1
 fi
 
-if [ "$TO_STAGE" = "testing" ]; then
+if [ "$to_stage_name" = "testing" ]; then
     :
-elif [[ "$TO_STAGE" == release-* ]]; then
+elif [[ "$to_stage_name" == release-* ]]; then
     :
 else
     echo "error: stage must be testing or a release-* stage"
-    exit 1
-fi
-
-from_model_file="$REPO_ROOT/stage/$FROM_STAGE/package-model.json"
-to_model_file="$REPO_ROOT/stage/$TO_STAGE/package-model.json"
-
-if [ ! -f "$from_model_file" ]; then
-    echo "error: missing model file $from_model_file"
-    exit 1
-fi
-if [ ! -f "$to_model_file" ]; then
-    echo "error: missing model file $to_model_file"
     exit 1
 fi
 
@@ -108,6 +111,56 @@ resolve_ref() {
 tmp_dir=$(mktemp -d /tmp/changelog-XXXXXX)
 pushd "$tmp_dir" >/dev/null || exit 1
 trap 'popd >/dev/null 2>&1; rm -rf "$tmp_dir"' EXIT
+
+merge_model_tree() {
+    local stage_path="$1"
+    local output_file="$2"
+    local stage_root="$REPO_ROOT/stage"
+    local target_dir="$stage_root/$stage_path"
+
+    if [ ! -d "$target_dir" ]; then
+        echo "error: missing stage directory $target_dir"
+        exit 1
+    fi
+    if [ ! -f "$target_dir/package-model.json" ]; then
+        echo "error: missing model file $target_dir/package-model.json"
+        exit 1
+    fi
+
+    local merge_dirs=()
+    local dir="$target_dir"
+
+    while true; do
+        if [ -f "$dir/package-model.json" ]; then
+            merge_dirs+=("$dir")
+        fi
+        if [ "$dir" = "$stage_root" ]; then
+            break
+        fi
+        dir="$(dirname "$dir")"
+        if [[ "$dir" != "$stage_root"* ]]; then
+            break
+        fi
+    done
+
+    local first_file=""
+    for ((i=${#merge_dirs[@]}-1; i>=0; i--)); do
+        local model_file="${merge_dirs[$i]}/package-model.json"
+        if [ -z "$first_file" ]; then
+            cp "$model_file" "$output_file"
+            first_file="$output_file"
+            continue
+        fi
+        jq -s '.[0] * .[1]' "$output_file" "$model_file" > "${output_file}.tmp"
+        mv "${output_file}.tmp" "$output_file"
+    done
+}
+
+from_model_file="$tmp_dir/from-model.json"
+to_model_file="$tmp_dir/to-model.json"
+
+merge_model_tree "$FROM_STAGE" "$from_model_file"
+merge_model_tree "$TO_STAGE" "$to_model_file"
 
 output_target="stdout"
 if [ -t 1 ]; then
