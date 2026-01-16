@@ -170,7 +170,10 @@ else
 fi
 vprint "writing changelog to $output_target"
 
-echo "# Changelog for stage \"$TO_STAGE\" (from \"$FROM_STAGE\")"
+target_label="${TO_STAGE#*/}"
+target_label="${target_label//\// }"
+from_label="${FROM_STAGE%%/*}"
+echo "# Changes in \`$target_label\` since \`$from_label\`"
 
 while IFS='' read -r package; do
     package_name="$package"
