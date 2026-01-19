@@ -28,6 +28,7 @@ on:
           - release-3_1
           - release-3_2
           - release-3_3
+          - release-3_4
         required: true
         default: "unstable"
       distro:
@@ -100,17 +101,17 @@ jobs:
         id: calc-matrix
         run: |
           debian_bullseye=(unstable testing stable release-3_0 release-3_1)
-          debian_bookworm=(unstable testing stable release-3_2 release-3_3)
-          debian_trixie=(unstable testing stable release-3_3)
+          debian_bookworm=(unstable testing stable release-3_2 release-3_3 release-3_4)
+          debian_trixie=(unstable testing stable release-3_3 release-3_4)
           debian_testing=(unstable testing) # testing is never released
           ubuntu_focal=(unstable testing stable release-3_0 release-3_1)
-          ubuntu_jammy=(unstable testing stable release-3_0 release-3_1 release-3_2 release-3_3)
+          ubuntu_jammy=(unstable testing stable release-3_0 release-3_1 release-3_2 release-3_3 release-3_4)
           ubuntu_lunar=(unstable testing stable release-3_0)
           ubuntu_mantic=(unstable testing stable release-3_1)
-          ubuntu_noble=(unstable testing stable release-3_2 release-3_3)
+          ubuntu_noble=(unstable testing stable release-3_2 release-3_3 release-3_4)
           ubuntu_oracular=(unstable testing stable release-3_3)
-          ubuntu_plucky=(unstable testing stable release-3_3)
-          ubuntu_questing=(unstable testing)
+          ubuntu_plucky=(unstable testing stable release-3_3 release-3_4)
+          ubuntu_questing=(unstable testing stable release-3_4)
 
           debian_bullseye_list=()
           debian_bookworm_list=()
@@ -207,6 +208,7 @@ jobs:
             --argjson release-3_1 "$(jq -n -c --arg suite "stable" --arg component "v3.1" '$ARGS.named')" \
             --argjson release-3_2 "$(jq -n -c --arg suite "stable" --arg component "v3.2" '$ARGS.named')" \
             --argjson release-3_3 "$(jq -n -c --arg suite "stable" --arg component "v3.3" '$ARGS.named')" \
+            --argjson release-3_4 "$(jq -n -c --arg suite "stable" --arg component "v3.4" '$ARGS.named')" \
             '$ARGS.named'\
           )" '$ARGS.named')
 

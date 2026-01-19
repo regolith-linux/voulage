@@ -33,6 +33,7 @@ on:
           - release-3_1
           - release-3_2
           - release-3_3
+          - release-3_4
         required: true
         default: "unstable"
       distro:
@@ -196,6 +197,7 @@ jobs:
             --argjson release-3_1 "$(jq -n -c --arg suite "stable" --arg component "3.1" '$ARGS.named')" \
             --argjson release-3_2 "$(jq -n -c --arg suite "stable" --arg component "3.2" '$ARGS.named')" \
             --argjson release-3_3 "$(jq -n -c --arg suite "stable" --arg component "3.3" '$ARGS.named')" \
+            --argjson release-3_4 "$(jq -n -c --arg suite "stable" --arg component "3.4" '$ARGS.named')" \
             '$ARGS.named'\
           )" '$ARGS.named')
 
