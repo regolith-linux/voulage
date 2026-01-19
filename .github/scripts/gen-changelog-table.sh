@@ -127,33 +127,12 @@ merge_model_tree() {
         exit 1
     fi
 
-    local merge_dirs=()
-    local dir="$target_dir"
-
-    while true; do
-        if [ -f "$dir/package-model.json" ]; then
-            merge_dirs+=("$dir")
-        fi
-        if [ "$dir" = "$stage_root" ]; then
-            break
-        fi
-        dir="$(dirname "$dir")"
-        if [[ "$dir" != "$stage_root"* ]]; then
-            break
-        fi
-    done
-
-    local first_file=""
-    for ((i=${#merge_dirs[@]}-1; i>=0; i--)); do
-        local model_file="${merge_dirs[$i]}/package-model.json"
-        if [ -z "$first_file" ]; then
-            cp "$model_file" "$output_file"
-            first_file="$output_file"
-            continue
-        fi
+    if [ -f "$target_dir/package-model.json" ]; then
+        local model_file="${target_dir}/package-model.json"
+        cp "$model_file" "$output_file"
         jq -s '.[0] * .[1]' "$output_file" "$model_file" > "${output_file}.tmp"
         mv "${output_file}.tmp" "$output_file"
-    done
+    fi
 }
 
 from_model_file="$tmp_dir/from-model.json"
@@ -173,7 +152,8 @@ vprint "writing changelog to $output_target"
 target_label="${TO_STAGE#*/}"
 target_label="${target_label//\// }"
 from_label="${FROM_STAGE%%/*}"
-echo "# Changes in \`$target_label\` since \`$from_label\`"
+echo "## Changes in \`$target_label\` since Regolith \`$from_label\`"
+echo ""
 
 while IFS='' read -r package; do
     package_name="$package"
@@ -205,7 +185,7 @@ while IFS='' read -r package; do
 
     log_args=(log "${resolved_from_ref}..${resolved_to_ref}")
     $skip_merge && log_args+=(--no-merges)
-    log_args+=(--pretty=format:'%H%x09%s')
+    log_args+=(--pretty=format:'%h%x09%s')
     commit_log=$(git "${log_args[@]}")
     filtered_commit_log=""
 
@@ -222,14 +202,16 @@ while IFS='' read -r package; do
         if $skip_merge && [[ $commit_subject == Merge* ]]; then
             continue
         fi
-        filtered_commit_log+="- [$commit_subject](${package_repo}/commit/${commit_hash})"$'\n'
+        filtered_commit_log+="$commit_hash $commit_subject"$'\n'
     done <<< "$commit_log"
 
     if [ -n "$filtered_commit_log" ]; then
         compare_ref="${from_ref}...${to_ref}"
-        echo "## [$package_name](${package_repo})"
-        echo "### [${from_ref}...${to_ref}](${package_repo}/compare/${compare_ref})"
+        echo "### Changes in [\`$package_name\`](${package_repo}/releases/${to_ref})"
+        echo ""
+        echo "\`\`\`text"
         printf "%s" "$filtered_commit_log"
+        echo "\`\`\`"
         echo ""
     fi
 
