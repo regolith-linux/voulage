@@ -1,2 +1,6 @@
 libtrawldb https://github.com/regolith-linux/libtrawldb.git v0.1-4 30fbc55cf6e6f90f35c9fe0b4067d2ece3e513c4
+plymouth-theme-regolith https://github.com/regolith-linux/plymouth-theme-regolith.git v1.2.3 860a62bb530577ada9c0f43a6a2310cd8ac44c9b
+regolith-archive-keyring https://github.com/regolith-linux/regolith-archive-keyring.git v0.1.0 4416a8d0aac2da17730155547760d189b3bf6dd5
+remontoire https://github.com/regolith-linux/remontoire.git v1.4.4 edfddca1fda4d834dade26e792d356c498b5f0eb
+sway-regolith https://github.com/regolith-linux/sway-regolith.git v1.10-2 78324052051637ffc1e5eb0eefe06bc1af900c8c
 trawl https://github.com/regolith-linux/trawl.git v0.2.5-1 50436431fd6bc3b98e32ab328034387c1b0566ee
