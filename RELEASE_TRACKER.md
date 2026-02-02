@@ -93,8 +93,8 @@ the latest commit in the git ref defined in `unstable/` package model file.
 | [trawl](https://github.com/regolith-linux/trawl) | `master` | `v0.2.5-1` | `focal` | No |
 | [ubiquity-slideshow-regolith](https://github.com/regolith-linux/ubiquity-slideshow-regolith) | `master` | `v202` | `jammy` | No |
 | [whitesur-gtk-theme](https://github.com/regolith-linux/WhiteSur-gtk-theme) | `debian` | `v1.1-2025.10.13` | `focal` | No |
-| [xdg-desktop-portal-regolith](https://github.com/regolith-linux/xdg-desktop-portal-regolith) | `debian-bookworm` | `v0.3.9-2-debian-bookworm` | `jammy` | No |
-| [xdg-desktop-portal-regolith](https://github.com/regolith-linux/xdg-desktop-portal-regolith) | `main` | `v0.3.9-1` | `jammy` | No |
-| [xdg-desktop-portal-regolith](https://github.com/regolith-linux/xdg-desktop-portal-regolith) | `ubuntu/jammy` | `v0.3.9-3-ubuntu-jammy` | `jammy` | No |
+| [xdg-desktop-portal-regolith](https://github.com/regolith-linux/xdg-desktop-portal-regolith) | `debian-bookworm` | `v0.3.10-2-debian-bookworm` | `jammy` | No |
+| [xdg-desktop-portal-regolith](https://github.com/regolith-linux/xdg-desktop-portal-regolith) | `main` | `v0.3.10-1` | `jammy` | No |
+| [xdg-desktop-portal-regolith](https://github.com/regolith-linux/xdg-desktop-portal-regolith) | `ubuntu/jammy` | `v0.3.10-3-ubuntu-jammy` | `jammy` | No |
 | [xrescat](https://github.com/regolith-linux/xrescat) | `master` | `v1.2.1-4` | `focal` | No |
 <!-- AUTO_GENERATE_END -->
