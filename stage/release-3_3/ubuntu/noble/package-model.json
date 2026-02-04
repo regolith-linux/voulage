@@ -1,4 +1,8 @@
 {
   "packages": {
+    "xdg-desktop-portal-regolith": {
+      "ref": "v0.3.7-3-ubuntu-jammy",
+      "source": "https://github.com/regolith-linux/xdg-desktop-portal-regolith.git"
+    }
   }
 }
