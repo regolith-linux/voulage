@@ -23,7 +23,7 @@
       "source": "https://github.com/regolith-linux/sway-regolith.git"
     },
     "xdg-desktop-portal-regolith": {
-      "ref": "ubuntu/jammy",
+      "ref": "xdg-desktop-portal-1_18",
       "source": "https://github.com/regolith-linux/xdg-desktop-portal-regolith.git"
     }
   }
