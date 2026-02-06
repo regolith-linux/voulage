@@ -7,6 +7,10 @@
     "sway-regolith": {
       "ref": "v1.10-2",
       "source": "https://github.com/regolith-linux/sway-regolith.git"
+    },
+    "xdg-desktop-portal-regolith": {
+      "ref": "release/1.18",
+      "source": "https://github.com/regolith-linux/xdg-desktop-portal-regolith.git"
     }
   }
 }

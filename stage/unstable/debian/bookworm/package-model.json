@@ -23,7 +23,7 @@
     "trawl": null,
     "ubiquity-slideshow-regolith": null,
     "xdg-desktop-portal-regolith": {
-      "ref": "debian-bookworm",
+      "ref": "release/1.18",
       "source": "https://github.com/regolith-linux/xdg-desktop-portal-regolith.git"
     }
   }
