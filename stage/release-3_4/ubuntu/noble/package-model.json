@@ -1,7 +1,7 @@
 {
   "packages": {
     "xdg-desktop-portal-regolith": {
-      "ref": "v0.3.11-3-ubuntu-noble",
+      "ref": "v0.3.11-3",
       "source": "https://github.com/regolith-linux/xdg-desktop-portal-regolith.git"
     }
   }

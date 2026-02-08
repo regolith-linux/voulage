@@ -9,7 +9,7 @@
       "source": "https://github.com/regolith-linux/sway-regolith.git"
     },
     "xdg-desktop-portal-regolith": {
-      "ref": "v0.3.11-3-ubuntu-plucky",
+      "ref": "v0.3.11-3",
       "source": "https://github.com/regolith-linux/xdg-desktop-portal-regolith.git"
     }
   }
