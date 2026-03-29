@@ -1,9 +1,7 @@
 {
   "packages": {
-    "regolith-control-center": {
-      "ref": "regolith/49",
-      "source": "https://github.com/regolith-linux/regolith-control-center.git"
-    },
+    "regolith-control-center": null,
+    "i3-snapshot": null,
     "sway-regolith": {
       "ref": "packaging/v1.11-regolith",
       "source": "https://github.com/regolith-linux/sway-regolith.git"
