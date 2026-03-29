@@ -3,9 +3,6 @@
     "regolith-control-center": null,
     "i3-snapshot": null,
     "regolith-displayd": null,
-    "sway-regolith": {
-      "ref": "packaging/v1.11-regolith",
-      "source": "https://github.com/regolith-linux/sway-regolith.git"
-    }
+    "sway-regolith": null
   }
 }
