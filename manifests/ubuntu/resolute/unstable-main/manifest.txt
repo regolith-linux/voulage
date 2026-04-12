@@ -1,0 +1,1 @@
+regolith-displayd https://github.com/regolith-linux/regolith-displayd.git master 6c94fd552f3a4c553a58b33678e1f0d7beb2a30e
