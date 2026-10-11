@@ -1,6 +1,5 @@
 {
   "packages": {
-    "armesto": null,
     "regolith-control-center": {
       "ref": "regolith/50",
       "source": "https://github.com/regolith-linux/regolith-control-center.git"
