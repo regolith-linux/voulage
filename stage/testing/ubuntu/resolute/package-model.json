@@ -1,9 +1,13 @@
 {
   "packages": {
+    "armesto": null,
     "regolith-control-center": {
       "ref": "regolith/50",
       "source": "https://github.com/regolith-linux/regolith-control-center.git"
     },
-    "sway-regolith": null
+    "sway-regolith": {
+      "ref": "packaging/v1.11-regolith",
+      "source": "https://github.com/regolith-linux/sway-regolith.git"
+    }
   }
 }
