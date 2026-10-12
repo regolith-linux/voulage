@@ -458,6 +458,7 @@ jobs:
     with:
       pull-from: /opt/archives/workspace/
       push-to: /opt/archives/packages/
+      only-codename: ${{ inputs.codename }}
     secrets: inherit
 
   # publish archives
@@ -467,6 +468,7 @@ jobs:
     uses: ./.github/workflows/publish-packages.yml
     with:
       packages-path: /opt/archives/packages/
+      only-codename: ${{ inputs.codename }}
     secrets: inherit
 
   # update manifests
