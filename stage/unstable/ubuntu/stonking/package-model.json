@@ -1,0 +1,9 @@
+{
+  "packages": {
+    "regolith-control-center": null,
+    "sway-regolith": {
+      "ref": "package-sway-v1.12",
+      "source": "https://github.com/regolith-linux/sway-regolith.git"
+    }
+  }
+}
