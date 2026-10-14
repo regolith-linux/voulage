@@ -42,8 +42,8 @@ for stage in unstable testing; do
   fi
 
   rcc=$(echo "$stonking" | jq -c '.packages["regolith-control-center"]')
-  if [ "$rcc" != "null" ]; then
-    echo "FAIL: $stage: regolith-control-center is $rcc, expected null until a GNOME 51 branch exists"
+  if [ "$rcc" != '{"ref":"regolith/51","source":"https://github.com/regolith-linux/regolith-control-center.git"}' ]; then
+    echo "FAIL: $stage: regolith-control-center is $rcc, expected regolith/51 (GNOME 51)"
     fail=1
   fi
 
