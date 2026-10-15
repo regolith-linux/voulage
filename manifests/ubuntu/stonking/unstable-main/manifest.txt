@@ -1,1 +1,2 @@
 regolith-powerd https://github.com/regolith-linux/regolith-powerd.git master 7a56d496961c7eb02b65b4cdcc18cf28edc8830e
+regolith-session https://github.com/regolith-linux/regolith-session.git main f602885800880b933b3abac9502a515bb42799f7
