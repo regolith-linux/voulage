@@ -1,0 +1,1 @@
+regolith-powerd https://github.com/regolith-linux/regolith-powerd.git master 7a56d496961c7eb02b65b4cdcc18cf28edc8830e
