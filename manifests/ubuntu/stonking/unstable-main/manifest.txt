@@ -1,3 +1,4 @@
+i3xrocks https://github.com/regolith-linux/i3xrocks.git master 4c30d060b77ddef3f01152dc27457db341f16a43
 ilia https://github.com/regolith-linux/ilia.git main 1ee8454e959900746d848fe0d490c60077cbc731
 regolith-look-extra https://github.com/regolith-linux/regolith-look-extra.git main 9f49a6e2bdda66e5e6dcfe64deec2901fc2649fc
 regolith-powerd https://github.com/regolith-linux/regolith-powerd.git master 7a56d496961c7eb02b65b4cdcc18cf28edc8830e
