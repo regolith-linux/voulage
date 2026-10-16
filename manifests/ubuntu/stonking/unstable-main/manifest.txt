@@ -3,3 +3,4 @@ ilia https://github.com/regolith-linux/ilia.git main 1ee8454e959900746d848fe0d49
 regolith-look-extra https://github.com/regolith-linux/regolith-look-extra.git main 9f49a6e2bdda66e5e6dcfe64deec2901fc2649fc
 regolith-powerd https://github.com/regolith-linux/regolith-powerd.git master 7a56d496961c7eb02b65b4cdcc18cf28edc8830e
 regolith-session https://github.com/regolith-linux/regolith-session.git main bd7b18358adeb9f6bda3c4dcf1fe4295d467ef4d
+xdg-desktop-portal-regolith https://github.com/regolith-linux/xdg-desktop-portal-regolith.git main b9c6d7264fbebcc24c891ab966f7140b955a6f30

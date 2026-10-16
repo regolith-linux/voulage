@@ -53,5 +53,5 @@ sway-regolith https://github.com/regolith-linux/sway-regolith.git packaging/v1.1
 trawl https://github.com/regolith-linux/trawl.git master 39b50d5340842d14d89591ace2f2b7c6158065e4
 ubiquity-slideshow-regolith https://github.com/regolith-linux/ubiquity-slideshow-regolith.git master 1a5577a1a69e48908190f370c786628704f7902d
 whitesur-gtk-theme https://github.com/regolith-linux/WhiteSur-gtk-theme.git debian df5c5b2de2d6209d32fd8fb6812a55618ab2191f
-xdg-desktop-portal-regolith https://github.com/regolith-linux/xdg-desktop-portal-regolith.git main ff833f3ee81326a4134ff7a10d53bb9993b13b9a
+xdg-desktop-portal-regolith https://github.com/regolith-linux/xdg-desktop-portal-regolith.git main b9c6d7264fbebcc24c891ab966f7140b955a6f30
 xrescat https://github.com/regolith-linux/xrescat.git master 3e6823bbc6b642ac28865ffbd6b2049c4ac8d336
