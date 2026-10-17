@@ -49,7 +49,7 @@ regolith-wm-config https://github.com/regolith-linux/regolith-wm-config.git main
 remontoire https://github.com/regolith-linux/remontoire.git master d9404fcd973f4fc6ce8514c411ceb61915269386
 solarc-theme https://github.com/regolith-linux/solarc-theme.git master 47f171b6379640c8bbd69d61a60ac917cdc58f59
 sway-audio-idle-inhibit https://github.com/regolith-linux/SwayAudioIdleInhibit.git main ad4774c9219dea35d16f3210705c2ab95dc772dd
-sway-regolith https://github.com/regolith-linux/sway-regolith.git packaging/v1.11-regolith 637893954cb44ffd61342df6cdac450f8f322064
+sway-regolith https://github.com/regolith-linux/sway-regolith.git packaging/v1.11-regolith 90d459fc8a5b4a1091ff6c7bca28784c60ecafec
 trawl https://github.com/regolith-linux/trawl.git master 39b50d5340842d14d89591ace2f2b7c6158065e4
 ubiquity-slideshow-regolith https://github.com/regolith-linux/ubiquity-slideshow-regolith.git master 1a5577a1a69e48908190f370c786628704f7902d
 whitesur-gtk-theme https://github.com/regolith-linux/WhiteSur-gtk-theme.git debian df5c5b2de2d6209d32fd8fb6812a55618ab2191f
