@@ -6,7 +6,7 @@
       "source": "https://github.com/regolith-linux/regolith-control-center.git"
     },
     "sway-regolith": {
-      "ref": "packaging/v1.11-regolith",
+      "ref": "v1.11.1-1",
       "source": "https://github.com/regolith-linux/sway-regolith.git"
     }
   }
