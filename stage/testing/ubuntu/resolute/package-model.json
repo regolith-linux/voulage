@@ -1,6 +1,7 @@
 {
   "packages": {
     "armesto": null,
+    "gtklock": null,
     "picom": null,
     "regolith-control-center": {
       "ref": "v1.50.4-2-gnome-50",
