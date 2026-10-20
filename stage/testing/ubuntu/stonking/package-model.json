@@ -1,5 +1,6 @@
 {
   "packages": {
+    "gtklock": null,
     "picom": null,
     "regolith-control-center": {
       "ref": "regolith/51",
