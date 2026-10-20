@@ -1,5 +1,6 @@
 {
   "packages": {
+    "fonts-jetbrains-mono": null,
     "gtklock": null,
     "picom": null,
     "regolith-control-center": {
