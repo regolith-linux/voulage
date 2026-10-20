@@ -1,6 +1,7 @@
 {
   "packages": {
     "armesto": null,
+    "picom": null,
     "regolith-control-center": {
       "ref": "v1.50.4-2-gnome-50",
       "source": "https://github.com/regolith-linux/regolith-control-center.git"

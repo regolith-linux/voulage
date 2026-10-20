@@ -1,5 +1,6 @@
 {
   "packages": {
+    "picom": null,
     "regolith-control-center": {
       "ref": "regolith/51",
       "source": "https://github.com/regolith-linux/regolith-control-center.git"
