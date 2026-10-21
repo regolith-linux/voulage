@@ -8,4 +8,5 @@ regolith-powerd https://github.com/regolith-linux/regolith-powerd.git master 7a5
 regolith-rofication https://github.com/regolith-linux/regolith-rofication.git master 9bb7b8f8ed63acd63ea169163fc433cbdad4729e
 regolith-session https://github.com/regolith-linux/regolith-session.git main 33edfbbb78fb57f6e85fc98fa5c7bb4d4626dcd0
 regolith-wm-config https://github.com/regolith-linux/regolith-wm-config.git main 9f561a02bf44e7b5f2d28ee7fa0f28767b176d93
+remontoire https://github.com/regolith-linux/remontoire.git master 5a4437086d89ca96c00bc0d704c82395ba0a031a
 xdg-desktop-portal-regolith https://github.com/regolith-linux/xdg-desktop-portal-regolith.git main b9c6d7264fbebcc24c891ab966f7140b955a6f30
