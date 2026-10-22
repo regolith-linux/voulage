@@ -1,5 +1,5 @@
 i3xrocks https://github.com/regolith-linux/i3xrocks.git master 4c30d060b77ddef3f01152dc27457db341f16a43
-ilia https://github.com/regolith-linux/ilia.git main 252747051ccc07d702d01e625d8b112711eda26c
+ilia https://github.com/regolith-linux/ilia.git main 2a2af6e0683740ba312e13382ee4d1432312a1a8
 regolith-desktop https://github.com/regolith-linux/regolith-desktop.git main 3d4cb0df64b46f5b377e4fd1db08338ed80d4796
 regolith-i3xrocks-config https://github.com/regolith-linux/regolith-i3xrocks-config.git master 8c7c3edf874fe978bf207d65764b378224f61e03
 regolith-inputd https://github.com/regolith-linux/regolith-inputd.git master 3105aaa0d39998245786acd64b5cef03c6844555
