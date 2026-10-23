@@ -7,7 +7,7 @@ regolith-inputd https://github.com/regolith-linux/regolith-inputd.git master db9
 regolith-look-extra https://github.com/regolith-linux/regolith-look-extra.git main 0b6af3735a684454d7c9741db13d674e59b23611
 regolith-powerd https://github.com/regolith-linux/regolith-powerd.git master 7a56d496961c7eb02b65b4cdcc18cf28edc8830e
 regolith-rofication https://github.com/regolith-linux/regolith-rofication.git master 9bb7b8f8ed63acd63ea169163fc433cbdad4729e
-regolith-session https://github.com/regolith-linux/regolith-session.git main 33edfbbb78fb57f6e85fc98fa5c7bb4d4626dcd0
+regolith-session https://github.com/regolith-linux/regolith-session.git main da0b6d21c768458581b589a1371c48e6ede9ec8d
 regolith-wm-config https://github.com/regolith-linux/regolith-wm-config.git main 9f561a02bf44e7b5f2d28ee7fa0f28767b176d93
 remontoire https://github.com/regolith-linux/remontoire.git master 5a4437086d89ca96c00bc0d704c82395ba0a031a
 xdg-desktop-portal-regolith https://github.com/regolith-linux/xdg-desktop-portal-regolith.git main b9c6d7264fbebcc24c891ab966f7140b955a6f30
