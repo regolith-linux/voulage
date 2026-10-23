@@ -5,7 +5,7 @@ regolith-displayd https://github.com/regolith-linux/regolith-displayd.git master
 regolith-i3xrocks-config https://github.com/regolith-linux/regolith-i3xrocks-config.git master 8c7c3edf874fe978bf207d65764b378224f61e03
 regolith-inputd https://github.com/regolith-linux/regolith-inputd.git master db96647a2e55572046fac216030b72750b5edfbd
 regolith-look-extra https://github.com/regolith-linux/regolith-look-extra.git main 0b6af3735a684454d7c9741db13d674e59b23611
-regolith-powerd https://github.com/regolith-linux/regolith-powerd.git master e264eade2d4abe32a0648214ede58d3b89619398
+regolith-powerd https://github.com/regolith-linux/regolith-powerd.git master f91ae57a67be466bb773054f3246a97993d95333
 regolith-rofication https://github.com/regolith-linux/regolith-rofication.git master 9bb7b8f8ed63acd63ea169163fc433cbdad4729e
 regolith-session https://github.com/regolith-linux/regolith-session.git main da0b6d21c768458581b589a1371c48e6ede9ec8d
 regolith-wm-config https://github.com/regolith-linux/regolith-wm-config.git main 9f561a02bf44e7b5f2d28ee7fa0f28767b176d93
