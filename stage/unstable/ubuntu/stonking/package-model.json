@@ -4,13 +4,8 @@
     "gtklock": null,
     "picom": null,
     "python3-i3ipc": null,
-    "regolith-control-center": {
-      "ref": "regolith/51",
-      "source": "https://github.com/regolith-linux/regolith-control-center.git"
-    },
-    "sway-regolith": {
-      "ref": "package-sway-v1.12",
-      "source": "https://github.com/regolith-linux/sway-regolith.git"
-    }
+    "i3status-rs": null,
+    "regolith-control-center": null,
+    "sway-regolith": null
   }
 }
