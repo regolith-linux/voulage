@@ -1,5 +1,9 @@
 {
   "packages": {
+    "ilia": {
+      "ref": "v0.18.1",
+      "source": "https://github.com/regolith-linux/ilia.git"
+    },
     "xdg-desktop-portal-regolith": {
       "ref": "v0.3.11-3",
       "source": "https://github.com/regolith-linux/xdg-desktop-portal-regolith.git"
