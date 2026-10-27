@@ -2,6 +2,7 @@
   "packages": {
     "armesto": null,
     "fonts-jetbrains-mono": null,
+    "fonts-materialdesignicons-webfont": null,
     "gtklock": null,
     "picom": null,
     "python3-i3ipc": null,
