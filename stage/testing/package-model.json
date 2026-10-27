@@ -193,7 +193,7 @@
       "source": "https://github.com/regolith-linux/solarc-theme.git"
     },
     "sway-audio-idle-inhibit": {
-      "ref": "v2.0.2",
+      "ref": "v2.0.3",
       "source": "https://github.com/regolith-linux/SwayAudioIdleInhibit.git"
     },
     "sway-regolith": {
