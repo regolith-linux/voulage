@@ -2,3 +2,4 @@ ilia https://github.com/regolith-linux/ilia.git v0.19.0 ea44d16cd280775ca3417635
 regolith-look-extra https://github.com/regolith-linux/regolith-look-extra.git v0.10.0 0b6af3735a684454d7c9741db13d674e59b23611
 regolith-session https://github.com/regolith-linux/regolith-session.git v1.2.2-1 ee6dd76e8a1eb67aff88a8302fd372e4ef5f3693
 regolith-wm-config https://github.com/regolith-linux/regolith-wm-config.git v4.11.12 7b5c5e563ff8e9fc904b6e602cd0acb2e66c5551
+sway-audio-idle-inhibit https://github.com/regolith-linux/SwayAudioIdleInhibit.git v2.0.3 4521b18c5d8ca922bbbc67a7dc459059e0ff3279
