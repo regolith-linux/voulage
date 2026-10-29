@@ -6,14 +6,65 @@ set -o errexit
 
 #### Debian specific functions
 
+# Stages that build branch heads instead of release tags (see handle_package()
+# in main.sh). Packages built for them get a snapshot version, so that every
+# new commit is published under a new, higher version instead of reusing the
+# version of the last release.
+is_snapshot_stage() {
+  [ "$STAGE" == "experimental" ] || [ "$STAGE" == "unstable" ]
+}
+
+# Print the snapshot marker of the checked out commit: "+git" followed by the
+# UTC committer date and time and the short commit hash, for example
+# "+git20261026.185700.52ece7e".
+#
+# The marker only depends on the commit. Every job that builds the same commit
+# (any codename or arch, from voulage or from the package's own workflow) gets
+# the same version, and building a commit again does not change it.
+#
+# The marker goes right after "-1regolith". "+" sorts the snapshot above the
+# release that debian/changelog names, and below any later release. If the
+# changelog entry is UNRELEASED, that version is not released yet: "~" sorts its
+# snapshots below it, and still above the previous release.
+#
+# Must run in the package's git checkout, before debian/changelog is updated.
+snapshot_suffix() {
+  local commit_time
+  local commit_hash
+  local separator="+"
+
+  if ! commit_time=$(TZ=UTC0 git -c safe.directory='*' show -s --format=%cd --date=format-local:%Y%m%d.%H%M%S HEAD 2>/dev/null) ||
+    ! commit_hash=$(git -c safe.directory='*' rev-parse HEAD 2>/dev/null); then
+    return 1
+  fi
+
+  if [ "$(dpkg-parsechangelog --show-field Distribution)" == "UNRELEASED" ]; then
+    separator="~"
+  fi
+
+  echo "${separator}git${commit_time}.${commit_hash:0:7}"
+}
+
 # Update the changelog to specify the target distribution codename
 update_changelog() {
   # set -x
   echo "::group::Updating debian/changelog file"
   cd "${PKG_BUILD_PATH:?}/$PACKAGE_NAME"
   version=$(dpkg-parsechangelog --show-field Version)
-  echo -e "\033[0;34mUpdating changlog to ${version}-1regolith-$CODENAME for $CODENAME...\033[0m"
-  dch --force-distribution --distribution "$CODENAME" --newversion "${version}-1regolith-$CODENAME" "Automated Voulage release"
+
+  local snapshot=""
+  if is_snapshot_stage && ! snapshot=$(snapshot_suffix); then
+    echo "::warning::No git commit found for $PACKAGE_NAME, building it for $STAGE without a snapshot version."
+    snapshot=""
+  fi
+
+  # The upstream version of the source package is "${version}-1regolith${snapshot}"
+  # (one .orig.tar.gz shared by all codenames) and the Debian revision is the
+  # codename.
+  local new_version="${version}-1regolith${snapshot}-$CODENAME"
+
+  echo -e "\033[0;34mUpdating changlog to ${new_version} for $CODENAME...\033[0m"
+  dch --force-distribution --distribution "$CODENAME" --newversion "${new_version}" "Automated Voulage release"
 
   cd - >/dev/null 2>&1 || exit
   echo "::endgroup::"
