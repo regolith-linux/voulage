@@ -93,7 +93,7 @@
       "source": "https://github.com/regolith-linux/regolith-archive-keyring.git"
     },
     "regolith-avizo": {
-      "ref": "v0.1.5",
+      "ref": "v0.1.6",
       "source": "https://github.com/regolith-linux/avizo.git"
     },
     "regolith-compositor-compton-glx": {
