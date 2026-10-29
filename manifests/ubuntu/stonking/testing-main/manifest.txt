@@ -1,4 +1,5 @@
 ilia https://github.com/regolith-linux/ilia.git v0.19.0 ea44d16cd280775ca34176350465f6a2e5849a76
+regolith-avizo https://github.com/regolith-linux/avizo.git v0.1.6 7230b7279a35dba77de786c90f02556bcc0276a1
 regolith-look-default https://github.com/regolith-linux/regolith-look-default.git v0.8.5 bdf929ffc295c3bed8ed99aa6eac0026c0b3cd88
 regolith-look-extra https://github.com/regolith-linux/regolith-look-extra.git v0.10.0 0b6af3735a684454d7c9741db13d674e59b23611
 regolith-session https://github.com/regolith-linux/regolith-session.git v1.2.3-1 d13b647cc67421fe41e9d51eff83822d50c5d964
