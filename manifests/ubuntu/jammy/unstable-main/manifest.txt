@@ -41,7 +41,7 @@ regolith-look-extra https://github.com/regolith-linux/regolith-look-extra.git ma
 regolith-powerd https://github.com/regolith-linux/regolith-powerd.git master 0a37762d6bcaa5e3c8ef25a5ee45d7f3fa272f18
 regolith-rofi-config https://github.com/regolith-linux/regolith-rofi-config.git master 3ea6fb8a07e88ed1b570f47bd9f8066840b47d5f
 regolith-rofication https://github.com/regolith-linux/regolith-rofication.git master 2e0908ea658f7b9672270f899345b76a07b1bcf5
-regolith-session https://github.com/regolith-linux/regolith-session.git debian-bookworm 78a9371ac69715ae0b091c8a1a30d3055110e16d
+regolith-session https://github.com/regolith-linux/regolith-session.git debian-bookworm cad11146b3cdf340d0ab90cea3edce84bf3850e2
 regolith-system-ubuntu https://github.com/regolith-linux/regolith-system-ubuntu.git main 15cf892eb95ba1ad26797bb4b48a97e25df85969
 regolith-unclutter-xfixes https://github.com/regolith-linux/regolith-unclutter-xfixes.git master 1d076599c84cabc6eec315bc303634d75b041399
 regolith-wm-config https://github.com/regolith-linux/regolith-wm-config.git main 7a6dbcd04b1289a98fabf756e3c4f29a9bf6dec7
