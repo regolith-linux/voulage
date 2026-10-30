@@ -7,7 +7,7 @@
     "picom": null,
     "python3-i3ipc": null,
     "regolith-control-center": {
-      "ref": "v1.50.4-2-gnome-50",
+      "ref": "v1.50.5-1-gnome-50",
       "source": "https://github.com/regolith-linux/regolith-control-center.git"
     },
     "sway-regolith": {
