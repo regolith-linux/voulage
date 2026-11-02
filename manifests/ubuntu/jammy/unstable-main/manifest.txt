@@ -25,12 +25,12 @@ regolith-archive-keyring https://github.com/regolith-linux/regolith-archive-keyr
 regolith-avizo https://github.com/regolith-linux/avizo.git master 7230b7279a35dba77de786c90f02556bcc0276a1
 regolith-compositor-compton-glx https://github.com/regolith-linux/regolith-compositor-compton-glx.git master d657959598e4260dafb22915b2dbb99317b42f42
 regolith-compositor-none https://github.com/regolith-linux/regolith-compositor-none.git master 92ad520ff076ceb8b9d905956921b5bed2a5667d
-regolith-compositor-picom-glx https://github.com/regolith-linux/regolith-compositor-picom-glx.git master 2300e4d36225c6e7ad62c9b7f556f1949bfc9e7d
+regolith-compositor-picom-glx https://github.com/regolith-linux/regolith-compositor-picom-glx.git master a94bf2d38d10f2069b0ec4c1d698a3a16fa17062
 regolith-compositor-xcompmgr https://github.com/regolith-linux/regolith-compositor-xcompmgr.git master 7f58479108c3cab02b12c87ebb068cf6dffdc5a6
 regolith-control-center https://github.com/regolith-linux/regolith-control-center.git ubuntu/jammy 424e1117a0fb5900a3408f82eb85a27328df479a
 regolith-default-settings https://github.com/regolith-linux/regolith-default-settings.git main 04430deaf7eb41b16ddcc70595049f264b29a1a8
 regolith-desktop https://github.com/regolith-linux/regolith-desktop.git main 3d4cb0df64b46f5b377e4fd1db08338ed80d4796
-regolith-displayd https://github.com/regolith-linux/regolith-displayd.git master e76c82446dbcd27b1d24efab1a14de5aeff818eb
+regolith-displayd https://github.com/regolith-linux/regolith-displayd.git master cff428d49bdda450a382eef32fa9e95d124c65c7
 regolith-distro-ubuntu https://github.com/regolith-linux/regolith-distro-ubuntu.git main d8e40da746e58ad66672b776306aecdb3b7a6922
 regolith-ftue https://github.com/regolith-linux/regolith-ftue.git main 98a6160f9eb47ec27c398a7499c1788449cceb75
 regolith-i3xrocks-config https://github.com/regolith-linux/regolith-i3xrocks-config.git master 972f30f893a162f54e9efdc293191ad876c72b5a
@@ -49,7 +49,7 @@ remontoire https://github.com/regolith-linux/remontoire.git master 5a4437086d89c
 solarc-theme https://github.com/regolith-linux/solarc-theme.git master 47f171b6379640c8bbd69d61a60ac917cdc58f59
 sway-audio-idle-inhibit https://github.com/regolith-linux/SwayAudioIdleInhibit.git main 4521b18c5d8ca922bbbc67a7dc459059e0ff3279
 sway-regolith https://github.com/regolith-linux/sway-regolith.git packaging/v1.7-regolith 2bea7f4f99aacb6a719c7ca76e3ae17cf80fbfa3
-trawl https://github.com/regolith-linux/trawl.git master 39b50d5340842d14d89591ace2f2b7c6158065e4
+trawl https://github.com/regolith-linux/trawl.git master b783da3b571e2819a84fe96f82d73113025c9ced
 ubiquity-slideshow-regolith https://github.com/regolith-linux/ubiquity-slideshow-regolith.git master 1a5577a1a69e48908190f370c786628704f7902d
 whitesur-gtk-theme https://github.com/regolith-linux/WhiteSur-gtk-theme.git debian df5c5b2de2d6209d32fd8fb6812a55618ab2191f
 xdg-desktop-portal-regolith https://github.com/regolith-linux/xdg-desktop-portal-regolith.git release/1.18 b8881fe1ba7ccf438b7dcb2a1456da5cff270295
