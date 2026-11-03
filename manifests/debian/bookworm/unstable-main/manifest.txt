@@ -15,7 +15,7 @@ lago https://github.com/regolith-linux/lago.git main 3c9a70dd2d3e3ead32d6e8c29e0
 nordic https://github.com/regolith-linux/nordic.git main 9815bf9db05bb3a1d60f7e75a889b9d60b3e7a8d
 picom https://github.com/regolith-linux/picom.git main 921769852b6a73618fcf6ac98d86a066c6901933
 plymouth-theme-regolith https://github.com/regolith-linux/plymouth-theme-regolith.git master 860a62bb530577ada9c0f43a6a2310cd8ac44c9b
-python3-i3ipc https://github.com/regolith-linux/python3-i3ipc.git master 1727d0360be36212fdf2cab0a3d47f951cc46afa
+python3-i3ipc https://github.com/regolith-linux/python3-i3ipc.git master 3f2fa73d7352f06b4c5f55be6e6759c5f6cc1dd0
 regolith-archive-keyring https://github.com/regolith-linux/regolith-archive-keyring.git main 4416a8d0aac2da17730155547760d189b3bf6dd5
 regolith-compositor-compton-glx https://github.com/regolith-linux/regolith-compositor-compton-glx.git master d657959598e4260dafb22915b2dbb99317b42f42
 regolith-compositor-none https://github.com/regolith-linux/regolith-compositor-none.git master 92ad520ff076ceb8b9d905956921b5bed2a5667d
