@@ -25,7 +25,19 @@ checkout() {
   fi
 
   cd "$PKG_BUILD_PATH" || exit
-  git clone --recursive "$PACKAGE_URL" -b "$PACKAGE_REF" "$PACKAGE_NAME"
+  if [[ "$PACKAGE_REF" =~ ^([0-9a-f]{40}|[0-9a-f]{64})$ ]] &&
+    ! git ls-remote --exit-code "$PACKAGE_URL" "refs/heads/$PACKAGE_REF" "refs/tags/$PACKAGE_REF" >/dev/null; then
+    # The ref is a commit id (see resolve_package_ref() in main.sh), which
+    # "git clone -b" doesn't take: check the commit out after cloning.
+    git clone --no-checkout "$PACKAGE_URL" "$PACKAGE_NAME"
+    if ! git -C "$PACKAGE_NAME" cat-file -e "$PACKAGE_REF^{commit}" 2>/dev/null; then
+      git -C "$PACKAGE_NAME" fetch origin "$PACKAGE_REF"
+    fi
+    git -C "$PACKAGE_NAME" checkout -q --detach "$PACKAGE_REF"
+    git -C "$PACKAGE_NAME" submodule update --init --recursive
+  else
+    git clone --recursive "$PACKAGE_URL" -b "$PACKAGE_REF" "$PACKAGE_NAME"
+  fi
 
   cd - >/dev/null 2>&1 || exit
   echo "::endgroup::"
