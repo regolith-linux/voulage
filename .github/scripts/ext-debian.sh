@@ -94,7 +94,10 @@ stage_source() {
   cd "$PKG_BUILD_PATH/$PACKAGE_NAME" || exit
   debian_package_name=$(dpkg-parsechangelog --show-field Source)
   full_version=$(dpkg-parsechangelog --show-field Version)
-  debian_version="${full_version%-*}"
+  # Debian file names never contain the epoch ("1:2.0-1" -> "2.0-1"), the
+  # version in the package metadata keeps it.
+  debian_version="${full_version#*:}"
+  debian_version="${debian_version%-*}"
   cd "$PKG_BUILD_PATH" || exit
 
   echo -e "\033[0;34mGenerating source tarball from git repo\033[0m"
@@ -208,83 +211,94 @@ publish() {
   debian_package_name=$(dpkg-parsechangelog --show-field Source)
   cd "$PKG_BUILD_PATH"
 
-  DEB_SRC_PKG_PATH="$(pwd)/${debian_package_name}_${version}_source.changes"
-
-  if [ ! -f "$DEB_SRC_PKG_PATH" ]; then
-    echo -e "\033[0;31m${debian_package_name}_${version}_source.changes not found!\033[0m"
-  else
-    echo -e "\033[0;34mPublishing source package $debian_package_name into $PKG_PUBLISH_PATH.\033[0m"
-
-    short_version="${version%-*}"
-
-    mkdir -p $PKG_PUBLISH_PATH/$DISTRO/$CODENAME/$SUITE
-
-    echo "  Copying ${debian_package_name}_${version}.dsc"
-    cp "$(pwd)/${debian_package_name}_${version}.dsc" "$PKG_PUBLISH_PATH/$DISTRO/$CODENAME/$SUITE"
-
-    echo "  Copying ${debian_package_name}_${short_version}.orig.tar.gz"
-    cp "$(pwd)/${debian_package_name}_${short_version}.orig.tar.gz" "$PKG_PUBLISH_PATH/$DISTRO/$CODENAME/$SUITE"
-
-    if [ -f "$(pwd)/${debian_package_name}_${version}.debian.tar.xz" ]; then
-      echo "  Copying ${debian_package_name}_${version}.debian.tar.xz"
-      cp "$(pwd)/${debian_package_name}_${version}.debian.tar.xz" "$PKG_PUBLISH_PATH/$DISTRO/$CODENAME/$SUITE"
-    fi
-    if [ -f "$(pwd)/${debian_package_name}_${version}.tar.xz" ]; then
-      echo "  Copying ${debian_package_name}_${version}.tar.xz"
-      cp "$(pwd)/${debian_package_name}_${version}.tar.xz" "$PKG_PUBLISH_PATH/$DISTRO/$CODENAME/$SUITE"
-    fi
-    if [ -f "$(pwd)/${debian_package_name}_${version}.diff.gz" ]; then
-      echo "  Copying ${debian_package_name}_${version}.diff.gz"
-      cp "$(pwd)/${debian_package_name}_${version}.diff.gz" "$PKG_PUBLISH_PATH/$DISTRO/$CODENAME/$SUITE"
-    fi
-
-    if [ "$LOCAL_BUILD" == "false" ] && [ "$SUITE" == "stable" ]; then
-      mkdir -p "$PKG_PUBLISH_PATH/$DISTRO/$CODENAME/$COMPONENT"
-      cd "$PKG_PUBLISH_PATH/$DISTRO/$CODENAME/$COMPONENT" >/dev/null 2>&1
-
-      ln "../$SUITE/${debian_package_name}_${version}.dsc" .
-      ln "../$SUITE/${debian_package_name}_${short_version}.orig.tar.gz" .
-
-      if [ -f "../$SUITE/${debian_package_name}_${version}.debian.tar.xz" ]; then
-        ln "../$SUITE/${debian_package_name}_${version}.debian.tar.xz" .
-      fi
-      if [ -f "../$SUITE/${debian_package_name}_${version}.tar.xz" ]; then
-        ln "../$SUITE/${debian_package_name}_${version}.tar.xz" .
-      fi
-      if [ -f "../$SUITE/${debian_package_name}_${version}.diff.gz" ]; then
-        ln "../$SUITE/${debian_package_name}_${version}.diff.gz" .
-      fi
-
-      cd - >/dev/null 2>&1
-    fi
+  # Debian file names never contain the epoch ("1:2.0-1" -> "2.0-1").
+  local file_version="${version#*:}"
+  local short_version="${file_version%-*}"
+  local suite_path="$PKG_PUBLISH_PATH/$DISTRO/$CODENAME/$SUITE"
+  local component_path="$PKG_PUBLISH_PATH/$DISTRO/$CODENAME/$COMPONENT"
+  local link_component="false"
+  if [ "$LOCAL_BUILD" == "false" ] && [ "$SUITE" == "stable" ]; then
+    link_component="true"
   fi
 
+  local source_changes="${debian_package_name}_${file_version}_source.changes"
+  local source_files=(
+    "${debian_package_name}_${file_version}.dsc"
+    "${debian_package_name}_${short_version}.orig.tar.gz"
+  )
+  local file
+  local missing=0
+
+  for file in "$source_changes" "${source_files[@]}"; do
+    if [ ! -f "$PKG_BUILD_PATH/$file" ]; then
+      echo -e "\033[0;31m$file not found!\033[0m" >&2
+      missing=1
+    fi
+  done
+  if [ "$missing" -ne 0 ]; then
+    echo "Error: source package $debian_package_name $version is incomplete, not publishing it." >&2
+    return 1
+  fi
+
+  for file in debian.tar.xz tar.xz diff.gz; do
+    if [ -f "$PKG_BUILD_PATH/${debian_package_name}_${file_version}.$file" ]; then
+      source_files+=("${debian_package_name}_${file_version}.$file")
+    fi
+  done
+
+  # The binary packages of debian/control that were built for the target arch
+  # or for all. Not a pipeline, so that the list survives the loop.
   DEB_CONTROL_FILE="$PKG_BUILD_PATH/$PACKAGE_NAME/debian/control"
-  ALL_ARCH="$ARCH,all"
+  local target_archs=("$ARCH")
+  if [ "$ARCH" != "all" ]; then
+    target_archs+=("all")
+  fi
+  local bin_pkgs=()
+  local bin_pkg
+  local target_arch
+  local bin_files=()
+  mapfile -t bin_pkgs < <(awk '/^Package:/ { print $2 }' "$DEB_CONTROL_FILE")
 
-  echo -e "\033[0;34mPublishing binary package $debian_package_name into $PKG_PUBLISH_PATH.\033[0m"
-
-  for target_arch in $(echo $ALL_ARCH | sed "s/,/ /g"); do
-    cat "$DEB_CONTROL_FILE" | grep ^Package: | cut -d' ' -f2 | while read -r bin_pkg; do
-      DEB_BIN_PKG_PATH="$(pwd)/${bin_pkg}_${version}_${target_arch}.deb"
-
-      if [ -f "$DEB_BIN_PKG_PATH" ]; then
-        mkdir -p $PKG_PUBLISH_PATH/$DISTRO/$CODENAME/$SUITE
-        echo "  Copying ${bin_pkg}_${version}_${target_arch}.deb"
-        cp "$DEB_BIN_PKG_PATH" "$PKG_PUBLISH_PATH/$DISTRO/$CODENAME/$SUITE"
-
-        if [ "$LOCAL_BUILD" == "false" ] && [ "$SUITE" == "stable" ]; then
-          mkdir -p "$PKG_PUBLISH_PATH/$DISTRO/$CODENAME/$COMPONENT"
-          cd "$PKG_PUBLISH_PATH/$DISTRO/$CODENAME/$COMPONENT" >/dev/null 2>&1
-          ln "../$SUITE/${bin_pkg}_${version}_${target_arch}.deb" .
-          cd - >/dev/null 2>&1
-        fi
-
-        echo "CHLOG:Published ${bin_pkg}_${version}_${target_arch}.deb in $DISTRO/$CODENAME/$STAGE from $PKG_LINE"
+  for target_arch in "${target_archs[@]}"; do
+    for bin_pkg in "${bin_pkgs[@]}"; do
+      file="${bin_pkg}_${file_version}_${target_arch}.deb"
+      if [ -f "$PKG_BUILD_PATH/$file" ]; then
+        bin_files+=("$file")
       else
         echo -e "\033[0;31m  Package $bin_pkg does not exist for $target_arch.\033[0m"
       fi
     done
+  done
+
+  if [ ${#bin_files[@]} -eq 0 ]; then
+    echo "Error: no binary package of $debian_package_name $version was built for $ARCH or all, not publishing it." >&2
+    return 1
+  fi
+
+  echo -e "\033[0;34mPublishing source package $debian_package_name into $PKG_PUBLISH_PATH.\033[0m"
+  mkdir -p "$suite_path"
+  if [ "$link_component" == "true" ]; then
+    mkdir -p "$component_path"
+  fi
+
+  for file in "${source_files[@]}"; do
+    echo "  Copying $file"
+    cp "$PKG_BUILD_PATH/$file" "$suite_path"
+    if [ "$link_component" == "true" ]; then
+      ln "$suite_path/$file" "$component_path/$file"
+    fi
+  done
+
+  echo -e "\033[0;34mPublishing binary package $debian_package_name into $PKG_PUBLISH_PATH.\033[0m"
+
+  for file in "${bin_files[@]}"; do
+    echo "  Copying $file"
+    cp "$PKG_BUILD_PATH/$file" "$suite_path"
+    if [ "$link_component" == "true" ]; then
+      ln "$suite_path/$file" "$component_path/$file"
+    fi
+
+    echo "CHLOG:Published $file in $DISTRO/$CODENAME/$STAGE from $PKG_LINE"
   done
 
   echo "::endgroup::"

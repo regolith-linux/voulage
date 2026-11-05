@@ -1,31 +1,125 @@
 #!/bin/bash
 set -e
 
-# Emit manifest entry line for package
-handle_package() {
-  local lookup_ref=""
-  if [ "$STAGE" == "experimental" ] || [ "$STAGE" == "unstable" ]; then
-    if git ls-remote --help | grep "\-\-branches" >/dev/null; then
-      lookup_ref="--branches"
-    else
-      lookup_ref="--heads"
-    fi
-  else
-    lookup_ref="--tags"
+# Succeeds if commit_id, a full commit id, is the id of a commit in source.
+# The commit is fetched by its id into a scratch repository, so that a commit
+# no branch or tag points to directly is found too, and a tree, a blob or a tag
+# object with that id is told apart from a commit.
+source_has_commit() {
+  local source="$1"
+  local commit_id="$2"
+  local object_format="sha1"
+  local scratch
+  local object_type=""
+
+  if [ ${#commit_id} -eq 64 ]; then
+    object_format="sha256"
   fi
 
-  # Get git hash
-  local COMMIT_HASH=$(git ls-remote $lookup_ref $PACKAGE_SOURCE_URL $PACKAGE_SOURCE_REF | awk '{ print $1}')
+  scratch=$(mktemp -d) || return 1
+  if git init -q --bare --template= --object-format="$object_format" "$scratch" >/dev/null 2>&1 &&
+    git --git-dir="$scratch" -c protocol.version=2 fetch -q --depth=1 --no-tags "$source" "$commit_id" >/dev/null 2>&1; then
+    object_type=$(git --git-dir="$scratch" cat-file -t "$commit_id" 2>/dev/null) || object_type=""
+  fi
+  rm -rf "$scratch"
 
-  echo "$PACKAGE_NAME $PACKAGE_SOURCE_URL $PACKAGE_SOURCE_REF $COMMIT_HASH" >> "$NEXT_MANIFEST_FILE"
+  [ "$object_type" == "commit" ]
+}
+
+# Print the commit id that ref names in source. ref is the exact full name of
+# a branch (refs/heads/<ref>) or a tag (refs/tags/<ref>); an annotated tag is
+# followed to its commit. Otherwise ref may be the full id of a commit of
+# source, which is printed as is. Fails, with an error on stderr, if the source
+# can't be listed, if both a branch and a tag have that name, if no branch,
+# tag or commit has it, or if the tag leads to a tree or a blob, not a commit.
+resolve_package_ref() {
+  local name="$1"
+  local source="$2"
+  local ref="$3"
+  local remote_refs
+  local result
+
+  # ls-remote matches its patterns against the tail of each ref name, so it
+  # may also list e.g. refs/heads/feature/<ref>. Only exact names are kept below.
+  # "<tag>^{}" lists the object an annotated tag (or a tag of a tag) leads to.
+  if ! remote_refs=$(git ls-remote "$source" "refs/heads/$ref" "refs/tags/$ref" "refs/tags/$ref^{}"); then
+    echo "Error: package $name: cannot list refs of source $source to resolve ref $ref" >&2
+    return 1
+  fi
+
+  result=$(printf '%s\n' "$remote_refs" | REF="$ref" awk '
+    BEGIN { head = "refs/heads/" ENVIRON["REF"]; tag = "refs/tags/" ENVIRON["REF"] }
+    $2 == head { branch_commit = $1 }
+    $2 == tag { tag_object = $1 }
+    $2 == tag "^{}" { tag_commit = $1 }
+    END {
+      if (branch_commit != "" && tag_object != "") { print "ambiguous"; exit }
+      if (branch_commit != "") { print "commit " branch_commit; exit }
+      if (tag_commit != "") { print "tag " tag_commit; exit }
+      if (tag_object != "") { print "tag " tag_object; exit }
+      print "missing"
+    }')
+
+  # Not a branch or tag name: a full commit id (abbreviated ids are not) of
+  # the source is its own commit.
+  if [ "$result" == "missing" ] && [[ "$ref" =~ ^([0-9a-f]{40}|[0-9a-f]{64})$ ]] &&
+    source_has_commit "$source" "$ref"; then
+    result="commit $ref"
+  fi
+
+  # A tag may point to a tree or a blob: only a commit is a valid result.
+  if [[ "$result" == "tag "* ]]; then
+    if source_has_commit "$source" "${result#tag }"; then
+      result="commit ${result#tag }"
+    else
+      echo "Error: package $name: tag $ref in $source does not point to a commit" >&2
+      return 1
+    fi
+  fi
+
+  case "$result" in
+    "commit "*)
+      echo "${result#commit }"
+      ;;
+    ambiguous)
+      echo "Error: package $name: ref $ref names both a branch and a tag in $source" >&2
+      return 1
+      ;;
+    *)
+      echo "Error: package $name: no branch, tag or commit $ref in $source" >&2
+      return 1
+      ;;
+  esac
+}
+
+# Emit manifest entry line for package
+handle_package() {
+  local commit_hash
+
+  if ! commit_hash=$(resolve_package_ref "$PACKAGE_NAME" "$PACKAGE_SOURCE_URL" "$PACKAGE_SOURCE_REF"); then
+    return 1
+  fi
+
+  echo "$PACKAGE_NAME $PACKAGE_SOURCE_URL $PACKAGE_SOURCE_REF $commit_hash" >> "$NEXT_MANIFEST_FILE"
 
   echo "Updated manifest $NEXT_MANIFEST_FILE for package $PACKAGE_NAME"
 }
 
 # Traverse each package in the model and call handle_package
 traverse_package_model() {
+  local package_names
+  local package
+  local failed_packages=()
+
   echo "::group::Updating next manifest file"
-  jq -rc 'delpaths([path(.[][]| select(.==null))]) | .packages | keys | .[]' < "$PACKAGE_MODEL_FILE" | while IFS='' read -r package; do
+  package_names=$(jq -rc 'delpaths([path(.[][]| select(.==null))]) | .packages | keys | .[]' < "$PACKAGE_MODEL_FILE")
+
+  # Not a pipeline: a failure has to reach this shell, not a subshell.
+  while IFS='' read -r package; do
+    if [ -z "$package" ]; then
+      continue
+    fi
+
     # Set the package name and model desc
     PACKAGE_NAME="$package"
 
@@ -38,13 +132,21 @@ traverse_package_model() {
       continue
     fi
 
-    PACKAGE_SOURCE_URL=$(jq -r ".packages.\"$package\".source" < "$PACKAGE_MODEL_FILE")
-    PACKAGE_SOURCE_REF=$(jq -r ".packages.\"$package\".ref" < "$PACKAGE_MODEL_FILE")
+    PACKAGE_SOURCE_URL=$(jq -r --arg package "$package" '.packages[$package].source' < "$PACKAGE_MODEL_FILE")
+    PACKAGE_SOURCE_REF=$(jq -r --arg package "$package" '.packages[$package].ref' < "$PACKAGE_MODEL_FILE")
 
     # Apply functions to package model
-    handle_package
-  done
+    if ! handle_package; then
+      failed_packages+=("$PACKAGE_NAME")
+    fi
+  done <<< "$package_names"
   echo "::endgroup::"
+
+  if [ ${#failed_packages[@]} -gt 0 ]; then
+    rm -f "$NEXT_MANIFEST_FILE"
+    echo -e "\033[0;31mError: could not resolve the ref of package(s): ${failed_packages[*]}, aborting.\033[0m" >&2
+    exit 1
+  fi
 }
 
 # Generate a json file from a root and any additions in each level of the stage tree
@@ -194,7 +296,7 @@ Options:
   --extension <path>         Path to extension file (e.g. /path/to/ext-debian.sh)
 
   --git-repo-path <path>     Path to repo folder (e.g. /path/to/git/repo/voulage)
-  --manifests-path <path>    Path to manifests folder (e.g. /path/to/manifests)
+  --manifest-path <path>     Path to manifests folder (e.g. /path/to/manifests)
   --pkg-build-path <path>    Path to folder to build packages in (e.g. /path/to/packages)
   --pkg-publish-path <path>  Path to folder to publish packages in (e.g. /path/to/publish)
 
@@ -205,9 +307,11 @@ Options:
   --component <name>         The component to check or build (e.g. main, 3.2, 3.1, etc.)
   --arch <name>              The arch to check or build (e.g. amd64, arm64)
 
+  --only-package <name>      Only check or build this package (optional)
+
   --help                     Show this message
 
-Note: all the options are required when using $0
+Note: all the options except --only-package are required when using $0
 EOF
 }
 
@@ -361,22 +465,26 @@ ROOT_MODEL_PATH="$GIT_REPO_PATH/stage/package-model.json"
 
 #### Setup files
 
-if [ -d "$PKG_BUILD_PATH" ]; then
-  echo -e "\033[0;34mDeleting pre-existing package build dir $PKG_BUILD_PATH\033[0m"
-  rm -Rf "$PKG_BUILD_PATH"
-fi
+# Only build mode works in the package build and publish dirs. Check mode
+# leaves them as they are, and doesn't create them.
+if [ "$MODE" == "build" ]; then
+  if [ -d "$PKG_BUILD_PATH" ]; then
+    echo -e "\033[0;34mDeleting pre-existing package build dir $PKG_BUILD_PATH\033[0m"
+    rm -Rf "$PKG_BUILD_PATH"
+  fi
 
-if [ -d "$PKG_PUBLISH_PATH" ]; then
-  echo -e "\033[0;34mDeleting pre-existing package publish dir $PKG_PUBLISH_PATH\033[0m"
-  rm -Rf "$PKG_PUBLISH_PATH"
+  if [ -d "$PKG_PUBLISH_PATH" ]; then
+    echo -e "\033[0;34mDeleting pre-existing package publish dir $PKG_PUBLISH_PATH\033[0m"
+    rm -Rf "$PKG_PUBLISH_PATH"
+  fi
+
+  if [ ! -d "$PKG_PUBLISH_PATH" ]; then
+    mkdir -p "$PKG_PUBLISH_PATH"
+  fi
 fi
 
 if [ ! -d "$MANIFEST_PATH" ]; then
-  mkdir -p $MANIFEST_PATH
-fi
-
-if [ ! -d "$PKG_PUBLISH_PATH" ]; then
-  mkdir -p $PKG_PUBLISH_PATH
+  mkdir -p "$MANIFEST_PATH"
 fi
 
 #### Generate Manifest from package model tree and git repo state
