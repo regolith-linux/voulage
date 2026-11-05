@@ -2,7 +2,7 @@ ilia https://github.com/regolith-linux/ilia.git v0.19.0 ea44d16cd280775ca3417635
 regolith-avizo https://github.com/regolith-linux/avizo.git v0.1.6 7230b7279a35dba77de786c90f02556bcc0276a1
 regolith-desktop https://github.com/regolith-linux/regolith-desktop.git v4.11.0 3d4cb0df64b46f5b377e4fd1db08338ed80d4796
 regolith-look-default https://github.com/regolith-linux/regolith-look-default.git v0.8.7 a2203209032a65a2e9c4f0a19056025e42c561d4
-regolith-look-extra https://github.com/regolith-linux/regolith-look-extra.git v0.10.0 0b6af3735a684454d7c9741db13d674e59b23611
+regolith-look-extra https://github.com/regolith-linux/regolith-look-extra.git v0.10.2 6361a778eb94021368f93b5c3023fb6ae3307659
 regolith-powerd https://github.com/regolith-linux/regolith-powerd.git v0.8.0 fb3dc3d76993239e52db370a42df84aaf904678c
 regolith-session https://github.com/regolith-linux/regolith-session.git v1.2.4-1 017405f169d20aead17668e7d7ad3a84524bc737
 regolith-wm-config https://github.com/regolith-linux/regolith-wm-config.git v4.11.12 7b5c5e563ff8e9fc904b6e602cd0acb2e66c5551
