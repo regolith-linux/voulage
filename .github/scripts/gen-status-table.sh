@@ -14,7 +14,7 @@ while IFS='' read -r package; do
     package_ref=$(jq -r ".packages.\"$package\".ref" "$model_file")
 
     unstable_status="[![Publish to Unstable]($package_repo/actions/workflows/publish-unstable.yml/badge.svg)]($package_repo/actions/workflows/publish-unstable.yml)"
-    testing_status="[![Publish to Unstable]($package_repo/actions/workflows/publish-testing.yml/badge.svg)]($package_repo/actions/workflows/publish-testing.yml)"
+    testing_status="[![Publish to Testing]($package_repo/actions/workflows/publish-testing.yml/badge.svg)]($package_repo/actions/workflows/publish-testing.yml)"
 
     # append table row to repository temp file
     echo "| $package_name | $unstable_status | $testing_status |" >> tmp.md
