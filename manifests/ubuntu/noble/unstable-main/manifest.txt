@@ -38,7 +38,7 @@ regolith-inputd https://github.com/regolith-linux/regolith-inputd.git master a30
 regolith-lightdm-config https://github.com/regolith-linux/regolith-lightdm-config.git master 53c6abb67a24ddfeccc2b3356d9cc757a869cbf8
 regolith-look-default https://github.com/regolith-linux/regolith-look-default.git main a2203209032a65a2e9c4f0a19056025e42c561d4
 regolith-look-extra https://github.com/regolith-linux/regolith-look-extra.git main 6361a778eb94021368f93b5c3023fb6ae3307659
-regolith-powerd https://github.com/regolith-linux/regolith-powerd.git master 854ef3c13415f8702e85330ddbe1f765417f3890
+regolith-powerd https://github.com/regolith-linux/regolith-powerd.git master bf8cf2de9034dcb990702a7bbe86eef985e730e6
 regolith-rofi-config https://github.com/regolith-linux/regolith-rofi-config.git master a4ff23eaa51b6b66611fe743ed18e5ec03f7a952
 regolith-rofication https://github.com/regolith-linux/regolith-rofication.git master 2e0908ea658f7b9672270f899345b76a07b1bcf5
 regolith-session https://github.com/regolith-linux/regolith-session.git main ab562b7bf1c8ca2b2202a31b2ba78b8107ee20e5
