@@ -5,7 +5,7 @@ regolith-desktop https://github.com/regolith-linux/regolith-desktop.git v4.11.0 
 regolith-displayd https://github.com/regolith-linux/regolith-displayd.git v0.5.0 e722e73a2133e56c7861dd81f11f669e719867e7
 regolith-look-default https://github.com/regolith-linux/regolith-look-default.git v0.8.7 a2203209032a65a2e9c4f0a19056025e42c561d4
 regolith-look-extra https://github.com/regolith-linux/regolith-look-extra.git v0.10.2 6361a778eb94021368f93b5c3023fb6ae3307659
-regolith-powerd https://github.com/regolith-linux/regolith-powerd.git v0.8.0 fb3dc3d76993239e52db370a42df84aaf904678c
+regolith-powerd https://github.com/regolith-linux/regolith-powerd.git v0.9.0 ab58c892b0df654439b7747a17afb082714b6ead
 regolith-session https://github.com/regolith-linux/regolith-session.git v1.2.5-1 36be1675aed67003344713f1e681a4d77d29ab3f
 regolith-wm-config https://github.com/regolith-linux/regolith-wm-config.git v4.12.0 210a37f513d93c0a2877eaf20f3b5b94a8b09b6e
 sway-audio-idle-inhibit https://github.com/regolith-linux/SwayAudioIdleInhibit.git v2.0.3 4521b18c5d8ca922bbbc67a7dc459059e0ff3279
