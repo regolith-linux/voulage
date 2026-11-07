@@ -185,7 +185,7 @@
       "source": "https://github.com/regolith-linux/regolith-unclutter-xfixes.git"
     },
     "regolith-wm-config": {
-      "ref": "v4.11.12",
+      "ref": "v4.12.0",
       "source": "https://github.com/regolith-linux/regolith-wm-config.git"
     },
     "solarc-theme": {
