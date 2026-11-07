@@ -13,7 +13,7 @@ i3-next-workspace https://github.com/regolith-linux/i3-next-workspace.git main a
 i3-snapshot https://github.com/regolith-linux/i3-snapshot.git master da2ca2e0c03d4e9ab46b83e117bb2920b48ca6d9
 i3-swap-focus https://github.com/regolith-linux/i3-swap-focus.git master e2b17f518e34d63ca1bb5e64f964b6b0687152ec
 i3status-rs https://github.com/regolith-linux/i3status-rs_debian.git ubuntu/v0.22.0 f36e367914f6a66e9d04034feb121313eb173380
-i3xrocks https://github.com/regolith-linux/i3xrocks.git master 4c30d060b77ddef3f01152dc27457db341f16a43
+i3xrocks https://github.com/regolith-linux/i3xrocks.git master cf7529ca4f7116c96242509a5eaf7b56c5bbb1f0
 ilia https://github.com/regolith-linux/ilia.git main b104829b1d5376d130f932730a16fd2b8a2af1d9
 lago https://github.com/regolith-linux/lago.git main 3c9a70dd2d3e3ead32d6e8c29e0d4d804fb09e52
 libtrawldb https://github.com/regolith-linux/libtrawldb.git master e601a05dabdacba1483cec18c85df6f3692dcfb0
