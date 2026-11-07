@@ -7,5 +7,5 @@ regolith-look-default https://github.com/regolith-linux/regolith-look-default.gi
 regolith-look-extra https://github.com/regolith-linux/regolith-look-extra.git v0.10.2 6361a778eb94021368f93b5c3023fb6ae3307659
 regolith-powerd https://github.com/regolith-linux/regolith-powerd.git v0.8.0 fb3dc3d76993239e52db370a42df84aaf904678c
 regolith-session https://github.com/regolith-linux/regolith-session.git v1.2.5-1 36be1675aed67003344713f1e681a4d77d29ab3f
-regolith-wm-config https://github.com/regolith-linux/regolith-wm-config.git v4.11.12 7b5c5e563ff8e9fc904b6e602cd0acb2e66c5551
+regolith-wm-config https://github.com/regolith-linux/regolith-wm-config.git v4.12.0 210a37f513d93c0a2877eaf20f3b5b94a8b09b6e
 sway-audio-idle-inhibit https://github.com/regolith-linux/SwayAudioIdleInhibit.git v2.0.3 4521b18c5d8ca922bbbc67a7dc459059e0ff3279
