@@ -12,7 +12,7 @@ gtklock https://github.com/regolith-linux/gtklock.git master 8a041e084bd2f681eb6
 i3-next-workspace https://github.com/regolith-linux/i3-next-workspace.git main aaa1759890a63a8ffebe31d78556a06ea7b7deb3
 i3-snapshot https://github.com/regolith-linux/i3-snapshot.git master da2ca2e0c03d4e9ab46b83e117bb2920b48ca6d9
 i3-swap-focus https://github.com/regolith-linux/i3-swap-focus.git master e2b17f518e34d63ca1bb5e64f964b6b0687152ec
-i3status-rs https://github.com/regolith-linux/i3status-rs_debian.git ubuntu/v0.32.1 ebcc3e83a08ee5df0a1d2311e251eaa969a54614
+i3status-rs https://github.com/regolith-linux/i3status-rs_debian.git ubuntu/v0.40.0 bd31eb842887ed0e3bc2735ff3c3af661697f944
 i3xrocks https://github.com/regolith-linux/i3xrocks.git master cf7529ca4f7116c96242509a5eaf7b56c5bbb1f0
 ilia https://github.com/regolith-linux/ilia.git main b104829b1d5376d130f932730a16fd2b8a2af1d9
 lago https://github.com/regolith-linux/lago.git main 3c9a70dd2d3e3ead32d6e8c29e0d4d804fb09e52
@@ -34,11 +34,11 @@ regolith-displayd https://github.com/regolith-linux/regolith-displayd.git master
 regolith-distro-ubuntu https://github.com/regolith-linux/regolith-distro-ubuntu.git main d8e40da746e58ad66672b776306aecdb3b7a6922
 regolith-ftue https://github.com/regolith-linux/regolith-ftue.git main 98a6160f9eb47ec27c398a7499c1788449cceb75
 regolith-i3xrocks-config https://github.com/regolith-linux/regolith-i3xrocks-config.git master 972f30f893a162f54e9efdc293191ad876c72b5a
-regolith-inputd https://github.com/regolith-linux/regolith-inputd.git master a30602dfc3c3b4984255cba18645ea1e60e72cfb
+regolith-inputd https://github.com/regolith-linux/regolith-inputd.git master 217be2d81f853e3b1c3d68e6e7dcb26e678c1b4d
 regolith-lightdm-config https://github.com/regolith-linux/regolith-lightdm-config.git master 53c6abb67a24ddfeccc2b3356d9cc757a869cbf8
 regolith-look-default https://github.com/regolith-linux/regolith-look-default.git main a2203209032a65a2e9c4f0a19056025e42c561d4
 regolith-look-extra https://github.com/regolith-linux/regolith-look-extra.git main 6361a778eb94021368f93b5c3023fb6ae3307659
-regolith-powerd https://github.com/regolith-linux/regolith-powerd.git master bf8cf2de9034dcb990702a7bbe86eef985e730e6
+regolith-powerd https://github.com/regolith-linux/regolith-powerd.git master ab58c892b0df654439b7747a17afb082714b6ead
 regolith-rofi-config https://github.com/regolith-linux/regolith-rofi-config.git master 1bff959caf4cecf53400811f660e4c5414fbb58b
 regolith-rofication https://github.com/regolith-linux/regolith-rofication.git master 2e0908ea658f7b9672270f899345b76a07b1bcf5
 regolith-session https://github.com/regolith-linux/regolith-session.git main 36be1675aed67003344713f1e681a4d77d29ab3f
