@@ -5,7 +5,10 @@
     "gtklock": null,
     "picom": null,
     "python3-i3ipc": null,
-    "i3status-rs": null,
+    "i3status-rs": {
+      "ref": "ubuntu/v0.40.0",
+      "source": "https://github.com/regolith-linux/i3status-rs_debian.git"
+    },
     "regolith-control-center": null,
     "sway-regolith": null
   }
