@@ -16,14 +16,6 @@
       "ref": "master",
       "source": "https://github.com/regolith-linux/dracula-gtk.git"
     },
-    "fonts-jetbrains-mono": {
-      "ref": "master",
-      "source": "https://github.com/regolith-linux/fonts-jetbrains-mono.git"
-    },
-    "fonts-materialdesignicons-webfont": {
-      "ref": "master",
-      "source": "https://github.com/regolith-linux/fonts-materialdesignicons-webfont.git"
-    },
     "fonts-nerd-fonts": {
       "ref": "debian",
       "source": "https://github.com/regolith-linux/fonts-nerd-fonts.git"
@@ -83,10 +75,6 @@
     "plymouth-theme-regolith": {
       "ref": "master",
       "source": "https://github.com/regolith-linux/plymouth-theme-regolith.git"
-    },
-    "python3-i3ipc": {
-      "ref": "master",
-      "source": "https://github.com/regolith-linux/python3-i3ipc.git"
     },
     "regolith-archive-keyring": {
       "ref": "main",
