@@ -180,10 +180,6 @@
       "ref": "v1.0.1-1",
       "source": "https://github.com/regolith-linux/regolith-system-ubuntu.git"
     },
-    "regolith-unclutter-xfixes": {
-      "ref": "v1.5-4",
-      "source": "https://github.com/regolith-linux/regolith-unclutter-xfixes.git"
-    },
     "regolith-wm-config": {
       "ref": "v4.12.0",
       "source": "https://github.com/regolith-linux/regolith-wm-config.git"
