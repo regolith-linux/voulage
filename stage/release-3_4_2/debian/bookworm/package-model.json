@@ -4,6 +4,10 @@
     "childe": null,
     "gtklock": null,
     "i3status-rs": null,
+    "ilia": {
+      "ref": "v0.19.2",
+      "source": "https://github.com/regolith-linux/ilia.git"
+    },
     "libtrawldb": null,
     "plymouth-theme-regolith": null,
     "regolith-archive-keyring": null,
