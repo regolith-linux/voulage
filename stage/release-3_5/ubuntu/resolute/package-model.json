@@ -1,0 +1,22 @@
+{
+  "packages": {
+    "armesto": null,
+    "fonts-jetbrains-mono": null,
+    "fonts-materialdesignicons-webfont": null,
+    "gtklock": null,
+    "i3status-rs": {
+      "ref": "v0.40.0-2",
+      "source": "https://github.com/regolith-linux/i3status-rs_debian.git"
+    },
+    "picom": null,
+    "python3-i3ipc": null,
+    "regolith-control-center": {
+      "ref": "v1.50.5-1-gnome-50",
+      "source": "https://github.com/regolith-linux/regolith-control-center.git"
+    },
+    "sway-regolith": {
+      "ref": "v1.11.2-1",
+      "source": "https://github.com/regolith-linux/sway-regolith.git"
+    }
+  }
+}
