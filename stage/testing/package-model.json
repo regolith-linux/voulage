@@ -17,7 +17,7 @@
       "source": "https://github.com/regolith-linux/dracula-gtk.git"
     },
     "fonts-nerd-fonts": {
-      "ref": "v2.1.0-4",
+      "ref": "v3.5.1-1",
       "source": "https://github.com/regolith-linux/fonts-nerd-fonts.git"
     },
     "fonts-source-code-pro-ttf": {
@@ -125,7 +125,7 @@
       "source": "https://github.com/regolith-linux/regolith-ftue.git"
     },
     "regolith-i3xrocks-config": {
-      "ref": "v5.5.3",
+      "ref": "v5.5.4",
       "source": "https://github.com/regolith-linux/regolith-i3xrocks-config.git"
     },
     "regolith-inputd": {
@@ -133,15 +133,15 @@
       "source": "https://github.com/regolith-linux/regolith-inputd.git"
     },
     "regolith-lightdm-config": {
-      "ref": "v1.3.8",
+      "ref": "v1.3.9",
       "source": "https://github.com/regolith-linux/regolith-lightdm-config.git"
     },
     "regolith-look-default": {
-      "ref": "v0.8.7",
+      "ref": "v0.8.8",
       "source": "https://github.com/regolith-linux/regolith-look-default.git"
     },
     "regolith-look-extra": {
-      "ref": "v0.10.2",
+      "ref": "v0.10.3",
       "source": "https://github.com/regolith-linux/regolith-look-extra.git"
     },
     "regolith-powerd": {
