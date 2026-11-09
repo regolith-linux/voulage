@@ -13,5 +13,5 @@ regolith-rofi-config https://github.com/regolith-linux/regolith-rofi-config.git 
 regolith-session https://github.com/regolith-linux/regolith-session.git v1.2.5-1 36be1675aed67003344713f1e681a4d77d29ab3f
 regolith-wm-config https://github.com/regolith-linux/regolith-wm-config.git v4.12.0 210a37f513d93c0a2877eaf20f3b5b94a8b09b6e
 sway-audio-idle-inhibit https://github.com/regolith-linux/SwayAudioIdleInhibit.git v2.0.4 553dc6de4755043e9b77cb4888d0696d209163a2
-trawl https://github.com/regolith-linux/trawl.git v0.2.7 c4752a7641afd8b8ddf650544b31d39520cfc068
+trawl https://github.com/regolith-linux/trawl.git v0.3.0 ae8730988e94649cb30425aa4697647338ad35a9
 whitesur-gtk-theme https://github.com/regolith-linux/WhiteSur-gtk-theme.git v1.2-2026.09.10 b15d7ecec2e85edbb7642c3ee76b34cff27d2ee0
