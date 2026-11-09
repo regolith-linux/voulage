@@ -1,6 +1,7 @@
 dracula-gtk https://github.com/regolith-linux/dracula-gtk.git v4.0.0+git20260824 eeb3e0a6d9a89db2b31e21e761122f0fc83fae2d
 i3xrocks https://github.com/regolith-linux/i3xrocks.git v1.3.7 cf7529ca4f7116c96242509a5eaf7b56c5bbb1f0
 ilia https://github.com/regolith-linux/ilia.git v0.19.2 b104829b1d5376d130f932730a16fd2b8a2af1d9
+nordic https://github.com/regolith-linux/nordic.git v2.2.0+git20260723-1 23a65f7ad675463b7d6077d3745056c2d41ae784
 regolith-avizo https://github.com/regolith-linux/avizo.git v0.1.6 7230b7279a35dba77de786c90f02556bcc0276a1
 regolith-desktop https://github.com/regolith-linux/regolith-desktop.git v4.11.0 3d4cb0df64b46f5b377e4fd1db08338ed80d4796
 regolith-displayd https://github.com/regolith-linux/regolith-displayd.git v0.5.0 e722e73a2133e56c7861dd81f11f669e719867e7
