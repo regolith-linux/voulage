@@ -25,7 +25,7 @@ regolith-archive-keyring https://github.com/regolith-linux/regolith-archive-keyr
 regolith-avizo https://github.com/regolith-linux/avizo.git master a8815e112e2102050bc7b14dccdc5cbe87203856
 regolith-compositor-compton-glx https://github.com/regolith-linux/regolith-compositor-compton-glx.git master d657959598e4260dafb22915b2dbb99317b42f42
 regolith-compositor-none https://github.com/regolith-linux/regolith-compositor-none.git master 92ad520ff076ceb8b9d905956921b5bed2a5667d
-regolith-compositor-picom-glx https://github.com/regolith-linux/regolith-compositor-picom-glx.git master 6c4b45cde7851385a36a553cf1da4471c49f1305
+regolith-compositor-picom-glx https://github.com/regolith-linux/regolith-compositor-picom-glx.git master dc94e0a03ba286bed37f2c6bedc1e13f22e1763a
 regolith-compositor-xcompmgr https://github.com/regolith-linux/regolith-compositor-xcompmgr.git master 7f58479108c3cab02b12c87ebb068cf6dffdc5a6
 regolith-control-center https://github.com/regolith-linux/regolith-control-center.git regolith/50 963f94a9829a0dfafc91c04cccd8c04aa8e99448
 regolith-default-settings https://github.com/regolith-linux/regolith-default-settings.git main 04430deaf7eb41b16ddcc70595049f264b29a1a8
