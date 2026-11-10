@@ -17,7 +17,7 @@ picom https://github.com/regolith-linux/picom.git main 921769852b6a73618fcf6ac98
 plymouth-theme-regolith https://github.com/regolith-linux/plymouth-theme-regolith.git master 860a62bb530577ada9c0f43a6a2310cd8ac44c9b
 python3-i3ipc https://github.com/regolith-linux/python3-i3ipc.git master 3f2fa73d7352f06b4c5f55be6e6759c5f6cc1dd0
 regolith-archive-keyring https://github.com/regolith-linux/regolith-archive-keyring.git main 4416a8d0aac2da17730155547760d189b3bf6dd5
-regolith-compositor-compton-glx https://github.com/regolith-linux/regolith-compositor-compton-glx.git master d657959598e4260dafb22915b2dbb99317b42f42
+regolith-compositor-compton-glx https://github.com/regolith-linux/regolith-compositor-compton-glx.git master 7fce5f301b2637e61c6ff4930343d4771f51e917
 regolith-compositor-none https://github.com/regolith-linux/regolith-compositor-none.git master 92ad520ff076ceb8b9d905956921b5bed2a5667d
 regolith-compositor-picom-glx https://github.com/regolith-linux/regolith-compositor-picom-glx.git master dc94e0a03ba286bed37f2c6bedc1e13f22e1763a
 regolith-compositor-xcompmgr https://github.com/regolith-linux/regolith-compositor-xcompmgr.git master 7f58479108c3cab02b12c87ebb068cf6dffdc5a6
