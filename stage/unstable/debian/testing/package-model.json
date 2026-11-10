@@ -12,6 +12,10 @@
       "ref": "package-sway-v1.12",
       "source": "https://github.com/regolith-linux/sway-regolith.git"
     },
-    "ubiquity-slideshow-regolith": null
+    "ubiquity-slideshow-regolith": null,
+    "xdg-desktop-portal-luminous": {
+      "ref": "packaging-upstream",
+      "source": "https://github.com/regolith-linux/xdg-desktop-portal-luminous.git"
+    }
   }
 }
