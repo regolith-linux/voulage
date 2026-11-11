@@ -133,7 +133,7 @@
       "source": "https://github.com/regolith-linux/regolith-inputd.git"
     },
     "regolith-lightdm-config": {
-      "ref": "v1.3.8",
+      "ref": "v1.4.0",
       "source": "https://github.com/regolith-linux/regolith-lightdm-config.git"
     },
     "regolith-look-default": {
