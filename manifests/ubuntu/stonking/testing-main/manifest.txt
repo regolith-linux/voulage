@@ -4,6 +4,7 @@ ilia https://github.com/regolith-linux/ilia.git v0.19.2 b104829b1d5376d130f93273
 nordic https://github.com/regolith-linux/nordic.git v2.2.0+git20260723-1 23a65f7ad675463b7d6077d3745056c2d41ae784
 regolith-avizo https://github.com/regolith-linux/avizo.git v0.1.6 7230b7279a35dba77de786c90f02556bcc0276a1
 regolith-compositor-compton-glx https://github.com/regolith-linux/regolith-compositor-compton-glx.git v1.2.4 33702b6a05451f8806c1de140a5cca50d5c51a63
+regolith-compositor-xcompmgr https://github.com/regolith-linux/regolith-compositor-xcompmgr.git v1.4.1-1 d1c9ee19570ea320b38202dd7fa62c15cdf59c18
 regolith-desktop https://github.com/regolith-linux/regolith-desktop.git v4.11.0 3d4cb0df64b46f5b377e4fd1db08338ed80d4796
 regolith-displayd https://github.com/regolith-linux/regolith-displayd.git v0.5.0 e722e73a2133e56c7861dd81f11f669e719867e7
 regolith-ftue https://github.com/regolith-linux/regolith-ftue.git v2.2.3 83064014059723fb7bd47ef4b933178166b171c8
