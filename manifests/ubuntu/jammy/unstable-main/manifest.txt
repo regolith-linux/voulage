@@ -26,7 +26,7 @@ regolith-avizo https://github.com/regolith-linux/avizo.git master a8815e112e2102
 regolith-compositor-compton-glx https://github.com/regolith-linux/regolith-compositor-compton-glx.git master d5645ed41945a852ac49b5ab5edf378704eaa84c
 regolith-compositor-none https://github.com/regolith-linux/regolith-compositor-none.git master ce21ff80319df10f91f8aac3ee882c5e66a05261
 regolith-compositor-picom-glx https://github.com/regolith-linux/regolith-compositor-picom-glx.git master dc94e0a03ba286bed37f2c6bedc1e13f22e1763a
-regolith-compositor-xcompmgr https://github.com/regolith-linux/regolith-compositor-xcompmgr.git master f9d32f4dadd440041d9fdaf02e5c1caad8041cae
+regolith-compositor-xcompmgr https://github.com/regolith-linux/regolith-compositor-xcompmgr.git master d1c9ee19570ea320b38202dd7fa62c15cdf59c18
 regolith-control-center https://github.com/regolith-linux/regolith-control-center.git ubuntu/jammy 424e1117a0fb5900a3408f82eb85a27328df479a
 regolith-default-settings https://github.com/regolith-linux/regolith-default-settings.git main 04430deaf7eb41b16ddcc70595049f264b29a1a8
 regolith-desktop https://github.com/regolith-linux/regolith-desktop.git main 3d4cb0df64b46f5b377e4fd1db08338ed80d4796
