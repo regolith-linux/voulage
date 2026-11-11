@@ -31,7 +31,7 @@ regolith-control-center https://github.com/regolith-linux/regolith-control-cente
 regolith-debootstick-setup https://github.com/regolith-linux/regolith-debootstick-setup.git main d4119787ce85e237e6fb20eabbce3f98eab39be0
 regolith-default-settings https://github.com/regolith-linux/regolith-default-settings.git main 04430deaf7eb41b16ddcc70595049f264b29a1a8
 regolith-desktop https://github.com/regolith-linux/regolith-desktop.git main 3d4cb0df64b46f5b377e4fd1db08338ed80d4796
-regolith-displayd https://github.com/regolith-linux/regolith-displayd.git master 713df173be4d3b1e23ad96b8d1f01d22829838dc
+regolith-displayd https://github.com/regolith-linux/regolith-displayd.git master 380c1ab58789598c35ba20a30aa7393890118a0f
 regolith-distro-ubuntu https://github.com/regolith-linux/regolith-distro-ubuntu.git main d8e40da746e58ad66672b776306aecdb3b7a6922
 regolith-ftue https://github.com/regolith-linux/regolith-ftue.git main 868a938f8ec815b9f2cc9d8767601f401619494d
 regolith-i3xrocks-config https://github.com/regolith-linux/regolith-i3xrocks-config.git master 7730f1cb4a39d08c6fcd760a217022fb25078429
