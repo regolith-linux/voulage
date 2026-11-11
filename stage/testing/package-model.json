@@ -85,7 +85,7 @@
       "source": "https://github.com/regolith-linux/avizo.git"
     },
     "regolith-compositor-compton-glx": {
-      "ref": "v1.2.2",
+      "ref": "v1.2.4",
       "source": "https://github.com/regolith-linux/regolith-compositor-compton-glx.git"
     },
     "regolith-compositor-none": {
