@@ -4,14 +4,14 @@ childe https://github.com/regolith-linux/childe.git v0.1.4 d4334423d7aa8818d51ad
 dracula-gtk https://github.com/regolith-linux/dracula-gtk.git v4.0.0+git20260824 eeb3e0a6d9a89db2b31e21e761122f0fc83fae2d
 fonts-jetbrains-mono https://github.com/regolith-linux/fonts-jetbrains-mono.git v1.0.3-1regolith1 4058c7287ade5c90f46f211234c03fc18d30c1d9
 fonts-materialdesignicons-webfont https://github.com/regolith-linux/fonts-materialdesignicons-webfont.git v1.6.50-5regolith1 d922e342547459236363e59bcb36a4e4a74a6e16
-fonts-nerd-fonts https://github.com/regolith-linux/fonts-nerd-fonts.git v2.1.0-4 b167a0ffdc54b0496eb558a61eea25347fc6297b
+fonts-nerd-fonts https://github.com/regolith-linux/fonts-nerd-fonts.git v3.5.1-2 e99f9a0eceed83087a3548c7de31c5f96ff2722a
 fonts-source-code-pro-ttf https://github.com/regolith-linux/fonts-source-code-pro-ttf.git v1.011-0ubuntu1-ppa3 fac2ee22cfc1a683fc0138c0d0c0c2e7e53ca8d7
 gruvbox-gtk https://github.com/regolith-linux/gruvbox-gtk.git v1.0.2-2 4a9245ccf8fb13b1976ec20926b0a7f775f1396e
 gtklock https://github.com/regolith-linux/gtklock.git v2.2.2 8a041e084bd2f681eb62b8b4542609bb12930ee7
 i3-next-workspace https://github.com/regolith-linux/i3-next-workspace.git v1.0.6 2ae062eb1473cae2ca71db2d0f9e7bdb9dda9c75
 i3-snapshot https://github.com/regolith-linux/i3-snapshot.git v1.1-2ubuntu1-ppa2 f88b0f70358b40bf41dba6ad300b0ed9183c3d0f
 i3-swap-focus https://github.com/regolith-linux/i3-swap-focus.git v0.4.5 e2b17f518e34d63ca1bb5e64f964b6b0687152ec
-i3status-rs https://github.com/regolith-linux/i3status-rs_debian.git v0.32.1-2 a5accf6838b0bef87679e60c49ab363eb76e7535
+i3status-rs https://github.com/regolith-linux/i3status-rs_debian.git v0.40.0-2 b5108dfca747dbee178e96eef5d2a809fb016786
 i3xrocks https://github.com/regolith-linux/i3xrocks.git v1.3.7 cf7529ca4f7116c96242509a5eaf7b56c5bbb1f0
 ilia https://github.com/regolith-linux/ilia.git v0.19.2 b104829b1d5376d130f932730a16fd2b8a2af1d9
 lago https://github.com/regolith-linux/lago.git v0.2.0-2 8c1aa67287597c2b7c6e71be5c42b841ba0ef519
