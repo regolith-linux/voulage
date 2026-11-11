@@ -29,7 +29,7 @@ regolith-ftue https://github.com/regolith-linux/regolith-ftue.git v2.2.2 ccf08c4
 regolith-i3xrocks-config https://github.com/regolith-linux/regolith-i3xrocks-config.git v5.5.3 5832aef268c1f4e1d0942abf45b4dc87fa7bedd8
 regolith-lightdm-config https://github.com/regolith-linux/regolith-lightdm-config.git v1.3.8 3f75b68697d295a3948b5bb4c49991f760d247f4
 regolith-look-default https://github.com/regolith-linux/regolith-look-default.git v0.9.0 dbe095e921a67f5283955164425074837495322e
-regolith-look-extra https://github.com/regolith-linux/regolith-look-extra.git v0.10.2 6361a778eb94021368f93b5c3023fb6ae3307659
+regolith-look-extra https://github.com/regolith-linux/regolith-look-extra.git v0.11.0 db0282a17fef8922a4dc820c044ad0dcf887005a
 regolith-rofi-config https://github.com/regolith-linux/regolith-rofi-config.git v1.4.3-1 1bff959caf4cecf53400811f660e4c5414fbb58b
 regolith-rofication https://github.com/regolith-linux/regolith-rofication.git v1.5.3 875ed860d145737e12edd0e68087e1017754d85e
 regolith-session https://github.com/regolith-linux/regolith-session.git v1.1.14-3-debian-bookworm-debian-bookworm 59d433225b1a5286fe06a985ac0b93d2e9ff01da

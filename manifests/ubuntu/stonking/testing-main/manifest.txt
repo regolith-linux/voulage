@@ -7,7 +7,7 @@ regolith-desktop https://github.com/regolith-linux/regolith-desktop.git v4.11.0 
 regolith-displayd https://github.com/regolith-linux/regolith-displayd.git v0.5.0 e722e73a2133e56c7861dd81f11f669e719867e7
 regolith-inputd https://github.com/regolith-linux/regolith-inputd.git v0.5.0 217be2d81f853e3b1c3d68e6e7dcb26e678c1b4d
 regolith-look-default https://github.com/regolith-linux/regolith-look-default.git v0.9.0 dbe095e921a67f5283955164425074837495322e
-regolith-look-extra https://github.com/regolith-linux/regolith-look-extra.git v0.10.2 6361a778eb94021368f93b5c3023fb6ae3307659
+regolith-look-extra https://github.com/regolith-linux/regolith-look-extra.git v0.11.0 db0282a17fef8922a4dc820c044ad0dcf887005a
 regolith-powerd https://github.com/regolith-linux/regolith-powerd.git v0.9.0 ab58c892b0df654439b7747a17afb082714b6ead
 regolith-rofi-config https://github.com/regolith-linux/regolith-rofi-config.git v1.4.3-1 1bff959caf4cecf53400811f660e4c5414fbb58b
 regolith-session https://github.com/regolith-linux/regolith-session.git v1.2.5-1 36be1675aed67003344713f1e681a4d77d29ab3f
