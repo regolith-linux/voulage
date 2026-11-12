@@ -16,7 +16,7 @@ libtrawldb https://github.com/regolith-linux/libtrawldb.git master e601a05dabdac
 nordic https://github.com/regolith-linux/nordic.git main 23a65f7ad675463b7d6077d3745056c2d41ae784
 plymouth-theme-regolith https://github.com/regolith-linux/plymouth-theme-regolith.git master 860a62bb530577ada9c0f43a6a2310cd8ac44c9b
 regolith-archive-keyring https://github.com/regolith-linux/regolith-archive-keyring.git main 4416a8d0aac2da17730155547760d189b3bf6dd5
-regolith-avizo https://github.com/regolith-linux/avizo.git master a8815e112e2102050bc7b14dccdc5cbe87203856
+regolith-avizo https://github.com/regolith-linux/avizo.git master 96f00236587ca66e75d9e6724c4e7b4a9d2706df
 regolith-compositor-compton-glx https://github.com/regolith-linux/regolith-compositor-compton-glx.git master 33702b6a05451f8806c1de140a5cca50d5c51a63
 regolith-compositor-none https://github.com/regolith-linux/regolith-compositor-none.git master ce21ff80319df10f91f8aac3ee882c5e66a05261
 regolith-compositor-picom-glx https://github.com/regolith-linux/regolith-compositor-picom-glx.git master 5b10b7092f91f707add9e10b0f3a266019931769
