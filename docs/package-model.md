@@ -56,3 +56,11 @@ continues to the the leaf node of the `target` specification.  So,
 `unstable/debian/bullseye`, then `unstable/debian/bullseye/arm64` are checked for
 `package-model.json` files.  The resulting model is used when determining if there
 are changes (by comparing to the manifest file contained in each leaf directory).
+
+Each changed package is built from the commit recorded for it in the new
+manifest, even if its `ref` has moved since (new commits, force-push, deleted
+branch, re-pointed tag). Before the first package is checked out, the build
+fails if the recorded commit of any package to build is no longer in its
+source. A package is only published if every binary package its
+`debian/control` declares for the target architecture (taking `Build-Profiles`
+into account, and leaving out udebs) was built.
