@@ -10,6 +10,7 @@
       "source": "https://github.com/regolith-linux/regolith-control-center.git"
     },
     "regolith-displayd": null,
+    "regolith-distro-ubuntu": null,
     "regolith-inputd": null,
     "regolith-powerd": null,
     "regolith-session": {
@@ -17,6 +18,7 @@
       "source": "https://github.com/regolith-linux/regolith-session.git"
     },
     "regolith-sway-touchpad-gestures": null,
+    "regolith-system-ubuntu": null,
     "sway-audio-idle-inhibit": null,
     "sway-regolith": null,
     "trawl": null,
