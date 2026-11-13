@@ -9,7 +9,7 @@
       "source": "https://github.com/regolith-linux/ayu-theme.git"
     },
     "childe": {
-      "ref": "v0.1.4",
+      "ref": "v0.1.5",
       "source": "https://github.com/regolith-linux/childe.git"
     },
     "dracula-gtk": {
