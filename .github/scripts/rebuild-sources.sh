@@ -11,6 +11,10 @@
 #
 # This will ensure one single .orig.tar.gz file can be used for all the
 # packages of the same version and same component of different codenames.
+#
+# Only dpkg-dev, devscripts and the signing key are needed: the build
+# dependencies of the packages are not installed, so the sources of every
+# codename can be rebuilt on any one image.
 
 # Rebuild one source package in the current component directory. Runs in a
 # subshell, so its working directory changes and its temp dir cleanup never
@@ -83,9 +87,12 @@ rebuild_source() (
   mv "debian/" "$src_dir" || return 1
 
   cd "$src_dir" || return 1
-  sudo apt update || return 1
-  sudo apt build-dep -y . || return 1
-  debuild -S -sa || return 1
+  # The tree is a fresh unpack of a source package that was already built, so
+  # it is clean, and packing it needs none of the build dependencies. Don't
+  # install them (-d) or run debian/rules clean (-nc): this job runs in one
+  # image for every codename, where a newer codename's build dependencies
+  # (e.g. a newer cargo) can't be installed.
+  debuild -S -sa -d -nc || return 1
 
   # leaving the source tree, back in /tmp/tmp.XXXXXXXXXX
   cd "$tmp" || return 1
