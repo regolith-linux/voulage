@@ -33,7 +33,7 @@
       "source": "https://github.com/regolith-linux/gtklock.git"
     },
     "i3-next-workspace": {
-      "ref": "v1.0.6",
+      "ref": "v1.0.8",
       "source": "https://github.com/regolith-linux/i3-next-workspace.git"
     },
     "i3-snapshot": {
