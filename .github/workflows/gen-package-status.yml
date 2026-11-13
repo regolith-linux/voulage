@@ -30,6 +30,7 @@ jobs:
 
   release-tracker:
     runs-on: ubuntu-24.04
+    needs: package-status
     if: "!contains(github.event.head_commit.message, '[ci skip]')"
     steps:
       - name: Checkout
@@ -39,6 +40,9 @@ jobs:
 
       - name: Regenerate Release Tracker Packages
         run: ./.github/scripts/gen-release-tracker.sh
+
+      - name: Sync with latest main
+        run: git -c user.name=regolith-ci-bot -c user.email=bot@regolith-desktop.com pull --rebase --autostash origin ${{ github.ref_name }}
 
       - name: Push Changes
         uses: stefanzweifel/git-auto-commit-action@v5
