@@ -60,6 +60,8 @@ PKG_PUBLISH_PATH=""  # it will be: <GIT_REPO_PATH>/pkgpublish
 PACKAGE_NAME=""
 PACKAGE_URL=""
 PACKAGE_REF=""
+# shellcheck disable=SC2034 # read by checkout() in ext-git.sh
+PACKAGE_COMMIT=""    # no manifest: checkout builds PACKAGE_REF as it is now
 
 DISTRO=""            # ubuntu, debian
 CODENAME=""          # e.g. jammy, noble, bookworm, etc
