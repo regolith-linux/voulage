@@ -29,7 +29,7 @@
       "source": "https://github.com/regolith-linux/gruvbox-gtk.git"
     },
     "gtklock": {
-      "ref": "v2.2.2",
+      "ref": "v2.2.3",
       "source": "https://github.com/regolith-linux/gtklock.git"
     },
     "i3-next-workspace": {
