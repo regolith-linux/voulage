@@ -121,7 +121,7 @@
       "source": "https://github.com/regolith-linux/regolith-distro-ubuntu.git"
     },
     "regolith-ftue": {
-      "ref": "v2.2.3",
+      "ref": "v2.2.4",
       "source": "https://github.com/regolith-linux/regolith-ftue.git"
     },
     "regolith-i3xrocks-config": {
