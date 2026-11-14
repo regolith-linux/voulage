@@ -18,7 +18,6 @@
     "sway-regolith": {
       "ref": "packaging/v1.10-regolith",
       "source": "https://github.com/regolith-linux/sway-regolith.git"
-    },
-    "ubiquity-slideshow-regolith": null
+    }
   }
 }

@@ -188,10 +188,6 @@
       "ref": "master",
       "source": "https://github.com/regolith-linux/trawl.git"
     },
-    "ubiquity-slideshow-regolith": {
-      "ref": "master",
-      "source": "https://github.com/regolith-linux/ubiquity-slideshow-regolith.git"
-    },
     "whitesur-gtk-theme": {
       "ref": "debian",
       "source": "https://github.com/regolith-linux/WhiteSur-gtk-theme.git"
