@@ -1,5 +1,6 @@
 {
   "packages": {
+    "gtklock": null,
     "regolith-control-center": {
       "ref": "v1.49.0-4-gnome-49",
       "source": "https://github.com/regolith-linux/regolith-control-center.git"
