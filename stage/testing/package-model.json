@@ -57,7 +57,7 @@
       "source": "https://github.com/regolith-linux/ilia.git"
     },
     "lago": {
-      "ref": "v0.2.0-2",
+      "ref": "v0.2.0-3",
       "source": "https://github.com/regolith-linux/lago.git"
     },
     "libtrawldb": {
