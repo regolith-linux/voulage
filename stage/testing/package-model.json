@@ -61,7 +61,7 @@
       "source": "https://github.com/regolith-linux/lago.git"
     },
     "libtrawldb": {
-      "ref": "v0.1-4",
+      "ref": "v0.1.1-1",
       "source": "https://github.com/regolith-linux/libtrawldb.git"
     },
     "nordic": {
