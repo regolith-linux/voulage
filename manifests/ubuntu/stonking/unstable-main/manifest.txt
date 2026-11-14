@@ -26,7 +26,7 @@ regolith-default-settings https://github.com/regolith-linux/regolith-default-set
 regolith-desktop https://github.com/regolith-linux/regolith-desktop.git main 3d4cb0df64b46f5b377e4fd1db08338ed80d4796
 regolith-displayd https://github.com/regolith-linux/regolith-displayd.git master eccc1eecffbfcbfb0d1baedd6b25a16d9ca8ab73
 regolith-distro-ubuntu https://github.com/regolith-linux/regolith-distro-ubuntu.git main 31f752a1df3dab2c86388d4a1b24c36b6679213e
-regolith-ftue https://github.com/regolith-linux/regolith-ftue.git main 83064014059723fb7bd47ef4b933178166b171c8
+regolith-ftue https://github.com/regolith-linux/regolith-ftue.git main a6c44530a77b54e7320916a0d43fbb77f9117e31
 regolith-i3xrocks-config https://github.com/regolith-linux/regolith-i3xrocks-config.git master a9e525304b75e1ca8b76d7f9c56c2d4f6f440314
 regolith-inputd https://github.com/regolith-linux/regolith-inputd.git master ae3e8185a83b94a74fd545ba68631f6c3978017f
 regolith-lightdm-config https://github.com/regolith-linux/regolith-lightdm-config.git master 7634eb963138eebeaa5437c0aed8bff59602921c
