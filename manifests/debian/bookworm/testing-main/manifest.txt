@@ -18,7 +18,7 @@ plymouth-theme-regolith https://github.com/regolith-linux/plymouth-theme-regolit
 python3-i3ipc https://github.com/regolith-linux/python3-i3ipc.git v2.1.1-1ubuntu1-ppa9 1727d0360be36212fdf2cab0a3d47f951cc46afa
 regolith-archive-keyring https://github.com/regolith-linux/regolith-archive-keyring.git v0.1.0 4416a8d0aac2da17730155547760d189b3bf6dd5
 regolith-compositor-compton-glx https://github.com/regolith-linux/regolith-compositor-compton-glx.git v1.2.4 33702b6a05451f8806c1de140a5cca50d5c51a63
-regolith-compositor-none https://github.com/regolith-linux/regolith-compositor-none.git v1.0.4-2 92ad520ff076ceb8b9d905956921b5bed2a5667d
+regolith-compositor-none https://github.com/regolith-linux/regolith-compositor-none.git v1.0.5-1 7d0396637c4046a2df10a4e1236579365e1ce911
 regolith-compositor-picom-glx https://github.com/regolith-linux/regolith-compositor-picom-glx.git v1.4.1-1 5b10b7092f91f707add9e10b0f3a266019931769
 regolith-compositor-xcompmgr https://github.com/regolith-linux/regolith-compositor-xcompmgr.git v1.4.1-1 d1c9ee19570ea320b38202dd7fa62c15cdf59c18
 regolith-control-center https://github.com/regolith-linux/regolith-control-center.git v1.43.1-10-gnome-43 63ee64667f4fd73af735ad7220d93439a5618d24
