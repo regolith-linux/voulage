@@ -30,7 +30,7 @@ regolith-compositor-xcompmgr https://github.com/regolith-linux/regolith-composit
 regolith-control-center https://github.com/regolith-linux/regolith-control-center.git regolith/49 551e74cdf32a47a98a2ce3d05f3ad5519b2d9e92
 regolith-default-settings https://github.com/regolith-linux/regolith-default-settings.git main 04430deaf7eb41b16ddcc70595049f264b29a1a8
 regolith-desktop https://github.com/regolith-linux/regolith-desktop.git main 3d4cb0df64b46f5b377e4fd1db08338ed80d4796
-regolith-displayd https://github.com/regolith-linux/regolith-displayd.git master 3f41167778c9eac38b998d6fe6985febad1347f1
+regolith-displayd https://github.com/regolith-linux/regolith-displayd.git master 744853ba553e40fa01de0bb0cd18cc40d10e106a
 regolith-distro-ubuntu https://github.com/regolith-linux/regolith-distro-ubuntu.git main d8e40da746e58ad66672b776306aecdb3b7a6922
 regolith-ftue https://github.com/regolith-linux/regolith-ftue.git main 83064014059723fb7bd47ef4b933178166b171c8
 regolith-i3xrocks-config https://github.com/regolith-linux/regolith-i3xrocks-config.git master 7730f1cb4a39d08c6fcd760a217022fb25078429
