@@ -39,7 +39,7 @@ regolith-look-default https://github.com/regolith-linux/regolith-look-default.gi
 regolith-look-extra https://github.com/regolith-linux/regolith-look-extra.git v0.11.0 db0282a17fef8922a4dc820c044ad0dcf887005a
 regolith-powerd https://github.com/regolith-linux/regolith-powerd.git v0.10.0 1e69c23a0aefdbd338b5938c677dec11426af825
 regolith-rofi-config https://github.com/regolith-linux/regolith-rofi-config.git v1.4.3-1 1bff959caf4cecf53400811f660e4c5414fbb58b
-regolith-rofication https://github.com/regolith-linux/regolith-rofication.git v1.5.3 875ed860d145737e12edd0e68087e1017754d85e
+regolith-rofication https://github.com/regolith-linux/regolith-rofication.git v1.6.0 9fc1755be0b9d54aa11f874e0f11190dff6cecb3
 regolith-session https://github.com/regolith-linux/regolith-session.git v1.2.5-1 36be1675aed67003344713f1e681a4d77d29ab3f
 regolith-sway-touchpad-gestures https://github.com/regolith-linux/regolith-sway-touchpad-gestures.git v0.1.0-4 39fe9aae8a75b4a5a8a63d61c2b827075931fe56
 regolith-system-ubuntu https://github.com/regolith-linux/regolith-system-ubuntu.git v1.0.1-1 73f5e13dee9eb9c8296564271e8b77c3e00c0e45
