@@ -8,6 +8,8 @@
       "ref": "regolith/49",
       "source": "https://github.com/regolith-linux/regolith-control-center.git"
     },
+    "regolith-distro-ubuntu": null,
+    "regolith-system-ubuntu": null,
     "sway-regolith": {
       "ref": "package-sway-v1.12",
       "source": "https://github.com/regolith-linux/sway-regolith.git"

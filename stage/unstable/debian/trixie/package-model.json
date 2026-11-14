@@ -12,6 +12,8 @@
       "ref": "main",
       "source": "https://github.com/regolith-linux/regolith-debootstick-setup.git"
     },
+    "regolith-distro-ubuntu": null,
+    "regolith-system-ubuntu": null,
     "sway-regolith": {
       "ref": "packaging/v1.10-regolith",
       "source": "https://github.com/regolith-linux/sway-regolith.git"
