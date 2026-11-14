@@ -1,3 +1,4 @@
+childe https://github.com/regolith-linux/childe.git v0.1.5 4f5d84cb7a4d96cc08d7790cf44aece9bd7e79b3
 dracula-gtk https://github.com/regolith-linux/dracula-gtk.git v4.0.0+git20260824 eeb3e0a6d9a89db2b31e21e761122f0fc83fae2d
 i3-next-workspace https://github.com/regolith-linux/i3-next-workspace.git v1.0.8 028438dc9558f9699d7429376ff4425412ef3073
 i3xrocks https://github.com/regolith-linux/i3xrocks.git v1.3.7 cf7529ca4f7116c96242509a5eaf7b56c5bbb1f0
