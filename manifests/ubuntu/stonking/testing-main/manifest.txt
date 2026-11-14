@@ -27,7 +27,7 @@ regolith-rofication https://github.com/regolith-linux/regolith-rofication.git v1
 regolith-session https://github.com/regolith-linux/regolith-session.git v1.3.0-1 4c4dc125011aef1907fbaad08c3f81947278cf1a
 regolith-system-ubuntu https://github.com/regolith-linux/regolith-system-ubuntu.git v1.1.0-1 cfa80911a1fb3e3cf9df66a6b5dcaaba4612e4d5
 regolith-wm-config https://github.com/regolith-linux/regolith-wm-config.git v4.13.0 e4f501ab7caac3603ef303fed9bef382282a9e0b
-sway-audio-idle-inhibit https://github.com/regolith-linux/SwayAudioIdleInhibit.git v2.0.4 553dc6de4755043e9b77cb4888d0696d209163a2
+sway-audio-idle-inhibit https://github.com/regolith-linux/SwayAudioIdleInhibit.git v2.0.5 6bdede27ae4287d335de52216982224e5755e5e4
 trawl https://github.com/regolith-linux/trawl.git v0.3.0 ae8730988e94649cb30425aa4697647338ad35a9
 whitesur-gtk-theme https://github.com/regolith-linux/WhiteSur-gtk-theme.git v1.2-2026.09.10 b15d7ecec2e85edbb7642c3ee76b34cff27d2ee0
 xdg-desktop-portal-regolith https://github.com/regolith-linux/xdg-desktop-portal-regolith.git v0.4.0-1 833dd7588887cdfa9381321e1d8c990680fe3e6c
