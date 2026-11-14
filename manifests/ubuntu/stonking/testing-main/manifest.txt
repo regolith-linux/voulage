@@ -30,3 +30,4 @@ regolith-wm-config https://github.com/regolith-linux/regolith-wm-config.git v4.1
 sway-audio-idle-inhibit https://github.com/regolith-linux/SwayAudioIdleInhibit.git v2.0.4 553dc6de4755043e9b77cb4888d0696d209163a2
 trawl https://github.com/regolith-linux/trawl.git v0.3.0 ae8730988e94649cb30425aa4697647338ad35a9
 whitesur-gtk-theme https://github.com/regolith-linux/WhiteSur-gtk-theme.git v1.2-2026.09.10 b15d7ecec2e85edbb7642c3ee76b34cff27d2ee0
+xdg-desktop-portal-regolith https://github.com/regolith-linux/xdg-desktop-portal-regolith.git v0.4.0-1 833dd7588887cdfa9381321e1d8c990680fe3e6c
