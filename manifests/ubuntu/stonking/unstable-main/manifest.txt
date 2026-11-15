@@ -13,7 +13,7 @@ i3status-rs https://github.com/regolith-linux/i3status-rs_debian.git ubuntu/v0.4
 i3xrocks https://github.com/regolith-linux/i3xrocks.git master cf7529ca4f7116c96242509a5eaf7b56c5bbb1f0
 ilia https://github.com/regolith-linux/ilia.git main b13a31607e972411fe824ac75cc59d362609ff98
 lago https://github.com/regolith-linux/lago.git main e1caed6e4f54247006013f44cafd100261fa67e5
-libtrawldb https://github.com/regolith-linux/libtrawldb.git master e601a05dabdacba1483cec18c85df6f3692dcfb0
+libtrawldb https://github.com/regolith-linux/libtrawldb.git master 8023a662b3c625716c50f5ac15d02c3170b6dfdd
 nordic https://github.com/regolith-linux/nordic.git main 23a65f7ad675463b7d6077d3745056c2d41ae784
 plymouth-theme-regolith https://github.com/regolith-linux/plymouth-theme-regolith.git master 860a62bb530577ada9c0f43a6a2310cd8ac44c9b
 regolith-archive-keyring https://github.com/regolith-linux/regolith-archive-keyring.git main 4416a8d0aac2da17730155547760d189b3bf6dd5
@@ -37,14 +37,15 @@ regolith-rofi-config https://github.com/regolith-linux/regolith-rofi-config.git 
 regolith-rofication https://github.com/regolith-linux/regolith-rofication.git master 9fc1755be0b9d54aa11f874e0f11190dff6cecb3
 regolith-session https://github.com/regolith-linux/regolith-session.git main a3b1b5ec040afd5de5a2ef81ed97aedca8263b95
 regolith-sway-touchpad-gestures https://github.com/regolith-linux/regolith-sway-touchpad-gestures.git main 4409071493a098a0940e9ccaaea02cafda68c41f
-regolith-system-ubuntu https://github.com/regolith-linux/regolith-system-ubuntu.git main 1b34db25bfb582d39d320de705d342ac91b6a6f5
+regolith-system-ubuntu https://github.com/regolith-linux/regolith-system-ubuntu.git main cfa80911a1fb3e3cf9df66a6b5dcaaba4612e4d5
 regolith-unclutter-xfixes https://github.com/regolith-linux/regolith-unclutter-xfixes.git master 1d076599c84cabc6eec315bc303634d75b041399
 regolith-wm-config https://github.com/regolith-linux/regolith-wm-config.git main e4f501ab7caac3603ef303fed9bef382282a9e0b
 remontoire https://github.com/regolith-linux/remontoire.git master 5a4437086d89ca96c00bc0d704c82395ba0a031a
 solarc-theme https://github.com/regolith-linux/solarc-theme.git master 47f171b6379640c8bbd69d61a60ac917cdc58f59
-sway-audio-idle-inhibit https://github.com/regolith-linux/SwayAudioIdleInhibit.git main 3534dba08845fbd6034e527b677185a4cb48fe3a
+sway-audio-idle-inhibit https://github.com/regolith-linux/SwayAudioIdleInhibit.git main 6bdede27ae4287d335de52216982224e5755e5e4
+sway-regolith https://github.com/regolith-linux/sway-regolith.git package-sway-v1.12 254dcb27e284b55af3f07c2024d8328de1979903
 trawl https://github.com/regolith-linux/trawl.git master 4b05d2b29e3044b35636e5456daf98a3b4707c56
 ubiquity-slideshow-regolith https://github.com/regolith-linux/ubiquity-slideshow-regolith.git master 2629889d5adc635052fbeed84dc4ac6e28dbf195
 whitesur-gtk-theme https://github.com/regolith-linux/WhiteSur-gtk-theme.git debian b15d7ecec2e85edbb7642c3ee76b34cff27d2ee0
-xdg-desktop-portal-regolith https://github.com/regolith-linux/xdg-desktop-portal-regolith.git main 1bb2f0437b0b09b7934c319cf13b25e2e2a68434
+xdg-desktop-portal-regolith https://github.com/regolith-linux/xdg-desktop-portal-regolith.git main 833dd7588887cdfa9381321e1d8c990680fe3e6c
 xrescat https://github.com/regolith-linux/xrescat.git master 3e6823bbc6b642ac28865ffbd6b2049c4ac8d336
