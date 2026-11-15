@@ -10,6 +10,9 @@
       "source": "https://github.com/regolith-linux/i3status-rs_debian.git"
     },
     "regolith-control-center": null,
-    "sway-regolith": null
+    "sway-regolith": {
+      "ref": "package-sway-v1.12",
+      "source": "https://github.com/regolith-linux/sway-regolith.git"
+    }
   }
 }
