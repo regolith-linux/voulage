@@ -204,6 +204,38 @@ build_bin_package() {
   echo "::endgroup::"
 }
 
+# Print "<package> <arch>" for each binary package that the control file
+# declares for target_arch: target_arch for "any", for wildcards ("linux-any",
+# "any-amd64", ...) and lists that match it, "all" for "all". Packages whose Build-Profiles
+# restriction doesn't hold for the profiles in DEB_BUILD_PROFILES aren't built,
+# and udebs aren't published. The -dbgsym packages debhelper adds are not in
+# the control file. Parsing and matching are done by dpkg's own modules.
+list_binary_packages() {
+  local control_file="$1"
+  local target_arch="$2"
+
+  perl -MDpkg::Control::Info -MDpkg::Arch=debarch_is \
+    -MDpkg::BuildProfiles=get_build_profiles,parse_build_profiles,evaluate_restriction_formula -e '
+    my ($control_file, $arch) = @ARGV;
+    my @profiles = get_build_profiles();
+
+    foreach my $pkg (Dpkg::Control::Info->new($control_file)->get_packages()) {
+      my $type = $pkg->{"Package-Type"} // $pkg->{"XC-Package-Type"} // "deb";
+      next if $type eq "udeb";
+
+      my $restriction = $pkg->{"Build-Profiles"};
+      next if defined $restriction &&
+        !evaluate_restriction_formula([ parse_build_profiles($restriction) ], \@profiles);
+
+      my @archs = split " ", $pkg->{"Architecture"};
+      if (grep { $_ eq "all" } @archs) {
+        print "$pkg->{Package} all\n";
+      } elsif (grep { debarch_is($arch, $_) } @archs) {
+        print "$pkg->{Package} $arch\n";
+      }
+    }' "$control_file" "$target_arch"
+}
+
 publish() {
   echo "::group::Publishing binary and source packages"
   cd "${PKG_BUILD_PATH:?}/$PACKAGE_NAME"
@@ -246,32 +278,38 @@ publish() {
     fi
   done
 
-  # The binary packages of debian/control that were built for the target arch
-  # or for all. Not a pipeline, so that the list survives the loop.
+  # Every binary package debian/control declares for the target arch has to
+  # be published, or none: an incomplete set leaves packages in the archive
+  # that depend on binaries it doesn't have.
   DEB_CONTROL_FILE="$PKG_BUILD_PATH/$PACKAGE_NAME/debian/control"
-  local target_archs=("$ARCH")
-  if [ "$ARCH" != "all" ]; then
-    target_archs+=("all")
-  fi
-  local bin_pkgs=()
+  local bin_pkgs
   local bin_pkg
-  local target_arch
+  local bin_arch
   local bin_files=()
-  mapfile -t bin_pkgs < <(awk '/^Package:/ { print $2 }' "$DEB_CONTROL_FILE")
+  if ! bin_pkgs=$(list_binary_packages "$DEB_CONTROL_FILE" "$ARCH"); then
+    echo "Error: cannot read the binary packages of $DEB_CONTROL_FILE, not publishing it." >&2
+    return 1
+  fi
 
-  for target_arch in "${target_archs[@]}"; do
-    for bin_pkg in "${bin_pkgs[@]}"; do
-      file="${bin_pkg}_${file_version}_${target_arch}.deb"
-      if [ -f "$PKG_BUILD_PATH/$file" ]; then
-        bin_files+=("$file")
-      else
-        echo -e "\033[0;31m  Package $bin_pkg does not exist for $target_arch.\033[0m"
-      fi
-    done
-  done
+  while read -r bin_pkg bin_arch; do
+    if [ -z "$bin_pkg" ]; then
+      continue
+    fi
+    file="${bin_pkg}_${file_version}_${bin_arch}.deb"
+    if [ -f "$PKG_BUILD_PATH/$file" ]; then
+      bin_files+=("$file")
+    else
+      echo -e "\033[0;31mBinary package $bin_pkg was not built: $file not found!\033[0m" >&2
+      missing=1
+    fi
+  done <<< "$bin_pkgs"
 
+  if [ "$missing" -ne 0 ]; then
+    echo "Error: binary packages of $debian_package_name $version are missing, not publishing it." >&2
+    return 1
+  fi
   if [ ${#bin_files[@]} -eq 0 ]; then
-    echo "Error: no binary package of $debian_package_name $version was built for $ARCH or all, not publishing it." >&2
+    echo "Error: debian/control of $debian_package_name $version declares no binary package for $ARCH or all, not publishing it." >&2
     return 1
   fi
 

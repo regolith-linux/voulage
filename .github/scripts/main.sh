@@ -227,6 +227,40 @@ source_setup_scripts() {
   done
 }
 
+# Fail if the commit recorded for any package to build is not in its source
+# anymore (e.g. the branch was force-pushed and the commit garbage collected).
+# Runs before the first checkout, so that nothing is built or published unless
+# every package can be built from the commit the manifest records.
+check_package_commits() {
+  local pkg_line
+  local pkg_name
+  local pkg_url
+  local pkg_commit
+  local missing=0
+
+  echo "::group::Checking the commits of the package set"
+  while IFS= read -r pkg_line; do
+    pkg_name=$(echo "$pkg_line" | cut -d" " -f1)
+    pkg_url=$(echo "$pkg_line" | cut -d" " -f2)
+    pkg_commit=$(echo "$pkg_line" | cut -d" " -f4)
+
+    if [ -n "$ONLY_PACKAGE" ] && [ "$pkg_name" != "$ONLY_PACKAGE" ]; then
+      continue
+    fi
+
+    if ! source_has_commit "$pkg_url" "$pkg_commit"; then
+      echo -e "\033[0;31mError: commit $pkg_commit of package $pkg_name is not in $pkg_url anymore.\033[0m" >&2
+      missing=1
+    fi
+  done <<< "$PACKAGE_CHANGES"
+  echo "::endgroup::"
+
+  if [ "$missing" -ne 0 ]; then
+    echo -e "\033[0;31mError: refusing to build packages from commits other than the recorded ones, aborting.\033[0m" >&2
+    exit 1
+  fi
+}
+
 build_packages() {
   echo "::group::Package set to build"
   echo -e "$PACKAGE_CHANGES"  
@@ -238,6 +272,10 @@ build_packages() {
     PACKAGE_NAME=$(echo "$PKG_LINE" | cut -d" " -f1)
     PACKAGE_URL=$(echo "$PKG_LINE" | cut -d" " -f2)
     PACKAGE_REF=$(echo "$PKG_LINE" | cut -d" " -f3)
+    # The ref may have moved since the manifest was generated: checkout()
+    # builds the recorded commit, not whatever the ref names now.
+    # shellcheck disable=SC2034 # read by checkout() in ext-git.sh
+    PACKAGE_COMMIT=$(echo "$PKG_LINE" | cut -d" " -f4)
 
     if [ -n "$ONLY_PACKAGE" ] && [ "$PACKAGE_NAME" != "$ONLY_PACKAGE" ]; then
       continue
@@ -511,12 +549,12 @@ traverse_package_model
 
 #### Find packages that need to be built
 echo "::group::Looking for changed package"
-# make sure these two files are always sorted
-sort -o "$PREV_MANIFEST_FILE" "$PREV_MANIFEST_FILE"
+# make sure these two files are compared sorted. The previous manifest itself
+# is only rewritten by update_manifest_file, once every package is built.
 sort -o "$NEXT_MANIFEST_FILE" "$NEXT_MANIFEST_FILE"
 
 echo -e "\033[0;34mDiffing $PREV_MANIFEST_FILE $NEXT_MANIFEST_FILE\033[0m"
-PACKAGE_CHANGES=$(diff "$PREV_MANIFEST_FILE" "$NEXT_MANIFEST_FILE" | grep '^[>][^>]' | cut -c3- | uniq | sort)
+PACKAGE_CHANGES=$(diff <(sort "$PREV_MANIFEST_FILE") "$NEXT_MANIFEST_FILE" | grep '^[>][^>]' | cut -c3- | uniq | sort)
 echo "$PACKAGE_CHANGES"
 echo "::endgroup::"
 
@@ -529,6 +567,7 @@ if [ "$MODE" == "build" ]; then
   #### Build packages
 
   setup
+  check_package_commits
   build_packages
 
   #### Cleanup
