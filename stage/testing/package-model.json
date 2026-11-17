@@ -169,7 +169,7 @@
       "source": "https://github.com/regolith-linux/regolith-system-ubuntu.git"
     },
     "regolith-wm-config": {
-      "ref": "v4.13.0",
+      "ref": "v4.13.1",
       "source": "https://github.com/regolith-linux/regolith-wm-config.git"
     },
     "solarc-theme": {
