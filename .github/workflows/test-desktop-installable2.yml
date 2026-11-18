@@ -244,6 +244,7 @@ jobs:
         (inputs.distro == '' && inputs.codename == 'bullseye') ||
         (inputs.distro == 'debian' && inputs.codename == 'bullseye')
       )
+      && join(fromJSON(needs.matrix-builder.outputs.stages)['debian-bullseye']) != ''
     strategy:
       fail-fast: false
       matrix:
@@ -272,6 +273,7 @@ jobs:
         (inputs.distro == '' && inputs.codename == 'bookworm') ||
         (inputs.distro == 'debian' && inputs.codename == 'bookworm')
       )
+      && join(fromJSON(needs.matrix-builder.outputs.stages)['debian-bookworm']) != ''
     strategy:
       fail-fast: false
       matrix:
@@ -300,6 +302,7 @@ jobs:
         (inputs.distro == '' && inputs.codename == 'trixie') ||
         (inputs.distro == 'debian' && inputs.codename == 'trixie')
       )
+      && join(fromJSON(needs.matrix-builder.outputs.stages)['debian-trixie']) != ''
     strategy:
       fail-fast: false
       matrix:
@@ -328,6 +331,7 @@ jobs:
         (inputs.distro == '' && inputs.codename == 'testing') ||
         (inputs.distro == 'debian' && inputs.codename == 'testing')
       )
+      && join(fromJSON(needs.matrix-builder.outputs.stages)['debian-testing']) != ''
     strategy:
       fail-fast: false
       matrix:
@@ -356,6 +360,7 @@ jobs:
         (inputs.distro == '' && inputs.codename == 'focal') ||
         (inputs.distro == 'ubuntu' && inputs.codename == 'focal')
       )
+      && join(fromJSON(needs.matrix-builder.outputs.stages)['ubuntu-focal']) != ''
     strategy:
       fail-fast: false
       matrix:
@@ -384,6 +389,7 @@ jobs:
         (inputs.distro == '' && inputs.codename == 'jammy') ||
         (inputs.distro == 'ubuntu' && inputs.codename == 'jammy')
       )
+      && join(fromJSON(needs.matrix-builder.outputs.stages)['ubuntu-jammy']) != ''
     strategy:
       fail-fast: false
       matrix:
@@ -415,6 +421,7 @@ jobs:
         (inputs.distro == '' && inputs.codename == 'lunar') ||
         (inputs.distro == 'ubuntu' && inputs.codename == 'lunar')
       )
+      && join(fromJSON(needs.matrix-builder.outputs.stages)['ubuntu-lunar']) != ''
     strategy:
       fail-fast: false
       matrix:
@@ -443,6 +450,7 @@ jobs:
         (inputs.distro == '' && inputs.codename == 'mantic') ||
         (inputs.distro == 'ubuntu' && inputs.codename == 'mantic')
       )
+      && join(fromJSON(needs.matrix-builder.outputs.stages)['ubuntu-mantic']) != ''
     strategy:
       fail-fast: false
       matrix:
@@ -471,6 +479,7 @@ jobs:
         (inputs.distro == '' && inputs.codename == 'noble') ||
         (inputs.distro == 'ubuntu' && inputs.codename == 'noble')
       )
+      && join(fromJSON(needs.matrix-builder.outputs.stages)['ubuntu-noble']) != ''
     strategy:
       fail-fast: false
       matrix:
@@ -499,6 +508,7 @@ jobs:
         (inputs.distro == '' && inputs.codename == 'oracular') ||
         (inputs.distro == 'ubuntu' && inputs.codename == 'oracular')
       )
+      && join(fromJSON(needs.matrix-builder.outputs.stages)['ubuntu-oracular']) != ''
     strategy:
       fail-fast: false
       matrix:
@@ -527,6 +537,7 @@ jobs:
         (inputs.distro == '' && inputs.codename == 'plucky') ||
         (inputs.distro == 'ubuntu' && inputs.codename == 'plucky')
       )
+      && join(fromJSON(needs.matrix-builder.outputs.stages)['ubuntu-plucky']) != ''
     strategy:
       fail-fast: false
       matrix:
@@ -555,6 +566,7 @@ jobs:
         (inputs.distro == '' && inputs.codename == 'questing') ||
         (inputs.distro == 'ubuntu' && inputs.codename == 'questing')
       )
+      && join(fromJSON(needs.matrix-builder.outputs.stages)['ubuntu-questing']) != ''
     strategy:
       fail-fast: false
       matrix:
@@ -583,6 +595,7 @@ jobs:
         (inputs.distro == '' && inputs.codename == 'resolute') ||
         (inputs.distro == 'ubuntu' && inputs.codename == 'resolute')
       )
+      && join(fromJSON(needs.matrix-builder.outputs.stages)['ubuntu-resolute']) != ''
     strategy:
       fail-fast: false
       matrix:
@@ -611,6 +624,7 @@ jobs:
         (inputs.distro == '' && inputs.codename == 'stonking') ||
         (inputs.distro == 'ubuntu' && inputs.codename == 'stonking')
       )
+      && join(fromJSON(needs.matrix-builder.outputs.stages)['ubuntu-stonking']) != ''
     strategy:
       fail-fast: false
       matrix:
