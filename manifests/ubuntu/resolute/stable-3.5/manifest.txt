@@ -1,1 +1,2 @@
 libtrawldb https://github.com/regolith-linux/libtrawldb.git v0.1.1-1 8023a662b3c625716c50f5ac15d02c3170b6dfdd
+trawl https://github.com/regolith-linux/trawl.git v0.3.1 4b05d2b29e3044b35636e5456daf98a3b4707c56
