@@ -61,6 +61,11 @@ Each changed package is built from the commit recorded for it in the new
 manifest, even if its `ref` has moved since (new commits, force-push, deleted
 branch, re-pointed tag). Before the first package is checked out, the build
 fails if the recorded commit of any package to build is no longer in its
-source. A package is only published if every binary package its
-`debian/control` declares for the target architecture (taking `Build-Profiles`
-into account, and leaving out udebs) was built.
+source. A package publishes the binary packages its build produced, as listed in
+the binary `.changes` file, or none. Packages the build leaves out on purpose
+(`Architecture`, `Build-Profiles`, `dh -N` or a vendor condition in
+`debian/rules`) are not expected. Each file must match the size and checksum
+in the `.changes`, udebs and `-dbgsym` packages are left out, and if a
+published package depends on another binary package of the same source that
+was not built (and no alternative or `Provides` covers it), nothing is
+published.

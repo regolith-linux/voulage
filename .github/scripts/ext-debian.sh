@@ -204,36 +204,110 @@ build_bin_package() {
   echo "::endgroup::"
 }
 
-# Print "<package> <arch>" for each binary package that the control file
-# declares for target_arch: target_arch for "any", for wildcards ("linux-any",
-# "any-amd64", ...) and lists that match it, "all" for "all". Packages whose Build-Profiles
-# restriction doesn't hold for the profiles in DEB_BUILD_PROFILES aren't built,
-# and udebs aren't published. The -dbgsym packages debhelper adds are not in
-# the control file. Parsing and matching are done by dpkg's own modules.
-list_binary_packages() {
-  local control_file="$1"
-  local target_arch="$2"
+# Print the file name of each binary package to publish, one per line.
+#
+# The set is what the build itself says it produced: the .deb files listed in
+# the binary .changes that dpkg-buildpackage writes from debian/files. Binary
+# packages the build leaves out on purpose (Architecture, Build-Profiles,
+# "dh -N" or a vendor condition in debian/rules) are not in it, so nothing
+# has to be declared per target here.
+#
+# Only binary packages that debian/control declares are published, so the
+# -dbgsym packages debhelper adds and udebs are left out. Each file has to
+# exist with the size and SHA-256 sum the .changes records, and carry the
+# version being published.
+#
+# The set also has to be installable as far as this source is concerned:
+# when a published package depends (Depends or Pre-Depends) on another binary
+# package of the same source, an alternative of that dependency has to be in
+# the set or provided by it, or come from outside this source. Otherwise
+# nothing is printed and the function fails, naming each missing package.
+list_published_binaries() {
+  local changes_file="$1"
+  local control_file="$2"
+  local version="$3"
 
-  perl -MDpkg::Control::Info -MDpkg::Arch=debarch_is \
-    -MDpkg::BuildProfiles=get_build_profiles,parse_build_profiles,evaluate_restriction_formula -e '
-    my ($control_file, $arch) = @ARGV;
-    my @profiles = get_build_profiles();
+  perl -MDpkg::Control -MDpkg::Control::Info -MDpkg::Deps -MDigest::SHA -e '
+    use strict;
+    use warnings;
+    my ($changes_file, $control_file, $version) = @ARGV;
+    (my $dir = $changes_file) =~ s{/[^/]*$}{};
+    my $failed = 0;
+    sub problem { print STDERR "$_[0]\n"; $failed = 1; }
 
+    my %declared;
     foreach my $pkg (Dpkg::Control::Info->new($control_file)->get_packages()) {
       my $type = $pkg->{"Package-Type"} // $pkg->{"XC-Package-Type"} // "deb";
-      next if $type eq "udeb";
+      $declared{$pkg->{Package}} = 1 if $type eq "deb";
+    }
 
-      my $restriction = $pkg->{"Build-Profiles"};
-      next if defined $restriction &&
-        !evaluate_restriction_formula([ parse_build_profiles($restriction) ], \@profiles);
+    my $changes = Dpkg::Control->new(type => CTRL_FILE_CHANGES);
+    $changes->load($changes_file);
+    if (($changes->{Version} // "") ne $version) {
+      print STDERR "$changes_file is for version " . ($changes->{Version} // "?") . ", not $version.\n";
+      exit 1;
+    }
 
-      my @archs = split " ", $pkg->{"Architecture"};
-      if (grep { $_ eq "all" } @archs) {
-        print "$pkg->{Package} all\n";
-      } elsif (grep { debarch_is($arch, $_) } @archs) {
-        print "$pkg->{Package} $arch\n";
+    my (%sha256, %size);
+    foreach my $line (split /\n/, $changes->{"Checksums-Sha256"} // "") {
+      my ($sum, $bytes, $file) = split " ", $line;
+      next unless defined $file;
+      ($sha256{$file}, $size{$file}) = ($sum, $bytes);
+    }
+
+    my (@files, %built, %provided);
+    foreach my $file (sort keys %sha256) {
+      next unless $file =~ /\.deb$/;
+      my ($name) = split /_/, $file;
+      next unless $declared{$name};
+
+      my $path = "$dir/$file";
+      if (! -f $path) {
+        problem("$file is listed in $changes_file but not found!");
+        next;
       }
-    }' "$control_file" "$target_arch"
+      if (-s $path != $size{$file} || Digest::SHA->new(256)->addfile($path)->hexdigest ne $sha256{$file}) {
+        problem("$file does not match the size and SHA-256 sum in $changes_file!");
+        next;
+      }
+
+      open(my $fh, "-|", "dpkg-deb", "--field", $path) or die "dpkg-deb: $!\n";
+      my $fields = Dpkg::Control->new(type => CTRL_PKG_DEB);
+      $fields->parse($fh, $path);
+      close($fh) or die "dpkg-deb --field $path failed\n";
+      if ($fields->{Version} ne $version) {
+        problem("$file has version $fields->{Version}, not $version!");
+        next;
+      }
+
+      push @files, [ $file, $fields ];
+      $built{$fields->{Package}} = 1;
+      $provided{$fields->{Package}} = 1;
+      if (defined $fields->{Provides}) {
+        $provided{$_->{package}} = 1 foreach deps_parse($fields->{Provides}, union => 1)->get_deps();
+      }
+    }
+
+    foreach my $entry (@files) {
+      my ($file, $fields) = @$entry;
+      foreach my $field ("Pre-Depends", "Depends") {
+        next unless defined $fields->{$field};
+        foreach my $group (deps_parse($fields->{$field})->get_deps()) {
+          my @alternatives = $group->isa("Dpkg::Deps::OR") ? $group->get_deps() : ($group);
+          next if grep { !$declared{$_->{package}} || $provided{$_->{package}} } @alternatives;
+          problem("$fields->{Package} ($field: $group) needs " .
+            join(" or ", map { $_->{package} } @alternatives) . ", which this build did not produce!");
+        }
+      }
+    }
+
+    exit 1 if $failed;
+    if (!@files) {
+      print STDERR "$changes_file lists no binary package declared in $control_file.\n";
+      exit 1;
+    }
+    print "$_->[0]\n" foreach @files;
+  ' "$changes_file" "$control_file" "$version"
 }
 
 publish() {
@@ -278,40 +352,22 @@ publish() {
     fi
   done
 
-  # Every binary package debian/control declares for the target arch has to
-  # be published, or none: an incomplete set leaves packages in the archive
-  # that depend on binaries it doesn't have.
+  # Publish the binary packages the build produced, or none: see
+  # list_published_binaries for what makes the set complete.
+  local binary_changes="${debian_package_name}_${file_version}_${ARCH}.changes"
   DEB_CONTROL_FILE="$PKG_BUILD_PATH/$PACKAGE_NAME/debian/control"
-  local bin_pkgs
-  local bin_pkg
-  local bin_arch
+  local bin_list
   local bin_files=()
-  if ! bin_pkgs=$(list_binary_packages "$DEB_CONTROL_FILE" "$ARCH"); then
-    echo "Error: cannot read the binary packages of $DEB_CONTROL_FILE, not publishing it." >&2
-    return 1
-  fi
-
-  while read -r bin_pkg bin_arch; do
-    if [ -z "$bin_pkg" ]; then
-      continue
-    fi
-    file="${bin_pkg}_${file_version}_${bin_arch}.deb"
-    if [ -f "$PKG_BUILD_PATH/$file" ]; then
-      bin_files+=("$file")
-    else
-      echo -e "\033[0;31mBinary package $bin_pkg was not built: $file not found!\033[0m" >&2
-      missing=1
-    fi
-  done <<< "$bin_pkgs"
-
-  if [ "$missing" -ne 0 ]; then
+  if [ ! -f "$PKG_BUILD_PATH/$binary_changes" ]; then
+    echo -e "\033[0;31m$binary_changes not found!\033[0m" >&2
     echo "Error: binary packages of $debian_package_name $version are missing, not publishing it." >&2
     return 1
   fi
-  if [ ${#bin_files[@]} -eq 0 ]; then
-    echo "Error: debian/control of $debian_package_name $version declares no binary package for $ARCH or all, not publishing it." >&2
+  if ! bin_list=$(list_published_binaries "$PKG_BUILD_PATH/$binary_changes" "$DEB_CONTROL_FILE" "$version"); then
+    echo "Error: binary packages of $debian_package_name $version are incomplete, not publishing it." >&2
     return 1
   fi
+  mapfile -t bin_files <<< "$bin_list"
 
   echo -e "\033[0;34mPublishing source package $debian_package_name into $PKG_PUBLISH_PATH.\033[0m"
   mkdir -p "$suite_path"
