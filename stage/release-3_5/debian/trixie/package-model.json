@@ -1,0 +1,19 @@
+{
+  "packages": {
+    "gtklock": null,
+    "i3status-rs": {
+      "ref": "v0.22.2-3-ubuntu-jammy",
+      "source": "https://github.com/regolith-linux/i3status-rs_debian.git"
+    },
+    "regolith-control-center": {
+      "ref": "v1.48.1-11-gnome-48",
+      "source": "https://github.com/regolith-linux/regolith-control-center.git"
+    },
+    "regolith-distro-ubuntu": null,
+    "regolith-system-ubuntu": null,
+    "sway-regolith": {
+      "ref": "v1.10-2",
+      "source": "https://github.com/regolith-linux/sway-regolith.git"
+    }
+  }
+}
