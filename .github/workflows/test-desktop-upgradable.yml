@@ -1,0 +1,156 @@
+name: Test Regolith Desktop Upgrade
+run-name: Test upgrade ${{ inputs.from-stage }} to ${{ inputs.to-stage }} ${{ inputs.distro }} ${{ inputs.codename }} ${{ inputs.arch }}
+
+# Installs Regolith from one stage's archive line, switches the sources line to
+# another stage's and runs "apt full-upgrade", the way users move from one
+# release to the next (e.g. "stable <codename> v3.4" to "stable <codename> v3.5").
+# See .github/scripts/test-upgrade.sh for what is checked.
+#
+# Targets are the <distro>/<codename> folders present in both stage/<from-stage>
+# and stage/<to-stage>, so a codename new in the to stage (nothing to upgrade
+# from) is left out.
+
+on:
+  workflow_dispatch:
+    inputs:
+      from-stage:
+        description: "Stage to install first"
+        type: choice
+        options:
+          - unstable
+          - testing
+          - release-3_0
+          - release-3_1
+          - release-3_2
+          - release-3_3
+          - release-3_4
+          - release-3_5
+        required: true
+        default: "release-3_4"
+      to-stage:
+        description: "Stage to upgrade to"
+        type: choice
+        options:
+          - unstable
+          - testing
+          - release-3_0
+          - release-3_1
+          - release-3_2
+          - release-3_3
+          - release-3_4
+          - release-3_5
+        required: true
+        default: "release-3_5"
+      distro:
+        description: "Distro to test (debian, ubuntu)"
+        type: choice
+        options:
+          - ""
+          - debian
+          - ubuntu
+        required: false
+        default: ""
+      codename:
+        description: "Codename to test (e.g. noble, bookworm)"
+        type: string
+        required: false
+        default: ""
+      arch:
+        description: "Architecture to test (amd64, arm64)"
+        type: choice
+        options:
+          - ""
+          - amd64
+          - arm64
+        required: false
+        default: ""
+
+# Need to explicitly set shell according to: https://github.com/actions/runner/issues/353#issuecomment-1067227665
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  matrix-builder:
+    runs-on: ubuntu-24.04
+    outputs:
+      include: ${{ steps.calc-matrix.outputs.include }}
+      from: ${{ steps.calc-matrix.outputs.from }}
+      to: ${{ steps.calc-matrix.outputs.to }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Calculate Matrix
+        id: calc-matrix
+        env:
+          FROM_STAGE: ${{ inputs.from-stage }}
+          TO_STAGE: ${{ inputs.to-stage }}
+          DISTRO: ${{ inputs.distro }}
+          CODENAME: ${{ inputs.codename }}
+          ARCH: ${{ inputs.arch }}
+        run: |
+          # "<suite> <component>" of the archive line a stage publishes to
+          suite_component() {
+            case "$1" in
+              release-*) local v=${1#release-}; echo "stable v${v/_/.}" ;;
+              *) echo "$1 main" ;;
+            esac
+          }
+
+          if [ "$FROM_STAGE" == "$TO_STAGE" ]; then
+            echo "::error::from-stage and to-stage are both $FROM_STAGE"
+            exit 1
+          fi
+
+          if [ -n "$ARCH" ]; then
+            ARCHES=("$ARCH")
+          else
+            ARCHES=(amd64 arm64)
+          fi
+
+          INCLUDE=()
+          for dir in $(find "stage/$TO_STAGE/" -mindepth 2 -maxdepth 2 -type d | sort); do
+            distro=$(echo "$dir" | cut -d/ -f3)
+            codename=$(echo "$dir" | cut -d/ -f4)
+            [ -d "stage/$FROM_STAGE/$distro/$codename" ] || continue
+            [ -z "$DISTRO" ] || [ "$DISTRO" == "$distro" ] || continue
+            [ -z "$CODENAME" ] || [ "$CODENAME" == "$codename" ] || continue
+            # debian/testing is never released
+            if [[ "$FROM_STAGE$TO_STAGE" == *release-* ]] && [ "$distro/$codename" == "debian/testing" ]; then
+              continue
+            fi
+            for arch in "${ARCHES[@]}"; do
+              INCLUDE+=("$(jq -n -c --arg distro "$distro" --arg codename "$codename" --arg arch "$arch" '$ARGS.named')")
+            done
+          done
+
+          include="[$(IFS=,; echo "${INCLUDE[*]}")]"
+          echo "Targets: $include"
+          if [ "$include" == "[]" ]; then
+            echo "::warning::no codename is in both stage/$FROM_STAGE and stage/$TO_STAGE for this selection"
+          fi
+          {
+            echo "include=$include"
+            echo "from=$(suite_component "$FROM_STAGE")"
+            echo "to=$(suite_component "$TO_STAGE")"
+          } >> "$GITHUB_OUTPUT"
+
+  upgrade:
+    needs: matrix-builder
+    if: needs.matrix-builder.outputs.include != '[]'
+    name: ${{ matrix.distro }}-${{ matrix.codename }} (${{ inputs.from-stage }} to ${{ inputs.to-stage }}, ${{ matrix.arch }})
+    runs-on: ${{ matrix.arch == 'arm64' && 'ubuntu-24.04-arm' || 'ubuntu-24.04' }}
+    container: ${{ matrix.distro }}:${{ matrix.codename }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJSON(needs.matrix-builder.outputs.include) }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Upgrade ${{ needs.matrix-builder.outputs.from }} to ${{ needs.matrix-builder.outputs.to }} on ${{ matrix.distro }} ${{ matrix.codename }}
+        run: |
+          .github/scripts/test-upgrade.sh "${{ matrix.distro }}" "${{ matrix.codename }}" "${{ matrix.arch }}" \
+            "${{ needs.matrix-builder.outputs.from }}" "${{ needs.matrix-builder.outputs.to }}"
