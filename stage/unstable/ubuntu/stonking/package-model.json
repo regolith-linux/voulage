@@ -9,7 +9,10 @@
       "ref": "ubuntu/v0.40.0",
       "source": "https://github.com/regolith-linux/i3status-rs_debian.git"
     },
-    "regolith-control-center": null,
+    "regolith-control-center": {
+      "ref": "regolith/51",
+      "source": "https://github.com/regolith-linux/regolith-control-center.git"
+    },
     "sway-regolith": {
       "ref": "package-sway-v1.12",
       "source": "https://github.com/regolith-linux/sway-regolith.git"
