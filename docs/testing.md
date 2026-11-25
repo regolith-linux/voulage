@@ -47,6 +47,13 @@ are covered by a script test. It needs `git`, `dpkg-dev` and `devscripts`:
 $ .github/scripts/tests/test-update-changelog.sh
 ```
 
+The targets that `build-deb-v5.yml` holds back from publishing when some of
+its build legs fail (`failed-targets.sh`) are covered too. It needs `jq`:
+
+```console
+$ .github/scripts/tests/test-failed-targets.sh
+```
+
 ## Package versions per stage
 
 | Stage | Version written to `debian/changelog` | Example |

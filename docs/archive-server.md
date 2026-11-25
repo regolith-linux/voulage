@@ -13,6 +13,7 @@ The archive is served by Apache and managed with [aptly](https://www.aptly.info/
 | `/etc/aptly/<distro>/<suite>.conf` | One aptly config (and database) per distro and suite. `<distro>` is `debian` or `ubuntu`. `<suite>` is `experimental`, `unstable`, `testing`, `backports` or `stable`. |
 | `/opt/archives/packages/voulage/run-<id>/` | Staging: what one `build-deb-v5` run uploaded, as `<distro>/<codename>/<suite or version>/`. |
 | `/opt/archives/workspace/voulage/run-<id>/` | Staging for source rebuilds (`SOURCELOG_*.txt` and tarballs). |
+| `/opt/archives/{packages,workspace}/voulage/held/run-<id>/` | What run `<id>` uploaded for a target whose build failed on some architecture, moved out of the staging folders so it isn't published. Nothing reads it; delete it once the failure is understood. |
 | `/opt/archives/published/<distro>/<suite>/public/` | aptly's published trees, served as `http://archive.regolith-desktop.com/<distro>/<suite>/`. |
 
 ### aptly naming
@@ -40,6 +41,13 @@ A `build-deb-v5.yml` run with `do-publish=yes`:
    - runs `aptly repo add -remove-files`, with `-force-replace` only for experimental and unstable,
    - then either publishes the codename (`publish repo`) or updates it. For a stable `vX.Y` component that's new to the codename, it first runs `publish source add -component=vX.Y`, then `publish update`.
 5. **Manifests.** The build commits the updated `manifests/<distro>/<codename>/<suite>-<component>/manifest.txt`.
+
+A build leg that fails doesn't stop the other targets. Steps 3 to 5 run for
+every target whose legs all passed. A target with a failed leg on any
+architecture is held back as a whole: its files are moved to `held/run-<id>/`
+before step 3 (the legs that passed have already uploaded theirs), and its
+manifest isn't updated, so the next build retries it. The run still ends as
+failed.
 
 Two consequences matter for releases:
 
