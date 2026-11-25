@@ -1,5 +1,5 @@
 name: Test Regolith Desktop Upgrade
-run-name: Test upgrade ${{ inputs.from-stage }} to ${{ inputs.to-stage }} ${{ inputs.distro }} ${{ inputs.codename }} ${{ inputs.arch }}
+run-name: Test upgrade ${{ inputs.from-stage }} to ${{ inputs.to-stage }} ${{ inputs.distro }} ${{ inputs.codename }} ${{ inputs.arch }}${{ inputs.upgrade-os && ' with OS upgrade' || '' }}
 
 # Installs Regolith from one stage's archive line, switches the sources line to
 # another stage's and runs "apt full-upgrade", the way users move from one
@@ -9,6 +9,13 @@ run-name: Test upgrade ${{ inputs.from-stage }} to ${{ inputs.to-stage }} ${{ in
 # Targets are the <distro>/<codename> folders present in both stage/<from-stage>
 # and stage/<to-stage>, so a codename new in the to stage (nothing to upgrade
 # from) is left out.
+#
+# With upgrade-os, the OS moves to its next release in the same upgrade (e.g.
+# jammy to noble while moving from v3.4 to v3.5), and from-stage and to-stage
+# may be the same stage. Targets are then the supported OS upgrade paths
+# (UPGRADE_PATHS below) whose old codename is in stage/<from-stage> and whose
+# new codename is in stage/<to-stage>; the distro and codename inputs select by
+# the old codename.
 
 on:
   workflow_dispatch:
@@ -64,6 +71,11 @@ on:
           - arm64
         required: false
         default: ""
+      upgrade-os:
+        description: "Also upgrade the OS to its next release (jammy to noble, noble or questing to resolute, bookworm to trixie)"
+        type: boolean
+        required: false
+        default: false
 
 # Need to explicitly set shell according to: https://github.com/actions/runner/issues/353#issuecomment-1067227665
 defaults:
@@ -89,6 +101,7 @@ jobs:
           DISTRO: ${{ inputs.distro }}
           CODENAME: ${{ inputs.codename }}
           ARCH: ${{ inputs.arch }}
+          UPGRADE_OS: ${{ inputs.upgrade-os }}
         run: |
           # "<suite> <component>" of the archive line a stage publishes to
           suite_component() {
@@ -98,7 +111,15 @@ jobs:
             esac
           }
 
-          if [ "$FROM_STAGE" == "$TO_STAGE" ]; then
+          # Supported OS upgrade paths: "<distro> <codename> <new codename>"
+          UPGRADE_PATHS=(
+            "debian bookworm trixie"
+            "ubuntu jammy noble"
+            "ubuntu noble resolute"
+            "ubuntu questing resolute"
+          )
+
+          if [ "$FROM_STAGE" == "$TO_STAGE" ] && [ "$UPGRADE_OS" != "true" ]; then
             echo "::error::from-stage and to-stage are both $FROM_STAGE"
             exit 1
           fi
@@ -109,11 +130,24 @@ jobs:
             ARCHES=(amd64 arm64)
           fi
 
+          # "<distro> <codename> <new codename>" candidates, the same codename
+          # twice when the OS is not upgraded
+          if [ "$UPGRADE_OS" == "true" ]; then
+            CANDIDATES=("${UPGRADE_PATHS[@]}")
+          else
+            CANDIDATES=()
+            for dir in $(find "stage/$TO_STAGE/" -mindepth 2 -maxdepth 2 -type d | sort); do
+              distro=$(echo "$dir" | cut -d/ -f3)
+              codename=$(echo "$dir" | cut -d/ -f4)
+              CANDIDATES+=("$distro $codename $codename")
+            done
+          fi
+
           INCLUDE=()
-          for dir in $(find "stage/$TO_STAGE/" -mindepth 2 -maxdepth 2 -type d | sort); do
-            distro=$(echo "$dir" | cut -d/ -f3)
-            codename=$(echo "$dir" | cut -d/ -f4)
+          for candidate in "${CANDIDATES[@]}"; do
+            read -r distro codename to_codename <<< "$candidate"
             [ -d "stage/$FROM_STAGE/$distro/$codename" ] || continue
+            [ -d "stage/$TO_STAGE/$distro/$to_codename" ] || continue
             [ -z "$DISTRO" ] || [ "$DISTRO" == "$distro" ] || continue
             [ -z "$CODENAME" ] || [ "$CODENAME" == "$codename" ] || continue
             # debian/testing is never released
@@ -121,13 +155,15 @@ jobs:
               continue
             fi
             for arch in "${ARCHES[@]}"; do
-              INCLUDE+=("$(jq -n -c --arg distro "$distro" --arg codename "$codename" --arg arch "$arch" '$ARGS.named')")
+              INCLUDE+=("$(jq -n -c --arg distro "$distro" --arg codename "$codename" --arg to-codename "$to_codename" --arg arch "$arch" '$ARGS.named')")
             done
           done
 
           include="[$(IFS=,; echo "${INCLUDE[*]}")]"
           echo "Targets: $include"
-          if [ "$include" == "[]" ]; then
+          if [ "$include" == "[]" ] && [ "$UPGRADE_OS" == "true" ]; then
+            echo "::warning::no OS upgrade path goes from stage/$FROM_STAGE to stage/$TO_STAGE for this selection"
+          elif [ "$include" == "[]" ]; then
             echo "::warning::no codename is in both stage/$FROM_STAGE and stage/$TO_STAGE for this selection"
           fi
           {
@@ -139,7 +175,7 @@ jobs:
   upgrade:
     needs: matrix-builder
     if: needs.matrix-builder.outputs.include != '[]'
-    name: ${{ matrix.distro }}-${{ matrix.codename }} (${{ inputs.from-stage }} to ${{ inputs.to-stage }}, ${{ matrix.arch }})
+    name: ${{ matrix.distro }}-${{ matrix.codename }}${{ matrix.to-codename != matrix.codename && format('-to-{0}', matrix.to-codename) || '' }} (${{ inputs.from-stage }} to ${{ inputs.to-stage }}, ${{ matrix.arch }})
     runs-on: ${{ matrix.arch == 'arm64' && 'ubuntu-24.04-arm' || 'ubuntu-24.04' }}
     container: ${{ matrix.distro }}:${{ matrix.codename }}
     strategy:
@@ -153,4 +189,4 @@ jobs:
       - name: Upgrade ${{ needs.matrix-builder.outputs.from }} to ${{ needs.matrix-builder.outputs.to }} on ${{ matrix.distro }} ${{ matrix.codename }}
         run: |
           .github/scripts/test-upgrade.sh "${{ matrix.distro }}" "${{ matrix.codename }}" "${{ matrix.arch }}" \
-            "${{ needs.matrix-builder.outputs.from }}" "${{ needs.matrix-builder.outputs.to }}"
+            "${{ needs.matrix-builder.outputs.from }}" "${{ needs.matrix-builder.outputs.to }}" "${{ matrix.to-codename }}"
