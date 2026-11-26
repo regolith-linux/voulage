@@ -417,22 +417,128 @@ jobs:
           name: CHANGELOG_${{ steps.init.outputs.target }}
           path: ${{ steps.init.outputs.changelogs-path }}/*${{ steps.init.outputs.target }}.txt
 
-  # calculate changelogs
+      # Last step: the changelogs job publishes only the targets whose legs all
+      # reached it (see failed-targets.sh).
+      - name: Mark Target Built
+        run: |
+          mkdir -p ${{ steps.init.outputs.gh-repo-path }}/built
+          echo "${{ steps.init.outputs.target }}" > ${{ steps.init.outputs.gh-repo-path }}/built/${{ steps.init.outputs.target }}
+
+      - name: Upload Build Marker
+        uses: actions/upload-artifact@v4
+        with:
+          name: BUILT_${{ steps.init.outputs.target }}
+          path: ${{ steps.init.outputs.gh-repo-path }}/built/${{ steps.init.outputs.target }}
+
+  # calculate changelogs, and hold back the targets with a failed build leg
+  # so that the other targets still publish
   changelogs:
     runs-on: ubuntu-24.04
     container: "ghcr.io/regolith-linux/ci-ubuntu:noble-amd64"
-    needs: build
-    if: ${{ !failure() && !cancelled() && inputs.do-publish == 'yes' }}
+    needs: [matrix-builder, build]
+    if: ${{ !cancelled() && inputs.do-publish == 'yes' && (needs.build.result == 'success' || needs.build.result == 'failure') }}
     outputs:
       package-changed: ${{ steps.check.outputs.package-changed }}
       source-changed: ${{ steps.check.outputs.source-changed }}
+      held-manifests: ${{ steps.hold.outputs.held-manifests }}
     steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
       - name: Download Artifacts
         uses: actions/download-artifact@v4
         with:
           path: changelogs
           pattern: CHANGELOG_*
           merge-multiple: true
+
+      - name: Download Build Markers
+        uses: actions/download-artifact@v4
+        with:
+          path: built
+          pattern: BUILT_*
+          merge-multiple: true
+
+      - name: Find Failed Targets
+        id: hold
+        env:
+          STAGES: ${{ needs.matrix-builder.outputs.stages }}
+          DISTROS: ${{ needs.matrix-builder.outputs.distros }}
+          CODENAMES: ${{ needs.matrix-builder.outputs.codenames }}
+          ARCHES: ${{ needs.matrix-builder.outputs.arches }}
+          EXCLUDES: ${{ needs.matrix-builder.outputs.excludes }}
+          INCLUDES: ${{ needs.matrix-builder.outputs.includes }}
+          SUITES: ${{ needs.matrix-builder.outputs.suites }}
+          RUN_FOLDER: run-${{ github.run_id }}
+        run: |
+          set -e
+          set -o pipefail
+
+          mkdir -p built
+          .github/scripts/failed-targets.sh built > failed-targets.txt
+
+          held_manifests=()
+          packages_paths=()
+          sourcelogs=()
+          mapfile -t arches < <(jq -r '.[]' <<<"$ARCHES")
+
+          while read -r stage distro codename; do
+            suite=$(jq -r --arg stage "$stage" '.[$stage].suite' <<<"$SUITES")
+            component=$(jq -r --arg stage "$stage" '.[$stage].component' <<<"$SUITES")
+            echo "::warning::Not publishing $stage $distro $codename: one of its build legs failed."
+
+            held_manifests+=("${distro}_${codename}_${suite}-${component}_manifest.txt")
+            packages_paths+=("$distro/$codename/$suite")
+            if [ "$suite" == "stable" ]; then
+              packages_paths+=("$distro/$codename/$component")
+            fi
+            for arch in "${arches[@]}"; do
+              target="$stage-$distro-$codename-$arch"
+              rm -f "changelogs/CHANGELOG_$target.txt" "changelogs/SOURCELOG_$target.txt"
+              sourcelogs+=("SOURCELOG_$target.txt")
+            done
+          done < failed-targets.txt
+
+          echo "held-manifests=${held_manifests[*]}" >> $GITHUB_OUTPUT
+
+          # The legs that passed have already uploaded their packages and
+          # sourcelogs: the next step moves the held targets' files out of
+          # this run's folders, so that the source and publish jobs don't see
+          # them. Pairs of "<from> <to>" paths on the server.
+          hold=()
+          for path in "${packages_paths[@]}"; do
+            hold+=("/opt/archives/packages/voulage/$RUN_FOLDER/$path" "/opt/archives/packages/voulage/held/$RUN_FOLDER/$path")
+          done
+          for file in "${sourcelogs[@]}"; do
+            hold+=("/opt/archives/workspace/voulage/$RUN_FOLDER/$file" "/opt/archives/workspace/voulage/held/$RUN_FOLDER/$file")
+          done
+          echo "hold=${hold[*]}" >> $GITHUB_OUTPUT
+
+      - name: Setup SSH
+        uses: regolith-linux/actions/setup-ssh@main
+        if: steps.hold.outputs.hold != ''
+        with:
+          ssh-host: "${{ secrets.KAMATERA_HOSTNAME2 }}"
+          ssh-key: "${{ secrets.KAMATERA_SSH_KEY }}"
+
+      - name: Hold Failed Targets
+        if: steps.hold.outputs.hold != ''
+        env:
+          server-address: "${{ secrets.KAMATERA_HOSTNAME2 }}"
+          server-username: "${{ secrets.KAMATERA_USERNAME }}"
+          HOLD: ${{ steps.hold.outputs.hold }}
+        run: |
+          ssh ${{ env.server-username }}@${{ env.server-address }} "sh -s -- $HOLD" <<'EOF'
+          set -e
+          while [ $# -gt 0 ]; do
+            if [ -e "$1" ]; then
+              mkdir -p "$(dirname "$2")"
+              mv "$1" "$2"
+              echo "Held $1 in $2"
+            fi
+            shift 2
+          done
+          EOF
 
       - name: Check Changelogs
         id: check
@@ -455,7 +561,7 @@ jobs:
   # rebuild sources
   source:
     needs: [changelogs]
-    if: ${{ !failure() && !cancelled() && inputs.do-publish == 'yes' && needs.changelogs.outputs.source-changed != 0 }}
+    if: ${{ !cancelled() && inputs.do-publish == 'yes' && needs.changelogs.result == 'success' && needs.changelogs.outputs.source-changed != 0 }}
     uses: ./.github/workflows/rebuild-sources.yml
     with:
       pull-from: /opt/archives/workspace/
@@ -466,7 +572,7 @@ jobs:
   # publish archives
   publish:
     needs: [changelogs, source]
-    if: ${{ !failure() && !cancelled() && inputs.do-publish == 'yes' && needs.changelogs.outputs.package-changed != 0 }}
+    if: ${{ !cancelled() && inputs.do-publish == 'yes' && needs.changelogs.result == 'success' && needs.source.result != 'failure' && needs.changelogs.outputs.package-changed != 0 }}
     uses: ./.github/workflows/publish-packages.yml
     with:
       packages-path: /opt/archives/packages/
@@ -477,8 +583,8 @@ jobs:
   manifests:
     runs-on: ubuntu-24.04
     container: "ghcr.io/regolith-linux/ci-ubuntu:noble-amd64"
-    needs: [changelogs, publish]
-    if: ${{ !failure() && !cancelled() && inputs.do-publish == 'yes' }}
+    needs: [changelogs, source, publish]
+    if: ${{ !cancelled() && inputs.do-publish == 'yes' && needs.changelogs.result == 'success' && needs.source.result != 'failure' && needs.publish.result != 'failure' }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -491,7 +597,14 @@ jobs:
           merge-multiple: true
 
       - name: Check Manifests
+        env:
+          HELD_MANIFESTS: ${{ needs.changelogs.outputs.held-manifests }}
         run: |
+          # held targets keep their old manifest, so the next run builds them again
+          for file in $HELD_MANIFESTS; do
+            rm -fv "manifests/$file"
+          done
+
           for file in manifests/*_manifest.txt; do
             if [ ! -f "$file" ]; then
               continue
